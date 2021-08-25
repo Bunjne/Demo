@@ -3,18 +3,16 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/shadowEndBaseColor" />
-            <corners android:topLeftRadius="12dp" android:topRightRadius="12dp" />
         </shape>
     </item>
 
     <item
+        android:bottom="0dp"
         android:left="2dp"
         android:right="2dp"
-        android:top="2dp"
-        android:bottom="0dp">
+        android:top="0dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/viewBasePrimaryColor"/>
-            <corners android:topLeftRadius="12dp" android:topRightRadius="12dp" />
+            <solid android:color="@color/viewBasePrimaryColor" />
         </shape>
     </item>
 </layer-list>

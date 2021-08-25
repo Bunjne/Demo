@@ -2,11 +2,48 @@
 <resources>
     <!-- Base Color -->
     <color name="primaryColor">#CB002B</color>
-    <color name="viewBasePrimary">#FAFAFA</color>
-    <color name="viewBaseSecondary">#FFFFFF</color>
-    <color name="viewBaseThird">#F6F6F6</color>
-    <color name="viewBaseFourth">#EAEAEA</color>
-    <color name="textBasePrimary">#383738</color>
-    <color name="textBaseSecondary">#3E3E3E</color>
-    <color name="textBaseThird">#9E9EA5</color>
+    <color name="viewBasePrimaryColor">#FAFAFA</color>
+    <color name="viewBaseSecondaryColor">#FFFFFF</color>
+    <color name="viewBaseThirdColor">#F6F6F6</color>
+    <color name="viewBaseFourthColor">#EAEAEA</color>
+    <color name="lineBasePrimaryColor">#D7D5DB</color>
+    <color name="lineBaseSecondaryColor">#EBE9F1</color>
+    <color name="textBasePrimaryColor">#383738</color>
+    <color name="textBaseSecondaryColor">#3E3E3E</color>
+    <color name="textBaseThirdColor">#9E9EA5</color>
+    <color name="iconBaseColor">#5B5B5B</color>
+    <color name="microsoftTeamBaseColor">#5059C9</color>
+    <color name="shadowEndBaseColor">#09AAAAAA</color>
+    <color name="transparentColor">#00000000</color>
+
+    <color name="naturalV100">#FFFFFF</color>
+    <color name="naturalV200">#E9F6FE</color>
+    <color name="naturalV300">#CAD8E5</color>
+    <color name="naturalV400">#B1BECB</color>
+    <color name="naturalV500">#AEBECD</color>
+    <color name="naturalV600">#8E9BA8</color>
+    <color name="naturalV700">#6B7885</color>
+    <color name="naturalV800">#485563</color>
+    <color name="naturalV900">#253240</color>
+
+    <color name="accentBlueV100">#9FDDFB</color>
+    <color name="accentBlueV200">#7CB9F9</color>
+    <color name="accentBlueV300">#73AFF0</color>
+    <color name="accentBlueV400">#619BDB</color>
+    <color name="accentBlueV500">#3183C8</color>
+    <color name="accentBlueV600">#2C5EA0</color>
+    <color name="accentBlueV700">#163C7D</color>
+    <color name="accentBlueV800">#06195B</color>
+    <color name="accentBlueV900">#010039</color>
+
+    <color name="accentGrayV100">#FFFFFF</color>
+    <color name="accentGrayV200">#EFEFEF</color>
+    <color name="accentGrayV300">#E5E5E5</color>
+    <color name="accentGrayV400">#D1D1D1</color>
+    <color name="accentGrayV500">#B7B7B7</color>
+    <color name="accentGrayV600">#949494</color>
+    <color name="accentGrayV700">#717171</color>
+    <color name="accentGrayV800">#4E4E4E</color>
+    <color name="accentGrayV900">#2B2B2B</color>
+
 </resources>

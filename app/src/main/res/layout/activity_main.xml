@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/viewBasePrimary">
+    android:background="@color/viewBasePrimaryColor">
 
     <TextView
-        android:textColor="@color/textBasePrimary"
+        android:textColor="@color/textBasePrimaryColor"
         android:id="@+id/tvCount"
         android:layout_width="120dp"
         android:layout_height="120dp"
