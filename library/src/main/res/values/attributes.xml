@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="ssparkFont" format="enum">
+        <enum name="bold" value="0"/>
+        <enum name="boldSerif" value ="1"/>
+        <enum name="regular" value="2"/>
+        <enum name="regularSerif" value="3"/>
+    </attr>
+
+    <declare-styleable name="SSparkTextView">
+        <attr name="ssparkFont"/>
+    </declare-styleable>
+
+    <declare-styleable name="SSparkEditText">
+        <attr name="ssparkFont"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseRadioButton">
+        <attr name="ssparkFont" />
+    </declare-styleable>
+
+</resources>

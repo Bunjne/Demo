@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Color -->
+    <color name="primaryColor">#CB002B</color>
+    <color name="viewBasePrimary">#FAFAFA</color>
+    <color name="viewBaseSecondary">#FFFFFF</color>
+    <color name="viewBaseThird">#F6F6F6</color>
+    <color name="viewBaseFourth">#EAEAEA</color>
+    <color name="textBasePrimary">#383738</color>
+    <color name="textBaseSecondary">#3E3E3E</color>
+    <color name="textBaseThird">#9E9EA5</color>
+</resources>

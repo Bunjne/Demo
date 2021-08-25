@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Tae/AndroidStudioProjects/ssparkandroid/app/src/main/res/layout/activity_login.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Tae/AndroidStudioProjects/ssparkandroid/app/src/main/res/layout/activity_main.xml" value="0.35106382978723405" />
+        <entry key="..\:/Users/Tae/AndroidStudioProjects/ssparkandroid/library/src/main/res/drawable/bg_list_item_first.xml" value="0.5911458333333334" />
+        <entry key="..\:/Users/Tae/AndroidStudioProjects/ssparkandroid/library/src/main/res/drawable/ic_launcher_background.xml" value="0.5911458333333334" />
+        <entry key="..\:/Users/Tae/AndroidStudioProjects/ssparkandroid/library/src/main/res/font/s.xml" value="0.28229166666666666" />
+        <entry key="..\:/Users/Tae/AndroidStudioProjects/ssparkandroid/library/src/main/res/layout/activity_main.xml" value="0.26614583333333336" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

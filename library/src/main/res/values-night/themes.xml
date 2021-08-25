@@ -1,0 +1,3 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="general_alertmessage_no_internet_connection">ไม่ได้เชื่อมต่ออินเตอร์เน็ต</string>
+</resources>
