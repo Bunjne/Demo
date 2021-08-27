@@ -6,10 +6,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import whiz.sspark.library.BuildConfig
 import whiz.tss.sspark.s_spark_android.data.static.ConstantValue
+import whiz.tss.sspark.s_spark_android.unility.retrieveAuthenticationInformation
 import java.util.concurrent.TimeUnit
 
 class OkHttpBuilder(private val context: Context) {
-    private val token = context.getSharedPreferences(ConstantValue.sharedPreferencesAuthenticationInformationKey, Context.MODE_PRIVATE).getString("token", "")
 
     private val logging = HttpLoggingInterceptor().apply {
         if (BuildConfig.DEBUG) {
@@ -19,30 +19,38 @@ class OkHttpBuilder(private val context: Context) {
         }
     }
 
-    fun baseLoginAPI(): OkHttpClient = OkHttpClient.Builder()
+    fun baseLoginAPI(apiKey: String): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .addInterceptor { chain ->
             val newRequest = chain.request().newBuilder()
                 .addHeader("Content-Type", "application/json")
-                .addHeader("x-api-key", "vZ8F8Nc4GUXG3zD8f3um7WpbuaKBjU")
+                .addHeader("x-api-key", apiKey)
                 .build()
             chain.proceed(newRequest)
         }
         .addInterceptor(logging)
         .build()
 
-    fun baseAPI(authenticator: Authenticator): OkHttpClient = OkHttpClient.Builder()
+    fun baseAPI(authenticator: Authenticator, apiKey: String): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .authenticator(authenticator)
         .addInterceptor { chain ->
-            val newRequest = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .addHeader("Content-Type", "application/json")
-                .addHeader("x-api-key", "vZ8F8Nc4GUXG3zD8f3um7WpbuaKBjU")
-                .build()
-            chain.proceed(newRequest)
+            val request = chain.request().newBuilder()
+            val token = retrieveAuthenticationInformation(context)?.accessToken
+
+            if (!token.isNullOrBlank()) {
+                request.addHeader("Authorization", "Bearer $token")
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-api-key", apiKey)
+            } else {
+                request
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-api-key", apiKey)
+            }
+
+            chain.proceed(request.build())
         }
         .addInterceptor(logging)
         .build()

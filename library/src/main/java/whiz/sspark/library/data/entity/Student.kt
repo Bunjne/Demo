@@ -1,6 +1,7 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
+import whiz.sspark.library.utility.localize
 import java.util.*
 
 data class Student(
@@ -74,4 +75,11 @@ data class Student(
     @SerializedName("passportNumber") val passPortNumber: String? = null,
     @SerializedName("phoneNumber") val phoneNumber: String? = null,
     @SerializedName("bankAccountNumber") val bankAccountNumber: String? = null
-)
+) {
+    val firstName get() = localize(_firstNameEn, _firstNameTh, _fullNameCn, false)
+    val lastName get() = localize(_lastNameEn, _lastNameTh, _lastNameCn, false)
+}
+
+fun Student.convertToProfile(): Profile {
+    return Profile(this.cardImageUrl, this.gender, this.firstName, this.lastName)
+}

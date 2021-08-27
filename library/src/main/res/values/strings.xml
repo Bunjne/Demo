@@ -17,4 +17,11 @@
     <string name="general_alertmessage_serviceerror_500_title">Internal Server Error (500)</string>
     <string name="general_alertmessage_serviceerror_503_title">Internal Server Error (503)</string>
     <string name="general_alertmessage_error_code">(Error Code: %1$s)</string>
+
+    <!--Datetime-->
+    <string name="screen_header_subtitle">LAST UPDATED AT %1$s HRS.</string>
+    <string name="update_failed">UPDATE FAILED</string>
+    <string name="update_new_data">PLEASE WAIT...</string>
+    <string name="update_just_now">UPDATED JUST NOW</string>
+
 </resources>

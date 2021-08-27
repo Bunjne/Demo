@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1028234345089",
+    "project_id": "tss-sspark",
+    "storage_bucket": "tss-sspark.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028234345089:android:3da481874711326d91eb80",
+        "android_client_info": {
+          "package_name": "whiz.tss.sspark.s_spark_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028234345089-d4kap10hdjfpr7or7jc2hga37tg5uo5h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "whiz.tss.sspark.s_spark_android",
+            "certificate_hash": "2e491644c15de6babced7392124d2189f18f9c7b"
+          }
+        },
+        {
+          "client_id": "1028234345089-pj025ftr3g0d3psrgp503rk7e471hb73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWero8EWu63I2lLJUUg49aj3kNhheyRLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028234345089-pj025ftr3g0d3psrgp503rk7e471hb73.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1028234345089-002c9b346ijnb0dpnvvldos9pnvt08bn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "whiz.tss-sspark-ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028234345089:android:db5abedfcf9fa31391eb80",
+        "android_client_info": {
+          "package_name": "whiz.tss.sspark.s_spark_android.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028234345089-u4sbdrkj0gbr3ntkonbcb40an543crpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "whiz.tss.sspark.s_spark_android.stg",
+            "certificate_hash": "52b5a383d009d37b6c9d42bead8e5a2453fb334f"
+          }
+        },
+        {
+          "client_id": "1028234345089-pj025ftr3g0d3psrgp503rk7e471hb73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWero8EWu63I2lLJUUg49aj3kNhheyRLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028234345089-pj025ftr3g0d3psrgp503rk7e471hb73.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1028234345089-002c9b346ijnb0dpnvvldos9pnvt08bn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "whiz.tss-sspark-ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,26 +1,62 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
+    def pipelineProperties = new Properties()
+    pipelineProperties.load(new FileInputStream(rootProject.file("pipeline.properties")))
+
     compileSdk 30
 
     defaultConfig {
         applicationId "whiz.tss.sspark.s_spark_android"
         minSdk 23
         targetSdk 30
-        versionCode 1
+        versionCode pipelineProperties["versionCode"].toInteger()
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('.signing/tssprd.jks')
+            storePassword "d2rIleEma23OsSCWTSPH"
+            keyAlias "tssprd"
+            keyPassword "d2rIleEma23OsSCWTSPH"
+//            storeFile file('.signing/tssstg.jks')
+//            storePassword "VYvdyscRv0SEEpa58kCk"
+//            keyAlias "tssstg"
+//            keyPassword "VYvdyscRv0SEEpa58kCk"
+        }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file('.signing/tssprd.jks')
+            storePassword "d2rIleEma23OsSCWTSPH"
+            keyAlias "tssprd"
+            keyPassword "d2rIleEma23OsSCWTSPH"
+        }
+    }
+
+    buildTypes {
+        debug {
+//            applicationIdSuffix ".stg"
+
+            resValue "string", "app_name", "@string/app_name_stg"
+            signingConfig signingConfigs.debug
+            minifyEnabled pipelineProperties["minifyEnabled"].toString().toBoolean()
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            resValue "string", "app_name", "@string/app_name_prd"
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -35,6 +71,17 @@ android {
 
     buildFeatures  {
         viewBinding true
+    }
+
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -60,13 +107,18 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
     //Utility
+    implementation "androidx.datastore:datastore-core:1.0.0"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation 'com.akexorcist:localization:1.2.9'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation "io.insert-koin:koin-android:2.2.3"
     implementation "io.insert-koin:koin-androidx-viewmodel:2.2.3"
-    
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     //Security
     implementation "androidx.security:security-crypto:1.0.0"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.+'
 

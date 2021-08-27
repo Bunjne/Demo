@@ -10,24 +10,20 @@ import whiz.sspark.library.data.datasource.remote.service.ProfileService
 import whiz.sspark.library.data.entity.DataWrapper
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.utility.NetworkManager
-import whiz.sspark.library.utility.transformToDataWrapper
-import java.lang.Exception
+import whiz.sspark.library.utility.fetch
 
 interface ProfileRepository {
-    suspend fun profile(token: String): Flow<DataWrapper<Student>>
+    suspend fun profile(): Flow<DataWrapper<Student>>
 }
 
 class ProfileRepositoryImpl(private val context: Context,
                             private val remote: ProfileService):ProfileRepository {
-
-    override suspend fun profile(token: String): Flow<DataWrapper<Student>> {
+    override suspend fun profile(): Flow<DataWrapper<Student>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getProfile("bearer $token")
-
-                    val dataWrapperX = transformToDataWrapper(response)
-                    emit(dataWrapperX)
+                    val response = remote.getProfile()
+                    fetch(response)
                 } catch (e: Exception) {
                     throw e
                 }

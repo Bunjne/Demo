@@ -5,29 +5,29 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 import whiz.tss.sspark.s_spark_android.data.datasSource.remote.service.LoginService
-import whiz.tss.sspark.s_spark_android.unility.logout
-import whiz.tss.sspark.s_spark_android.unility.retrieveAuthenticationInformation
-import whiz.tss.sspark.s_spark_android.unility.retrieveDeviceID
-import whiz.tss.sspark.s_spark_android.unility.retrieveUserID
+import whiz.tss.sspark.s_spark_android.unility.*
 
 class TokenAuthenticator(private val context: Context,
                          private val remote: LoginService) : Authenticator {
-    override fun authenticate(route: Route?, response: Response): Request {
+    override fun authenticate(route: Route?, response: Response): Request? {
         val refreshToken = retrieveAuthenticationInformation(context)?.refreshToken ?: ""
         val uuid = retrieveDeviceID(context)
         val userID = retrieveUserID(context)
 
         var token = ""
         runBlocking {
-            token = remote.refreshToken(RefreshTokenAPIBody(userID, uuid, refreshToken)).body()?.accessToken ?: ""
+            remote.refreshToken(RefreshTokenAPIBody(userID, uuid, refreshToken)).body()?.let {
+                saveAuthenticationInformation(context, it)
+                token = it.accessToken
+            }
         }
 
-        if (token.isBlank()) {
-            logout(context)
+        return if (token.isBlank()) {
+            null
+        } else {
+            response.request.newBuilder()
+                .header("Authorization", "bearer $token")
+                .build();
         }
-
-        return response.request.newBuilder()
-            .header("Authenticator", "bearer $token")
-            .build();
     }
 }

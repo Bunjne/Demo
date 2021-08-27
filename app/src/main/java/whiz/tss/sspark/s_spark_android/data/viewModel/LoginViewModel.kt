@@ -24,8 +24,8 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
     val loginResponse: LiveData<AuthenticationInformation>
         get() = _loginResponse
 
-    private val _loginErrorResponse = MutableLiveData<ApiResponseX?>()
-    val loginErrorResponse: LiveData<ApiResponseX?>
+    private val _loginErrorResponse = MutableLiveData<ApiErrorResponse?>()
+    val loginErrorResponse: LiveData<ApiErrorResponse?>
         get() = _loginErrorResponse
 
     private val _profileResponse = MutableLiveData<Student>()
@@ -40,9 +40,9 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun login(username: String, password: String, uuid: String) {
+    fun login(username: String, password: String, uuid: String, operatorName: String) {
         viewModelScope.launch {
-            loginRepository.login(username, password, uuid)
+            loginRepository.login(username, password, uuid, operatorName)
                 .onStart { _viewLoading.value = true }
                 .onCompletion { _viewLoading.value = false }
                 .catch {
@@ -60,9 +60,9 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
         }
     }
 
-    fun getProfile(token: String) {
+    fun getProfile() {
         viewModelScope.launch {
-            profileRepository.profile(token)
+            profileRepository.profile()
                 .onStart { _viewLoading.value = true }
                 .onCompletion { _viewLoading.value = false }
                 .catch {

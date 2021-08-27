@@ -6,13 +6,16 @@ import androidx.core.content.res.ResourcesCompat
 import whiz.sspark.library.data.enum.ProjectType
 
 object SSparkLibrary {
+    lateinit var onSessionExpired: () -> Unit
     lateinit var boldTypeface: Typeface
     lateinit var boldSerifTypeface: Typeface
     lateinit var regularTypeface: Typeface
     lateinit var regularSerifTypeface: Typeface
 
     var projectType: ProjectType? = null
-    var baseUrl = "https://auusparkapi-stg.azurewebsites.net/api/"
+    var apiKey = ""
+    var baseUrl = ""
+    var baseUrlV3 = ""
 
     fun setProjectType(context: Context, type: ProjectType) {
         this.projectType = type
@@ -30,5 +33,9 @@ object SSparkLibrary {
                 regularSerifTypeface = ResourcesCompat.getFont(context, R.font.noto_sans_thai_regular) ?: Typeface.DEFAULT
             }
         }
+    }
+
+    fun setOnSessionExpireCallback(onSessionExpired: () -> Unit) {
+        this.onSessionExpired = onSessionExpired
     }
 }

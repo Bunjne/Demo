@@ -15,15 +15,15 @@ import whiz.tss.sspark.s_spark_android.data.datasSource.remote.TokenAuthenticato
 import whiz.tss.sspark.s_spark_android.data.repository.LoginRepositoryImpl
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 
-val networkModule = module(override = true) {
-    factory { TokenAuthenticator(androidContext(), get()) }
-    factory { OkHttpBuilder(get()).baseAPI(get()) }
+val networkModule = module {
+    factory<LoginService> { RetrofitBuilder(OkHttpBuilder(androidContext()).baseLoginAPI(SSparkLibrary.apiKey), get()).build(SSparkLibrary.baseUrl) } //
+
+    factory { OkHttpBuilder(androidContext()).baseAPI(TokenAuthenticator(androidContext(), get()), SSparkLibrary.apiKey) }
     factory { RetrofitBuilder(get(), get()) }
 
     single<Converter.Factory> { GsonConverterBuilder().build() }
 
-    single<LoginService> { RetrofitBuilder(OkHttpBuilder(get()).baseLoginAPI(), get()).build(SSparkLibrary.baseUrl) }
-    single<ProfileService> { RetrofitBuilder(OkHttpBuilder(get()).baseLoginAPI(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ProfileService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
 
     factory { LoginRepositoryImpl(androidContext(), get()) }
     factory { ProfileRepositoryImpl(androidContext(), get()) }

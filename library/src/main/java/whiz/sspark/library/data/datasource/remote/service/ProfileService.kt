@@ -9,5 +9,5 @@ import whiz.sspark.library.data.entity.Student
 
 interface ProfileService {
     @GET("v1/students/me")
-    suspend fun getProfile(@Header("Authorization") token: String): Response<Student>
+    suspend fun getProfile(): Response<Student>
 }

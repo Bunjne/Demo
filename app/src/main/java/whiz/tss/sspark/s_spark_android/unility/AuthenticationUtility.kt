@@ -9,6 +9,7 @@ import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
 import whiz.tss.sspark.s_spark_android.data.static.ConstantValue
+import whiz.tss.sspark.s_spark_android.presentation.login.LoginActivity
 import java.lang.Exception
 import java.util.*
 
@@ -69,28 +70,37 @@ fun retrieveDeviceID(context: Context): String {
     return deviceID
 }
 
-fun saveUserID(context: Context, deviceID: String) {
+fun saveUserID(context: Context, userId: String) {
     val editor = context.getSharedPreferences(ConstantValue.sharedPreferencesUserIdKey, Context.MODE_PRIVATE).edit()
     with(editor) {
-        putString(ConstantValue.sharedPreferencesUserIdKey, deviceID)
+        putString(ConstantValue.sharedPreferencesUserIdKey, userId)
         apply()
     }
 }
 
 fun retrieveUserID(context: Context): String {
-    var deviceID = context.getSharedPreferences(ConstantValue.sharedPreferencesUserIdKey, Context.MODE_PRIVATE).getString(ConstantValue.sharedPreferencesDeviceIdKey, "")
-    if (deviceID.isNullOrBlank()) {
-        deviceID = generateDeviceID()
-        saveDeviceID(context, deviceID)
-    }
-
-    return deviceID
+    val userId = context.getSharedPreferences(ConstantValue.sharedPreferencesUserIdKey, Context.MODE_PRIVATE).getString(ConstantValue.sharedPreferencesUserIdKey, "")
+    return userId ?: ""
 }
 
-
-
 fun logout(context: Context) {
-    val intent = Intent(context, MainActivity::class.java) //TODO change to LoginActivity
+    clearData(context)
+
+    val intent = Intent(context, MainActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
+}
+
+fun clearData(context: Context) {
+    val sharedPreferenceKeys = listOf(
+        ConstantValue.sharedPreferencesUserIdKey,
+        ConstantValue.sharedPreferencesAuthenticationInformationKey)
+
+    sharedPreferenceKeys.forEach { key ->
+        val editor = context.getSharedPreferences(key, Context.MODE_PRIVATE).edit()
+        with(editor) {
+            clear()
+            apply()
+        }
+    }
 }

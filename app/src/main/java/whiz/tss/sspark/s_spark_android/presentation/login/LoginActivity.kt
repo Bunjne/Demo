@@ -1,17 +1,20 @@
 package whiz.tss.sspark.s_spark_android.presentation.login
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.TelephonyManager
+import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.Profile
+import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
-import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
-import whiz.tss.sspark.s_spark_android.unility.retrieveAuthenticationInformation
-import whiz.tss.sspark.s_spark_android.unility.saveAuthenticationInformation
-import whiz.tss.sspark.s_spark_android.unility.saveUserID
+import whiz.tss.sspark.s_spark_android.unility.*
+import java.lang.RuntimeException
 
 class LoginActivity : LocalizationActivity() {
 
@@ -19,6 +22,18 @@ class LoginActivity : LocalizationActivity() {
 
     private val binding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
+    }
+
+    private val profileManager by lazy {
+        ProfileManager(this)
+    }
+
+    private val operatorName by lazy {
+        try {
+            (getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).networkOperatorName
+        } catch (exception: Exception) {
+            ""
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +49,10 @@ class LoginActivity : LocalizationActivity() {
     private fun initView() {
         val authenticationInformation = retrieveAuthenticationInformation(this)
         if (authenticationInformation != null) {
-            viewModel.getProfile(authenticationInformation.accessToken)
+            viewModel.getProfile()
         } else {
-
+            val deviceID = retrieveDeviceID(this)
+            viewModel.login("5913873", "1850", deviceID, operatorName)
         }
     }
 
@@ -55,7 +71,7 @@ class LoginActivity : LocalizationActivity() {
             it?.let {
                 saveAuthenticationInformation(this, it)
 
-                viewModel.getProfile(it.accessToken)
+                viewModel.getProfile()
             }
         }
 
@@ -63,7 +79,12 @@ class LoginActivity : LocalizationActivity() {
             it?.let {
                 saveUserID(this, it.userId)
 
+                lifecycleScope.launch {
+                    profileManager.saveStudent(it)
+                }
+
                 val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -71,13 +92,13 @@ class LoginActivity : LocalizationActivity() {
     private fun observeError() {
         viewModel.loginErrorResponse.observe(this) {
             it?.let {
-                println(it.toString())
+                showApiResponseAlert(this, it)
             }
         }
 
         viewModel.profileErrorResponse.observe(this) {
             it?.let {
-                println(it.toString())
+                showApiResponseAlert(this, it)
             }
         }
     }

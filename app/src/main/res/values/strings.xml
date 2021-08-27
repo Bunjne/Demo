@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">s-spark-android</string>
+    <!--App config-->
+    <string name="app_name_stg">TSS App stg</string>
+    <string name="app_name_prd">TSS App</string>
+    <string name="app_version">%1$s %2$s</string>
+    <string name="school_name">โรงเรียนสาธิตแห่งมหาวิทยาลัยธรรมศาสตร์</string>
+
+    <!--Main-->
+    <string name="tab_today">today</string>
+    <string name="tab_class">class</string>
+    <string name="tab_id_card">id card</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
