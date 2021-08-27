@@ -45,4 +45,54 @@
     <color name="accentGrayV800">#4E4E4E</color>
     <color name="accentGrayV900">#2B2B2B</color>
 
+    <color name="accentGreenV100">#94FCBC</color>
+    <color name="accentGreenV200">#81F89C</color>
+    <color name="accentGreenV300">#79EE92</color>
+    <color name="accentGreenV400">#6BDA7E</color>
+    <color name="accentGreenV500">#0DC45A</color>
+    <color name="accentGreenV600">#479E46</color>
+    <color name="accentGreenV700">#367C28</color>
+    <color name="accentGreenV800">#255A15</color>
+    <color name="accentGreenV900">#143709</color>
+
+    <color name="accentOrangeV100">#FAE083</color>
+    <color name="accentOrangeV200">#F5BD63</color>
+    <color name="accentOrangeV300">#F4B45A</color>
+    <color name="accentOrangeV400">#F1A14A</color>
+    <color name="accentOrangeV500">#EF8317</color>
+    <color name="accentOrangeV600">#BE6625</color>
+    <color name="accentOrangeV700">#9C451A</color>
+    <color name="accentOrangeV800">#7B240F</color>
+    <color name="accentOrangeV900">#5B0D07</color>
+
+    <color name="accentPinkV100">#F196BF</color>
+    <color name="accentPinkV200">#ED769D</color>
+    <color name="accentPinkV300">#EC6D93</color>
+    <color name="accentPinkV400">#EC5C80</color>
+    <color name="accentPinkV500">#ED3565</color>
+    <color name="accentPinkV600">#B92D45</color>
+    <color name="accentPinkV700">#991E26</color>
+    <color name="accentPinkV800">#78150D</color>
+    <color name="accentPinkV900">#590D07</color>
+
+    <color name="accentRedV100">#F0928F</color>
+    <color name="accentRedV200">#ED716D</color>
+    <color name="accentRedV300">#EC6964</color>
+    <color name="accentRedV400">#E35751</color>
+    <color name="accentRedV500">#DC3030</color>
+    <color name="accentRedV600">#A9261D</color>
+    <color name="accentRedV700">#891910</color>
+    <color name="accentRedV800">#68110A</color>
+    <color name="accentRedV900">#490905</color>
+
+    <color name="accentYellowV100">#FEFFAD</color>
+    <color name="accentYellowV200">#FDF88F</color>
+    <color name="accentYellowV300">#FCEE86</color>
+    <color name="accentYellowV400">#F9DA74</color>
+    <color name="accentYellowV500">#FFBF46</color>
+    <color name="accentYellowV600">#D29E40</color>
+    <color name="accentYellowV700">#B07C29</color>
+    <color name="accentYellowV800">#8D591D</color>
+    <color name="accentYellowV900">#6A3710</color>
+
 </resources>
