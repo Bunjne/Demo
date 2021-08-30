@@ -58,6 +58,9 @@ dependencies {
     }
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
+    //UI
+    implementation 'com.github.sina-seyfi:AdvancedCardView:1.0.1'
+
     testImplementation 'junit:junit:4.+'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
