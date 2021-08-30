@@ -79,3 +79,25 @@ fun Context.showAlertWithOkButton(title: String = "",
 
     dialog.show()
 }
+
+fun Context.showAlert(title: String,
+                      isCancelAble: Boolean = false,
+                      onPositiveClicked: () -> Unit = { },
+                      positiveTitle: String,
+                      onNegativeClicked: () -> Unit = { },
+                      negativeTitle: String = "") {
+    val dialog = AlertDialog.Builder(this)
+        .setMessage(title)
+        .setCancelable(isCancelAble)
+        .setPositiveButton(positiveTitle) { _, _ ->
+            onPositiveClicked()
+        }
+
+    if (negativeTitle.isNotBlank()) {
+        dialog.setNegativeButton(negativeTitle) { _, _ ->
+            onNegativeClicked()
+        }
+    }
+
+    dialog.show()
+}

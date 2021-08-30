@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvBlock"
+    android:layout_width="132dp"
+    android:layout_height="160dp"
+    android:layout_marginTop="16dp"
+    app:cardBackgroundColor="@color/viewBaseSecondary"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvNewsSmallTextOnlyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llAuthorHolder"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:lines="5"
+            android:maxLines="5"
+            android:textColor="@color/contrastPrimary"
+            android:textSize="14sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeStepGranularity="1sp"
+            app:usparkFont="boldSerif"
+            tools:text="@tools:sample/lorem/random" />
+
+        <LinearLayout
+            android:id="@+id/llAuthorHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvNewsSmallTextOnlyAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/contrastSecondary"
+                android:textSize="12sp"
+                app:usparkFont="regularSerif"
+                tools:text="ไม่มีข้อมูล" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvNewsSmallTextOnlyDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/contrastSecondary"
+                android:textSize="12sp"
+                app:usparkFont="regularSerif"
+                tools:text="Date" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

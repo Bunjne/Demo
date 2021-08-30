@@ -2,6 +2,8 @@
 <resources>
     <!-- Base Color -->
     <color name="primaryColor">#CB002B</color>
+    <color name="selectedSegmentPrimaryColor">#19CB002B</color>
+    <color name="todaySegmentPrimaryColor">#DDCB002B</color>
     <color name="viewBasePrimaryColor">#FAFAFA</color>
     <color name="viewBaseSecondaryColor">#FFFFFF</color>
     <color name="viewBaseThirdColor">#F6F6F6</color>

@@ -10,6 +10,18 @@ fun Date.toThaiYear() = Calendar.getInstance().apply {
     add(Calendar.YEAR, 543)
 }.time
 
+fun convertDateToTime(date: String): String {
+    val splitTimeText = date.split(":")
+    val time = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, splitTimeText[0].toInt())
+        set(Calendar.MINUTE, splitTimeText[1].toInt())
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.time
+
+    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(time)
+}
+
 fun getLatestUpdatedDateTime(context: Context, date: Date): String {
     val dateTimeFormat = if (isThaiLanguage()) {
         SimpleDateFormat("d/M/yy HH:mm", Locale.getDefault()).format(date.toThaiYear())

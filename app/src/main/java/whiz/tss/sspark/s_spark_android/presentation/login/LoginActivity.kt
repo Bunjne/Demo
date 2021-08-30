@@ -8,13 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.Profile
 import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
-import whiz.tss.sspark.s_spark_android.unility.*
-import java.lang.RuntimeException
+import whiz.tss.sspark.s_spark_android.utility.*
 
 class LoginActivity : LocalizationActivity() {
 

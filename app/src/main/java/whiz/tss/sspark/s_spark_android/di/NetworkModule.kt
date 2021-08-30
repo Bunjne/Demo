@@ -5,13 +5,13 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Converter
 import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.data.datasource.remote.GsonConverterBuilder
-import whiz.sspark.library.data.datasource.remote.RetrofitBuilder
-import whiz.sspark.library.data.datasource.remote.service.ProfileService
+import whiz.sspark.library.data.dataSource.remote.GsonConverterBuilder
+import whiz.sspark.library.data.dataSource.remote.RetrofitBuilder
+import whiz.sspark.library.data.dataSource.remote.service.ProfileService
 import whiz.sspark.library.data.repository.ProfileRepositoryImpl
-import whiz.tss.sspark.s_spark_android.data.datasSource.remote.service.LoginService
-import whiz.tss.sspark.s_spark_android.data.datasSource.remote.OkHttpBuilder
-import whiz.tss.sspark.s_spark_android.data.datasSource.remote.TokenAuthenticator
+import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
+import whiz.tss.sspark.s_spark_android.data.dataSource.remote.OkHttpBuilder
+import whiz.tss.sspark.s_spark_android.data.dataSource.remote.TokenAuthenticator
 import whiz.tss.sspark.s_spark_android.data.repository.LoginRepositoryImpl
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 
