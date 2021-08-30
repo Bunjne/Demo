@@ -10,18 +10,10 @@
         android:id="@+id/flContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/vFooter"
+        app:layout_constraintBottom_toBottomOf="@+id/vShadowSpace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <whiz.tss.sspark.s_spark_android.widget.ScreenFooterView
-        android:id="@+id/vFooter"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/vBottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <whiz.sspark.library.view.general.BottomNavigationBarView
         android:id="@+id/vBottomNavigation"
@@ -30,5 +22,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/vShadowSpace"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vBottomNavigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
