@@ -10,11 +10,20 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.extension.toDP
+import kotlin.math.absoluteValue
 
 class ScaleIndicator : View {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+
+    private val defaultStartColor by lazy {
+        ContextCompat.getColor(context, R.color.primaryStartColor)
+    }
+
+    private val defaultEndColor by lazy {
+        ContextCompat.getColor(context, R.color.primaryEndColor)
+    }
 
     private val textPaint by lazy {
         TextPaint().apply {
@@ -30,21 +39,24 @@ class ScaleIndicator : View {
             style = Paint.Style.FILL
             color = ContextCompat.getColor(context, R.color.naturalV100)
             alpha = 128
-            isAntiAlias = true
         }
+    }
+
+    private val currentProgressPaint by lazy {
+        Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.FILL
+            color = ContextCompat.getColor(context, R.color.primaryColor)
+        }
+    }
+
+    private val currentProgressPath = Path().apply {
+        reset()
     }
 
     private val backgroundPaint by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
             color = ContextCompat.getColor(context, R.color.viewBaseThirdColor)
-        }
-    }
-
-    private val currentScorePaint by lazy {
-        Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            style = Paint.Style.FILL
-            color = ContextCompat.getColor(context, R.color.primaryColor)
         }
     }
 
@@ -81,36 +93,35 @@ class ScaleIndicator : View {
         }
     }
 
-    private val currentScorePath = Path().apply {
-        reset()
-    }
-
     private val defaultHeight = 38.toDP(context)
-    private val scorePadding = 2f
+    private val progressPadding = 2f
     private val verticalLineWidth = 3.toDP(context)
     private val textMarginTop = 2.toDP(context)
+    private val textBoxHeight = 14.toDP(context)
 
     private var progressHeight = 0f
     private var progressWidth = 0f
     private var radius = 0f
-
-    private var titles: List<String> = listOf()
-    private var currentScore = 0f
     private var columnWidth = 0
-    private var startColor = 0
-    private var endColor = 0
 
     private var rectF = RectF()
 
-    fun init(currentScore: Float,
+    private var titles: List<String> = listOf()
+    private var currentProgress = 0f
+    private var startColor: Int? = null
+    private var endColor: Int? = null
+
+    fun init(currentProgress: Float,
              titles: List<String>) {
         this.titles = titles
 
-        if (currentScore > titles.size) {
-            this.currentScore = titles.size.toFloat()
+        if (currentProgress > titles.size) {
+            this.currentProgress = titles.size.toFloat()
         } else {
-            this.currentScore = currentScore
+            this.currentProgress = currentProgress
         }
+
+        generateCurrentProgress()
     }
 
     fun initGradientColor(startColor: Int, endColor: Int) {
@@ -118,48 +129,64 @@ class ScaleIndicator : View {
         this.endColor = endColor
     }
 
-    private fun generateScaleIndicator() {
-        val currentScorePathWidth = columnWidth * currentScore + (verticalLineWidth * currentScore)
+    private fun generateCurrentProgress() {
+        val currentProgressIndicatorWidth = columnWidth * currentProgress
 
-        generateGradientColor(currentScorePathWidth)
+        generateCurrentProgressBarColor(currentProgressIndicatorWidth)
 
-        val isFullScore = titles.size.toFloat() == currentScore
-        val isScoreAlmostFull = currentScorePathWidth > progressWidth - ((scorePadding * 2) + radius)
-        val isScoreWidthLessThanRadiusWidth = currentScorePathWidth < radius
+        val isCompleteProgress = titles.size.toFloat() == currentProgress
+        val isAlmostCompleteProgress = currentProgressIndicatorWidth > progressWidth - (radius + (progressPadding * 2))
+        val isProgressIndicatorWidthLessThanRadius = currentProgressIndicatorWidth < radius
+        val isZero = currentProgress == 0f
 
         when {
-            isFullScore -> drawFullScore()
-            isScoreAlmostFull -> drawAlmostFullScore(currentScorePathWidth)
-            isScoreWidthLessThanRadiusWidth -> drawPieceOfCircleScore(currentScorePathWidth)
-            else -> drawCurrentScore(currentScorePathWidth)
+            isCompleteProgress -> drawCompleteProgress()
+            isAlmostCompleteProgress -> drawAlmostCompleteProgress(currentProgressIndicatorWidth)
+            isProgressIndicatorWidthLessThanRadius -> drawPieceOfCircleProgress(currentProgressIndicatorWidth)
+            isZero -> resetProgress()
+            else -> drawCurrentProgress(currentProgressIndicatorWidth)
+        }
+
+        invalidate()
+    }
+
+    private fun generateCurrentProgressBarColor(currentProgressIndicatorWidth: Float) {
+        currentProgressPaint.apply {
+            shader = LinearGradient(0f,
+                0f,
+                currentProgressIndicatorWidth,
+                0f,
+                startColor ?: defaultStartColor,
+                endColor ?: defaultEndColor,
+                Shader.TileMode.CLAMP)
         }
     }
 
-    private fun drawFullScore() {
-        currentScorePath.apply {
+    private fun drawCompleteProgress() {
+        currentProgressPath.apply {
             reset()
             moveTo(
                 progressWidth - radius,
-                scorePadding
+                progressPadding
             )
             arcTo(
-                progressWidth - ((radius * 2) + scorePadding),
+                progressWidth - ((radius * 2) + progressPadding),
                 2f,
-                progressWidth - scorePadding,
-                progressHeight - scorePadding,
+                progressWidth - progressPadding,
+                progressHeight - progressPadding,
                 270f,
                 180f,
                 false
             )
             lineTo(
-                radius + scorePadding,
-                progressHeight - scorePadding
+                radius + progressPadding,
+                progressHeight - progressPadding
             )
             arcTo(
-                scorePadding,
-                scorePadding,
-                (radius * 2) - (scorePadding * 2),
-                progressHeight - scorePadding,
+                progressPadding,
+                progressPadding,
+                (radius * 2) - (progressPadding * 2),
+                progressHeight - progressPadding,
                 90f,
                 180f,
                 false
@@ -168,42 +195,43 @@ class ScaleIndicator : View {
         }
     }
 
-    private fun drawAlmostFullScore(currentScorePathWidth: Float) {
-        val degree = ((currentScorePathWidth - (progressWidth - (radius + (scorePadding * 2)))) / radius) * 180
+    private fun drawAlmostCompleteProgress(currentProgressIndicatorWidth: Float) {
+        val degree = ((currentProgressIndicatorWidth - (progressWidth - (radius + (progressPadding * 2)))) / radius) * 180
+        val startPosition = progressWidth - (radius + (progressPadding * 2))
 
-        currentScorePath.apply {
+        currentProgressPath.apply {
             reset()
             moveTo(
-                currentScorePathWidth,
-                scorePadding
+                startPosition,
+                progressPadding
             )
             arcTo(
-                progressWidth - ((radius * 2) + scorePadding),
-                scorePadding,
-                progressWidth - scorePadding,
-                progressHeight - scorePadding,
+                progressWidth - ((radius * 2) + progressPadding),
+                progressPadding,
+                progressWidth - progressPadding,
+                progressHeight - progressPadding,
                 270f,
                 degree / 2,
                 false
             )
             arcTo(
-                progressWidth - ((radius * 2) + scorePadding),
-                scorePadding,
-                progressWidth - scorePadding,
-                progressHeight - scorePadding,
+                progressWidth - ((radius * 2) + progressPadding),
+                progressPadding,
+                progressWidth - progressPadding,
+                progressHeight - progressPadding,
                 90f - (degree / 2),
                 degree / 2,
                 false
             )
             lineTo(
-                radius + scorePadding,
-                progressHeight - scorePadding
+                radius + progressPadding,
+                progressHeight - progressPadding
             )
             arcTo(
-                scorePadding,
-                scorePadding,
-                (radius * 2) - (scorePadding * 2),
-                progressHeight - scorePadding,
+                progressPadding,
+                progressPadding,
+                (radius * 2) - (progressPadding * 2),
+                progressHeight - progressPadding,
                 90f,
                 180f,
                 false
@@ -212,26 +240,26 @@ class ScaleIndicator : View {
         }
     }
 
-    private fun drawCurrentScore(currentScorePathWidth: Float) {
-        currentScorePath.apply {
+    private fun drawCurrentProgress(currentProgressIndicatorWidth: Float) {
+        currentProgressPath.apply {
             reset()
             moveTo(
-                currentScorePathWidth,
-                scorePadding
+                currentProgressIndicatorWidth + progressPadding,
+                progressPadding
             )
             lineTo(
-                currentScorePathWidth ,
-                progressHeight - scorePadding
+                currentProgressIndicatorWidth + progressPadding ,
+                progressHeight - progressPadding
             )
             lineTo(
-                radius + scorePadding,
-                progressHeight - scorePadding
+                radius + progressPadding,
+                progressHeight - progressPadding
             )
             arcTo(
-                scorePadding,
-                scorePadding,
-                (radius * 2) - (scorePadding * 2),
-                progressHeight - scorePadding,
+                progressPadding,
+                progressPadding,
+                (radius * 2) - (progressPadding * 2),
+                progressHeight - progressPadding,
                 90f,
                 180f,
                 false
@@ -240,15 +268,15 @@ class ScaleIndicator : View {
         }
     }
 
-    private fun drawPieceOfCircleScore(currentScorePathWidth: Float) {
-        val degree = (currentScorePathWidth / radius) * 180
-        currentScorePath.apply {
+    private fun drawPieceOfCircleProgress(currentProgressIndicatorWidth: Float) {
+        val degree = (currentProgressIndicatorWidth / radius) * 180
+        currentProgressPath.apply {
             reset()
             arcTo(
-                scorePadding,
-                scorePadding,
-                (radius * 2) - (scorePadding * 2),
-                progressHeight - scorePadding,
+                progressPadding,
+                progressPadding,
+                (radius * 2) - (progressPadding * 2),
+                progressHeight - progressPadding,
                 180f - (degree / 2),
                 degree,
                 false
@@ -257,30 +285,38 @@ class ScaleIndicator : View {
         }
     }
 
+    private fun resetProgress() {
+        currentProgressPath.apply {
+            reset()
+        }
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
             canvas.drawPath(backgroundPath, backgroundPaint)
-            canvas.drawPath(currentScorePath, currentScorePaint)
+            canvas.drawPath(currentProgressPath, currentProgressPaint)
 
             titles.forEachIndexed { index, s ->
-
-                val position = index + 1
-                val rectFLeft = scorePadding + (columnWidth * position) + (verticalLineWidth * index)
-                val rectFTop = 0f
-                val rectFRight = scorePadding + (columnWidth * position) + (verticalLineWidth * position)
-                val rectFBottom = progressHeight
-
-                rectF.set(rectFLeft, rectFTop, rectFRight, rectFBottom)
-
                 if (index != titles.lastIndex) {
+                    val position = index + 1
+                    val rectFLeft = progressPadding + (columnWidth * position) - (verticalLineWidth / 2)
+                    val rectFTop = 0f
+                    val rectFRight = progressPadding + (columnWidth * position) + (verticalLineWidth / 2)
+                    val rectFBottom = progressHeight
+
+                    rectF.set(rectFLeft, rectFTop, rectFRight, rectFBottom)
+
                     canvas.drawRect(rectF, verticalLinePaint)
                 }
 
-                val ellipsizedText = TextUtils.ellipsize(s, textPaint, columnWidth.toFloat(), TextUtils.TruncateAt.END).toString()
+                val maxTextBoxWidth = columnWidth.toFloat() - 4.toDP(context)
+                val textHeight = textPaint.descent() - textPaint.ascent()
 
-                val startPositionX = scorePadding + (columnWidth / 2) + (verticalLineWidth * index) + (columnWidth * index)
-                val startPositionY = progressHeight + textMarginTop - textPaint.ascent()
+                val ellipsizedText = TextUtils.ellipsize(s, textPaint, maxTextBoxWidth, TextUtils.TruncateAt.END).toString()
+
+                val startPositionX = progressPadding + (columnWidth / 2) + (columnWidth * index)
+                val startPositionY = progressHeight + textMarginTop + ((textBoxHeight / 2) + (textPaint.ascent().absoluteValue - (textHeight / 2)))
 
                 canvas.drawText(ellipsizedText, startPositionX, startPositionY, textPaint)
             }
@@ -311,31 +347,20 @@ class ScaleIndicator : View {
             else -> desiredHeight
         }
 
-        progressHeight = height.toFloat() - 16.toDP(context) - textMarginTop
+        progressHeight = height.toFloat() - textBoxHeight - textMarginTop
         progressWidth = width.toFloat()
 
         radius = progressHeight / 2
 
         setMeasuredDimension(width, height)
 
-        notifyHeightChange()
+        notifyDimensionChange()
     }
 
-    private fun notifyHeightChange() {
+    private fun notifyDimensionChange() {
         if (titles.isNotEmpty()) {
-            columnWidth = ((progressWidth - ((scorePadding * 2) + (verticalLineWidth * (titles.size - 1)))) / titles.size).toInt()
-            generateScaleIndicator()
-
-            invalidate()
-        }
-    }
-
-    private fun generateGradientColor(currentScorePathWidth: Float) {
-        currentScorePaint.apply {
-            shader = LinearGradient(0f, 0f, currentScorePathWidth, 0f,
-                startColor,
-                endColor,
-                Shader.TileMode.CLAMP)
+            columnWidth = ((progressWidth - (progressPadding * 2)) / titles.size).toInt()
+            generateCurrentProgress()
         }
     }
 }
