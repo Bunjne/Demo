@@ -19,7 +19,7 @@
         android:maxLines="1"
         android:paddingHorizontal="8dp"
         android:textAllCaps="true"
-        android:textColor="@color/fontThird"
+        android:textColor="@color/textBaseThirdColor"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

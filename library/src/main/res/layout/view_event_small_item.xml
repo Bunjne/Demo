@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/transparent"
+        app:cardBackgroundColor="@color/transparentColor"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            tools:src="@drawable/bg_today" />
+            tools:src="@tools:sample/cities" />
 
     </androidx.cardview.widget.CardView>
 
@@ -32,7 +32,7 @@
         android:id="@+id/vGradient"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/gradient_blur_background"
+        android:background="@drawable/bg_event_gradient_blur"
         app:layout_constraintBottom_toBottomOf="@+id/cvBackground"
         app:layout_constraintEnd_toEndOf="@+id/cvBackground"
         app:layout_constraintStart_toStartOf="@+id/cvBackground"
@@ -47,7 +47,7 @@
         android:ellipsize="end"
         android:lines="3"
         android:maxLines="3"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:autoSizeMaxTextSize="14sp"
         app:autoSizeMinTextSize="10sp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/fontThird"
+        android:textColor="@color/textBaseThirdColor"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,7 +83,7 @@
         android:layout_marginBottom="16dp"
         android:ellipsize="end"
         android:lines="1"
-        android:textColor="@color/fontThird"
+        android:textColor="@color/textBaseThirdColor"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            tools:src="@drawable/bg_today" />
+            tools:src="@tools:sample/cities" />
 
     </androidx.cardview.widget.CardView>
 

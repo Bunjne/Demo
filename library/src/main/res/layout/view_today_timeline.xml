@@ -34,7 +34,7 @@
         android:visibility="gone"
         android:gravity="center_horizontal"
         android:text="@string/today_nothing_todo_title"
-        android:textColor="@color/fontThird"
+        android:textColor="@color/textBaseThirdColor"
         android:textSize="16sp"
         app:usparkFont="bold"
         app:autoSizeMaxTextSize="16sp"

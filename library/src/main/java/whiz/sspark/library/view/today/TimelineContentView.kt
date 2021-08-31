@@ -7,6 +7,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.TimelineItemBody
 import whiz.sspark.library.data.enum.TimeLineBodyFontStyle
@@ -30,7 +32,7 @@ class TimelineContentView : ConstraintLayout {
             setTextSize(TypedValue.COMPLEX_UNIT_SP, getFontSize(timelineBody.style))
             typeface = getFontStyle(timelineBody.style)
             if (timelineBody.color.contains(TimelineColorStyle.PRIMARY.style) && timelineBody.style == TimeLineBodyFontStyle.HEADER.style) {
-                setTextColor(AppColor.Primary().v500)
+                setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
             }
         }
 

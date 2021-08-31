@@ -11,7 +11,6 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Event
 import whiz.sspark.library.data.entity.HighlightHeader
 import whiz.sspark.library.databinding.ViewHappeningsWidgetEventBinding
-import whiz.sspark.library.databinding.ViewWidgetEventBinding
 import whiz.sspark.library.extension.show
 
 class HappeningsWidgetEventView : ConstraintLayout {

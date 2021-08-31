@@ -5,14 +5,17 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.ColorUtils
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.TimelineItemBody
 import whiz.sspark.library.data.enum.TimeLineBodyFontStyle
 import whiz.sspark.library.data.enum.TimelineColorStyle
-import whiz.sspark.library.databinding.ViewBottomNavigationBarItemBinding
 import whiz.sspark.library.databinding.ViewTimelineEventBodyBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.toDP
+import whiz.sspark.library.extension.toResourceColor
+import whiz.sspark.library.extension.withAlpha
+import whiz.sspark.library.utility.generateSimpleQRCode
 
 class TimelineEventBodyView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -27,7 +30,8 @@ class TimelineEventBodyView : ConstraintLayout {
         val sortedOrderTimeLineItemBody = timelineItemBody.sortedBy { it.order }
 
         if (backgroundColor.contains(TimelineColorStyle.PRIMARY.style)) {
-            binding.cvBody.setCardBackgroundColor(AppColor.Primary().v500.withAlpha(45))
+            val primaryColor = R.color.primaryColor.toResourceColor(context)
+            binding.cvBody.setCardBackgroundColor(primaryColor.withAlpha(45))
         }
 
         binding.llTimelineContent.removeAllViews()

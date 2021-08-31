@@ -30,7 +30,7 @@ class HappeningsEventSmallItemAdapter (private val context: Context,
             (holder.itemView as? EventSmallItemView)?.apply {
                 init(event, onEventClicked)
                 setGradientDrawable(R.drawable.bg_secondary_dim)
-                setTitleColor(ContextCompat.getColor(context, R.color.fontPrimary))
+                setTitleColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
                 when (position) {
                     0 -> holder.itemView.setPadding(16.toDP(context), 0, 0, 0)
                     events.lastIndex -> holder.itemView.setPadding(16.toDP(context), 0, 16.toDP(context), 0)

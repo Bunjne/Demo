@@ -26,7 +26,18 @@ class TodayFragment : BaseFragment() {
     }
 
     override fun initView() {
+        binding.stvPage.init(titles = arrayOf(resources.getString(R.string.today_timeline), resources.getString(R.string.today_happenings)),
+            onTabClicked ={
+                when (it) {
+                    0 -> if (!isFragmentVisible(timelineFragmentId)) renderFragment(TimelineFragment.newInstance(), timelineFragmentId)
+                    1 -> if (!isFragmentVisible(highlightFragmentId)) renderFragment(HighlightFragment.newInstance(), highlightFragmentId)
+                }
 
+                currentFragment = it
+            }
+        )
+
+        stvPage.selectTab(0)
     }
 
     override fun observeView() {

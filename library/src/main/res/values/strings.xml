@@ -24,4 +24,20 @@
     <string name="update_new_data">PLEASE WAIT...</string>
     <string name="update_just_now">UPDATED JUST NOW</string>
 
+    <!-- Happenings -->
+    <string name="today_happenings_announcement">ANNOUNCEMENT</string>
+    <string name="today_happenings_see_more">See More</string>
+
+    <!-- Today -->
+    <string name="today_timeline">TIMELINE</string>
+    <string name="today_happenings">HAPPENINGS</string>
+    <string name="today_segment_title">TODAY</string>
+    <string name="today_nothing_todo_title">NO ACTIVITIES</string>
+
+    <!-- Timeline -->
+    <string name="today_timeline_time" translatable="false"> - %2s</string>
+
+    <!-- Event -->
+    <string name="event_list_title">กิจกรรม</string>
+
 </resources>

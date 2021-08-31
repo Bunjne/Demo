@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import whiz.sspark.library.data.entity.NewsDetail
 import whiz.sspark.library.databinding.ViewHappeningsNewsSmallTextOnlyBinding
+import whiz.sspark.library.extension.toLocalDate
+import whiz.sspark.library.extension.toTodayAbbreviatedDateFormat
 
 class HappeningsNewsSmallTextOnlyView : LinearLayout {
     constructor(context: Context) : super(context)

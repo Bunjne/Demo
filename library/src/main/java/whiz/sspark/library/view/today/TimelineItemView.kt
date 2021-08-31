@@ -1,6 +1,7 @@
 package whiz.sspark.library.view.today
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -40,15 +41,15 @@ class TimelineItemView : ConstraintLayout {
         }
 
         if (timelineItem.backgroundColor.contains(TimelineColorStyle.PRIMARY.style)) {
-            binding.ivIcon.setColorFilter(ContextCompat.getColor(context, R.color.white))
+            binding.ivIcon.setColorFilter(Color.WHITE)
             binding.cvIcon.setCardBackgroundColor(ContextCompat.getColor(context, R.color.primaryColor))
             binding.tvStartTime.setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
             binding.tvEndTime.setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
         } else {
             binding.ivIcon.clearColorFilter()
             binding.cvIcon.setCardBackgroundColor(ContextCompat.getColor(context, R.color.viewBaseSecondaryColor))
-            binding.tvStartTime.setTextColor(ContextCompat.getColor(context, R.color.fontPrimary))
-            binding.tvEndTime.setTextColor(ContextCompat.getColor(context, R.color.fontPrimary))
+            binding.tvStartTime.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+            binding.tvEndTime.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
         }
 
         binding.flBody.removeAllViews()

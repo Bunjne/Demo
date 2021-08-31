@@ -76,7 +76,7 @@ class TodayHappeningsView : ConstraintLayout {
 
     fun addFlagNewsItem(news: List<NewsDetail>) {
         if (news.isNotEmpty()) {
-            newsFlagList.add(HappeningsWidgetNewsFlagAdapter.Item(news, HighlightHeader(type = HighlightType.FLAG_ANNOUNCEMENT.type, title = resources.getString(R.string.today_highlight_announcement))))
+            newsFlagList.add(HappeningsWidgetNewsFlagAdapter.Item(news, HighlightHeader(type = HighlightType.FLAG_ANNOUNCEMENT.type, title = resources.getString(R.string.today_happenings_announcement))))
             newsFlagAdapter?.notifyItemInserted(0)
         }
     }
@@ -96,7 +96,7 @@ class TodayHappeningsView : ConstraintLayout {
 
     fun addEventsItem(events: List<Event>) {
         if (events.isNotEmpty()) {
-            eventList.add(HappeningsWidgetEventAdapter.Item(events, HighlightHeader(type = HighlightType.EVENT.type, title = resources.getString(R.string.event_list_events))))
+            eventList.add(HappeningsWidgetEventAdapter.Item(events, HighlightHeader(type = HighlightType.EVENT.type, title = resources.getString(R.string.event_list_title))))
             eventAdapter?.notifyItemInserted(0)
         }
     }

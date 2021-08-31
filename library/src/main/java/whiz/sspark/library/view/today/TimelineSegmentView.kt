@@ -1,14 +1,16 @@
 package whiz.sspark.library.view.today
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
-import whiz.sspark.library.databinding.ViewBottomNavigationBarItemBinding
 import whiz.sspark.library.databinding.ViewTimelineSegmentBinding
+import whiz.sspark.library.extension.toRepresentDay
+import whiz.sspark.library.extension.toRepresentDayName
 import java.util.*
 
 class TimelineSegmentView : ConstraintLayout {
@@ -32,29 +34,29 @@ class TimelineSegmentView : ConstraintLayout {
 
         if (isToday) {
             binding.tvSegmentTodayTitle.visibility = View.VISIBLE
-            binding.tvSegmentTodayTitle.setTextColor(ContextCompat.getColor(context, R.color.white))
+            binding.tvSegmentTodayTitle.setTextColor(Color.WHITE)
             binding.mcvContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.todaySegmentPrimaryColor))
             binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.primaryColor))
         } else {
             binding.tvSegmentTodayTitle.visibility = View.INVISIBLE
             binding.mcvContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.selectedSegmentPrimaryColor))
-            binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
+            binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.transparentColor))
         }
     }
 
     fun setUnselectedView(isToday: Boolean) {
-        binding.mcvContainer.strokeColor = ContextCompat.getColor(context, R.color.viewBaseThird)
+        binding.mcvContainer.strokeColor = ContextCompat.getColor(context, R.color.viewBaseThirdColor)
         binding.mcvContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.appBackgroundColor))
-        binding.tvDate.setTextColor(ContextCompat.getColor(context, R.color.fontThird))
-        binding.tvDay.setTextColor(ContextCompat.getColor(context, R.color.fontThird))
+        binding.tvDate.setTextColor(ContextCompat.getColor(context, R.color.textBaseThirdColor))
+        binding.tvDay.setTextColor(ContextCompat.getColor(context, R.color.textBaseThirdColor))
 
         if (isToday) {
             binding.tvSegmentTodayTitle.visibility = View.VISIBLE
-            binding.tvSegmentTodayTitle.setTextColor(ContextCompat.getColor(context, R.color.fontThird))
-            binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.viewBaseThird))
+            binding.tvSegmentTodayTitle.setTextColor(ContextCompat.getColor(context, R.color.textBaseThirdColor))
+            binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.viewBaseThirdColor))
         } else{
             binding.tvSegmentTodayTitle.visibility = View.INVISIBLE
-            binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.transparent))
+            binding.cvBackground.setCardBackgroundColor(ContextCompat.getColor(context, R.color.transparentColor))
         }
     }
 }

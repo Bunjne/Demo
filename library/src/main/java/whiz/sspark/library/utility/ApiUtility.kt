@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import retrofit2.Response
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.*
-import whiz.sspark.library.data.enum.DATASOURCE
+import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.extension.toObject
 import java.lang.Exception
 
@@ -19,7 +19,7 @@ fun <T> transformToDataWrapperX(response: Response<T>): DataWrapperX<T> {
     return DataWrapperX(
         data = data,
         error = error,
-        dataSource = DATASOURCE.NETWORK
+        dataSource = DataSource.NETWORK
     )
 }
 
@@ -34,7 +34,7 @@ fun <T> transformToDataWrapper(response: Response<T>): DataWrapper<T> {
     return DataWrapper(
         data = data,
         error = error,
-        dataSource = DATASOURCE.NETWORK
+        dataSource = DataSource.NETWORK
     )
 }
 

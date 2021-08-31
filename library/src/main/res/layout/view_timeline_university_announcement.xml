@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_list_item_single"
+    android:background="@drawable/bg_base_single_shadow_small"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="16dp"
@@ -14,11 +14,11 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:scaleType="fitCenter"
-        app:tint="@color/uPrimary"
+        app:tint="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvTitle"
-        tools:src="@drawable/ic_announcement" />
+        tools:src="@tools:sample/avatars" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvTitle"
@@ -29,7 +29,7 @@
         android:ellipsize="end"
         android:lines="2"
         android:gravity="center_vertical"
-        android:textColor="@color/fontSecondary"
+        android:textColor="@color/textBaseSecondaryColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

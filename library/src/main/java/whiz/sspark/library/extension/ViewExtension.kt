@@ -15,7 +15,7 @@ import androidx.annotation.LayoutRes
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapper
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.enum.DATASOURCE
+import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.utility.getLatestUpdatedDateTime
 import java.util.*
 
@@ -32,11 +32,11 @@ fun TextView.showViewState(dataWrapper: DataWrapper<Any>?) {
         this.showUpdatingData()
     } else {
         with(dataWrapper) {
-            if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == true) {
+            if (dataSource == DataSource.CACHE && isNetworkPreferred == true) {
                 this@showViewState.showUpdatingData()
-            } else if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == false) {
+            } else if (dataSource == DataSource.CACHE && isNetworkPreferred == false) {
                 this@showViewState.showLatestUpdated(latestDateTime ?: Date())
-            } else if (dataSource == DATASOURCE.NETWORK) {
+            } else if (dataSource == DataSource.NETWORK) {
                 if (data != null || statusCode == 204) {
                     this@showViewState.showLatestUpdated(Date())
                 } else {
@@ -56,11 +56,11 @@ fun TextView.showViewStateX(dataWrapper: DataWrapperX<Any>?) {
         this.showUpdatingData()
     } else {
         with(dataWrapper) {
-            if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == true) {
+            if (dataSource == DataSource.CACHE && isNetworkPreferred == true) {
                 this@showViewStateX.showUpdatingData()
-            } else if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == false) {
+            } else if (dataSource == DataSource.CACHE && isNetworkPreferred == false) {
                 this@showViewStateX.showLatestUpdated(latestDateTime ?: Date())
-            } else if (dataSource == DATASOURCE.NETWORK) {
+            } else if (dataSource == DataSource.NETWORK) {
                 if (data != null || statusCode == "204") {
                     this@showViewStateX.showLatestUpdated(Date())
                 } else {

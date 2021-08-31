@@ -12,12 +12,12 @@
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
         android:scaleType="fitCenter"
-        app:tint="@color/moreIcon"
+        app:tint="@color/moreIconColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_event" />
+        tools:src="@tools:sample/avatars" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvTitle"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:textAllCaps="true"
-        android:textColor="@color/fontSecondary"
+        android:textColor="@color/textBaseSecondaryColor"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivIcon"
         app:layout_constraintEnd_toEndOf="parent"

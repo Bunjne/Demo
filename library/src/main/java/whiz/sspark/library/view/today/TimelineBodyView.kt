@@ -12,9 +12,7 @@ import whiz.sspark.library.data.enum.Gender
 import whiz.sspark.library.data.enum.TimelineColorStyle
 import whiz.sspark.library.databinding.ViewBottomNavigationBarItemBinding
 import whiz.sspark.library.databinding.ViewTimelineBodyBinding
-import whiz.sspark.library.extension.show
-import whiz.sspark.library.extension.showUserProfileCircle
-import whiz.sspark.library.extension.toDP
+import whiz.sspark.library.extension.*
 
 class TimelineBodyView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -31,7 +29,9 @@ class TimelineBodyView : ConstraintLayout {
         val sortedOrderTimeLineItemBody = timelineItemBody.sortedBy { it.order }
 
         if (backgroundColor.contains(TimelineColorStyle.PRIMARY.style)) {
-            binding.cvBody.setCardBackgroundColor(AppColor.Primary().v500.withAlpha(12))
+            val primaryColor = R.color.primaryColor.toResourceColor(context)
+            binding.cvBody.setCardBackgroundColor(primaryColor.withAlpha(12))
+
             setPadding(0.toDP(context), 2.toDP(context), 0.toDP(context), 2.toDP(context))
         }
 
@@ -53,10 +53,10 @@ class TimelineBodyView : ConstraintLayout {
             when {
                 contentCount == 2 -> {
                     setPadding(0.toDP(context), 8.toDP(context), 0.toDP(context), 8.toDP(context))
-                    setContentTextColor(ContextCompat.getColor(context, R.color.fontPrimary))
+                    setContentTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
                 }
-                contentCount == 1 && isRenderAdvisingAppointmentView -> setContentTextColor(ContextCompat.getColor(context, R.color.fontThird))
-                else -> setContentTextColor(ContextCompat.getColor(context, R.color.fontSecondary))
+                contentCount == 1 && isRenderAdvisingAppointmentView -> setContentTextColor(ContextCompat.getColor(context, R.color.textBaseThirdColor))
+                else -> setContentTextColor(ContextCompat.getColor(context, R.color.textBaseSecondaryColor))
             }
 
             init(body)
