@@ -24,4 +24,10 @@
     <string name="update_new_data">PLEASE WAIT...</string>
     <string name="update_just_now">UPDATED JUST NOW</string>
 
+    <!--Menu-->
+    <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
+    <string name="menu_junior_segment_instructor">อาจารย์ประจำชั้น</string>
+    <string name="menu_senior_segment_instructor">อาจารย์ที่ปรึกษา</string>
+    <string name="menu_segment_guardian">ผู้ปกครอง</string>
+
 </resources>

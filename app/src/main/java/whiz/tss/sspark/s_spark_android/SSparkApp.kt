@@ -40,8 +40,12 @@ class SSparkApp: Application() {
         private var _role: RoleType? = null
         val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
 
-        fun setStudentApp() {
-            _role = RoleType.STUDENT
+        fun setJuniorApp() {
+            _role = RoleType.JUNIOR
+        }
+
+        fun setSeniorApp() {
+            _role = RoleType.SENIOR
         }
 
         fun setInstructorApp() {

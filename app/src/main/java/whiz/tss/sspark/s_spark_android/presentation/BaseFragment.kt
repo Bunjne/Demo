@@ -31,7 +31,6 @@ abstract class BaseFragment : Fragment() {
         observeView()
         observeData()
         observeError()
-        initView()
     }
 
     abstract fun initView()

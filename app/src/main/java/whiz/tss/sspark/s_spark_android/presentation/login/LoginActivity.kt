@@ -52,7 +52,7 @@ class LoginActivity : LocalizationActivity() {
             viewModel.getProfile()
         } else {
             val deviceID = retrieveDeviceID(this)
-            viewModel.login("5913873", "1850", deviceID, operatorName)
+            viewModel.login("6113187", "1850", deviceID, operatorName)
         }
     }
 
@@ -81,10 +81,10 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
                 }
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
             }
         }
     }

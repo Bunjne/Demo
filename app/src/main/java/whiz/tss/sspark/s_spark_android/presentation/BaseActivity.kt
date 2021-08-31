@@ -1,7 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation
 
 import android.os.Bundle
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.flow.collect

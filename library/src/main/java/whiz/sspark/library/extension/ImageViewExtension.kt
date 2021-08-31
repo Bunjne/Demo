@@ -10,7 +10,7 @@ import whiz.sspark.library.data.enum.Gender
 import java.io.File
 
 fun ImageView.show(resId: Int) {
-    Glide.with(this)
+    Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
