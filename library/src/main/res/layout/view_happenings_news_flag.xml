@@ -42,7 +42,7 @@
                 android:paddingVertical="2dp"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
-                app:usparkFont="bold"
+                app:ssparkFont="bold"
                 tools:text="Popular" />
 
         </androidx.cardview.widget.CardView>
@@ -71,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:usparkFont="boldSerif"
+                app:ssparkFont="boldSerif"
                 tools:text="@tools:sample/lorem" />
 
             <whiz.sspark.library.view.general.SSparkTextView
@@ -86,7 +86,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                app:usparkFont="regularSerif"
+                app:ssparkFont="regularSerif"
                 tools:text="Popular" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today.happenings.widget.event
+package whiz.sspark.library.view.today.happenings.event
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView

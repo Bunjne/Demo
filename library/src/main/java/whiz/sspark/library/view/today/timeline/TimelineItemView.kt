@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today
+package whiz.sspark.library.view.today.timeline
 
 import android.content.Context
 import android.graphics.Color
@@ -11,7 +11,6 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.TimelineItem
 import whiz.sspark.library.data.enum.TimeLineItemType
 import whiz.sspark.library.data.enum.TimelineColorStyle
-import whiz.sspark.library.databinding.ViewBottomNavigationBarItemBinding
 import whiz.sspark.library.databinding.ViewTimelineItemBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.utility.convertDateToTime

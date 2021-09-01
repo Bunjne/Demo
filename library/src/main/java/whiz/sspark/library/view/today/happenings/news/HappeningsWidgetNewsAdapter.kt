@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today.happenings.widget.news
+package whiz.sspark.library.view.today.happenings.news
 
 import android.content.Context
 import android.view.View

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/appBackgroundColor">
 
-    <whiz.sspark.library.view.today.happenings.TodayHappeningsView
+    <whiz.sspark.library.view.screen.happenings.TodayHappeningsView
         android:id="@+id/vHighlight"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -12,7 +12,7 @@ import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.transformToDataWrapperX
 import whiz.tss.sspark.s_spark_android.R
-import whiz.tss.sspark.s_spark_android.data.datasSource.remote.service.LoginService
+import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
 
 interface LoginRepository {
     suspend fun login(username: String, password: String, uuid: String, operator: String): Flow<DataWrapperX<AuthenticationInformation>>

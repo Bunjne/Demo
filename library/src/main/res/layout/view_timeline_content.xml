@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivIcon"
         app:layout_constraintTop_toTopOf="@id/ivIcon"
-        app:usparkFont="regular"
+        app:ssparkFont="regular"
         tools:text="BG1234" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

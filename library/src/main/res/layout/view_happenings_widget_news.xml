@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tvSeeMore"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:usparkFont="regular"
+        app:ssparkFont="regular"
         tools:text="university announcement" />
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toStartOf="@+id/ivMore"
         app:layout_constraintStart_toEndOf="@+id/tvTitle"
         app:layout_constraintTop_toTopOf="@id/tvTitle"
-        app:usparkFont="regular" />
+        app:ssparkFont="regular" />
 
     <ImageView
         android:id="@+id/ivMore"

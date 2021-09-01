@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today.happenings
+package whiz.sspark.library.view.screen.happenings
 
 import android.content.Context
 import android.util.AttributeSet
@@ -13,9 +13,9 @@ import whiz.sspark.library.data.entity.News
 import whiz.sspark.library.data.entity.NewsDetail
 import whiz.sspark.library.data.enum.HighlightType
 import whiz.sspark.library.databinding.ViewTodayHappeningsBinding
-import whiz.sspark.library.view.today.happenings.widget.event.HappeningsWidgetEventAdapter
-import whiz.sspark.library.view.today.happenings.widget.news.HappeningsWidgetNewsAdapter
-import whiz.sspark.library.view.today.happenings.widget.news_flag.HappeningsWidgetNewsFlagAdapter
+import whiz.sspark.library.view.today.happenings.event.HappeningsWidgetEventAdapter
+import whiz.sspark.library.view.today.happenings.news.HappeningsWidgetNewsAdapter
+import whiz.sspark.library.view.today.happenings.news_flag.HappeningsWidgetNewsFlagAdapter
 
 class TodayHappeningsView : ConstraintLayout {
     constructor(context: Context) : super(context)

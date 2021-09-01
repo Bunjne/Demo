@@ -26,7 +26,7 @@ class HappeningsRepositoryImpl(private val context: Context,
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remoteV3.getTodayNews()
-                    fetchX(response)
+                    fetchX<List<News>>(response)
                 } catch (e: Exception) {
                     throw e
                 }
@@ -52,8 +52,8 @@ class HappeningsRepositoryImpl(private val context: Context,
             } else {
                 if (NetworkManager.isOnline(context)) {
                     try {
-                        val response = remoteV3.getEvents()
-                        fetchX(response)
+                        val response = remoteV3.getEvents(type)
+                        fetchX<List<Event>>(response)
                     } catch (e: Exception) {
                         throw e
                     }

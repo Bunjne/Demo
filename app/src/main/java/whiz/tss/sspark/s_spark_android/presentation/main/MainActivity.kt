@@ -10,8 +10,9 @@ import whiz.tss.sspark.s_spark_android.databinding.ActivityMainBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.menu.MenuStudentFragment
 import whiz.tss.sspark.s_spark_android.presentation.today.TodayFragment
+import whiz.tss.sspark.s_spark_android.presentation.today.timeline.TimelineFragment
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), TimelineFragment.OnUpdateAqi {
 
     private val binding by lazy {
          ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +29,7 @@ class MainActivity : BaseActivity() {
     private var currentFragment: Int = -1
     private var isNavigated = false
     private var lastShowedFragment: Int = -1
+    private var isNeedToUpdateBackground = false //TODO change this value to true when darkmode is enabled
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,5 +124,10 @@ class MainActivity : BaseActivity() {
         isNavigated = savedInstanceState.getBoolean("isNavigatedToSettingFinished") || !savedInstanceState.getString("deepLink", "").isNullOrBlank()
         lastShowedFragment = savedInstanceState.getInt("currentFragment")
         super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onUpdateAqi(aqiIconUrl: String, weatherIconUrl: String, backgroundImageUrl: String, aqi: Int, color: String) {
+        (supportFragmentManager.findFragmentByTag(BottomNavigationId.TODAY.id.toString()) as? TodayFragment)?.onUpdateAqi(aqiIconUrl, weatherIconUrl, backgroundImageUrl, aqi, color, isNeedToUpdateBackground)
+//        isNeedToUpdateBackground = false TODO uncomment when darkmode is available
     }
 }

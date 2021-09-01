@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today.happenings.widget.news_flag
+package whiz.sspark.library.view.today.happenings.news_flag
 
 import android.content.Context
 import android.os.CountDownTimer

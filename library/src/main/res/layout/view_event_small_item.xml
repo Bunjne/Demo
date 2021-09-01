@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvImage"
-        app:usparkFont="bold"
+        app:ssparkFont="bold"
         tools:text="AU CODE CAMP 2019" />
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -72,7 +72,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvName"
-        app:usparkFont="regular"
+        app:ssparkFont="regular"
         tools:text="JOHN PAUL" />
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvVenue"
-        app:usparkFont="regular"
+        app:ssparkFont="regular"
         tools:text="MAY 5, 2019 09:00 HRS." />
 
     <androidx.cardview.widget.CardView

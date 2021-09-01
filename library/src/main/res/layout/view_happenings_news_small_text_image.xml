@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvImage"
-        app:usparkFont="boldSerif"
+        app:ssparkFont="boldSerif"
         tools:text="@tools:sample/lorem/random" />
 
 
@@ -54,7 +54,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNewsSmallTextImageTitle"
-        app:usparkFont="regularSerif"
+        app:ssparkFont="regularSerif"
         tools:text="ไม่มีข้อมูล" />
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -70,7 +70,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNewsSmallTextImageAuthor"
-        app:usparkFont="regularSerif"
+        app:ssparkFont="regularSerif"
         tools:text="Date" />
 
     <androidx.cardview.widget.CardView

@@ -16,6 +16,8 @@
     <color name="viewBaseSecondaryDimColor">#C9F6F6F6</color>
     <color name="viewBaseThirdColor">#F6F6F6</color>
     <color name="viewBaseFourthColor">#EAEAEA</color>
+    <color name="viewBaseSelectedSegment">#FEFFFE</color>
+    <color name="viewBaseUnSelectedSegment">#EEEEEE</color>
     <color name="lineBasePrimaryColor">#D7D5DB</color>
     <color name="lineBaseSecondaryColor">#EBE9F1</color>
     <color name="textBasePrimaryColor">#383738</color>
@@ -108,9 +110,13 @@
     <color name="accentYellowV800">#8D591D</color>
     <color name="accentYellowV900">#6A3710</color>
 
-    <!-- Gradient Background Color for Event -->
+    <!-- Gradient Background Color -->
     <color name="eventGradientAppBackgroundColor">#33FFFFFF</color>
+    <color name="todayGradientBackgroundColor">#DDFFFFFF</color>
 
     <!-- Timeline -->
     <color name="timelineSelectedDayColor">@color/primaryColor</color>
+
+    <!-- Indicator -->
+    <color name="indicatorBackground">#BCBCBC</color>
 </resources>

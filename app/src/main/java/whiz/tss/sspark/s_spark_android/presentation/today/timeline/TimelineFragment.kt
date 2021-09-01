@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.enum.TimeLineAuthorityType
 import whiz.sspark.library.data.viewModel.TimelineViewModel
+import whiz.sspark.library.extension.toLocalDate
+import whiz.sspark.library.utility.showApiResponseAlert
+import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentTimelineBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import java.util.*
@@ -41,6 +45,8 @@ class TimelineFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         updateAqi = activity as OnUpdateAqi
+
+        initView()
     }
 
     override fun initView() {
@@ -122,15 +128,42 @@ class TimelineFragment : BaseFragment() {
     }
 
     override fun observeView() {
-        TODO("Not yet implemented")
+        viewModel.viewLoading.observe(this, Observer { isLoading ->
+            binding.vTimeline.setSwipeRefreshLoading(isLoading)
+        })
     }
 
     override fun observeData() {
-        TODO("Not yet implemented")
+        viewModel.timelineResponse.observe(this, Observer {
+            it?.let {
+                binding.vTimeline.updateTimeline(it)
+                binding.vTimeline.updateUniversityEvent(it.alertAnnouncements)
+                val backgroundImageUrl = it.dayImageUrl //TODO don't forget to make condition for darkmode when darkmode is confirmed.
+                updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon, backgroundImageUrl ?: "", it.aqi , it.aqiColor)
+            }
+        })
+
+        viewModel.todayDateResponse.observe(this, Observer {
+            it?.let {
+                currentDate = it.today.toLocalDate()!!
+                binding.vTimeline.updateSegment(currentDate)
+            }
+        })
     }
 
     override fun observeError() {
-        TODO("Not yet implemented")
+        viewModel.timelineErrorResponse.observe(this, Observer {
+            it?.let {
+                showApiResponseXAlert(activity, it)
+                binding.vTimeline.renderNothingView()
+            }
+        })
+
+        viewModel.todayDateErrorResponse.observe(this, Observer {
+            it?.let {
+                showApiResponseAlert(activity, it)
+            }
+        })
     }
 
     override fun onPause() {

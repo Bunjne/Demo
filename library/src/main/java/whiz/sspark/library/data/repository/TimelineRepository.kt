@@ -45,7 +45,7 @@ class TimelineRepositoryImpl(private val context: Context,
                 if (NetworkManager.isOnline(context)) {
                     try {
                         val response = remoteV3.getTimeline(differDay)
-                        fetchX(response)
+                        fetchX<TimelineResponse>(response)
                     } catch (e: Exception) {
                         throw e
                     }

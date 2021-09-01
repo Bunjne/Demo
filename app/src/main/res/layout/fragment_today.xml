@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/viewBasePrimaryColor">
 
     <ImageView
         android:id="@+id/ivBackground"
@@ -16,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:src="@drawable/bg_today" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvAppName"
@@ -26,13 +27,13 @@
         android:layout_marginBottom="20dp"
         android:gravity="start"
         android:maxLines="1"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         android:text="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/stvPage"
         app:layout_constraintEnd_toStartOf="@+id/cvWeather"
         app:layout_constraintStart_toStartOf="parent"
-        app:usparkFont="boldSerif" />
+        app:ssparkFont="boldSerif" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvWeather"
@@ -58,7 +59,7 @@
                 android:id="@+id/cvAqi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/viewBaseThird"
+                app:cardBackgroundColor="@color/viewBaseThirdColor"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,12 +77,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
-                        android:textColor="@color/black"
+                        android:textColor="@android:color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:usparkFont="bold"
+                        app:ssparkFont="bold"
                         tools:text="62" />
 
                     <ImageView
@@ -91,12 +92,12 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:scaleType="fitCenter"
-                        android:tint="@color/black"
+                        app:tint="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/tvApi"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_brain" />
+                        tools:src="@drawable/ic_megaphone" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,7 +108,7 @@
                 android:layout_width="2dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
-                android:background="@color/viewBaseLine"
+                android:background="@color/lineBasePrimaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ivWeatherIcon"
                 app:layout_constraintStart_toEndOf="@+id/cvAqi"
@@ -124,7 +125,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvLine"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_brain" />
+                tools:src="@drawable/ic_megaphone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,12 +147,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/glSegment" />
 
-    <whiz.u.library.widget.general.SegmentTabPrimaryColorView
+    <whiz.sspark.library.view.general.SegmentTabView
         android:id="@+id/stvPage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_today_segment"
         android:padding="12dp"
+        android:background="@drawable/bg_today_segment"
         app:layout_constraintBottom_toTopOf="@+id/flContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

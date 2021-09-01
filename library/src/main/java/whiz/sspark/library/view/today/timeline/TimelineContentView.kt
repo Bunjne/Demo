@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today
+package whiz.sspark.library.view.today.timeline
 
 import android.content.Context
 import android.graphics.Typeface
@@ -13,7 +13,6 @@ import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.TimelineItemBody
 import whiz.sspark.library.data.enum.TimeLineBodyFontStyle
 import whiz.sspark.library.data.enum.TimelineColorStyle
-import whiz.sspark.library.databinding.ViewBottomNavigationBarItemBinding
 import whiz.sspark.library.databinding.ViewTimelineContentBinding
 import whiz.sspark.library.extension.show
 

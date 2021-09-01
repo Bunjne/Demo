@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today
+package whiz.sspark.library.view.today.timeline
 
 import android.content.Context
 import android.view.View

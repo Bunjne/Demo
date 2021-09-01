@@ -8,6 +8,8 @@ import com.akexorcist.localizationactivity.core.LocalizationApplicationDelegate
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import st.lowlevel.storo.Storo
+import st.lowlevel.storo.StoroBuilder
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.ProjectType
 import whiz.sspark.library.di.localModule
@@ -91,6 +93,12 @@ class SSparkApp: Application() {
             setOnSessionExpireCallback {
                 logout(applicationContext)
             }
+        }
+
+        if (!Storo.isInitialized()) {
+            StoroBuilder.configure(Long.MAX_VALUE)
+                .setDefaultCacheDirectory(this)
+                .initialize()
         }
 
         startKoin {

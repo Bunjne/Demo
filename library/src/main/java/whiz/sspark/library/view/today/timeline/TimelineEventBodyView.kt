@@ -1,21 +1,18 @@
-package whiz.sspark.library.view.today
+package whiz.sspark.library.view.today.timeline
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.ColorUtils
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.TimelineItemBody
 import whiz.sspark.library.data.enum.TimeLineBodyFontStyle
 import whiz.sspark.library.data.enum.TimelineColorStyle
 import whiz.sspark.library.databinding.ViewTimelineEventBodyBinding
 import whiz.sspark.library.extension.show
-import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.extension.toResourceColor
 import whiz.sspark.library.extension.withAlpha
-import whiz.sspark.library.utility.generateSimpleQRCode
 
 class TimelineEventBodyView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -38,8 +35,8 @@ class TimelineEventBodyView : ConstraintLayout {
         sortedOrderTimeLineItemBody.forEach { body ->
             if (body.style == TimeLineBodyFontStyle.QR.style) {
                 if (!body.text.isNullOrBlank()) {
-                    val qrCodeBitmap = generateSimpleQRCode(body.text, 92f.toDP(context).toInt())
-                    binding.ivQrCode.setImageBitmap(qrCodeBitmap)
+//                    val qrCodeBitmap = generateSimpleQRCode(body.text, 92f.toDP(context).toInt())
+//                    binding.ivQrCode.setImageBitmap(qrCodeBitmap)
                 }
             } else {
                 initContentView(body)

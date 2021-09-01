@@ -1,33 +1,34 @@
-package whiz.sspark.library.view.today.happenings.widget.event
+package whiz.sspark.library.view.today.happenings.news
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.LinearLayout
 import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.Event
 import whiz.sspark.library.data.entity.HighlightHeader
-import whiz.sspark.library.databinding.ViewHappeningsWidgetEventBinding
+import whiz.sspark.library.data.entity.NewsDetail
+import whiz.sspark.library.databinding.ViewHappeningsWidgetNewsBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.view.today.happenings.news.news_small.HappeningsNewsSmallAdapter
 
-class HappeningsWidgetEventView : ConstraintLayout {
+class HappeningsWidgetNewsView : LinearLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewHappeningsWidgetEventBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewHappeningsWidgetNewsBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(header: HighlightHeader,
-             events: List<Event>,
+             news: List<NewsDetail>,
              latestPosition: Int,
-             onEventClicked: (Event) -> Unit,
+             onNewsClicked: (NewsDetail) -> Unit,
              onSeeMoreClicked: (HighlightHeader) -> Unit,
-             onScrolled: (Int) -> Unit, ) {
+             onScrolled: (Int) -> Unit) {
         binding.tvTitle.text = header.title
         binding.ivMore.show(R.drawable.ic_arrow_right)
 
@@ -35,9 +36,9 @@ class HappeningsWidgetEventView : ConstraintLayout {
             onSeeMoreClicked(header)
         }
 
-        with(binding.rvEvent) {
+        with(binding.rvSmallNews) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = HappeningsEventSmallItemAdapter(context, events, onEventClicked)
+            adapter = HappeningsNewsSmallAdapter(context, news, onNewsClicked)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

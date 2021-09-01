@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.Event
+import whiz.sspark.library.data.entity.News
 import whiz.sspark.library.data.entity.NewsDetail
 import whiz.sspark.library.data.enum.EventType
 import whiz.sspark.library.data.enum.HighlightType
 import whiz.sspark.library.data.viewModel.HappeningsViewModel
-import whiz.tss.sspark.s_spark_android.R
+import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentHappeningsBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
@@ -37,9 +39,6 @@ class HappeningsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        observeView()
-        observeData()
-        observeError()
     }
 
     override fun initView() {
@@ -85,7 +84,7 @@ class HappeningsFragment : BaseFragment() {
         })
 
         viewModel.getTodayNews()
-        viewModel.getEvents(EventType.UPCOMING.type, false)
+        viewModel.getEvents(EventType.UPCOMING.type, true)
     }
 
     override fun observeView() {
@@ -103,22 +102,38 @@ class HappeningsFragment : BaseFragment() {
                 flaggedNews.addAll(it.news.filter { it.isFlagged })
             }
 
+            binding.vHighlight.addFlagNewsItem(listOf(NewsDetail(), NewsDetail(), NewsDetail()))
             if (flaggedNews.isNotEmpty()) {
                 binding.vHighlight.addFlagNewsItem(flaggedNews.toList())
             }
 
-            binding.vHighlight.addNewsItem(newsResponses)
+            binding.vHighlight.addNewsItem(listOf(News(), News(), News(), News()))
         })
 
         viewModel.eventsResponse.observe(this, Observer {
-            if (it.isNotEmpty()) {
-                binding.vHighlight.addEventsItem(it)
-            }
+//            if (it.isNotEmpty()) {
+                binding.vHighlight.addEventsItem(listOf(Event(), Event(), Event(), Event()))
+//            }
         })
     }
 
     override fun observeError() {
+        viewModel.todayNewsErrorResponse.observe(this, Observer {
+            it?.let {
+                showApiResponseXAlert(activity, it)
+            }
 
+            binding.vHighlight.addFlagNewsItem(listOf(NewsDetail(), NewsDetail(), NewsDetail()))
+            binding.vHighlight.addNewsItem(listOf(News(), News(), News(), News()))
+        })
+
+        viewModel.eventsErrorResponse.observe(this, Observer {
+            it?.let {
+                showApiResponseXAlert(activity, it)
+            }
+
+            binding.vHighlight.addEventsItem(listOf(Event(), Event(), Event(), Event()))
+        })
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

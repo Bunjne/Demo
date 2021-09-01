@@ -33,7 +33,7 @@
             app:autoSizeMaxTextSize="14sp"
             app:autoSizeMinTextSize="10sp"
             app:autoSizeStepGranularity="1sp"
-            app:usparkFont="boldSerif"
+            app:ssparkFont="boldSerif"
             tools:text="@tools:sample/lorem/random" />
 
         <LinearLayout
@@ -51,7 +51,7 @@
                 android:maxLines="1"
                 android:textColor="@color/contrastSecondaryColor"
                 android:textSize="12sp"
-                app:usparkFont="regularSerif"
+                app:ssparkFont="regularSerif"
                 tools:text="ไม่มีข้อมูล" />
 
             <whiz.sspark.library.view.general.SSparkTextView
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/contrastSecondaryColor"
                 android:textSize="12sp"
-                app:usparkFont="regularSerif"
+                app:ssparkFont="regularSerif"
                 tools:text="Date" />
 
         </LinearLayout>

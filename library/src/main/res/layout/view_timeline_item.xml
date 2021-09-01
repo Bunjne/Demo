@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toTopOf="@+id/flBody"
         app:layout_constraintStart_toEndOf="@+id/cvIcon"
         app:layout_constraintTop_toTopOf="@+id/cvIcon"
-        app:usparkFont="bold"
+        app:ssparkFont="bold"
         tools:text="08:00" />
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toTopOf="@+id/flBody"
         app:layout_constraintTop_toTopOf="@+id/cvIcon"
         app:layout_constraintStart_toEndOf="@+id/tvStartTime"
-        app:usparkFont="bold"
+        app:ssparkFont="bold"
         tools:text="- 08:00" />
 
     <FrameLayout

@@ -22,6 +22,18 @@ fun convertDateToTime(date: String): String {
     return SimpleDateFormat("HH:mm", Locale.getDefault()).format(time)
 }
 
+fun getDifferenceDayTimelineValue(sourceDate: Date, targetDate: Date): Int {
+    val targetDayNumber = Calendar.getInstance().apply {
+        time = targetDate
+    }.get(Calendar.DAY_OF_YEAR)
+
+    val sourceDayNumber = Calendar.getInstance().apply {
+        time = sourceDate
+    }.get(Calendar.DAY_OF_YEAR)
+
+    return sourceDayNumber - targetDayNumber
+}
+
 fun getLatestUpdatedDateTime(context: Context, date: Date): String {
     val dateTimeFormat = if (isThaiLanguage()) {
         SimpleDateFormat("d/M/yy HH:mm", Locale.getDefault()).format(date.toThaiYear())

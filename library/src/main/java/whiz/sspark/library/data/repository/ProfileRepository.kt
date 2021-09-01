@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.datasource.remote.service.ProfileService
+import whiz.sspark.library.data.dataSource.remote.service.ProfileService
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.utility.NetworkManager
@@ -17,7 +17,8 @@ interface ProfileRepository {
 }
 
 class ProfileRepositoryImpl(private val context: Context,
-                            private val remote: ProfileService):ProfileRepository {
+                            private val remote: ProfileService
+):ProfileRepository {
     override suspend fun profile(): Flow<DataWrapperX<Student>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

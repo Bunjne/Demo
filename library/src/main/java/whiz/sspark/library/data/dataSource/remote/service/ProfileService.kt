@@ -1,4 +1,4 @@
-package whiz.sspark.library.data.datasource.remote.service
+package whiz.sspark.library.data.dataSource.remote.service
 
 import retrofit2.Response
 import retrofit2.http.GET

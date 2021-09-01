@@ -13,6 +13,10 @@ import whiz.sspark.library.data.entity.TimelineItem
 import whiz.sspark.library.data.entity.TimelineResponse
 import whiz.sspark.library.data.enum.TimeLineBodyFontStyle
 import whiz.sspark.library.databinding.ViewTodayTimelineBinding
+import whiz.sspark.library.utility.getDifferenceDayTimelineValue
+import whiz.sspark.library.view.today.timeline.TimelineAdapter
+import whiz.sspark.library.view.today.timeline.TimelineSegmentAdapter
+import whiz.sspark.library.view.today.timeline.TimelineUniversityAnnouncementsAdapter
 import java.util.*
 import kotlin.math.abs
 
@@ -103,13 +107,12 @@ class TodayTimelineView : ConstraintLayout {
             val filteredTimelineBody = timelineResponse.item.filterNot { it.body.any { it.text.isNullOrBlank() && it.style == TimeLineBodyFontStyle.QR.style } }.sortedBy { it.order }
             with(timelineItems) {
                 clear()
-                addAll(filteredTimelineBody)
+                addAll(listOf(TimelineItem(), TimelineItem(), TimelineItem()))
             }
 
             binding.rvSchedule.adapter?.notifyDataSetChanged()
         } else {
-            binding.tvNothing.visibility = View.VISIBLE
-            binding.rvSchedule.visibility = View.GONE
+            renderNothingView()
         }
     }
 
@@ -124,7 +127,7 @@ class TodayTimelineView : ConstraintLayout {
             segmentItems.add(
                 TimelineSegmentAdapter.Item(
                 date = date,
-                differenceDay = today.differenceDayTimelineValue(date)
+                differenceDay = getDifferenceDayTimelineValue(date, today)
             ))
         }
 
@@ -134,6 +137,11 @@ class TodayTimelineView : ConstraintLayout {
         }
 
         setSelectedSegment(3)
+    }
+
+    fun renderNothingView() {
+        binding.tvNothing.visibility = View.VISIBLE
+        binding.rvSchedule.visibility = View.GONE
     }
 
     fun updateUniversityEvent(segments: List<String>) {
