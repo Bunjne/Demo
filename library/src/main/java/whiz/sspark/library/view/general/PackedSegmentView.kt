@@ -9,12 +9,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.forEach
-import androidx.core.view.setPadding
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.databinding.ViewMenuStudentSegmentBinding
-import whiz.sspark.library.extension.toDP
 
 class PackedSegmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -58,9 +55,8 @@ class PackedSegmentView: ConstraintLayout {
             isChecked = true
         }
         id = resourceId
-        background = ContextCompat.getDrawable(context, R.drawable.bg_menu_student_segment)
+        background = ContextCompat.getDrawable(context, R.drawable.selector_menu_student_segment)
         layoutParams = RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)
-        setPadding(16.toDP(context), 4.toDP(context), 16.toDP(context), 4.toDP(context))
         buttonDrawable = null
         typeface = SSparkLibrary.regularTypeface
         setTextColor(

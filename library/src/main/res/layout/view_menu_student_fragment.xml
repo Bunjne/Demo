@@ -28,12 +28,12 @@
         android:id="@+id/srlMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="32dp"
         android:clipToPadding="false"
+        android:paddingTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vTranslation" >
+        app:layout_constraintTop_toTopOf="@+id/vTranslation">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMenu"
@@ -51,9 +51,9 @@
         android:id="@+id/cvProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius="12dp"
-        android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

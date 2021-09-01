@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.MenuMember
-import whiz.sspark.library.utility.getItemPositionType
 
 class MenuMemberAdapter(private val context: Context,
-                        private val members: List<MenuMember>,
-                        private val onMemberClicked: (MenuMember) -> Unit): RecyclerView.Adapter<MenuMemberAdapter.ViewHolder>() {
+                        private val onMemberClicked: (MenuMember) -> Unit): ListAdapter<MenuMember, MenuMemberAdapter.ViewHolder>(MenuMemberDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE = 2222
@@ -34,20 +33,26 @@ class MenuMemberAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val member = members.getOrNull(position)
+        val member = getItem(position)
         member?.let {
             (holder.itemView as? MenuMemberView)?.apply {
                 init(it, onMemberClicked)
                 background = when {
-                    members.size == 1 -> ContextCompat.getDrawable(context, R.drawable.bg_base_single_shadow_large)
-                    position == 0 -> ContextCompat.getDrawable(context, R.drawable.bg_base_top_shadow_large)
-                    position == members.lastIndex -> ContextCompat.getDrawable(context, R.drawable.bg_base_bottom_shadow_large)
-                    else ->  ContextCompat.getDrawable(context, R.drawable.bg_base_middle_shadow_large)
+                    itemCount == 1 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_single)
+                    position == 0 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
+                    position == itemCount - 1 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_bottom)
+                    else ->  ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_middle)
                 }
             }
         }
     }
+}
 
-
-    override fun getItemCount() = members.size
+private class MenuMemberDiffCallback : DiffUtil.ItemCallback<MenuMember>() {
+    override fun areItemsTheSame(oldItem: MenuMember, newItem: MenuMember): Boolean {
+        return oldItem == newItem
+    }
+    override fun areContentsTheSame(oldItem: MenuMember, newItem: MenuMember): Boolean {
+        return oldItem == newItem
+    }
 }

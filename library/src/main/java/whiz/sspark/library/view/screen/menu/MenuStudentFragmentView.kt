@@ -4,17 +4,17 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.MenuMember
-import whiz.sspark.library.data.entity.MenuSegment
-import whiz.sspark.library.data.entity.Student
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewMenuStudentFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showUserProfileCircle
+import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.menu.MenuSegmentAdapter
 import whiz.sspark.library.view.widget.menu.MenuMemberAdapter
 
@@ -38,14 +38,19 @@ class MenuStudentFragmentView : ConstraintLayout {
     private var segmentAdapter: MenuSegmentAdapter? = null
     private var memberAdapter: MenuMemberAdapter? = null
 
-    private val member: MutableList<MenuMember> = mutableListOf()
-    private val filteredMember: MutableList<MenuMember> = mutableListOf()
+    private val members: MutableList<MenuMember> = mutableListOf()
 
     fun init(student: Student,
              segments: List<MenuSegment>,
              onCameraClicked: () -> Unit,
              onMemberClicked: (MenuMember) -> Unit,
              onRefresh: () -> Unit) {
+
+        val convertedMember = student.getMenuMember(context)
+        with(this.members) {
+            clear()
+            addAll(convertedMember)
+        }
 
         binding.ivCamera.show(R.drawable.ic_camera)
         binding.vGradientTop.show(R.drawable.bg_primary_gradient_0)
@@ -58,7 +63,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         }
 
         binding.srlMenu.setOnRefreshListener {
-            clearData()
+            resetMenuSegment()
             onRefresh()
         }
 
@@ -71,7 +76,7 @@ class MenuStudentFragmentView : ConstraintLayout {
             }
         )
 
-        memberAdapter = MenuMemberAdapter(context, filteredMember, onMemberClicked)
+        memberAdapter = MenuMemberAdapter(context, onMemberClicked)
 
         val layoutManager = GridLayoutManager(context, 12)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -85,43 +90,29 @@ class MenuStudentFragmentView : ConstraintLayout {
         }
 
         with(binding.rvMenu) {
+            if (itemDecorationCount == 0) {
+                addItemDecoration(CustomDividerMultiItemDecoration(
+                    divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
+                    dividerViewType = listOf(MenuMemberAdapter.VIEW_TYPE)
+                ))
+            }
+
             this.layoutManager = layoutManager
             adapter = ConcatAdapter(config, segmentAdapter, memberAdapter)
         }
+
+        updateMemberAdapter()
     }
 
-    private fun clearData() {
-        member.clear()
+    private fun resetMenuSegment() {
         menuSegmentType = MenuSegmentType.INSTRUCTOR.type
         updateMemberAdapter()
         segmentAdapter?.resetSelectedTab()
     }
 
-    fun updateMember(members: List<MenuMember>) {
-        member.clear()
-        member.addAll(members)
-
-        updateMemberAdapter()
-
-        binding.srlMenu.isRefreshing = false
-    }
-
     private fun updateMemberAdapter() {
-        val filterMember = member.filter { it.type.type == menuSegmentType }
-
-        val oldItemCount = filteredMember.size
-        filteredMember.clear()
-        when {
-            oldItemCount > 1 -> memberAdapter?.notifyItemRangeRemoved(0, oldItemCount)
-            oldItemCount == 1 -> memberAdapter?.notifyItemRemoved(0)
-        }
-
-        filteredMember.addAll(filterMember)
-        val newItemCount = filteredMember.size
-        when {
-            newItemCount > 1 -> memberAdapter?.notifyItemRangeInserted(0, newItemCount)
-            newItemCount == 1 -> memberAdapter?.notifyItemInserted(0)
-        }
+        val filterMember = members.filter { it.type.type == menuSegmentType }
+        memberAdapter?.submitList(filterMember)
     }
 
     fun updateStudentProfileImage(profileImageUrl: String, gender: Long) {

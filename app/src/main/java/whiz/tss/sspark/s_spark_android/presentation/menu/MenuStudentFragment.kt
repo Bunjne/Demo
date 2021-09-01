@@ -8,7 +8,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import whiz.sspark.library.data.entity.MenuMember
 import whiz.sspark.library.data.entity.MenuSegment
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.enum.MenuSegmentType
@@ -55,11 +54,11 @@ class MenuStudentFragment : BaseFragment() {
 
     override fun initView() {
         val segments = if (SSparkApp.role == RoleType.JUNIOR) {
-            listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor), MenuSegmentType.INSTRUCTOR),
-                MenuSegment(resources.getString(R.string.menu_segment_guardian), MenuSegmentType.GUARDIAN))
+            listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
+                MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         } else {
-            listOf(MenuSegment(resources.getString(R.string.menu_senior_segment_instructor), MenuSegmentType.INSTRUCTOR),
-                MenuSegment(resources.getString(R.string.menu_segment_guardian), MenuSegmentType.GUARDIAN))
+            listOf(MenuSegment(resources.getString(R.string.menu_senior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
+                MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         }
 
         binding.vMenu.init(
@@ -72,19 +71,9 @@ class MenuStudentFragment : BaseFragment() {
 
             },
             onRefresh = {
-                binding.vMenu.updateMember(listOf(
-                    MenuMember(MenuSegmentType.INSTRUCTOR, "", "1", "test2", "name5"),
-                    MenuMember(MenuSegmentType.INSTRUCTOR, "", "2", "test3", "name6"),
-                    MenuMember(MenuSegmentType.GUARDIAN, "", "1", "test1", "name7"),
-                    MenuMember(MenuSegmentType.INSTRUCTOR, "", "1", "test1", "name4")))
+
             }
         )
-
-        binding.vMenu.updateMember(listOf(
-            MenuMember(MenuSegmentType.INSTRUCTOR, "", "1", "test1", "name1"),
-            MenuMember(MenuSegmentType.GUARDIAN, "", "2", "test1", "name2"),
-            MenuMember(MenuSegmentType.GUARDIAN, "", "1", "test1", "name3"),
-            MenuMember(MenuSegmentType.INSTRUCTOR, "", "1", "test1", "name4")))
     }
 
     override fun observeView() {

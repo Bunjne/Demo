@@ -8,8 +8,8 @@ import whiz.sspark.library.data.enum.DATASOURCE
 import whiz.sspark.library.extension.toObject
 import java.lang.Exception
 
-fun <T> transformToDataWrapperX(response: Response<T>): DataWrapperX<T> {
-    val data = response.body()
+inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>): DataWrapperX<T> {
+    val data = response.body()?.data?.toObject<T>()
     val error = try {
         response.errorBody()?.string()?.toObject<ApiResponseX>() ?: ApiResponseX(statusCode = response.code())
     } catch (e: Exception) {
@@ -38,20 +38,20 @@ fun <T> transformToDataWrapper(response: Response<T>): DataWrapper<T> {
     )
 }
 
+suspend inline fun <reified T> FlowCollector<DataWrapperX<T>>.fetchX(response: Response<ApiResponseX>) {
+    if (response.code() == 401) {
+        SSparkLibrary.onSessionExpired()
+    } else {
+        val dataWrapperX = transformToDataWrapperX<T>(response)
+        emit(dataWrapperX)
+    }
+}
+
 suspend fun <T> FlowCollector<DataWrapper<T>>.fetch(response: Response<T>) {
     if (response.code() == 401) {
         SSparkLibrary.onSessionExpired()
     } else {
         val dataWrapper = transformToDataWrapper(response)
         emit(dataWrapper)
-    }
-}
-
-suspend fun <T> FlowCollector<DataWrapperX<T>>.fetchX(response: Response<T>) {
-    if (response.code() == 401) {
-        SSparkLibrary.onSessionExpired()
-    } else {
-        val dataWrapperX = transformToDataWrapperX(response)
-        emit(dataWrapperX)
     }
 }
