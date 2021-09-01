@@ -84,7 +84,7 @@ class SSparkApp: Application() {
             setProjectType(applicationContext, ProjectType.TSS)
             apiKey = getApiKey(getAPKSignedSignature(applicationContext))
             baseUrl = getApiBaseURL(getAPKSignedSignature(applicationContext))
-            baseUrlV3 = getApiBaseURL(getAPKSignedSignature(applicationContext))
+            baseUrlV3 = getApiBaseURLV3(getAPKSignedSignature(applicationContext))
             setOnSessionExpireCallback {
                 logout(applicationContext)
             }
