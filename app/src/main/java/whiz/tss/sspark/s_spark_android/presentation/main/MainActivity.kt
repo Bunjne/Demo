@@ -36,6 +36,8 @@ class MainActivity : BaseActivity() {
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
         }
+
+        initView()
     }
 
     override fun initView() {
