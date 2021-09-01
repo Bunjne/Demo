@@ -40,4 +40,10 @@
     <!-- Event -->
     <string name="event_list_title">กิจกรรม</string>
 
+    <!--Menu-->
+    <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
+
+    <!--general-->
+    <string name="general_room">ห้องพัก %1$s</string>
+
 </resources>

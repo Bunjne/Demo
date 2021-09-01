@@ -2,6 +2,8 @@
 <resources>
     <!-- Base Color -->
     <color name="primaryColor">#CB002B</color>
+    <color name="primaryStartColor">#F35959</color>
+    <color name="primaryEndColor">#C00832</color>
     <color name="selectedSegmentPrimaryColor">#19CB002B</color>
     <color name="todaySegmentPrimaryColor">#DDCB002B</color>
     <color name="appBackgroundColor">#FFFFFF</color>
@@ -24,6 +26,7 @@
     <color name="moreIconColor">#000000</color>
     <color name="microsoftTeamBaseColor">#5059C9</color>
     <color name="transparentColor">#00000000</color>
+    <color name="shadowColor">#04000000</color>
 
     <color name="naturalV100">#FFFFFF</color>
     <color name="naturalV200">#E9F6FE</color>

@@ -43,8 +43,12 @@ class SSparkApp: Application() {
         private var _role: RoleType? = null
         val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
 
-        fun setStudentApp() {
-            _role = RoleType.STUDENT
+        fun setJuniorApp() {
+            _role = RoleType.JUNIOR
+        }
+
+        fun setSeniorApp() {
+            _role = RoleType.SENIOR
         }
 
         fun setInstructorApp() {
@@ -83,7 +87,7 @@ class SSparkApp: Application() {
             setProjectType(applicationContext, ProjectType.TSS)
             apiKey = getApiKey(getAPKSignedSignature(applicationContext))
             baseUrl = getApiBaseURL(getAPKSignedSignature(applicationContext))
-            baseUrlV3 = getApiBaseURL(getAPKSignedSignature(applicationContext))
+            baseUrlV3 = getApiBaseURLV3(getAPKSignedSignature(applicationContext))
             setOnSessionExpireCallback {
                 logout(applicationContext)
             }

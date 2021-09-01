@@ -1,85 +1,54 @@
 package whiz.sspark.library.data.entity
 
+import android.content.Context
 import com.google.gson.annotations.SerializedName
+import whiz.sspark.library.R
+import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.utility.localize
 import java.util.*
 
 data class Student(
-    @SerializedName("id") val id: Long = 0L,
-    @SerializedName("userId") val userId: String = "",
-    @SerializedName("advisorId") val advisorId: String = "",
+    @SerializedName("advisors") private val _advisors: List<StudentInstructorInfo>? = null,
+    @SerializedName("birthDate") val date: Date? = null,
+    @SerializedName("cardImageUrl") var cardImageUrl: String = "",
     @SerializedName("code") val code: String = "",
-    @SerializedName("batchCode") val batchCode: String = "",
-    @SerializedName("titleNameEn") val titleNameEn: String = "",
-    @SerializedName("titleNameTh") val titleNameTh: String = "",
-    @SerializedName("levelCode") val levelCode: String = "",
-    @SerializedName("levelNameEn") val _levelNameEn: String = "",
-    @SerializedName("levelNameTh") val _levelNameTh: String = "",
-    @SerializedName("levelNameCn") val _levelNameCn: String = "",
+    @SerializedName("credit") val credit: Int = 0,
+    @SerializedName("citizenId") val citizenId: String = "",
+    @SerializedName("expiredAt") val expiredAt: Date? = null,
     @SerializedName("firstNameEn") val _firstNameEn: String = "",
     @SerializedName("firstNameTh") val _firstNameTh: String = "",
     @SerializedName("firstNameCn") val _firstNameCn: String = "",
+    @SerializedName("gender") val gender: String = "",
+    @SerializedName("gpa") val gpa: Double = 0.0,
+    @SerializedName("guardians") private val _guardians: List<StudentGuardianInfo>? = null,
+    @SerializedName("id") val id: Long = 0L,
+    @SerializedName("issuedAt") val issuedAt: Date? = null,
     @SerializedName("lastNameEn") val _lastNameEn: String = "",
     @SerializedName("lastNameTh") val _lastNameTh: String = "",
     @SerializedName("lastNameCn") val _lastNameCn: String = "",
-    @SerializedName("gender") val gender: String = "0",
-    @SerializedName("nationCode") val nationalityCode: String = "",
-    @SerializedName("nationNameEn") val nationalityNameEn: String = "",
-    @SerializedName("nationNameTh") val nationalityNameTh: String = "",
-    @SerializedName("nationNameCn") val nationalityNameCn: String = "",
-    @SerializedName("citizenId") val citizenId: String? = null,
-    @SerializedName("programCode") val programCode: String = "",
-    @SerializedName("programNameEn") val _programNameEn: String = "",
-    @SerializedName("programNameTh") val _programNameTh: String = "",
-    @SerializedName("facultyCode") val facultyCode: String = "",
-    @SerializedName("facultyNameEn") val _facultyNameEn: String = "",
-    @SerializedName("facultyNameTh") val _facultyNameTh: String = "",
-    @SerializedName("facultyNameCn") val _facultyNameCn: String = "",
-    @SerializedName("facultyLogoUrl") val facultyLogoUrl: String = "",
-    @SerializedName("departmentCode") val departmentCode: String = "",
-    @SerializedName("departmentNameEn") val _departmentNameEn: String = "",
-    @SerializedName("departmentNameTh") val _departmentNameTh: String = "",
-    @SerializedName("departmentNameCn") val _departmentNameCn: String = "",
-    @SerializedName("universityNameEn") val _universityNameEn: String = "",
-    @SerializedName("universityNameTh") val _universityNameTh: String = "",
-    @SerializedName("universityLogoUrl") val universityLogoUrl: String = "",
-    @SerializedName("isGraduated") val isGraduated: Boolean = false,
-    @SerializedName("gpa") val gpa: Double = 0.0,
-    @SerializedName("credit") val credit: Int = 0,
-    @SerializedName("studyYear") val studyYear: Double = 0.0,
-    @SerializedName("creditMax") val creditMax: Int = 0,
-    @SerializedName("creditMin") val creditMin: Int = 0,
-    @SerializedName("universityEmail") val universityEmail: String = "",
-    @SerializedName("birthDate") val birthDate: Date = Date(),
-    @SerializedName("fullNameEn") val _fullNameEn: String = "",
-    @SerializedName("fullNameTh") val _fullNameTh: String = "",
-    @SerializedName("fullNameCn") val _fullNameCn: String = "",
-    @SerializedName("scholarshipHour") val scholarshipHour: Int = 0,
-    @SerializedName("studentActive") var studentActive: Date? = null,
-    @SerializedName("issuedAt") var issuedAt: Date? = null,
-    @SerializedName("expiredAt") var expiredAt: Date? = null,
+    @SerializedName("phoneNumber") val phoneNumber: String = "",
     @SerializedName("profileImageUrl") var profileImageUrl: String = "",
-    @SerializedName("cardImageUrl") val cardImageUrl: String = "",
-    @SerializedName("billingAddress1") var billingAddress1: String = "00000",
-    @SerializedName("billingAddress2") var billingAddress2: String = "",
-    @SerializedName("billingPostalCode") var billingPostalCode: String = "",
+    @SerializedName("schoolNameEn") val schoolNameEn: String = "",
+    @SerializedName("schoolNameTh") val schoolNameTh: String = "",
+    @SerializedName("schoolLogoUrl") val schoolLogoUrl: String = "",
     @SerializedName("today") var today: Date = Date(),
-    @SerializedName("colorCode") var colorCode: String? = null,
-    @SerializedName("hasCurriculum") val hasCurriculum: Boolean = false,
-    @SerializedName("batch") var batch: String = "",
-    @SerializedName("guardianStatus") val guardianStatus: String = "",
-    @SerializedName("activeYear") val activeYear: Int = 0,
-    @SerializedName("activeTerm") val activeTerm: Int = 0,
-    @SerializedName("isWeeklyScheduleEnabled") val isWeeklyScheduleEnabled: Boolean = false,
-    @SerializedName("isThai") val isThai: Boolean = false,
-    @SerializedName("passportNumber") val passPortNumber: String? = null,
-    @SerializedName("phoneNumber") val phoneNumber: String? = null,
-    @SerializedName("bankAccountNumber") val bankAccountNumber: String? = null
+    @SerializedName("userId") val userId: String = "",
 ) {
-    val firstName get() = localize(_firstNameEn, _firstNameTh, _fullNameCn, false)
+    val firstName get() = localize(_firstNameEn, _firstNameTh, _firstNameCn, false)
     val lastName get() = localize(_lastNameEn, _lastNameTh, _lastNameCn, false)
+    val advisor get() = _advisors ?: listOf()
+    val guardians get() = _guardians ?: listOf()
 }
 
 fun Student.convertToProfile(): Profile {
-    return Profile(this.cardImageUrl, this.gender, this.firstName, this.lastName)
+    return Profile(this.profileImageUrl, this.gender, this.firstName, this.lastName)
+}
+
+fun Student.getMenuMember(context: Context): List<MenuMember> {
+    val member: MutableList<MenuMember> = mutableListOf()
+    val instructors = advisor.map { MenuMember(type = MenuSegmentType.INSTRUCTOR, imageUrl = it.profileImageUrl, gender = it.gender, description = context.resources.getString(R.string.general_room, it.officeRoom), name = it.fullName) }
+    val guardians = guardians.map { MenuMember(type = MenuSegmentType.GUARDIAN, imageUrl = it.profileImageUrl, gender = it.gender, description = it.relation, name = it.fullName) }
+    member.addAll(instructors)
+    member.addAll(guardians)
+    return member
 }

@@ -32,7 +32,8 @@ class ProfileManager(private val context: Context) {
     val profile: Flow<Profile?> = context.dataStore.data
         .map { preferences ->
             when (SSparkApp.role) {
-                RoleType.STUDENT -> preferences[STUDENT_KEY]?.toObject<Student>()?.convertToProfile()
+                RoleType.JUNIOR,
+                RoleType.SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.convertToProfile()
                 else -> null
             }
         }

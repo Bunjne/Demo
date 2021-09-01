@@ -2,5 +2,6 @@
 <resources>
     <!-- Base Color -->
     <color name="primaryColor">#CB002B</color>
-
+    <color name="primaryStartColor">#F35959</color>
+    <color name="primaryEndColor">#C00832</color>
 </resources>

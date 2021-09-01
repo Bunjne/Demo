@@ -34,16 +34,20 @@ fun retrieveAuthenticationInformation(context: Context): AuthenticationInformati
 }
 
 fun saveAuthenticationInformation(context: Context, authenticationInformation: AuthenticationInformation) {
-    val sharedPreferences = EncryptedSharedPreferences.create(
-        ConstantValue.sharedPreferencesAuthenticationInformationKey,
-        MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
-        context,
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
+    val sharedPreference = try {
+        EncryptedSharedPreferences.create(
+            ConstantValue.sharedPreferencesAuthenticationInformationKey,
+            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    } catch (e: Exception) {
+        context.getSharedPreferences(ConstantValue.sharedPreferencesAuthenticationInformationKey, Context.MODE_PRIVATE)
+    }
 
     val authenticationInformationJson = authenticationInformation.toJson()
-    with(sharedPreferences.edit()) {
+    with(sharedPreference.edit()) {
         putString(ConstantValue.sharedPreferencesAuthenticationInformationKey, authenticationInformationJson)
         apply()
     }
