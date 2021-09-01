@@ -55,7 +55,7 @@ Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getApiBaseURL(JNIEnv *env, jobj
     const char * keyCPPString = (*env)->GetStringUTFChars(env, key, NULL);
 
     if (strcmp(debuggingKey, keyCPPString) == 0) {
-        return (*env)->NewStringUTF(env, "https://auusparkapi-stg.azurewebsites.net/api/");
+        return (*env)->NewStringUTF(env, "https://us-central1-sample-api-4ed08.cloudfunctions.net/api/");
     } else if (strcmp(releaseKey, keyCPPString) == 0) {
         return (*env)->NewStringUTF(env, "https://auusparkapi-stg.azurewebsites.net/api/");
     }
@@ -81,7 +81,7 @@ Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getApiBaseURLV3(JNIEnv *env, jo
     const char * keyCPPString = (*env)->GetStringUTFChars(env, key, NULL);
 
     if (strcmp(debuggingKey, keyCPPString) == 0) {
-        return (*env)->NewStringUTF(env, "https://auusparkservice-stg.azurewebsites.net/api/");
+        return (*env)->NewStringUTF(env, "https://us-central1-sample-api-4ed08.cloudfunctions.net/api/");
     } else if (strcmp(releaseKey, keyCPPString) == 0) {
         return (*env)->NewStringUTF(env, "https://auusparkservice-stg.azurewebsites.net/api/");
     }
