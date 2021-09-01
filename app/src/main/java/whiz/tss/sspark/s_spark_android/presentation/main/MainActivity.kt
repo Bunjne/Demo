@@ -2,17 +2,13 @@ package whiz.tss.sspark.s_spark_android.presentation.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
-import whiz.sspark.library.data.entity.Profile
 import whiz.sspark.library.data.enum.BottomNavigationType
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.databinding.ActivityMainBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.menu.MenuStudentFragment
 import whiz.tss.sspark.s_spark_android.presentation.today.TodayFragment
 
 class MainActivity : BaseActivity() {
@@ -40,6 +36,8 @@ class MainActivity : BaseActivity() {
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
         }
+
+        initView()
     }
 
     override fun initView() {
@@ -67,9 +65,9 @@ class MainActivity : BaseActivity() {
 //                    }
                 }
                 BottomNavigationId.MENU.id -> {
-//                    if (!isFragmentVisible(BottomNavigationId.MENU.id)) { // TODO wait implementation
-//                        renderFragment(MenuFragment.newInstance(), BottomNavigationId.MENU.id)
-//                    }
+                    if (!isFragmentVisible(BottomNavigationId.MENU.id)) {
+                        renderFragment(MenuStudentFragment.newInstance(), BottomNavigationId.MENU.id)
+                    }
                 }
             }
         }

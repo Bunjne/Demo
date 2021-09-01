@@ -26,26 +26,22 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('.signing/tssprd.jks')
-            storePassword "d2rIleEma23OsSCWTSPH"
-            keyAlias "tssprd"
-            keyPassword "d2rIleEma23OsSCWTSPH"
-//            storeFile file('.signing/tssstg.jks')
-//            storePassword "VYvdyscRv0SEEpa58kCk"
-//            keyAlias "tssstg"
-//            keyPassword "VYvdyscRv0SEEpa58kCk"
+            storeFile file('.signing/tssstg.jks')
+            storePassword "VYvdyscRv0SEEpa58kCk"
+            keyAlias "tssstg"
+            keyPassword "VYvdyscRv0SEEpa58kCk"
         }
         release {
             storeFile file('.signing/tssprd.jks')
-            storePassword "d2rIleEma23OsSCWTSPH"
-            keyAlias "tssprd"
-            keyPassword "d2rIleEma23OsSCWTSPH"
+            storePassword pipelineProperties["storePassword"]
+            keyAlias pipelineProperties["keyAlias"]
+            keyPassword pipelineProperties["keyPassword"]
         }
     }
 
     buildTypes {
         debug {
-//            applicationIdSuffix ".stg"
+            applicationIdSuffix ".stg"
 
             resValue "string", "app_name", "@string/app_name_stg"
             signingConfig signingConfigs.debug

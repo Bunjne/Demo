@@ -8,13 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.Profile
-import whiz.sspark.library.utility.showApiResponseAlert
+import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
 import whiz.tss.sspark.s_spark_android.unility.*
-import java.lang.RuntimeException
 
 class LoginActivity : LocalizationActivity() {
 
@@ -52,7 +50,7 @@ class LoginActivity : LocalizationActivity() {
             viewModel.getProfile()
         } else {
             val deviceID = retrieveDeviceID(this)
-            viewModel.login("5913873", "1850", deviceID, operatorName)
+            viewModel.login("6113187", "1850", deviceID, operatorName)
         }
     }
 
@@ -81,10 +79,10 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
                 }
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
             }
         }
     }
@@ -92,13 +90,13 @@ class LoginActivity : LocalizationActivity() {
     private fun observeError() {
         viewModel.loginErrorResponse.observe(this) {
             it?.let {
-                showApiResponseAlert(this, it)
+                showApiResponseXAlert(this, it)
             }
         }
 
         viewModel.profileErrorResponse.observe(this) {
             it?.let {
-                showApiResponseAlert(this, it)
+                showApiResponseXAlert(this, it)
             }
         }
     }

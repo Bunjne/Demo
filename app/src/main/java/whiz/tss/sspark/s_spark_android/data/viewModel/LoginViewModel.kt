@@ -24,16 +24,16 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
     val loginResponse: LiveData<AuthenticationInformation>
         get() = _loginResponse
 
-    private val _loginErrorResponse = MutableLiveData<ApiErrorResponse?>()
-    val loginErrorResponse: LiveData<ApiErrorResponse?>
+    private val _loginErrorResponse = MutableLiveData<ApiResponseX?>()
+    val loginErrorResponse: LiveData<ApiResponseX?>
         get() = _loginErrorResponse
 
     private val _profileResponse = MutableLiveData<Student>()
     val profileResponse: LiveData<Student>
         get() = _profileResponse
 
-    private val _profileErrorResponse = MutableLiveData<ApiErrorResponse?>()
-    val profileErrorResponse: LiveData<ApiErrorResponse?>
+    private val _profileErrorResponse = MutableLiveData<ApiResponseX?>()
+    val profileErrorResponse: LiveData<ApiResponseX?>
         get() = _profileErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()

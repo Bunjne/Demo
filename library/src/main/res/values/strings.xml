@@ -24,4 +24,10 @@
     <string name="update_new_data">PLEASE WAIT...</string>
     <string name="update_just_now">UPDATED JUST NOW</string>
 
+    <!--Menu-->
+    <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
+
+    <!--general-->
+    <string name="general_room">ห้องพัก %1$s</string>
+
 </resources>
