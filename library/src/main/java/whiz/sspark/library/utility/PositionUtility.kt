@@ -2,7 +2,6 @@ package whiz.sspark.library.utility
 
 import whiz.sspark.library.data.enum.ItemPosition
 
-
 fun getItemPositionType(isNextItemHeader: Boolean, isPreviousItemHeader: Boolean) : String {
     return if (isPreviousItemHeader && isNextItemHeader ) {
         ItemPosition.SINGLE.position

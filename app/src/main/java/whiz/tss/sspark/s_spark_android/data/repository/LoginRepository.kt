@@ -11,6 +11,7 @@ import whiz.sspark.library.data.entity.LoginAPIBody
 import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.transformToDataWrapperX
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.datasSource.remote.service.LoginService
 
 interface LoginRepository {
@@ -32,7 +33,7 @@ class LoginRepositoryImpl(private val context: Context,
                     throw e
                 }
             } else {
-                throw Exception("No internet")
+                throw Exception(context.resources.getString(R.string.general_alertmessage_no_internet_connection))
             }
         }.flowOn(Dispatchers.IO)
     }
@@ -54,7 +55,7 @@ class LoginRepositoryImpl(private val context: Context,
                     throw e
                 }
             } else {
-                throw Exception("No internet")
+                throw Exception(context.resources.getString(R.string.general_alertmessage_no_internet_connection))
             }
         }.flowOn(Dispatchers.IO)
     }

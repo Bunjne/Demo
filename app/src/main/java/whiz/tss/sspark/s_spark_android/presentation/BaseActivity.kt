@@ -30,7 +30,6 @@ abstract class BaseActivity: LocalizationActivity() {
         observeView()
         observeData()
         observeError()
-        initView()
     }
 
     abstract fun initView()
