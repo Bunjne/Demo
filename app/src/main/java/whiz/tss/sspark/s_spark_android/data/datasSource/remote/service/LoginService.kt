@@ -9,7 +9,7 @@ import whiz.sspark.library.data.entity.LoginAPIBody
 import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 
 interface LoginService {
-    @POST("v2/accounts/login")
+    @POST("v1/accounts/login")
     suspend fun getLogin(@Body loginAPIBody: LoginAPIBody): Response<ApiResponseX>
 
     @POST("v2/accounts/tokens/refresh")
