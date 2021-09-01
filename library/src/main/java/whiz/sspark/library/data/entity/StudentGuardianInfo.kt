@@ -3,7 +3,7 @@ package whiz.sspark.library.data.entity
 import com.google.gson.annotations.SerializedName
 import whiz.sspark.library.utility.localize
 
-data class StudentGuardianItem(
+data class StudentGuardianInfo(
     @SerializedName("id") val id: Long = 0L,
     @SerializedName("code") val code: String = "",
     @SerializedName("gender") val gender: String = "",

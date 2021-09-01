@@ -8,7 +8,7 @@ import whiz.sspark.library.utility.localize
 import java.util.*
 
 data class Student(
-    @SerializedName("advisors") private val _advisors: List<StudentInstructorItem>? = null,
+    @SerializedName("advisors") private val _advisors: List<StudentInstructorInfo>? = null,
     @SerializedName("birthDate") val date: Date? = null,
     @SerializedName("cardImageUrl") var cardImageUrl: String = "",
     @SerializedName("code") val code: String = "",
@@ -20,7 +20,7 @@ data class Student(
     @SerializedName("firstNameCn") val _firstNameCn: String = "",
     @SerializedName("gender") val gender: String = "",
     @SerializedName("gpa") val gpa: Double = 0.0,
-    @SerializedName("guardians") private val _guardians: List<StudentGuardianItem>? = null,
+    @SerializedName("guardians") private val _guardians: List<StudentGuardianInfo>? = null,
     @SerializedName("id") val id: Long = 0L,
     @SerializedName("issuedAt") val issuedAt: Date? = null,
     @SerializedName("lastNameEn") val _lastNameEn: String = "",

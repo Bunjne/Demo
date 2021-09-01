@@ -17,6 +17,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.unility.logout
 
 class MenuStudentFragment : BaseFragment() {
 
@@ -45,11 +46,12 @@ class MenuStudentFragment : BaseFragment() {
             profileManager.student.collect {
                 it?.let {
                     student = it
+                    initView()
+                } ?: run {
+                    logout(requireContext())
                 }
             }
         }
-
-        initView()
     }
 
     override fun initView() {

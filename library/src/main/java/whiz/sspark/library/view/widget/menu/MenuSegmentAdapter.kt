@@ -48,6 +48,5 @@ class MenuSegmentAdapter(private val context: Context,
         )
     }
 
-
     override fun getItemCount() = 1
 }
