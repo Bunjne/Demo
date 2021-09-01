@@ -46,9 +46,9 @@ fun Student.convertToProfile(): Profile {
 
 fun Student.getMenuMember(context: Context): List<MenuMember> {
     val member: MutableList<MenuMember> = mutableListOf()
-    val fullNameCn = advisor.map { MenuMember(type = MenuSegmentType.INSTRUCTOR, imageUrl = it.profileImageUrl, gender = it.gender, description = context.resources.getString(R.string.general_room, it.officeRoom), name = it.fullName) }
+    val instructor = advisor.map { MenuMember(type = MenuSegmentType.INSTRUCTOR, imageUrl = it.profileImageUrl, gender = it.gender, description = context.resources.getString(R.string.general_room, it.officeRoom), name = it.fullName) }
     val guardians = guardians.map { MenuMember(type = MenuSegmentType.GUARDIAN, imageUrl = it.profileImageUrl, gender = it.gender, description = it.relation, name = it.fullName) }
-    member.addAll(fullNameCn)
+    member.addAll(instructor)
     member.addAll(guardians)
     return member
 }
