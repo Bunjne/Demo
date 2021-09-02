@@ -26,6 +26,8 @@
 
     <!--Menu-->
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
+    <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
+    <string name="menu_notification_inbox_text">กล่องข้อความ</string>
 
     <!--general-->
     <string name="general_room">ห้องพัก %1$s</string>

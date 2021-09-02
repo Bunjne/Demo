@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="6dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/ivNotificationCountGradientBackground"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/bg_primary_oval_gradient_0" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvNotificationCount"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/naturalV100"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivNotificationCountGradientBackground"
+                app:layout_constraintEnd_toEndOf="@+id/ivNotificationCountGradientBackground"
+                app:layout_constraintStart_toStartOf="@+id/ivNotificationCountGradientBackground"
+                app:layout_constraintTop_toTopOf="@+id/ivNotificationCountGradientBackground"
+                app:ssparkFont="regular"
+                tools:text="1" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvDay"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="12dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@string/menu_notification_inbox_text"
+                android:textColor="@color/textBaseThirdColor"
+                android:textSize="13dp"
+                app:layout_constraintEnd_toStartOf="@+id/ivNotificationCountGradientBackground"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="regular" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/viewBaseThirdColor"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDay">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="8dp">
+
+                    <whiz.sspark.library.view.general.SSparkTextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBasePrimaryColor"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:ssparkFont="bold"
+                        tools:text="วิชา MATH" />
+
+                    <whiz.sspark.library.view.general.SSparkTextView
+                        android:id="@+id/tvDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="2"
+                        android:textColor="@color/textBaseSecondaryColor"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                        app:ssparkFont="regular"
+                        tools:text="อ.ดวงจันทร์ วันเพ็ญ\nสร้างโพสต์ใหม่" />
+
+                    <whiz.sspark.library.view.general.SSparkTextView
+                        android:id="@+id/tvLastUpdate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/textBaseSecondaryColor"
+                        android:textSize="9dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                        app:ssparkFont="regular"
+                        tools:text="6 สิงหาคม เวลา 9:41 น." />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
