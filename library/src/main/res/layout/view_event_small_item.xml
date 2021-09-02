@@ -6,37 +6,22 @@
     android:layout_width="156dp"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:id="@+id/cvBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/transparentColor"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:background_Type="fill"
+        app:cornerRadius="12dp"
+        app:shadow_Outer_Area="2dp"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow0_Outer_Alpha="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ivCardBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/cities" />
-
-    </androidx.cardview.widget.CardView>
-
-    <View
-        android:id="@+id/vGradient"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_event_gradient_blur"
-        app:layout_constraintBottom_toBottomOf="@+id/cvBackground"
-        app:layout_constraintEnd_toEndOf="@+id/cvBackground"
-        app:layout_constraintStart_toStartOf="@+id/cvBackground"
-        app:layout_constraintTop_toTopOf="@+id/cvBackground" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvName"
@@ -47,11 +32,11 @@
         android:ellipsize="end"
         android:lines="3"
         android:maxLines="3"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        app:autoSizeMaxTextSize="14sp"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeStepGranularity="1sp"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="16dp"
+        app:autoSizeMaxTextSize="14dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvImage"
@@ -67,7 +52,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/textBaseThirdColor"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +69,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/textBaseThirdColor"
-        android:textSize="12sp"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,13 +77,18 @@
         app:ssparkFont="regular"
         tools:text="MAY 5, 2019 09:00 HRS." />
 
-    <androidx.cardview.widget.CardView
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:id="@+id/cvImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="1dp"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:background_Type="fill"
+        app:cornerRadius="8dp"
+        app:shadow_Outer_Area="2dp"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow0_Outer_Alpha="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +102,6 @@
             android:scaleType="centerCrop"
             tools:src="@tools:sample/cities" />
 
-    </androidx.cardview.widget.CardView>
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

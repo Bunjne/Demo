@@ -13,6 +13,7 @@ import whiz.sspark.library.data.enum.TimeLineItemType
 import whiz.sspark.library.data.enum.TimelineColorStyle
 import whiz.sspark.library.databinding.ViewTimelineItemBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toResourceColor
 import whiz.sspark.library.utility.convertDateToTime
 
 class TimelineItemView : ConstraintLayout {
@@ -39,14 +40,18 @@ class TimelineItemView : ConstraintLayout {
             binding.ivIcon.visibility = View.GONE
         }
 
+        val startColor = R.color.primaryStartColor.toResourceColor(context)
+        val endColor = R.color.primaryEndColor.toResourceColor(context)
+        val viewBaseSecondaryColor = R.color.viewBaseSecondaryColor.toResourceColor(context)
+
         if (timelineItem.backgroundColor.contains(TimelineColorStyle.PRIMARY.style)) {
             binding.ivIcon.setColorFilter(Color.WHITE)
-            binding.cvIcon.setCardBackgroundColor(ContextCompat.getColor(context, R.color.primaryColor))
+            binding.cvIcon.background_Gradient_Colors = listOf(startColor, endColor).toIntArray()
             binding.tvStartTime.setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
             binding.tvEndTime.setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
         } else {
             binding.ivIcon.clearColorFilter()
-            binding.cvIcon.setCardBackgroundColor(ContextCompat.getColor(context, R.color.viewBaseSecondaryColor))
+            binding.cvIcon.background_Gradient_Colors = listOf(viewBaseSecondaryColor, viewBaseSecondaryColor).toIntArray()
             binding.tvStartTime.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
             binding.tvEndTime.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
         }

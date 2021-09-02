@@ -48,7 +48,7 @@ class SegmentTabView : ConstraintLayout {
             val singleRadioButton = getSegmentRadioButton(context, 0, title, isGradientAble).apply {
                 id = 0
                 setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
                 background = if (isGradientAble) {
                     getCorneredCenterTabBackground(gradientColors)
                 } else {
@@ -139,7 +139,7 @@ class SegmentTabView : ConstraintLayout {
             setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
         }
 
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+        setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 10, 14, 1, TypedValue.COMPLEX_UNIT_SP)
         maxLines = 1
         text = title

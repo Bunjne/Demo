@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBackgroundColor">
+    android:background="@color/viewBasePrimaryColor">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSegment"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
-        android:paddingVertical="12dp"
+        android:paddingVertical="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvSegment" />
@@ -35,11 +35,11 @@
         android:gravity="center_horizontal"
         android:text="@string/today_nothing_todo_title"
         android:textColor="@color/textBaseThirdColor"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:ssparkFont="bold"
-        app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="1sp"
+        app:autoSizeMaxTextSize="16dp"
+        app:autoSizeMinTextSize="12dp"
+        app:autoSizeStepGranularity="1dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

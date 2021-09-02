@@ -11,6 +11,10 @@ fun Date.toThaiYear() = Calendar.getInstance().apply {
 }.time
 
 fun convertDateToTime(date: String): String {
+    if (date.isBlank()) {
+        return "00:00"
+    }
+
     val splitTimeText = date.split(":")
     val time = Calendar.getInstance().apply {
         set(Calendar.HOUR_OF_DAY, splitTimeText[0].toInt())

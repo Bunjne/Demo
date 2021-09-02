@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import whiz.sspark.library.data.enum.TodayFragmentId
 import whiz.sspark.library.extension.show

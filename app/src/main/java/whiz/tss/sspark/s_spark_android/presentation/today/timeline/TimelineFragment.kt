@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.enum.TimeLineAuthorityType
 import whiz.sspark.library.data.viewModel.TimelineViewModel
 import whiz.sspark.library.extension.toLocalDate
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentTimelineBinding
@@ -125,6 +126,7 @@ class TimelineFragment : BaseFragment() {
 
         viewModel.getTodayDate()
         viewModel.getTimeline(currentDate, 0, false)
+        binding.vTimeline.updateSegment(currentDate)
     }
 
     override fun observeView() {
@@ -137,7 +139,8 @@ class TimelineFragment : BaseFragment() {
         viewModel.timelineResponse.observe(this, Observer {
             it?.let {
                 binding.vTimeline.updateTimeline(it)
-                binding.vTimeline.updateUniversityEvent(it.alertAnnouncements)
+                binding.vTimeline.updateUniversityEvent(listOf("Hello", "HAHAHA"))
+
                 val backgroundImageUrl = it.dayImageUrl //TODO don't forget to make condition for darkmode when darkmode is confirmed.
                 updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon, backgroundImageUrl ?: "", it.aqi , it.aqiColor)
             }
@@ -162,6 +165,12 @@ class TimelineFragment : BaseFragment() {
         viewModel.todayDateErrorResponse.observe(this, Observer {
             it?.let {
                 showApiResponseAlert(activity, it)
+            }
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            it?.let {
+                context?.showAlertWithOkButton(title = it)
             }
         })
     }

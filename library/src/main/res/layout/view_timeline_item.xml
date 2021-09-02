@@ -7,13 +7,18 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="12dp">
 
-    <androidx.cardview.widget.CardView
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:id="@+id/cvIcon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        app:cardBackgroundColor="@color/viewBaseThirdColor"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:cornerRadius="16dp"
+        app:background_Type="fill"
+        app:background_ColorType="gradient_linear"
+        app:shadow_Outer_Area="2dp"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow0_Outer_Alpha="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,7 +30,7 @@
             android:scaleType="fitCenter"
             tools:srcCompat="@tools:sample/avatars" />
 
-    </androidx.cardview.widget.CardView>
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvStartTime"
@@ -36,14 +41,9 @@
         android:maxLines="1"
         android:textAllCaps="true"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="18sp"
-        app:autoSizeMaxTextSize="18sp"
-        app:autoSizeMinTextSize="14sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/flBody"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvIcon"
         app:layout_constraintStart_toEndOf="@+id/cvIcon"
-        app:layout_constraintTop_toTopOf="@+id/cvIcon"
         app:ssparkFont="bold"
         tools:text="08:00" />
 
@@ -51,18 +51,14 @@
         android:id="@+id/tvEndTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="2dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textAllCaps="true"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="14sp"
-        app:autoSizeMaxTextSize="14sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/flBody"
-        app:layout_constraintTop_toTopOf="@+id/cvIcon"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStartTime"
         app:layout_constraintStart_toEndOf="@+id/tvStartTime"
         app:ssparkFont="bold"
         tools:text="- 08:00" />

@@ -6,14 +6,16 @@
     android:id="@+id/cvBackground"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:stroke_Gradient_Angle="90"
+    app:background_Type="fill"
     app:background_ColorType="gradient_linear"
     app:background_Gradient_Color0="@color/primaryStartColor"
     app:background_Gradient_ColorEnd="@color/primaryEndColor"
-    app:cornerRadius="8dp"
-    app:shadow0_Outer_Alpha="0.4"
     app:shadow_Outer_Area="2dp"
+    app:shadow0_Outer_Blur="30dp"
     app:shadow0_Outer_Color="@color/shadowColor"
-    app:shadow0_Outer_Blur="30dp">
+    app:shadow0_Outer_Alpha="1"
+    app:cornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,26 +28,30 @@
             android:gravity="center_horizontal"
             android:paddingTop="2dp"
             android:text="@string/today_segment_title"
-            android:textSize="12sp"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:ssparkFont="bold" />
 
-        <com.google.android.material.card.MaterialCardView
+        <com.sinaseyfi.advancedcardview.AdvancedCardView
             android:id="@+id/mcvContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.MaterialComponents.DayNight"
-            app:cardBackgroundColor="@color/appBackgroundColor"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSegmentTodayTitle"
-            app:strokeColor="@color/viewBaseSecondaryColor"
-            app:strokeWidth="2dp">
+            app:background_Type="fill_stroke"
+            app:background_ColorType="solid"
+            app:cornerRadius="8dp"
+            app:stroke_Width="2dp"
+            app:stroke_Type="solid"
+            app:stroke_ColorType="gradient_linear"
+            app:shadow_Outer_Area="2dp"
+            app:shadow0_Outer_Blur="30dp"
+            app:shadow0_Outer_Color="@color/shadowColor"
+            app:shadow0_Outer_Alpha="1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clDate"
@@ -61,10 +67,10 @@
                     android:maxLines="1"
                     android:textAllCaps="true"
                     android:textColor="@color/textBaseSecondaryColor"
-                    android:textSize="14sp"
-                    app:autoSizeMaxTextSize="14sp"
-                    app:autoSizeMinTextSize="12sp"
-                    app:autoSizeStepGranularity="1sp"
+                    android:textSize="14dp"
+                    app:autoSizeMaxTextSize="14dp"
+                    app:autoSizeMinTextSize="12dp"
+                    app:autoSizeStepGranularity="1dp"
                     app:autoSizeTextType="uniform"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/textBaseSecondaryColor"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDate"
@@ -100,7 +106,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

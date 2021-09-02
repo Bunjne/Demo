@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.sinaseyfi.advancedcardview.AdvancedCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_base_item_list_single"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:background_Type="fill"
+    app:background_ColorType="solid"
+    app:cornerRadius="12dp"
+    app:shadow_Outer_Area="8dp"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow0_Outer_Alpha="1">
 
-    <ImageView
-        android:id="@+id/ivAnnounce"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:scaleType="fitCenter"
-        app:tint="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvTitle"
-        tools:src="@tools:sample/avatars" />
-
-    <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginVertical="12dp"
-        android:ellipsize="end"
-        android:lines="2"
-        android:gravity="center_vertical"
-        android:textColor="@color/textBaseSecondaryColor"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivAnnounce"
-        app:layout_constraintTop_toTopOf="parent"
-        app:ssparkFont="regular"
-        tools:text="@tools:sample/lorem" />
+        android:paddingHorizontal="12dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivAnnounce"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle"
+            app:tint="@color/primaryColor"
+            tools:src="@tools:sample/avatars" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="12dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="2"
+            android:textColor="@color/textBaseSecondaryColor"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivAnnounce"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="regular"
+            tools:text="@tools:sample/lorem" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

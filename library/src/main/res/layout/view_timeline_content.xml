@@ -27,7 +27,7 @@
         android:ellipsize="end"
         android:textAllCaps="true"
         android:textColor="@color/textBaseSecondaryColor"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivIcon"

@@ -52,9 +52,9 @@ class TimelineSegmentAdapter(private val context: Context,
                 }
 
                 when (position) {
-                    0 -> setPadding(14.toDP(context), 0, 0, 0)
-                    items.lastIndex -> setPadding(14.toDP(context), 0, 14.toDP(context), 0)
-                    else -> setPadding(14.toDP(context), 0, 0, 0)
+                    0 -> setPadding(12.toDP(context), 0, 0, 0)
+                    items.lastIndex -> setPadding(12.toDP(context), 0, 12.toDP(context), 0)
+                    else -> setPadding(12.toDP(context), 0, 0, 0)
                 }
             }
 

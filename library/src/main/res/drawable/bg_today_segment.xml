@@ -5,7 +5,7 @@
     <gradient
         android:angle="90"
         android:endColor="@color/todayGradientBackgroundColor"
-        android:startColor="@color/appBackgroundColor" />
+        android:startColor="@color/viewBasePrimaryColor" />
 
     <corners android:topLeftRadius="12dp" android:topRightRadius="12dp"/>
 

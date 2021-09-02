@@ -7,6 +7,6 @@ import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.TimelineResponse
 
 interface TimelineServiceV3 {
-    @GET("v3/Timelines")
+    @GET("v1/Timelines")
     suspend fun getTimeline(@Query("date") differDay: Int): Response<ApiResponseX>
 }

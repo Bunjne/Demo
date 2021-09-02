@@ -38,7 +38,7 @@
     <string name="today_timeline_time" translatable="false"> - %2s</string>
 
     <!-- Event -->
-    <string name="event_list_title">กิจกรรม</string>
+    <string name="event_list_title">EVENT LIST</string>
 
     <!--Menu-->
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>

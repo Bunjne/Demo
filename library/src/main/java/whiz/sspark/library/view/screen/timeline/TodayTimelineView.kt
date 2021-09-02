@@ -107,7 +107,7 @@ class TodayTimelineView : ConstraintLayout {
             val filteredTimelineBody = timelineResponse.item.filterNot { it.body.any { it.text.isNullOrBlank() && it.style == TimeLineBodyFontStyle.QR.style } }.sortedBy { it.order }
             with(timelineItems) {
                 clear()
-                addAll(listOf(TimelineItem(), TimelineItem(), TimelineItem()))
+                addAll(filteredTimelineBody)
             }
 
             binding.rvSchedule.adapter?.notifyDataSetChanged()

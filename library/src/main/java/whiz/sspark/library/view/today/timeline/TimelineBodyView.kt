@@ -29,9 +29,15 @@ class TimelineBodyView : ConstraintLayout {
 
         if (backgroundColor.contains(TimelineColorStyle.PRIMARY.style)) {
             val primaryColor = R.color.primaryColor.toResourceColor(context)
-            binding.cvBody.setCardBackgroundColor(primaryColor.withAlpha(12))
+            binding.cvBody.background_Color = primaryColor.withAlpha(12)
+            binding.cvBody.shadow_Outer_Area = 0f
 
             setPadding(0.toDP(context), 2.toDP(context), 0.toDP(context), 2.toDP(context))
+        } else {
+            binding.cvBody.background_Color = R.color.viewBaseSecondaryColor.toResourceColor(context)
+            binding.cvBody.shadow_Outer_Area = 2f
+
+            setPadding(0, 0, 0, 0)
         }
 
         binding.llTimelineContent.removeAllViews()
@@ -83,9 +89,9 @@ class TimelineBodyView : ConstraintLayout {
         isRenderAdvisingAppointmentView = isRender
 
         if (!isRender) {
-            binding.ivProfile.visibility = View.GONE
+            binding.cvImageUrl.visibility = View.GONE
         } else {
-            binding.ivProfile.visibility = View.VISIBLE
+            binding.cvImageUrl.visibility = View.VISIBLE
         }
     }
 }

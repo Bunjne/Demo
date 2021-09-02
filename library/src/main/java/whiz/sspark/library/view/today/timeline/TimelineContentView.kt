@@ -28,7 +28,7 @@ class TimelineContentView : ConstraintLayout {
     fun init(timelineBody: TimelineItemBody) {
         with (binding.tvTitle) {
             text = timelineBody.text
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, getFontSize(timelineBody.style))
+            setTextSize(TypedValue.COMPLEX_UNIT_DIP, getFontSize(timelineBody.style))
             typeface = getFontStyle(timelineBody.style)
             if (timelineBody.color.contains(TimelineColorStyle.PRIMARY.style) && timelineBody.style == TimeLineBodyFontStyle.HEADER.style) {
                 setTextColor(ContextCompat.getColor(context, R.color.primaryColor))

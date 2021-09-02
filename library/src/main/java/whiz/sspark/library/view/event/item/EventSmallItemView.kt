@@ -25,7 +25,7 @@ class EventSmallItemView : ConstraintLayout {
     fun init(event: Event, onEventClicked: (Event) -> Unit) {
         with(event) {
 
-            binding.ivCardBackground.showBlurImage(coverImageUrl, 16)
+//            binding.ivCardBackground.showBlurImage(coverImageUrl, 16)
             binding.ivCover.show(coverImageUrl)
 
             binding.tvTime.text = startedAt.toLocalDate()!!.toTodayAbbreviatedDateFormat().toUpperCase()
@@ -40,7 +40,7 @@ class EventSmallItemView : ConstraintLayout {
     }
 
     fun setGradientDrawable(drawable: Int) {
-        binding.vGradient.background = ContextCompat.getDrawable(context, drawable)
+//        binding.vGradient.background = ContextCompat.getDrawable(context, drawable)
     }
 
     fun setTitleColor(color: Int) {
