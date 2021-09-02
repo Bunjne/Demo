@@ -139,7 +139,7 @@ class TimelineFragment : BaseFragment() {
         viewModel.timelineResponse.observe(this, Observer {
             it?.let {
                 binding.vTimeline.updateTimeline(it)
-                binding.vTimeline.updateUniversityEvent(listOf("Hello", "HAHAHA"))
+                binding.vTimeline.updateUniversityEvent(it.alertAnnouncements)
 
                 val backgroundImageUrl = it.dayImageUrl //TODO don't forget to make condition for darkmode when darkmode is confirmed.
                 updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon, backgroundImageUrl ?: "", it.aqi , it.aqiColor)

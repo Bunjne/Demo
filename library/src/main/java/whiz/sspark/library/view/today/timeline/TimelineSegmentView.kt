@@ -38,11 +38,11 @@ class TimelineSegmentView : ConstraintLayout {
             binding.tvSegmentTodayTitle.visibility = View.VISIBLE
             binding.tvSegmentTodayTitle.setTextColor(Color.WHITE)
             binding.mcvContainer.background_Color = ContextCompat.getColor(context, R.color.viewBasePrimaryColor).withAlpha(0xDD)
-            binding.cvBackground.background_Gradient_Colors = listOf(startColor, endColor).toIntArray()
+            binding.cvBackground.background_Gradient_Colors = listOf(startColor, startColor, endColor).toIntArray()
 
             binding.mcvContainer.shadow_Outer_Area = 0f
             binding.cvBackground.shadow_Outer_Area = 2f
-            binding.mcvContainer.stroke_Gradient_Colors = listOf(startColor, startColor, endColor).toIntArray()
+            binding.mcvContainer.stroke_Gradient_Colors = listOf(startColor, endColor).toIntArray()
         } else {
             binding.tvSegmentTodayTitle.visibility = View.INVISIBLE
             binding.mcvContainer.background_Color = ContextCompat.getColor(context, R.color.primaryColor).withAlpha(25)
@@ -50,7 +50,7 @@ class TimelineSegmentView : ConstraintLayout {
 
             binding.mcvContainer.shadow_Outer_Area = 2f
             binding.cvBackground.shadow_Outer_Area = 0f
-            binding.mcvContainer.stroke_Gradient_Colors = listOf(startColor, endColor).toIntArray()
+            binding.mcvContainer.stroke_Gradient_Colors = listOf(startColor, startColor, endColor).toIntArray()
         }
 
         binding.mcvContainer.invalidate()
