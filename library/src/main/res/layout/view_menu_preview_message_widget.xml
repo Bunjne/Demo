@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,13 +22,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="12dp">
 
             <ImageView
                 android:id="@+id/ivNotificationCountGradientBackground"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/bg_primary_oval_gradient_0" />
@@ -50,7 +51,7 @@
                 tools:text="1" />
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:id="@+id/tvDay"
+                android:id="@+id/tvScreen"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="12dp"
@@ -67,7 +68,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/viewBaseThirdColor"
                 app:cardCornerRadius="12dp"
@@ -75,11 +76,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDay">
+                app:layout_constraintTop_toBottomOf="@+id/tvScreen">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="8dp">
 
@@ -91,9 +92,12 @@
                         android:maxLines="1"
                         android:textColor="@color/textBasePrimaryColor"
                         android:textSize="14dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvDescription"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0"
+                        app:layout_constraintVertical_chainStyle="packed"
                         app:ssparkFont="bold"
                         tools:text="วิชา MATH" />
 
@@ -101,15 +105,17 @@
                         android:id="@+id/tvDescription"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
                         android:ellipsize="end"
-                        android:lines="2"
+                        android:maxLines="2"
                         android:textColor="@color/textBaseSecondaryColor"
                         android:textSize="14dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvLastUpdate"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                         app:ssparkFont="regular"
-                        tools:text="อ.ดวงจันทร์ วันเพ็ญ\nสร้างโพสต์ใหม่" />
+                        tools:text="@tools:sample/lorem/random" />
 
                     <whiz.sspark.library.view.general.SSparkTextView
                         android:id="@+id/tvLastUpdate"
@@ -123,7 +129,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
                         app:ssparkFont="regular"
                         tools:text="6 สิงหาคม เวลา 9:41 น." />
 

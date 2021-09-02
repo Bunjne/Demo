@@ -5,8 +5,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.CalendarWidgetInfo
 import whiz.sspark.library.databinding.ViewMenuCalendarWidgetBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.utility.convertToDateString
 
 class MenuCalendarWidget: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -17,12 +19,12 @@ class MenuCalendarWidget: ConstraintLayout {
         ViewMenuCalendarWidgetBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init() {
+    fun init(calendarWidgetInfo: CalendarWidgetInfo) {
         binding.ivGradient.show(R.drawable.bg_primary_gradient_0)
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
-        binding.tvDay.text = ""
-        binding.tvDate.text = ""
-        binding.tvTerm.text = resources.getString(R.string.menu_semester_start, "")
+        binding.tvDay.text = calendarWidgetInfo.date?.convertToDateString("EEEE")
+        binding.tvDate.text = calendarWidgetInfo.date?.convertToDateString("d")
+        binding.tvTerm.text = calendarWidgetInfo.title
     }
 }
