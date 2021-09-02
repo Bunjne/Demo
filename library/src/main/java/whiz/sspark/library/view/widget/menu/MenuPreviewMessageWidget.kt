@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.data.entity.PreviewMessageInfo
+import whiz.sspark.library.data.entity.PreviewMessageItem
 import whiz.sspark.library.databinding.ViewMenuPreviewMessageWidgetBinding
 import whiz.sspark.library.utility.convertToDateString
 
@@ -17,7 +17,7 @@ class MenuPreviewMessageWidget: ConstraintLayout {
         ViewMenuPreviewMessageWidgetBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(previewMessageInfo: PreviewMessageInfo) {
+    fun init(previewMessageInfo: PreviewMessageItem) {
         with(previewMessageInfo) {
             binding.tvScreen.text = screen
             binding.tvTitle.text = title

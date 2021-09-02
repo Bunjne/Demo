@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.CalendarWidgetInfo
+import whiz.sspark.library.data.entity.CalendarWidgetItem
 import whiz.sspark.library.databinding.ViewMenuCalendarWidgetBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.utility.convertToDateString
@@ -19,7 +19,7 @@ class MenuCalendarWidget: ConstraintLayout {
         ViewMenuCalendarWidgetBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(calendarWidgetInfo: CalendarWidgetInfo) {
+    fun init(calendarWidgetInfo: CalendarWidgetItem) {
         binding.ivGradient.show(R.drawable.bg_primary_gradient_0)
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 

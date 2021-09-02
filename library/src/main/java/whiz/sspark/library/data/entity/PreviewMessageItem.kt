@@ -3,7 +3,7 @@ package whiz.sspark.library.data.entity
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class PreviewMessageInfo(
+data class PreviewMessageItem(
     @SerializedName("screen") val screen: String = "",
     @SerializedName("title") val title: String = "",
     @SerializedName("description") val description: String = "",
