@@ -11,8 +11,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
-import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.unility.*
+import java.util.*
 
 class LoginActivity : LocalizationActivity() {
 
@@ -79,7 +80,7 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, SchoolRecordActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }

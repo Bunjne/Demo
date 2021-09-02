@@ -17,6 +17,8 @@
     <color name="microsoftTeamBaseColor">#5059C9</color>
     <color name="transparentColor">#00000000</color>
     <color name="shadowColor">#04000000</color>
+    <color name="segmentBaseBackgroundColor">#1f767680</color>
+    <color name="segmentBaseDividerColor">#8e8e93</color>
 
     <color name="naturalV100">#FFFFFF</color>
     <color name="naturalV200">#E9F6FE</color>

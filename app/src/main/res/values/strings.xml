@@ -14,4 +14,7 @@
     <string name="menu_junior_segment_instructor_text">อาจารย์ประจำชั้น</string>
     <string name="menu_senior_segment_instructor_text">อาจารย์ที่ปรึกษา</string>
     <string name="menu_segment_guardian_text">ผู้ปกครอง</string>
+
+    <!--general-->
+    <string name="general_back_text">ย้อนกลับ</string>
 </resources>

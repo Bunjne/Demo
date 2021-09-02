@@ -41,7 +41,7 @@ data class Student(
 }
 
 fun Student.convertToProfile(): Profile {
-    return Profile(this.profileImageUrl, this.gender, this.firstName, this.lastName)
+    return Profile(this.profileImageUrl, this.gender, this.code,this.firstName, this.lastName)
 }
 
 fun Student.getMenuMember(context: Context): List<MenuMember> {

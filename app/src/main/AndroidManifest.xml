@@ -12,8 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Ssparkandroid">
+        android:theme="@style/Theme.Ssparkandroid"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.school_record.SchoolRecordActivity"
+            android:exported="true" />
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true"
@@ -24,12 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.main.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
