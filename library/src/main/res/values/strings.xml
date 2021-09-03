@@ -45,5 +45,9 @@
 
     <!--general-->
     <string name="general_room">ห้องพัก %1$s</string>
+    <string name="general_credit">%1$s หน่วยกิต</string>
 
+    <!--school record-->
+    <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
+    <string name="school_record_no_record">ไม่มีการเรียน</string>
 </resources>

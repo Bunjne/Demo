@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cornerRadius="16dp"
-    app:shadow0_Outer_Alpha="0.4"
+    app:shadow0_Outer_Alpha="1"
     app:shadow_Outer_Area="8dp"
     app:shadow0_Outer_Color="@color/shadowColor"
     app:shadow0_Outer_Blur="30dp">

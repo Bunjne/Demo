@@ -76,18 +76,6 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun observeView() {
-
-    }
-
-    override fun observeData() {
-
-    }
-
-    override fun observeError() {
-
-    }
-
     private fun isFragmentVisible(id: Int) = currentFragment == id
 
     private fun renderFragment(fragment: Fragment, fragmentId: Int) {

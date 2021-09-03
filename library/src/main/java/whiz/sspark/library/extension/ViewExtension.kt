@@ -12,10 +12,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapper
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.enum.DataSource
+import whiz.sspark.library.data.enum.ItemPosition
+import whiz.sspark.library.utility.getItemPositionType
 import whiz.sspark.library.utility.getLatestUpdatedDateTime
 import java.util.*
 
@@ -110,4 +113,21 @@ fun View.toBitmap(context: Context): Bitmap {
     this.draw(canvas)
 
     return bitmap
+}
+
+fun View.setDarkModeBackground(isNextItemHeader: Boolean, isPreviousItemHeader: Boolean) {
+    background = when (getItemPositionType(isNextItemHeader, isPreviousItemHeader)) {
+        ItemPosition.SINGLE.position -> {
+            ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_single)
+        }
+        ItemPosition.FIRST.position -> {
+            ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
+        }
+        ItemPosition.LAST.position -> {
+            ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_bottom)
+        }
+        else -> {
+            ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_middle)
+        }
+    }
 }

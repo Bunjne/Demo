@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <whiz.sspark.library.view.general.PackedSegmentView
+    <whiz.sspark.library.view.general.SegmentPackedView
         android:id="@+id/vSegment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

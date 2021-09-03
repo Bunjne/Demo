@@ -22,7 +22,6 @@ import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.utility.getAPKSignedSignature
 import whiz.tss.sspark.s_spark_android.utility.logout
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
-import java.lang.IllegalStateException
 import java.util.*
 
 class SSparkApp: Application() {

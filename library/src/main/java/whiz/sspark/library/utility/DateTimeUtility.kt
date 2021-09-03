@@ -46,3 +46,35 @@ fun getLatestUpdatedDateTime(context: Context, date: Date): String {
     }
     return context.resources.getString(R.string.screen_header_subtitle, dateTimeFormat)
 }
+
+/*
+defaultPattern is default for EN and will be use for thai format when dayMonthThPattern is blank
+dayMonthThPattern is date and month in thai format
+yearThPattern is year in thai format
+timeThPattern is time in thai format
+
+example
+    defaultPattern = "dd/MM/yyyy HH:mm"
+    dayMonthPattern = "dd/MM/"
+    yearPattern = "yyyy "
+    timePattern = "HH:mm"
+*/
+fun Date.convertToDateString(defaultPattern: String, dayMonthThPattern: String = "", yearThPattern: String = "", timeThPattern: String = ""): String {
+    return if (isThaiLanguage()) {
+        if (dayMonthThPattern.isBlank()) {
+            SimpleDateFormat(defaultPattern, Locale.getDefault()).format(this)
+        } else {
+            val dateMonth = SimpleDateFormat(dayMonthThPattern, Locale.getDefault()).format(this)
+            val year = SimpleDateFormat(yearThPattern, Locale.getDefault()).format(this.toThaiYear()) ?: ""
+            val time = SimpleDateFormat(timeThPattern, Locale.getDefault()).format(this) ?: ""
+
+            val datetime = StringBuilder()
+            datetime.append(dateMonth)
+            datetime.append(year)
+            datetime.append(time)
+            datetime.toString()
+        }
+    } else {
+        SimpleDateFormat(defaultPattern, Locale.getDefault()).format(this)
+    }
+}

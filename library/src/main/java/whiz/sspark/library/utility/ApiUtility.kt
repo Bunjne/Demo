@@ -6,10 +6,26 @@ import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.extension.toObject
+import whiz.sspark.library.extension.toObjects
 import java.lang.Exception
 
 inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>): DataWrapperX<T> {
     val data = response.body()?.data?.toObject<T>()
+    val error = try {
+        response.errorBody()?.string()?.toObject<ApiResponseX>() ?: ApiResponseX(statusCode = response.code())
+    } catch (e: Exception) {
+        ApiResponseX(statusCode = response.code())
+    }
+
+    return DataWrapperX(
+        data = data,
+        error = error,
+        dataSource = DataSource.NETWORK
+    )
+}
+
+inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>, classOf: Class<Array<T>>): DataWrapperX<MutableList<T>> {
+    val data = response.body()?.data?.toObjects(classOf)
     val error = try {
         response.errorBody()?.string()?.toObject<ApiResponseX>() ?: ApiResponseX(statusCode = response.code())
     } catch (e: Exception) {
@@ -43,6 +59,15 @@ suspend inline fun <reified T> FlowCollector<DataWrapperX<T>>.fetchX(response: R
         SSparkLibrary.onSessionExpired()
     } else {
         val dataWrapperX = transformToDataWrapperX<T>(response)
+        emit(dataWrapperX)
+    }
+}
+
+suspend inline fun <reified T> FlowCollector<DataWrapperX<MutableList<T>>>.fetchX(response: Response<ApiResponseX>,  classOf: Class<Array<T>>) {
+    if (response.code() == 401) {
+        SSparkLibrary.onSessionExpired()
+    } else {
+        val dataWrapperX = transformToDataWrapperX(response, classOf)
         emit(dataWrapperX)
     }
 }
