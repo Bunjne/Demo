@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toStartOf="@+id/glHalf"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCourseCode"
-        app:ssparkFont="bold"
+        app:ssparkFont="regular"
         tools:text="@tools:sample/lorem/random" />
 
     <androidx.constraintlayout.widget.Guideline
