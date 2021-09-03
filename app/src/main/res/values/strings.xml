@@ -17,4 +17,17 @@
 
     <!--general-->
     <string name="general_back_text">ย้อนกลับ</string>
+
+    <!--Learning outcome-->
+    <string-array name="junior_school_record_segment">
+        <item>การเรียน</item>
+        <item>กิจกรรม</item>
+        <item>ความคิดเห็น</item>
+    </string-array>
+
+    <string-array name="senior_school_record_segment">
+        <item>การเรียน</item>
+        <item>สมรรถนะ</item>
+        <item>ความคิดเห็น</item>
+    </string-array>
 </resources>

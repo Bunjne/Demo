@@ -14,13 +14,18 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 class JuniorLearningOutcomeFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = JuniorLearningOutcomeFragment().apply {
+        fun newInstance(currentSemesterId: Int) = JuniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
-
+                putInt("currentSemesterId", currentSemesterId)
             }
         }
     }
+
     private val viewModel: LearningOutcomeViewModel by viewModel()
+
+    private val currentSemesterId by lazy {
+        arguments?.getInt("currentSemesterId") ?: 0
+    }
 
     private var _binding: FragmentJuniorLearningOutcomeBinding? = null
     private val binding get() = _binding!!
@@ -42,13 +47,13 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
 
         initView()
 
-        viewModel.getLearningOutcome()
+        viewModel.getLearningOutcome(currentSemesterId)
     }
 
     override fun initView() {
         binding.vLearningOutcome.init(
             onRefresh = {
-                viewModel.getLearningOutcome()
+                viewModel.getLearningOutcome(currentSemesterId)
             },
             onItemClicked = {
                 //TODO wait implement EO
