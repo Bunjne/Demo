@@ -125,6 +125,11 @@ class HappeningsFragment : BaseFragment() {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         binding.vHighlight.clearHighlight()
         viewModelStore.clear()

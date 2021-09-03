@@ -195,6 +195,11 @@ class TimelineFragment : BaseFragment() {
         binding.vTimeline.resumeTimer()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     interface OnUpdateAqi {
         fun onUpdateAqi(aqiIconUrl: String, weatherIconUrl: String, backgroundImageUrl: String, aqi: Int, color: String)
     }
