@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ScreenHeaderTitleStyle">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/textBasePrimaryColor</item>
+        <item name="android:textSize">28dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="ssparkFont">bold</item>
+    </style>
+
+    <style name="ScreenHeaderSubTitleStyle">
+        <item name="android:textColor">@color/textBaseThirdColor</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="ssparkFont">regular</item>
+    </style>
+</resources>

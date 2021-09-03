@@ -11,6 +11,8 @@ import org.koin.core.context.startKoin
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.ProjectType
 import whiz.sspark.library.di.remoteModule
+import whiz.sspark.library.di.repositoryModule
+import whiz.sspark.library.di.viewModelModule
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.di.networkModule
 import whiz.tss.sspark.s_spark_android.extension.getRoleType
@@ -93,7 +95,7 @@ class SSparkApp: Application() {
         startKoin {
             androidLogger()
             androidContext(applicationContext)
-            modules(listOf(networkModule, remoteModule))
+            modules(listOf(networkModule, remoteModule, repositoryModule, viewModelModule))
         }
     }
 }
