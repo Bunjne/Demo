@@ -53,18 +53,6 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         )
     }
 
-    override fun observeView() {
-
-    }
-
-    override fun observeData() {
-
-    }
-
-    override fun observeError() {
-
-    }
-
     override fun onRefresh(data: DataWrapperX<Any>?) {
         binding.vSchoolRecord.setLatestUpdatedText(data)
     }
