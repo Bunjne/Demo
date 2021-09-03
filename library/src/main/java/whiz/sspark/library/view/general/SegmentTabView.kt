@@ -42,10 +42,6 @@ class SegmentTabView : ConstraintLayout {
         onTabClicked(0)
     }
 
-    fun setLastUpdated() {
-
-    }
-
     fun hideSegmentTab(idTab: Int) {
         binding.rgContainer.getChildAt(idTab).visibility = View.GONE
     }
