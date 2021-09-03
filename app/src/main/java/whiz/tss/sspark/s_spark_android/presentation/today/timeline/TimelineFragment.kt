@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.enum.TimeLineAuthorityType
 import whiz.sspark.library.data.viewModel.TimelineViewModel
 import whiz.sspark.library.extension.toLocalDate
+import whiz.sspark.library.utility.isDarkModeEnabled
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -45,7 +46,11 @@ class TimelineFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        updateAqi = activity as OnUpdateAqi
+        updateAqi = if (parentFragment != null) {
+            parentFragment as OnUpdateAqi
+        } else {
+            activity as OnUpdateAqi
+        }
 
         initView()
     }
@@ -141,7 +146,12 @@ class TimelineFragment : BaseFragment() {
                 binding.vTimeline.updateTimeline(it)
                 binding.vTimeline.updateUniversityEvent(it.alertAnnouncements)
 
-                val backgroundImageUrl = it.dayImageUrl //TODO don't forget to make condition for darkmode when darkmode is confirmed.
+                val backgroundImageUrl = if (isDarkModeEnabled(requireActivity())) {
+                    it.nightImageUrl
+                } else {
+                    it.dayImageUrl
+                }
+
                 updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon, backgroundImageUrl ?: "", it.aqi , it.aqiColor)
             }
         })

@@ -5,7 +5,7 @@
     android:id="@+id/cvContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cornerRadius="8dp"
+    app:cornerRadius="16dp"
     app:shadow0_Outer_Alpha="0.4"
     app:shadow_Outer_Area="8dp"
     app:shadow0_Outer_Color="@color/shadowColor"

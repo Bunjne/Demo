@@ -1,6 +1,8 @@
 package whiz.sspark.library.view.general
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
@@ -16,22 +18,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
+import whiz.sspark.library.databinding.ViewPrimarySegmentTabBinding
 import whiz.sspark.library.databinding.ViewSegmentTabBinding
 import whiz.sspark.library.extension.toDP
 
-class SegmentTabView : ConstraintLayout {
+class PrimarySegmentTabView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewSegmentTabBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewPrimarySegmentTabBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     private var onTabClicked: (Int) -> Unit = { }
 
     fun init(titles: Array<String>,
-             onTabClicked: (Int) -> Unit) {
+             onTabClicked: (Int) -> Unit,
+             gradientColors: List<Int>) {
         this.onTabClicked = onTabClicked
 
         binding.rgContainer.removeAllViews()
@@ -45,7 +49,7 @@ class SegmentTabView : ConstraintLayout {
                 id = 0
                 setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
                 setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
-                background = getCorneredCenterTabBackground()
+                background = getCorneredCenterTabBackground(gradientColors)
             }
 
             setSegmentListener(onTabClicked)
@@ -57,13 +61,13 @@ class SegmentTabView : ConstraintLayout {
                 }
                 when (index) {
                     0 -> binding.rgContainer.addView(radioButton.apply {
-                        background = getLeftStripSelector()
+                        background = getLeftStripSelector(gradientColors)
                     })
                     titles.lastIndex -> binding.rgContainer.addView(radioButton.apply {
-                        background = getRightStripSelector()
+                        background = getRightStripSelector(gradientColors)
                     })
                     else -> binding.rgContainer.addView(radioButton.apply {
-                        background = getCenterStripSelector()
+                        background = getCenterStripSelector(gradientColors)
                     })
                 }
             }
@@ -111,13 +115,21 @@ class SegmentTabView : ConstraintLayout {
         gravity = Gravity.CENTER
         buttonDrawable = null
         typeface = SSparkLibrary.boldTypeface
-        setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+        setTextColor(getStatedTextColor())
 
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 10, 14, 1, TypedValue.COMPLEX_UNIT_SP)
         maxLines = 1
         text = title
     }
+
+    private fun getStatedTextColor() = ColorStateList(
+            arrayOf(
+                    intArrayOf(android.R.attr.state_checked),
+                    intArrayOf(-android.R.attr.state_checked)
+            ),
+            intArrayOf(Color.WHITE, ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+    )
 
     private fun getSegmentDivider() = GradientDrawable().apply {
         shape = GradientDrawable.RECTANGLE
@@ -128,25 +140,29 @@ class SegmentTabView : ConstraintLayout {
     private fun getSegmentBackground() = GradientDrawable().apply {
         shape = GradientDrawable.RECTANGLE
         setSize(1f.toDP(context).toInt(), 0)
-        setColor(ContextCompat.getColor(context, R.color.viewBaseUnSelectedSegment))
-        cornerRadius = 8f.toDP(context)
+        setColor(ContextCompat.getColor(context, R.color.viewBaseSecondaryColor))
+        cornerRadius = 16f.toDP(context)
     }
 
-    private fun getCorneredCenterTabBackground(): Drawable {
+    private fun getCorneredCenterTabBackground(gradientColors: List<Int>): Drawable {
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            cornerRadius = 8f.toDP(context)
-            setColor(ContextCompat.getColor(context, R.color.viewBaseUnSelectedSegment))
+            cornerRadius = 16f.toDP(context)
+            colors = gradientColors.toIntArray()
+            gradientType = GradientDrawable.LINEAR_GRADIENT
+            orientation = GradientDrawable.Orientation.LEFT_RIGHT
         }
     }
 
-    private fun getCenterStripSelector() = StateListDrawable().apply {
-        val cornerRadius = 8f.toDP(context)
+    private fun getCenterStripSelector(gradientColors: List<Int>) = StateListDrawable().apply {
+        val cornerRadius = 16f.toDP(context)
 
         val filledLeftStripDrawable = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadii = floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
-            setColor(ContextCompat.getColor(context, R.color.viewBaseSelectedSegment))
+            colors = gradientColors.toIntArray()
+            gradientType = GradientDrawable.LINEAR_GRADIENT
+            orientation = GradientDrawable.Orientation.LEFT_RIGHT
         }
 
         val leftStripDrawable = GradientDrawable().apply {
@@ -157,14 +173,16 @@ class SegmentTabView : ConstraintLayout {
         addState(intArrayOf(-android.R.attr.state_checked), leftStripDrawable)
     }
 
-    private fun getLeftStripSelector() = StateListDrawable().apply {
+    private fun getLeftStripSelector(gradientColors: List<Int>) = StateListDrawable().apply {
 
-        val cornerRadius = 8f.toDP(context)
+        val cornerRadius = 16f.toDP(context)
 
         val filledLeftStripDrawable = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadii = floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
-            setColor(ContextCompat.getColor(context, R.color.viewBaseSelectedSegment))
+            colors = gradientColors.toIntArray()
+            gradientType = GradientDrawable.LINEAR_GRADIENT
+            orientation = GradientDrawable.Orientation.LEFT_RIGHT
         }
 
         val leftStripDrawable = GradientDrawable().apply {
@@ -176,14 +194,16 @@ class SegmentTabView : ConstraintLayout {
         addState(intArrayOf(-android.R.attr.state_checked), leftStripDrawable)
     }
 
-    private fun getRightStripSelector() = StateListDrawable().apply {
+    private fun getRightStripSelector(gradientColors: List<Int>) = StateListDrawable().apply {
 
-        val cornerRadius = 8f.toDP(context)
+        val cornerRadius = 16f.toDP(context)
 
         val filledRightStripDrawable = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadii = floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
-            setColor(ContextCompat.getColor(context, R.color.viewBaseSelectedSegment))
+            colors = gradientColors.toIntArray()
+            gradientType = GradientDrawable.LINEAR_GRADIENT
+            orientation = GradientDrawable.Orientation.LEFT_RIGHT
         }
 
         val rightStripDrawable = GradientDrawable().apply {

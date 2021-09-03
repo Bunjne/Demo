@@ -27,8 +27,9 @@
         android:layout_marginBottom="16dp"
         android:gravity="start"
         android:maxLines="1"
-        android:textColor="@android:color/white"
+        android:textColor="@color/naturalV100"
         android:textSize="24dp"
+        android:ellipsize="end"
         android:text="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/stvPage"
         app:layout_constraintEnd_toStartOf="@+id/cvWeather"
@@ -108,7 +109,7 @@
                 android:layout_width="2dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
-                android:background="@color/lineBasePrimaryColor"
+                android:background="@color/viewBaseFourthColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ivWeatherIcon"
                 app:layout_constraintStart_toEndOf="@+id/cvAqi"
@@ -138,16 +139,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.30" />
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/appBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/glSegment" />
-
-    <whiz.sspark.library.view.general.SegmentTabView
+    <whiz.sspark.library.view.general.PrimarySegmentTabView
         android:id="@+id/stvPage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

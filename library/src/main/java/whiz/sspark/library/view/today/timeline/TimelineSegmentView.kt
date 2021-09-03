@@ -58,7 +58,7 @@ class TimelineSegmentView : ConstraintLayout {
     }
 
     fun setUnselectedView(isToday: Boolean) {
-        binding.mcvContainer.background_Color = ContextCompat.getColor(context, R.color.appBackgroundColor)
+        binding.mcvContainer.background_Color = ContextCompat.getColor(context, R.color.viewBasePrimaryColor)
         binding.tvDate.setTextColor(ContextCompat.getColor(context, R.color.textBaseThirdColor))
         binding.tvDay.setTextColor(ContextCompat.getColor(context, R.color.textBaseThirdColor))
 

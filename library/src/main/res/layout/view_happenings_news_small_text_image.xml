@@ -85,7 +85,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:visibility="visible"
-        app:background_Color="@color/appBackgroundColor"
+        app:background_Color="@color/viewBasePrimaryColor"
         app:background_Type="fill"
         app:background_ColorType="solid"
         app:cornerRadius="8dp"

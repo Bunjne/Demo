@@ -4,20 +4,14 @@
     <color name="primaryColor">#CB002B</color>
     <color name="primaryStartColor">#F35959</color>
     <color name="primaryEndColor">#C00832</color>
-    <color name="selectedSegmentPrimaryColor">#19CB002B</color>
-    <color name="todaySegmentPrimaryColor">#DDCB002B</color>
-    <color name="appBackgroundColor">#FFFFFF</color>
-    <color name="contrastPrimaryColor">#373737</color>
     <color name="contrastSecondaryColor">#949395</color>
-    <color name="contrastThirdColor">#F0F0F0</color>
-    <color name="contrastForthColor">#F8F8F8</color>
     <color name="viewBasePrimaryColor">#FAFAFA</color>
     <color name="viewBaseSecondaryColor">#FFFFFF</color>
     <color name="viewBaseSecondaryDimColor">#C9F6F6F6</color>
     <color name="viewBaseThirdColor">#F6F6F6</color>
     <color name="viewBaseFourthColor">#EAEAEA</color>
-    <color name="viewBaseSelectedSegment">#FEFFFE</color>
-    <color name="viewBaseUnSelectedSegment">#EEEEEE</color>
+    <color name="viewBaseSelectedSegment">@color/viewBaseSecondaryColor</color>
+    <color name="viewBaseUnSelectedSegment">#1E767680</color>
     <color name="lineBasePrimaryColor">#D7D5DB</color>
     <color name="lineBaseSecondaryColor">#EBE9F1</color>
     <color name="textBasePrimaryColor">#383738</color>
@@ -26,7 +20,6 @@
     <color name="iconBaseColor">#5B5B5B</color>
     <color name="arrowIconColor">#9E9EA5</color>
     <color name="moreIconColor">#000000</color>
-    <color name="microsoftTeamBaseColor">#5059C9</color>
     <color name="transparentColor">#00000000</color>
     <color name="shadowColor">#04000000</color>
 
@@ -111,7 +104,6 @@
     <color name="accentYellowV900">#6A3710</color>
 
     <!-- Gradient Background Color -->
-    <color name="eventGradientAppBackgroundColor">#33FFFFFF</color>
     <color name="todayGradientBackgroundColor">#DDFFFFFF</color>
 
     <!-- Timeline -->

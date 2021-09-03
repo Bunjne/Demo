@@ -51,18 +51,7 @@ class HappeningsFragment : BaseFragment() {
 //                    activity?.startActivity<EventListActivity>() TODO Waiting for EventList Activity Implementation
                 }
                 HighlightType.ANNOUNCEMENT.type -> {
-//                    startActivval localEvents = localSource.listEvents()
-//                if (localEvents != null) {
-//                    value = DataWrapperX(
-//                            data = localEvents,
-//                            error = null,
-//                            statusCode = null,
-//                            isCacheExisted = true,
-//                            latestDateTime = localSource.getEventListLatestDateTime(),
-//                            isNetworkPreferred = isNetworkPreferred,
-//                            dataSource = DATASOURCE.CACHE
-//                    )
-//                }ity(Intent(context, NewsListActivity::class.java).apply { TODO Waiting for NewsList Activity Implementation
+//                    startActivity(Intent(context, NewsListActivity::class.java).apply { TODO Waiting for NewsList Activity Implementation
 //                        putExtra("level", header.level)
 //                        putExtra("title", header.title)
 //                    })
@@ -89,28 +78,30 @@ class HappeningsFragment : BaseFragment() {
 
     override fun observeView() {
         viewModel.viewLoading.observe(this, Observer {
-            it?.let {
-                binding.vHighlight.setSwipeRefreshLoading(it)
-            }
+            binding.vHighlight.setSwipeRefreshLoading(it)
         })
     }
 
     override fun observeData() {
         viewModel.todayNewsResponse.observe(this, Observer { newsResponses ->
-            val flaggedNews = mutableListOf<NewsDetail>()
-            newsResponses.forEach {
-                flaggedNews.addAll(it.news.filter { it.isFlagged })
-            }
+            newsResponses?.let { newsResponses ->
+                val flaggedNews = mutableListOf<NewsDetail>()
+                newsResponses.forEach {
+                    flaggedNews.addAll(it.news.filter { it.isFlagged })
+                }
 
-            if (flaggedNews.isNotEmpty()) {
-                binding.vHighlight.addFlagNewsItem(flaggedNews.toList())
+                if (flaggedNews.isNotEmpty()) {
+                    binding.vHighlight.addFlagNewsItem(flaggedNews.toList())
+                }
             }
         })
 
         viewModel.eventsResponse.observe(this, Observer {
-//            if (it.isNotEmpty()) {
-                binding.vHighlight.addEventsItem(listOf(Event(), Event(), Event(), Event()))
-//            }
+            it?.let {
+                if (it.isNotEmpty()) {
+                    binding.vHighlight.addEventsItem(it)
+                }
+            }
         })
     }
 
