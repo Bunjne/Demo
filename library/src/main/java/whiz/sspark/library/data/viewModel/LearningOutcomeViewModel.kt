@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
+import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.repository.LearningOutcomeRepositoryImpl
 
@@ -17,6 +18,10 @@ class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: Learni
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
+
+    private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
+    val viewRendering: LiveData<DataWrapperX<Any>>
+        get() = _viewRendering
 
     private val _learningOutcomeResponse = MutableLiveData<List<LearningOutcomeDTO>>()
     val learningOutcomeResponse: LiveData<List<LearningOutcomeDTO>>
@@ -34,10 +39,18 @@ class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: Learni
     fun getLearningOutcome() {
         viewModelScope.launch {
             learningOutcomeRepositoryImpl.getLearningOutcome()
-                .onStart { _viewLoading.value = true }
-                .onCompletion { _viewLoading.value = false }
-                .catch { _errorMessage.value = it.localizedMessage }
+                .onStart {
+                    _viewRendering.value = null
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
                 .collect {
+                    _viewRendering.value = it
                     val data = it.data
 
                     data?.let {

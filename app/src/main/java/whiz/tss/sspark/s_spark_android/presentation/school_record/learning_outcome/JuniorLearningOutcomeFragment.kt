@@ -48,7 +48,7 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
     override fun initView() {
         binding.vLearningOutcome.init(
             onRefresh = {
-
+                viewModel.getLearningOutcome()
             },
             onItemClicked = {
                 //TODO wait implement EO
@@ -57,13 +57,18 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
     }
 
     override fun observeView() {
+        viewModel.viewLoading.observe(this) {
+            binding.vLearningOutcome.setSwipeRefreshLoading(it)
+        }
 
+        viewModel.viewRendering.observe(this) {
+            listener?.onRefresh(it)
+        }
     }
 
     override fun observeData() {
         viewModel.learningOutcomeResponse.observe(this) {
             it?.let {
-                val item = it.filter { it.headerCn.isNotBlank() }
                 binding.vLearningOutcome.updateItem(it)
             }
         }

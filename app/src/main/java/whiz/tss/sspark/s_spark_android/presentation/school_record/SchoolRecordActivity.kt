@@ -57,6 +57,6 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
     }
 
     override fun onRefresh(data: DataWrapperX<Any>?) {
-        binding.vSchoolRecord.setLatestUpdatedText(null)
+        binding.vSchoolRecord.setLatestUpdatedText(data)
     }
 }

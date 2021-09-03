@@ -27,6 +27,7 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
     fun init(onRefresh: () -> Unit,
              onItemClicked: () -> Unit) {
         binding.srlLearningOutcome.setOnRefreshListener {
+            updateItem()
             onRefresh()
         }
 
@@ -47,37 +48,37 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(learningOutcomes: List<LearningOutcomeDTO>) {
+    fun updateItem(learningOutcomes: List<LearningOutcomeDTO> = listOf()) {
         val item: MutableList<JuniorLearningOutcomeAdapter.Item> = mutableListOf()
 
-        for (learningOutcome in learningOutcomes) {
-//            val titleItem = JuniorLearningOutcomeAdapter.Item(title = learningOutcome.header)
-//            item.add(titleItem)
-//
-//            learningOutcome.courses.forEach {
-//                val startColor = if (learningOutcome.gradientColor1.isNotBlank()) {
-//                    Color.parseColor(learningOutcome.gradientColor1)
-//                } else {
-//                    ContextCompat.getColor(context, R.color.primaryEndColor)
-//                }
-//
-//                val endColor = if (learningOutcome.gradientColor1.isNotBlank() && learningOutcome.gradientColor2.isNotBlank()) {
-//                    Color.parseColor(learningOutcome.gradientColor2)
-//                } else {
-//                    ContextCompat.getColor(context, R.color.primaryEndColor)
-//                }
-//
-//                val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
-//                    learningOutcome = LearningOutcome(
-//                        startColor = startColor,
-//                        endColor = endColor,
-//                        credit = it.credits,
-//                        percentPerformance = it.percentPerformance,
-//                        courseCode = it.nameEn,
-//                        courseName = it.nameTh))
-//
-//                item.add(learningOutcomeItem)
-//            }
+        learningOutcomes.forEach { learningOutcome ->
+            val titleItem = JuniorLearningOutcomeAdapter.Item(title = learningOutcome.header)
+            item.add(titleItem)
+
+            learningOutcome.courses.forEach {
+                val startColor = if (learningOutcome.gradientColor1.isNotBlank()) {
+                    Color.parseColor(learningOutcome.gradientColor1)
+                } else {
+                    ContextCompat.getColor(context, R.color.primaryEndColor)
+                }
+
+                val endColor = if (learningOutcome.gradientColor1.isNotBlank() && learningOutcome.gradientColor2.isNotBlank()) {
+                    Color.parseColor(learningOutcome.gradientColor2)
+                } else {
+                    ContextCompat.getColor(context, R.color.primaryEndColor)
+                }
+
+                val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
+                    learningOutcome = LearningOutcome(
+                        startColor = startColor,
+                        endColor = endColor,
+                        credit = it.credits,
+                        percentPerformance = it.percentPerformance,
+                        courseCode = it.nameEn,
+                        courseName = it.nameTh))
+
+                item.add(learningOutcomeItem)
+            }
         }
 
         (binding.rvLearningOutcome.adapter as? JuniorLearningOutcomeAdapter)?.submitList(item)

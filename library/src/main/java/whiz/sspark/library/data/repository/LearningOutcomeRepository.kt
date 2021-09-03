@@ -11,7 +11,7 @@ import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.LearningOutcomeAPIBody
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.utility.NetworkManager
-import whiz.sspark.library.utility.fetchArrayX
+import whiz.sspark.library.utility.fetchX
 
 interface LearningOutcomeRepository {
     suspend fun getLearningOutcome(): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
@@ -24,7 +24,7 @@ class LearningOutcomeRepositoryImpl(private val context: Context,
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.getLearningOutcome(LearningOutcomeAPIBody())
-                    fetchArrayX<LearningOutcomeDTO>(response)
+                    fetchX(response, Array<LearningOutcomeDTO>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }

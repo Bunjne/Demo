@@ -22,7 +22,7 @@ class LearningOutcomeUnderEvaluationView: ConstraintLayout {
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
         with(learningOutcome) {
-            binding.tvCourseName.text = courseCode
+            binding.tvCourseCode.text = courseCode
             binding.tvCourseName.text = courseName
             binding.tvCredit.text = resources.getString(R.string.general_credit, credit.toString())
         }
