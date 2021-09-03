@@ -59,13 +59,17 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
                 val startColor = if (learningOutcome.gradientColor1.isNotBlank()) {
                     Color.parseColor(learningOutcome.gradientColor1)
                 } else {
-                    ContextCompat.getColor(context, R.color.primaryEndColor)
+                    ContextCompat.getColor(context, R.color.primaryStartColor)
                 }
 
                 val endColor = if (learningOutcome.gradientColor1.isNotBlank() && learningOutcome.gradientColor2.isNotBlank()) {
                     Color.parseColor(learningOutcome.gradientColor2)
                 } else {
-                    ContextCompat.getColor(context, R.color.primaryEndColor)
+                    if (learningOutcome.gradientColor1.isNotBlank()) {
+                        Color.parseColor(learningOutcome.gradientColor1)
+                    } else {
+                        ContextCompat.getColor(context, R.color.primaryEndColor)
+                    }
                 }
 
                 val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
@@ -75,7 +79,8 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
                         credit = it.credits,
                         percentPerformance = it.percentPerformance,
                         courseCode = it.nameEn,
-                        courseName = it.nameTh))
+                        courseName = it.nameTh)
+                )
 
                 item.add(learningOutcomeItem)
             }

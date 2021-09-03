@@ -36,7 +36,6 @@ class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: Learni
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-
     fun getLearningOutcome(currentSemesterId: Int) {
         viewModelScope.launch {
             learningOutcomeRepositoryImpl.getLearningOutcome(currentSemesterId)

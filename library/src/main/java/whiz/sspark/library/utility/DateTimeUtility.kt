@@ -29,7 +29,7 @@ example
     defaultPattern = "dd/MM/yyyy HH:mm"
     dayMonthPattern = "dd/MM/"
     yearPattern = "yyyy "
-    timePatter = "HH:mm"
+    timePattern = "HH:mm"
 */
 fun Date.convertToDateString(defaultPattern: String, dayMonthThPattern: String = "", yearThPattern: String = "", timeThPattern: String = ""): String {
     return if (isThaiLanguage()) {

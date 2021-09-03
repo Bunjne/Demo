@@ -24,7 +24,7 @@
         android:right="24dp">
         <shape>
             <size android:height="1dp" />
-            <solid android:color="@color/lineBasePrimaryColor" />
+            <solid android:color="@color/lineBaseSecondaryColor" />
         </shape>
     </item>
 

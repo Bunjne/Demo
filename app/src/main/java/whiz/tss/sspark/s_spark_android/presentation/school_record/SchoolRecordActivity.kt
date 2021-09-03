@@ -19,7 +19,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         ActivitySchoolRecordBinding.inflate(layoutInflater)
     }
 
-    private var currentSegment = 0
+    private var currentSegment = LEARNING_OUTCOME_VIEW
     private var currentSemesterId = 1 //TODO wait confirm object from API
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
             selectedTerm = "1/2564", //TODO wait confirm object from API
             segmentTitles = titles,
             onSelectTerm = {
-                           //TODO wait confirm UI
+               //TODO wait confirm UI
             },
             onSegmentClicked = {
                 currentSegment = it
@@ -51,8 +51,6 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
                 }
             }
         )
-
-        binding.vSchoolRecord.setLatestUpdatedText(null)
     }
 
     override fun observeView() {

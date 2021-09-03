@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/glHalf"
         app:layout_constraintStart_toEndOf="@+id/tvCourseCode"
         app:layout_constraintTop_toTopOf="parent"
-        app:ssparkFont="bold"
+        app:ssparkFont="regular"
         tools:text="1 หน่วยกิต" />
 
     <whiz.sspark.library.view.general.SSparkTextView
