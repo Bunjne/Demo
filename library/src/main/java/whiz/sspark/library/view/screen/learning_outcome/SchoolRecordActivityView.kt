@@ -71,8 +71,8 @@ class SchoolRecordActivityView: ConstraintLayout {
     }
 
     fun forceRenderNewFragment(supportFragmentManager: FragmentManager,
-                          fragment: Fragment,
-                          fragmentId: Int) {
+                               fragment: Fragment,
+                               fragmentId: Int) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.flContainer, fragment, fragmentId.toString())
             .commit()

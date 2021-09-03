@@ -47,6 +47,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
                 currentSegment = it
                 when(it) {
                     LEARNING_OUTCOME_VIEW -> binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentSemesterId), LEARNING_OUTCOME_VIEW)
+                    //TODO wait implement other screen
                 }
             }
         )
