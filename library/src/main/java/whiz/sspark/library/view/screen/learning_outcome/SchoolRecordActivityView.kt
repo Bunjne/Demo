@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.databinding.ViewSchollRecordActivityBinding
+import whiz.sspark.library.databinding.ViewSchoolRecordActivityBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showViewStateX
 
@@ -18,7 +18,7 @@ class SchoolRecordActivityView: ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewSchollRecordActivityBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewSchoolRecordActivityBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(title: String,
