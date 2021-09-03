@@ -19,7 +19,6 @@ import androidx.core.widget.TextViewCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.databinding.ViewPrimarySegmentTabBinding
-import whiz.sspark.library.databinding.ViewSegmentTabBinding
 import whiz.sspark.library.extension.toDP
 
 class PrimarySegmentTabView : ConstraintLayout {
