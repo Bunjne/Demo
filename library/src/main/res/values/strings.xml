@@ -29,5 +29,11 @@
 
     <!--general-->
     <string name="general_room">ห้องพัก %1$s</string>
+    
+    <!-- Class Detail -->
+    <string name="class_detail_tab_activity">ข่าวสาร</string>
+    <string name="class_detail_tab_attendance">การเข้าเรียน</string>
+    <string name="class_detail_tab_student">นักเรียน</string>
+    <string name="class_detail_tab_homework">การบ้าน</string>
 
 </resources>

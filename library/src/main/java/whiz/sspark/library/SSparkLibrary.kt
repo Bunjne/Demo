@@ -12,6 +12,7 @@ object SSparkLibrary {
     lateinit var regularTypeface: Typeface
     lateinit var regularSerifTypeface: Typeface
 
+    var isDarkModeEnabled = false
     var projectType: ProjectType? = null
     var apiKey = ""
     var baseUrl = ""

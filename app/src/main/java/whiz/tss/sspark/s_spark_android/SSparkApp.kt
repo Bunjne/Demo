@@ -37,6 +37,8 @@ class SSparkApp: Application() {
 
         private var instance: SSparkApp? = null
 
+        var collaborationSocketBaseURL: String? = null
+
         private var _role: RoleType? = null
         val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
 
