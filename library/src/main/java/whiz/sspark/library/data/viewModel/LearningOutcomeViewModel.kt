@@ -15,6 +15,7 @@ import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.repository.LearningOutcomeRepositoryImpl
 
 class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: LearningOutcomeRepositoryImpl): ViewModel() {
+
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
