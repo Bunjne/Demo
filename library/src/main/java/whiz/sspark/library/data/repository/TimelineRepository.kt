@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
 import whiz.sspark.library.data.dataSource.local.impl.TimelineCacheImpl
 import whiz.sspark.library.data.dataSource.remote.service.TimelineService
-import whiz.sspark.library.data.dataSource.remote.service.v3.TimelineServiceV3
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.extension.toNormalDate
@@ -23,8 +22,7 @@ interface TimelineRepository {
 
 class TimelineRepositoryImpl(private val context: Context,
                              private val local: TimelineCacheImpl,
-                             private val remote: TimelineService,
-                             private val remoteV3: TimelineServiceV3): TimelineRepository {
+                             private val remote: TimelineService): TimelineRepository {
     override suspend fun getTimeline(date: Date,
                                      differDay: Int,
                                      isNetworkPreferred: Boolean): Flow<DataWrapperX<TimelineResponse>> {
@@ -40,7 +38,7 @@ class TimelineRepositoryImpl(private val context: Context,
             } else {
                 if (NetworkManager.isOnline(context)) {
                     try {
-                        val response = remoteV3.getTimeline(differDay)
+                        val response = remote.getTimeline(differDay)
                         fetchX<TimelineResponse>(response)
                     } catch (e: Exception) {
                         throw e

@@ -31,7 +31,7 @@ class TodayFragment : BaseFragment(), TimelineFragment.OnUpdateAqi {
     private val binding get() = _binding!!
 
     private var currentFragment = -1
-    private var isNeedToUpdateBackground = true
+    private var isBackgroundUpdated = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentTodayBinding.inflate(inflater, container, false)
@@ -109,17 +109,15 @@ class TodayFragment : BaseFragment(), TimelineFragment.OnUpdateAqi {
             }
         }
 
-        if (isNeedToUpdateBackground) {
+        if (!isBackgroundUpdated) {
             binding.ivBackground.show(backgroundImageUrl)
-            isNeedToUpdateBackground = false
+            isBackgroundUpdated = true
         }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         if (SSparkLibrary.isAutoDarkModeEnabled) {
             viewModelStore.clear()
-
-            isNeedToUpdateBackground = true
         }
 
         super.onConfigurationChanged(newConfig)

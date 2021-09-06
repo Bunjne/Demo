@@ -9,5 +9,5 @@ import whiz.sspark.library.data.repository.TimelineRepositoryImpl
 val repositoryModule = module {
     factory { HappeningsRepositoryImpl(androidContext(), get(), get()) }
     factory { LearningOutcomeRepositoryImpl(androidContext(), get()) }
-    factory { TimelineRepositoryImpl(androidContext(), get(), get(), get()) }
+    factory { TimelineRepositoryImpl(androidContext(), get(), get()) }
 }
