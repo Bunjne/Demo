@@ -10,7 +10,8 @@ import whiz.sspark.library.data.dataSource.local.impl.TimelineCacheImpl
 import whiz.sspark.library.data.dataSource.remote.service.TimelineService
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
-import whiz.sspark.library.extension.toNormalDate
+import whiz.sspark.library.data.static.DateTimePattern
+import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 import java.util.*
@@ -27,7 +28,7 @@ class TimelineRepositoryImpl(private val context: Context,
                                      differDay: Int,
                                      isNetworkPreferred: Boolean): Flow<DataWrapperX<TimelineResponse>> {
         return flow {
-            val timeline = local.getTimeline(date.toNormalDate())
+            val timeline = local.getTimeline(date.convertToDateString(DateTimePattern.serviceDateFormat))
             if (timeline != null && !isNetworkPreferred) {
                 emit(DataWrapperX(
                     data = timeline,

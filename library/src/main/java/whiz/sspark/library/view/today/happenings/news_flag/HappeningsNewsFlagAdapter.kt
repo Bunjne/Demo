@@ -29,11 +29,7 @@ class HappeningsNewsFlagAdapter(private val context: Context,
         item?.let { item ->
             (holder.itemView as? HappeningsNewsFlagView)?.init(item, onNewsClicked)
 
-            when (position) {
-                0 -> holder.itemView.setPadding(defaultBorderPadding, 0, defaultItemPadding, 0)
-                newsDetail.lastIndex -> holder.itemView.setPadding(defaultItemPadding, 0, defaultBorderPadding, 0)
-                else -> holder.itemView.setPadding(defaultItemPadding, 0, defaultItemPadding, 0)
-            }
+            holder.itemView.setPadding(defaultItemPadding, 0, defaultBorderPadding, 0)
         }
     }
 

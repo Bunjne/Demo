@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.today
+package whiz.sspark.library.view.screen.timeline
 
 import android.content.Context
 import android.os.CountDownTimer
@@ -154,11 +154,11 @@ class TodayTimelineView : ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading
     }
 
-    fun setSelectedSegment(position: Int): Date? {
-        return segmentItems.getOrNull(position)?.apply {
+    private fun setSelectedSegment(position: Int) {
+        segmentItems.getOrNull(position)?.apply {
             currentSegmentPosition = position
             segmentAdapter?.setPosition(position)
-        }?.date
+        }
     }
 
     fun pauseTimer() {

@@ -36,7 +36,7 @@ class TimelineEventBodyView : ConstraintLayout {
             if (body.style == TimeLineBodyFontStyle.QR.style) {
                 if (!body.text.isNullOrBlank()) {
 //                    val qrCodeBitmap = generateSimpleQRCode(body.text, 92f.toDP(context).toInt())
-//                    binding.ivQrCode.setImageBitmap(qrCodeBitmap)
+//                    binding.ivQrCode.setImageBitmap(qrCodeBitmap) TODO wait for zxing migration
                 }
             } else {
                 initContentView(body)

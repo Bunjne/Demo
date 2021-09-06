@@ -14,9 +14,7 @@ import whiz.tss.sspark.s_spark_android.presentation.today.TodayFragment
 
 class MainActivity : BaseActivity() {
 
-    private val binding by lazy {
-         ActivityMainBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityMainBinding
 
     private val isNavigatedToSetting by lazy {
         intent.getBooleanExtra("isNavigatedToSetting", false)
@@ -33,6 +31,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)

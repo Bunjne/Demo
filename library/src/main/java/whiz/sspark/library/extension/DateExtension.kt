@@ -1,6 +1,5 @@
 package whiz.sspark.library.extension
 
-import android.text.format.DateFormat
 import whiz.sspark.library.utility.isThaiLanguage
 import whiz.sspark.library.utility.toThaiYear
 import java.text.SimpleDateFormat
@@ -17,13 +16,34 @@ fun Date?.toLocalDate(): Date? {
     return newFormatter.parse(convertedDateString)
 }
 
-fun Date.toTodayAbbreviatedDateFormat() = if (isThaiLanguage()) {
-    SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(this.toThaiYear())
-} else {
-    SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(this)
+/*
+defaultPattern is default for EN and will be use for thai format when dayMonthThPattern is blank
+dayMonthThPattern is date and month in thai format
+yearThPattern is year in thai format
+timeThPattern is time in thai format
+
+example
+    defaultPattern = "dd/MM/yyyy HH:mm"
+    dayMonthPattern = "dd/MM/"
+    yearPattern = "yyyy "
+    timePattern = "HH:mm"
+*/
+fun Date.convertToDateString(defaultPattern: String, dayMonthThPattern: String = "", yearThPattern: String = "", timeThPattern: String = ""): String {
+    return if (isThaiLanguage()) {
+        if (dayMonthThPattern.isBlank()) {
+            SimpleDateFormat(defaultPattern, Locale.getDefault()).format(this)
+        } else {
+            val dateMonth = SimpleDateFormat(dayMonthThPattern, Locale.getDefault()).format(this)
+            val year = SimpleDateFormat(yearThPattern, Locale.getDefault()).format(this.toThaiYear()) ?: ""
+            val time = SimpleDateFormat(timeThPattern, Locale.getDefault()).format(this) ?: ""
+
+            val datetime = StringBuilder()
+            datetime.append(dateMonth)
+            datetime.append(year)
+            datetime.append(time)
+            datetime.toString()
+        }
+    } else {
+        SimpleDateFormat(defaultPattern, Locale.getDefault()).format(this)
+    }
 }
-
-fun Date?.toNormalDate(): String = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(this)
-
-fun Date.toRepresentDay(): String = DateFormat.format("d", this).toString()
-fun Date.toRepresentDayName(): String = DateFormat.format("EEE", this).toString()

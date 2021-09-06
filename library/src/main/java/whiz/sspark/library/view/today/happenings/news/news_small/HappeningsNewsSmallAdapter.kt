@@ -11,38 +11,20 @@ class HappeningsNewsSmallAdapter(private val context: Context,
                                  private val newsDetail: List<NewsDetail>,
                                  private val onNewsClicked: (NewsDetail) -> Unit): RecyclerView.Adapter<HappeningsNewsSmallAdapter.ViewHolder>() {
 
-    enum class TodayNewsAdapterViewType(val type: Int) {
-        TEXT_ONLY(1),
-        TEXT_IMAGE(2)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return if (viewType == TodayNewsAdapterViewType.TEXT_IMAGE.type) {
-            ViewHolder(HappeningsNewsSmallTextImageView(context).apply {
+        return ViewHolder(HappeningsNewsSmallTextImageView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.WRAP_CONTENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT
                 )
-            })
-        } else {
-            ViewHolder(HappeningsNewsSmallTextOnlyView(context).apply {
-                layoutParams = RecyclerView.LayoutParams(
-                    RecyclerView.LayoutParams.WRAP_CONTENT,
-                    RecyclerView.LayoutParams.WRAP_CONTENT
-                )
-            })
-        }
+        })
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = newsDetail.getOrNull(position)
 
         item?.let { item ->
-            if (holder.itemViewType == TodayNewsAdapterViewType.TEXT_IMAGE.type) {
-                (holder.itemView as? HappeningsNewsSmallTextImageView)?.init(item)
-            } else {
-                (holder.itemView as? HappeningsNewsSmallTextOnlyView)?.init(item)
-            }
+            (holder.itemView as? HappeningsNewsSmallTextImageView)?.init(item)
 
             when (position) {
                 0 -> holder.itemView.setPadding(16.toDP(context), 0, 0, 0)
@@ -56,17 +38,7 @@ class HappeningsNewsSmallAdapter(private val context: Context,
         }
     }
 
-    override fun getItemViewType(position: Int) =
-        if (isNewsImageExisted(position)) {
-            TodayNewsAdapterViewType.TEXT_IMAGE.type
-        } else {
-            TodayNewsAdapterViewType.TEXT_ONLY.type
-        }
-
-
     override fun getItemCount() = newsDetail.size
-
-    private fun isNewsImageExisted(position: Int) = newsDetail[position].coverImage.isNotBlank()
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 

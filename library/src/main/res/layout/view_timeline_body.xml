@@ -81,7 +81,7 @@
                 android:layout_height="20dp"
                 android:scaleType="fitCenter"
                 android:layout_marginEnd="8dp"
-                app:tint="@color/arrowIconColor"
+                app:tint="@color/textBaseThirdColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/llTimelineContent"
                 app:layout_constraintEnd_toEndOf="parent"

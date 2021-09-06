@@ -17,8 +17,8 @@ class TimelineSegmentAdapter(private val context: Context,
 
     fun setPosition(position: Int) {
         val lastSelectedPosition = selectedPosition
-        notifyItemChanged(lastSelectedPosition, false)
         selectedPosition = position
+        notifyItemChanged(lastSelectedPosition, false)
         notifyItemChanged(position, false)
     }
 

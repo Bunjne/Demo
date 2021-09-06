@@ -8,6 +8,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
+import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewTimelineSegmentBinding
 import whiz.sspark.library.extension.*
 import java.util.*
@@ -22,8 +23,8 @@ class TimelineSegmentView : ConstraintLayout {
     }
 
     fun init(date: Date) {
-        binding.tvDate.text = date.toRepresentDayName()
-        binding.tvDay.text = date.toRepresentDay()
+        binding.tvDate.text = date.convertToDateString(DateTimePattern.dayNameThreePositionFormat)
+        binding.tvDay.text = date.convertToDateString(DateTimePattern.singleDayFormat)
     }
 
     fun setSelectedView(isToday: Boolean) {

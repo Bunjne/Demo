@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import whiz.sspark.library.data.entity.NewsDetail
+import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewHappeningsNewsFlagBinding
+import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.toLocalDate
-import whiz.sspark.library.extension.toTodayAbbreviatedDateFormat
 
 class HappeningsNewsFlagView : LinearLayout {
     constructor(context: Context) : super(context)
@@ -34,7 +35,11 @@ class HappeningsNewsFlagView : LinearLayout {
 
             binding.tvAuthor.text = newsDetail.publisher.name
 
-            binding.tvDate.text = startedAt.toLocalDate()!!.toTodayAbbreviatedDateFormat().toUpperCase()
+            binding.tvDate.text = startedAt.toLocalDate()!!.convertToDateString(
+                defaultPattern = DateTimePattern.todayAbbreviatedDateFormatEn,
+                dayMonthThPattern = DateTimePattern.todayAbbreviatedDayMonthFormatTh,
+                yearThPattern = DateTimePattern.generalYear
+            ).toUpperCase()
         }
     }
 }

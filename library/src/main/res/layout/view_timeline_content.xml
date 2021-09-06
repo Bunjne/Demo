@@ -12,7 +12,6 @@
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
         android:scaleType="fitCenter"
-        app:tint="@color/moreIconColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"

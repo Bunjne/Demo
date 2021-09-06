@@ -18,8 +18,6 @@
     <color name="textBaseSecondaryColor">#3E3E3E</color>
     <color name="textBaseThirdColor">#9E9EA5</color>
     <color name="iconBaseColor">#5B5B5B</color>
-    <color name="arrowIconColor">#9E9EA5</color>
-    <color name="moreIconColor">#000000</color>
     <color name="transparentColor">#00000000</color>
     <color name="shadowColor">#04000000</color>
     <color name="segmentBaseBackgroundColor">#1f767680</color>

@@ -21,9 +21,7 @@ class LoginActivity : LocalizationActivity() {
 
     private val viewModel: LoginViewModel by viewModel()
 
-    private val binding by lazy {
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityLoginBinding
 
     private val profileManager by lazy {
         ProfileManager(this)
@@ -40,6 +38,8 @@ class LoginActivity : LocalizationActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
 
         initView()
         observeView()

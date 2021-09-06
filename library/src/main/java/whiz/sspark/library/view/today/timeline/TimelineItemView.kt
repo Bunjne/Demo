@@ -12,9 +12,9 @@ import whiz.sspark.library.data.entity.TimelineItem
 import whiz.sspark.library.data.enum.TimeLineItemType
 import whiz.sspark.library.data.enum.TimelineColorStyle
 import whiz.sspark.library.databinding.ViewTimelineItemBinding
+import whiz.sspark.library.extension.convertToTime
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.toResourceColor
-import whiz.sspark.library.utility.convertDateToTime
 
 class TimelineItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -26,9 +26,9 @@ class TimelineItemView : ConstraintLayout {
     }
 
     fun init(timelineItem: TimelineItem, onItemClicked: (String) -> Unit, isLastItem: Boolean = false) {
-        binding.tvStartTime.text = convertDateToTime(timelineItem.startTime)
+        binding.tvStartTime.text = timelineItem.startTime.convertToTime()
         binding.tvEndTime.text = if (timelineItem.endTime.isNotBlank()) {
-            resources.getString(R.string.today_timeline_time, convertDateToTime(timelineItem.endTime))
+            resources.getString(R.string.today_timeline_time, timelineItem.endTime.convertToTime())
         } else {
             ""
         }
@@ -88,6 +88,8 @@ class TimelineItemView : ConstraintLayout {
 
                 if (isLastItem) {
                     hideVerticalLine()
+                } else {
+                    showVerticalLine()
                 }
             })
         } else {

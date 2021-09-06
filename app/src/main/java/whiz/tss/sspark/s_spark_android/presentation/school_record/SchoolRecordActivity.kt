@@ -15,9 +15,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         val LEARNING_OUTCOME_VIEW = 0
     }
 
-    private val binding by lazy {
-        ActivitySchoolRecordBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivitySchoolRecordBinding
 
     private var currentSegment = LEARNING_OUTCOME_VIEW
     private var currentSemesterId = 1 //TODO wait confirm object from API
@@ -25,6 +23,8 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding = ActivitySchoolRecordBinding.inflate(layoutInflater)
 
         initView()
     }

@@ -19,7 +19,7 @@ class IndicatorView : View {
     private val background by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
-            color = ContextCompat.getColor(context, R.color.indicatorBackground)
+            color = ContextCompat.getColor(context, R.color.viewBaseFourthColor)
         }
     }
 

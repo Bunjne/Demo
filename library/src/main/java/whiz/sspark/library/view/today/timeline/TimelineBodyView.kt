@@ -85,6 +85,10 @@ class TimelineBodyView : ConstraintLayout {
         binding.tvVerticalLine.visibility = View.INVISIBLE
     }
 
+    fun showVerticalLine() {
+        binding.tvVerticalLine.visibility = View.VISIBLE
+    }
+
     fun setIsRenderAdvisingAppointmentView(isRender: Boolean) {
         isRenderAdvisingAppointmentView = isRender
 

@@ -130,7 +130,6 @@ class TimelineFragment : BaseFragment() {
 
         viewModel.getTodayDate()
         viewModel.getTimeline(currentDate, 0, false)
-        binding.vTimeline.updateSegment(currentDate)
     }
 
     override fun observeView() {
