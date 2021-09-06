@@ -10,13 +10,14 @@ import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.LoginAPIBody
 import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 import whiz.sspark.library.utility.NetworkManager
+import whiz.sspark.library.utility.fetchX
 import whiz.sspark.library.utility.transformToDataWrapperX
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
 
 interface LoginRepository {
     suspend fun login(username: String, password: String, uuid: String, operator: String): Flow<DataWrapperX<AuthenticationInformation>>
-    suspend fun refreshToken(userId: String, uuid: String, refreshToken: String): Flow<AuthenticationInformation>
+    suspend fun refreshToken(userId: String, uuid: String, refreshToken: String): Flow<DataWrapperX<AuthenticationInformation>>
 }
 
 class LoginRepositoryImpl(private val context: Context,
@@ -38,16 +39,14 @@ class LoginRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun refreshToken(userId: String, uuid: String, refreshToken: String): Flow<AuthenticationInformation> {
+    override suspend fun refreshToken(userId: String, uuid: String, refreshToken: String): Flow<DataWrapperX<AuthenticationInformation>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.refreshToken(RefreshTokenAPIBody(userId, uuid, refreshToken))
                     when {
                         response.isSuccessful -> {
-                            response.body()?.let {
-                                emit(it)
-                            }
+                            fetchX<AuthenticationInformation>(response)
                         }
                         else -> throw Exception(response.toString())
                     }

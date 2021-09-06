@@ -12,7 +12,6 @@ import whiz.sspark.library.data.viewModel.TimelineViewModel
 import whiz.sspark.library.extension.toLocalDate
 import whiz.sspark.library.utility.isDarkModeEnabled
 import whiz.sspark.library.utility.showAlertWithOkButton
-import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentTimelineBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
@@ -174,7 +173,7 @@ class TimelineFragment : BaseFragment() {
 
         viewModel.todayDateErrorResponse.observe(this, Observer {
             it?.let {
-                showApiResponseAlert(activity, it)
+                showApiResponseXAlert(activity, it)
             }
         })
 

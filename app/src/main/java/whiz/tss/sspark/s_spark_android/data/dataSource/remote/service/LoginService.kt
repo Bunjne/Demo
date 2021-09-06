@@ -13,5 +13,5 @@ interface LoginService {
     suspend fun getLogin(@Body loginAPIBody: LoginAPIBody): Response<ApiResponseX>
 
     @POST("v2/accounts/tokens/refresh")
-    suspend fun refreshToken(@Body refreshTokenAPIBody: RefreshTokenAPIBody): Response<AuthenticationInformation>
+    suspend fun refreshToken(@Body refreshTokenAPIBody: RefreshTokenAPIBody): Response<ApiResponseX>
 }

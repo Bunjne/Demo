@@ -9,20 +9,16 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.dataSource.local.impl.TimelineCacheImpl
 import whiz.sspark.library.data.dataSource.remote.service.TimelineService
 import whiz.sspark.library.data.dataSource.remote.service.v3.TimelineServiceV3
-import whiz.sspark.library.data.entity.DataWrapper
-import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.TimelineResponse
-import whiz.sspark.library.data.entity.TodayDateResponse
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.extension.toNormalDate
 import whiz.sspark.library.utility.NetworkManager
-import whiz.sspark.library.utility.fetch
 import whiz.sspark.library.utility.fetchX
 import java.util.*
 
 interface TimelineRepository {
     suspend fun getTimeline(date: Date, differDay: Int, isNetworkPreferred: Boolean): Flow<DataWrapperX<TimelineResponse>>
-    suspend fun getTodayDate(): Flow<DataWrapper<TodayDateResponse>>
+    suspend fun getTodayDate(): Flow<DataWrapperX<TodayDateResponse>>
 }
 
 class TimelineRepositoryImpl(private val context: Context,
@@ -56,12 +52,12 @@ class TimelineRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getTodayDate(): Flow<DataWrapper<TodayDateResponse>> {
+    override suspend fun getTodayDate(): Flow<DataWrapperX<TodayDateResponse>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.getTodayDate()
-                    fetch(response)
+                    fetchX<TodayDateResponse>(response)
                 } catch (e: Exception) {
                     throw e
                 }
