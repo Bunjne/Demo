@@ -54,7 +54,8 @@ class MenuStudentFragmentView : ConstraintLayout {
 
         binding.ivCamera.show(R.drawable.ic_camera)
         binding.vGradientTop.show(R.drawable.bg_primary_gradient_0)
-        binding.ivProfile.showUserProfileCircle(student.profileImageUrl, getGender(student.gender).type)
+        binding.ivProfile.showUserProfileCircle(student.imageUrl, getGender(student.gender).type)
+
         binding.tvFirstname.text = student.firstName
         binding.tvLastname.text = student.lastName
         binding.tvIDCardNumber.text = resources.getString(R.string.menu_id_card_number, student.code)
@@ -102,6 +103,10 @@ class MenuStudentFragmentView : ConstraintLayout {
         }
 
         updateMemberAdapter()
+    }
+
+    fun setSwipeRefreshLoading(isLoading: Boolean?) {
+        binding.srlMenu.isRefreshing = isLoading == true
     }
 
     private fun resetMenuSegment() {

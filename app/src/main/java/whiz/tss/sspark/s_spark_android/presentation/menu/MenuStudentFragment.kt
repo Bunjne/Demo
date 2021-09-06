@@ -8,10 +8,14 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.MenuSegment
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
+import whiz.sspark.library.data.viewModel.MenuViewModel
+import whiz.sspark.library.utility.showAlertWithOkButton
+import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
@@ -28,6 +32,8 @@ class MenuStudentFragment : BaseFragment() {
             }
         }
     }
+
+    private val viewModel: MenuViewModel by viewModel()
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
@@ -52,6 +58,10 @@ class MenuStudentFragment : BaseFragment() {
                 }
             }
         }
+
+        initView()
+
+        viewModel.getMenu()
     }
 
     override fun initView() {
@@ -73,25 +83,43 @@ class MenuStudentFragment : BaseFragment() {
 
             },
             onRefresh = {
-
+                viewModel.getMenu()
             }
         )
     }
 
     override fun observeView() {
-
+        viewModel.viewLoading.observe(this) {
+            binding.vMenu.setSwipeRefreshLoading(it)
+        }
     }
 
     override fun observeData() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender)?.type)
+                binding.vMenu.updateStudentProfileImage(student.imageUrl, getGender(it.gender)?.type)
+            }
+        }
+
+        viewModel.menuResponse.observe(this) {
+            it?.let {
+
             }
         }
     }
 
     override fun observeError() {
+        viewModel.menuErrorResponse.observe(this) {
+            it?.let {
+                showApiResponseXAlert(requireContext(), it)
+            }
+        }
 
+        viewModel.errorMessage.observe(this) {
+            it?.let {
+                requireContext().showAlertWithOkButton(it)
+            }
+        }
     }
 }
