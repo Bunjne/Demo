@@ -12,9 +12,9 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.transports.WebSocket
 import org.json.JSONObject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.tss.sspark.s_spark_android.BuildConfig
 import whiz.tss.sspark.s_spark_android.SSparkApp
+import whiz.tss.sspark.s_spark_android.databinding.FragmentClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.unility.retrieveAuthenticationInformation
 import java.net.URISyntaxException
@@ -56,6 +56,9 @@ class ClassActivityFragment : BaseFragment() {
     }
 
     private val items = mutableListOf<ClassPostAdapter.Item>()
+
+    private var _binding: FragmentClassActivityBinding? = null
+    private val binding get() = _binding!!
 
     private val onPostLiked by lazy {
         Emitter.Listener {
@@ -187,7 +190,8 @@ class ClassActivityFragment : BaseFragment() {
     private val viewModel: ClassActivityViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_class_activity, container, false)
+        _binding = FragmentClassActivityBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onStart() {
