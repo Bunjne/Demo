@@ -26,10 +26,10 @@ class RadarChartView: View {
     constructor(context: Context, attrs: AttributeSet): super(context, attrs) { setupStyleable(context, attrs) }
     constructor(context: Context, attrs: AttributeSet, defStylesRes: Int): super(context, attrs, defStylesRes) { setupStyleable(context, attrs) }
 
-    private val DEFAULT_RADAR_BACKGROUND_COLOR = ContextCompat.getColor(context, R.color.viewBaseSecondaryColor)
+    private val DEFAULT_RADAR_BACKGROUND_COLOR = ContextCompat.getColor(context, R.color.viewBaseThirdColor)
     private val DEFAULT_CATEGORY_TEXT_COLOR = ContextCompat.getColor(context, R.color.textBaseThirdColor)
     private val DEFAULT_RADAR_COLOR = ContextCompat.getColor(context, R.color.primaryColor)
-    private val DEFAULT_INNER_LINE_COLOR =  ContextCompat.getColor(context, R.color.viewBasePrimaryColor)
+    private val DEFAULT_INNER_LINE_COLOR =  ContextCompat.getColor(context, R.color.naturalV100)
 
     private var courseGroupGrades = mutableListOf<CourseGroupGrade>()
     private var isDrawText: Boolean = false
@@ -402,13 +402,13 @@ class RadarChartView: View {
                 val dispatchAngle = i - 90
                 if (gradeIndex < courseGroupGrades.size) {
                     val grade = courseGroupGrades[gradeIndex].grade
-                    val gx = (x + (cos(Math.toRadians(dispatchAngle.toDouble()))) * (radius / numberOfRing) * grade).toFloat()
-                    val gy = (y + (sin(Math.toRadians(dispatchAngle.toDouble()))) * (radius / numberOfRing) * grade).toFloat()
+                    val gradePointX = (x + (cos(Math.toRadians(dispatchAngle.toDouble()))) * (radius / numberOfRing) * grade).toFloat()
+                    val gradePointY = (y + (sin(Math.toRadians(dispatchAngle.toDouble()))) * (radius / numberOfRing) * grade).toFloat()
                     if(gradeIndex == 0) {
-                        radarPath.moveTo(gx, gy)
-                        radarPath.lineTo(gx, gy)
+                        radarPath.moveTo(gradePointX, gradePointY)
+                        radarPath.lineTo(gradePointX, gradePointY)
                     } else {
-                        radarPath.lineTo(gx, gy)
+                        radarPath.lineTo(gradePointX, gradePointY)
                     }
                 }
                 gradeIndex++
