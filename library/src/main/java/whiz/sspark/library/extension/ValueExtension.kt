@@ -10,6 +10,6 @@ fun Int.toDP(context: Context) = (TypedValue.applyDimension(TypedValue.COMPLEX_U
 
 fun Int.toResourceColor(context: Context) = ContextCompat.getColor(context, this)
 
-fun Int.toPercentile(percentage: Int) = this * (percentage/100f)
+fun Int.getPercentage(percentage: Int) = this * (percentage/100f)
 
-fun Float.toPercentile(percentage: Int) = this * (percentage/100)
+fun Float.getPercentage(percentage: Int) = this * (percentage/100)

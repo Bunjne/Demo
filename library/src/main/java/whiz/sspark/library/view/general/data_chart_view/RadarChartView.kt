@@ -17,7 +17,7 @@ import whiz.sspark.library.data.entity.CourseGroupGrade
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObjects
-import whiz.sspark.library.extension.toPercentile
+import whiz.sspark.library.extension.getPercentage
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -158,7 +158,7 @@ class RadarChartView: View {
 
     override fun onDraw(canvas: Canvas) {
         with(canvas) {
-            val defaultPadding = width.toPercentile(15)
+            val defaultPadding = width.getPercentage(15)
             val backgroundRadiusOffset = width / 2 - categoryCirclePadding - textPadding - defaultPadding
             val categoryCircleRadius = backgroundRadiusOffset / 12
             val middleXOffset = width / 2f
@@ -436,9 +436,9 @@ class RadarChartView: View {
             MeasureSpec.UNSPECIFIED -> desiredWidth
             else -> desiredWidth
         }
-        categoryCirclePadding = width.toPercentile(5)
-        textPadding = width.toPercentile(6)
-        val defaultPadding = width.toPercentile(15)
+        categoryCirclePadding = width.getPercentage(5)
+        textPadding = width.getPercentage(6)
+        val defaultPadding = width.getPercentage(15)
         val backgroundRadius = width/2 - categoryCirclePadding - textPadding - defaultPadding
         val categoryCircleRadius = backgroundRadius / 12
         val categoryCircleDiameter = categoryCircleRadius * 2
