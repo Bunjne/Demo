@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvCourseCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="13dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/tvCredit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="bold"
+        tools:text="SCI" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="6dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toStartOf="@+id/glHalf"
+        app:layout_constraintStart_toEndOf="@+id/tvCourseCode"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular"
+        tools:text="1 หน่วยกิต" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvCourseName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseSecondaryColor"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toStartOf="@+id/glHalf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourseCode"
+        app:ssparkFont="regular"
+        tools:text="@tools:sample/lorem/random" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHalf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/vProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginHorizontal="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+        app:layout_constraintStart_toEndOf="@+id/glHalf"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rcBackgroundColor="@color/viewBaseThirdColor"
+        app:rcRadius="11dp" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="4dp"
+        android:padding="3dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_arrow_right" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

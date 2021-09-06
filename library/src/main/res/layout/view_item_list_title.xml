@@ -6,12 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <whiz.sspark.library.view.general.SegmentPackedView
-        android:id="@+id/vSegment"
-        android:layout_width="match_parent"
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular"
+        tools:text="การเรียน" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

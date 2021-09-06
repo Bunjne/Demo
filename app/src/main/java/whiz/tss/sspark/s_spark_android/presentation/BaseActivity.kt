@@ -32,8 +32,8 @@ abstract class BaseActivity: LocalizationActivity() {
         observeError()
     }
 
-    abstract fun initView()
-    abstract fun observeView()
-    abstract fun observeData()
-    abstract fun observeError()
+    open fun initView() { }
+    open fun observeView() { }
+    open fun observeData() { }
+    open fun observeError() { }
 }

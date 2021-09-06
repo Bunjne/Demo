@@ -11,15 +11,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.databinding.ViewMenuStudentSegmentBinding
+import whiz.sspark.library.databinding.ViewSegmentPackedBinding
 
-class PackedSegmentView: ConstraintLayout {
+class SegmentPackedView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewMenuStudentSegmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewSegmentPackedBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(selectTab: Int = 0,
@@ -51,7 +51,7 @@ class PackedSegmentView: ConstraintLayout {
             isChecked = true
         }
         id = resourceId
-        background = ContextCompat.getDrawable(context, R.drawable.selector_menu_student_segment)
+        background = ContextCompat.getDrawable(context, R.drawable.selector_base_segment)
         layoutParams = RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT)
         buttonDrawable = null
         typeface = SSparkLibrary.regularTypeface
