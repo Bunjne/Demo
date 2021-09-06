@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/general_alertmessage_loading_title"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:layout_marginStart="18dp"
         app:layout_constraintBottom_toBottomOf="@+id/cpiProgressIndicator"
         app:layout_constraintEnd_toEndOf="parent"
