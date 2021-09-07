@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.collect
 import whiz.sspark.library.extension.show
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ViewProfileHeaderBinding
-import whiz.tss.sspark.s_spark_android.unility.ProfileManager
+import whiz.tss.sspark.s_spark_android.utility.ProfileManager
 import kotlin.coroutines.CoroutineContext
 
 class ProfileHeader : ConstraintLayout, CoroutineScope {

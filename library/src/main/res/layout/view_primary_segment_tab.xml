@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cornerRadius="16dp"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow_Outer_Area="8dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow0_Outer_Blur="30dp">
+
+    <RadioGroup
+        android:id="@+id/rgContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:dividerPadding="12dp"
+        android:background="@drawable/bg_primary_segment"
+        android:showDividers="middle">
+
+    </RadioGroup>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

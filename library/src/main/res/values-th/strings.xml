@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Happenings -->
+    <string name="today_happenings_see_more">เพิ่มเติม</string>
+    <string name="today_happenings_announcement">ประกาศ</string>
+
+    <!-- Today -->
+    <string name="today_timeline">กำหนดการ</string>
+    <string name="today_happenings">ข่าวสาร</string>
+    <string name="today_segment_title">วันนี้</string>
+    <string name="today_nothing_todo_title">ไม่มีกำหนดการ</string>
+
+    <!-- Event -->
+    <string name="event_list_title">กิจกรรม</string>
+
 </resources>

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.data.entity.PreviewMessageItem
 import whiz.sspark.library.databinding.ViewMenuPreviewMessageWidgetBinding
-import whiz.sspark.library.utility.convertToDateString
+import whiz.sspark.library.extension.convertToDateString
 
 class MenuPreviewMessageWidget: ConstraintLayout {
     constructor(context: Context) : super(context)

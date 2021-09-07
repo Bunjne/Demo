@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="12dp">
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:cornerRadius="16dp"
+        app:background_Type="fill"
+        app:background_ColorType="gradient_linear"
+        app:shadow_Outer_Area="2dp"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow0_Outer_Alpha="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:scaleType="fitCenter"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvStartTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAllCaps="true"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvIcon"
+        app:layout_constraintStart_toEndOf="@+id/cvIcon"
+        app:ssparkFont="bold"
+        tools:text="08:00" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvEndTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAllCaps="true"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStartTime"
+        app:layout_constraintStart_toEndOf="@+id/tvStartTime"
+        app:ssparkFont="bold"
+        tools:text="- 08:00" />
+
+    <FrameLayout
+        android:id="@+id/flBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvIcon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
