@@ -21,14 +21,14 @@
         android:id="@+id/cvBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="23dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="20dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius="12dp"
         app:background_Type="fill"
         app:background_ColorType="solid"
-        app:shadow_Outer_Area="2dp"
+        app:shadow_Outer_Area="6dp"
         app:shadow0_Outer_Blur="30dp"
         app:shadow0_Outer_Color="@color/shadowColor"
         app:shadow0_Outer_Alpha="1"
@@ -42,27 +42,16 @@
             android:layout_height="wrap_content"
             android:paddingVertical="8dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvImageUrl"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civProfile"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="12dp"
-                app:cardBackgroundColor="@color/textBaseThirdColor"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/llTimelineContent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/llTimelineContent">
-
-                <ImageView
-                    android:id="@+id/ivProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    tools:src="@tools:sample/avatars" />
-
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="@id/llTimelineContent"
+                tools:src="@tools:sample/avatars" />
 
             <LinearLayout
                 android:id="@+id/llTimelineContent"
@@ -71,7 +60,7 @@
                 android:orientation="vertical"
                 android:layout_marginHorizontal="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cvImageUrl"
+                app:layout_constraintStart_toEndOf="@id/civProfile"
                 app:layout_constraintEnd_toStartOf="@id/ivArrow"
                 app:layout_constraintTop_toTopOf="parent" />
 

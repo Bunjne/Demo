@@ -20,14 +20,13 @@ interface HappeningsRepository {
 
 class HappeningsRepositoryImpl(private val context: Context,
                                private val local: HappeningsCacheImpl,
-                               private val remote: HappeningsService
-): HappeningsRepository {
+                               private val remote: HappeningsService): HappeningsRepository {
     override suspend fun getTodayNews(): Flow<DataWrapperX<List<News>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.getTodayNews()
-                    fetchX<List<News>>(response)
+                    fetchX(response, Array<News>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }
@@ -54,7 +53,7 @@ class HappeningsRepositoryImpl(private val context: Context,
                 if (NetworkManager.isOnline(context)) {
                     try {
                         val response = remote.getEvents(type)
-                        fetchX<List<Event>>(response)
+                        fetchX(response, Array<Event>::class.java)
                     } catch (e: Exception) {
                         throw e
                     }

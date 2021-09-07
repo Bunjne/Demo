@@ -12,23 +12,23 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:background_Color="@color/viewBaseSecondaryColor"
-        app:background_Type="fill"
         app:background_ColorType="solid"
+        app:background_Type="fill"
         app:cornerRadius="16dp"
-        app:shadow_Outer_Area="2dp"
-        app:shadow0_Outer_Blur="30dp"
-        app:shadow0_Outer_Color="@color/shadowColor"
-        app:shadow0_Outer_Alpha="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="2dp" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvNewsSmallTextImageTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:lines="3"
@@ -43,7 +43,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cvImage"
         app:ssparkFont="boldSerif"
         tools:text="@tools:sample/lorem/random" />
-
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvNewsSmallTextImageAuthor"
@@ -86,16 +85,16 @@
         android:layout_marginEnd="8dp"
         android:visibility="visible"
         app:background_Color="@color/viewBasePrimaryColor"
-        app:background_Type="fill"
         app:background_ColorType="solid"
+        app:background_Type="fill"
         app:cornerRadius="8dp"
-        app:shadow_Outer_Area="2dp"
-        app:shadow0_Outer_Blur="30dp"
-        app:shadow0_Outer_Color="@color/shadowColor"
-        app:shadow0_Outer_Alpha="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="2dp">
 
         <whiz.sspark.library.view.general.TopCropImageView
             android:id="@+id/ivNewsSmallTextImageView"

@@ -1,11 +1,6 @@
 package whiz.sspark.library.view.general
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -32,8 +27,7 @@ class PrimarySegmentTabView : ConstraintLayout {
     private var onTabClicked: (Int) -> Unit = { }
 
     fun init(titles: Array<String>,
-             onTabClicked: (Int) -> Unit,
-             gradientColors: List<Int>) {
+             onTabClicked: (Int) -> Unit) {
         this.onTabClicked = onTabClicked
 
         binding.rgContainer.removeAllViews()
@@ -42,10 +36,8 @@ class PrimarySegmentTabView : ConstraintLayout {
             val title = titles.getOrElse(0) { "" }
 
             val singleRadioButton = getSegmentRadioButton(context, 0, title).apply {
-                id = 0
                 setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
                 setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
-                background = getStripSelector(gradientColors)
             }
 
             setSegmentListener(onTabClicked)
@@ -53,8 +45,7 @@ class PrimarySegmentTabView : ConstraintLayout {
         } else {
             titles.forEachIndexed { index, title ->
                 val radioButton = getSegmentRadioButton(context, index, title).apply {
-                    id = index
-                    background = getStripSelector(gradientColors)
+                    background = ContextCompat.getDrawable(context, R.drawable.selector_primary_segment)
                 }
 
                 binding.rgContainer.addView(radioButton)
@@ -73,12 +64,6 @@ class PrimarySegmentTabView : ConstraintLayout {
         }
     }
 
-    private fun initSegmentContainer() {
-        with(binding.rgContainer) {
-
-        }
-    }
-
     private fun getSegmentRadioButton(context: Context,
                                       resourceId: Int,
                                       title: String) = RadioButton(context).apply {
@@ -92,43 +77,17 @@ class PrimarySegmentTabView : ConstraintLayout {
             rightMargin = 2.toDP(context)
             leftMargin = 2.toDP(context)
         }
+
         setPadding(8.toDP(context), 6.toDP(context), 8.toDP(context), 6.toDP(context))
         gravity = Gravity.CENTER
         buttonDrawable = null
         typeface = SSparkLibrary.boldTypeface
-        setTextColor(getStatedTextColor())
+        setTextColor(ContextCompat.getColorStateList(context, R.color.selector_text_primary_segment))
 
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
-        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 10, 14, 1, TypedValue.COMPLEX_UNIT_SP)
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 10, 14, 1, TypedValue.COMPLEX_UNIT_DIP)
         maxLines = 1
         text = title
-    }
-
-    private fun getStatedTextColor() = ColorStateList(
-            arrayOf(
-                    intArrayOf(android.R.attr.state_checked),
-                    intArrayOf(-android.R.attr.state_checked)
-            ),
-            intArrayOf(Color.WHITE, ContextCompat.getColor(context, R.color.textBasePrimaryColor))
-    )
-
-    private fun getStripSelector(gradientColors: List<Int>) = StateListDrawable().apply {
-        val cornerRadius = 16f.toDP(context)
-
-        val filledStripDrawable = GradientDrawable().apply {
-            shape = GradientDrawable.RECTANGLE
-            cornerRadii = floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
-            colors = gradientColors.toIntArray()
-            gradientType = GradientDrawable.LINEAR_GRADIENT
-            orientation = GradientDrawable.Orientation.LEFT_RIGHT
-        }
-
-        val stripDrawable = GradientDrawable().apply {
-            shape = GradientDrawable.RECTANGLE
-        }
-
-        addState(intArrayOf(android.R.attr.state_checked), filledStripDrawable)
-        addState(intArrayOf(-android.R.attr.state_checked), stripDrawable)
     }
 
     fun selectTab(index: Int) {

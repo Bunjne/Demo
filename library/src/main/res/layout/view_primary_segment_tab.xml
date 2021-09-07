@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:dividerPadding="12dp"
-        android:divider="@drawable/divider_primary_segment"
         android:background="@drawable/bg_primary_segment"
         android:showDividers="middle">
 

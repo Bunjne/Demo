@@ -12,5 +12,5 @@ interface HappeningsService {
     suspend fun getTodayNews(): Response<ApiResponseX>
 
     @GET("v3/events")
-    suspend fun getEvents(@Query("type")type: String): Response<ApiResponseX>
+    suspend fun getEvents(@Query("type") type: String): Response<ApiResponseX>
 }

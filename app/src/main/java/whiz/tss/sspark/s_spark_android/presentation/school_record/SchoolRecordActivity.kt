@@ -22,9 +22,8 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
         binding = ActivitySchoolRecordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initView()
     }

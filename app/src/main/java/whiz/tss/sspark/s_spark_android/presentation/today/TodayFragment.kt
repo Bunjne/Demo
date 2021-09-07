@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.TodayFragmentId
 import whiz.sspark.library.extension.show
-import whiz.sspark.library.extension.toResourceColor
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentTodayBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
@@ -45,10 +44,8 @@ class TodayFragment : BaseFragment(), TimelineFragment.OnUpdateAqi {
     }
 
     override fun initView() {
-        val gradientColors = listOf(R.color.primaryStartColor.toResourceColor(requireActivity()), R.color.primaryEndColor.toResourceColor(requireActivity()))
         binding.stvPage.init(
             titles = arrayOf(resources.getString(R.string.today_timeline), resources.getString(R.string.today_happenings)),
-            gradientColors = gradientColors,
             onTabClicked = {
                 when (it) {
                     0 -> if (!isFragmentVisible(TodayFragmentId.TIMELINE.id)) renderFragment(TimelineFragment.newInstance(), TodayFragmentId.TIMELINE.id)

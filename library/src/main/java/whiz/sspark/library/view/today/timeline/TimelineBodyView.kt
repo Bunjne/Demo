@@ -43,7 +43,7 @@ class TimelineBodyView : ConstraintLayout {
         binding.llTimelineContent.removeAllViews()
         sortedOrderTimeLineItemBody.forEach { body ->
             if (isRenderAdvisingAppointmentView && body.icon.isNotBlank()) {
-                binding.ivProfile.showUserProfileCircle(body.icon, Gender.NOTSPECIFY.type)
+                binding.civProfile.showUserProfileCircle(body.icon, Gender.NOTSPECIFY.type)
             }
 
             initContentView(body)
@@ -93,9 +93,9 @@ class TimelineBodyView : ConstraintLayout {
         isRenderAdvisingAppointmentView = isRender
 
         if (!isRender) {
-            binding.cvImageUrl.visibility = View.GONE
+            binding.civProfile.visibility = View.GONE
         } else {
-            binding.cvImageUrl.visibility = View.VISIBLE
+            binding.civProfile.visibility = View.VISIBLE
         }
     }
 }

@@ -37,9 +37,8 @@ class LoginActivity : LocalizationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initView()
         observeView()
