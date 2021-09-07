@@ -8,18 +8,20 @@ import com.akexorcist.localizationactivity.core.LocalizationApplicationDelegate
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import st.lowlevel.storo.Storo
+import st.lowlevel.storo.StoroBuilder
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.ProjectType
+import whiz.sspark.library.di.localModule
 import whiz.sspark.library.di.remoteModule
 import whiz.sspark.library.di.repositoryModule
 import whiz.sspark.library.di.viewModelModule
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.di.networkModule
 import whiz.tss.sspark.s_spark_android.extension.getRoleType
-import whiz.tss.sspark.s_spark_android.unility.getAPKSignedSignature
-import whiz.tss.sspark.s_spark_android.unility.logout
-import whiz.tss.sspark.s_spark_android.unility.retrieveAuthenticationInformation
-import java.lang.IllegalStateException
+import whiz.tss.sspark.s_spark_android.utility.getAPKSignedSignature
+import whiz.tss.sspark.s_spark_android.utility.logout
+import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
 import java.util.*
 
 class SSparkApp: Application() {
@@ -92,10 +94,16 @@ class SSparkApp: Application() {
             }
         }
 
+        if (!Storo.isInitialized()) {
+            StoroBuilder.configure(Long.MAX_VALUE)
+                .setDefaultCacheDirectory(this)
+                .initialize()
+        }
+
         startKoin {
             androidLogger()
             androidContext(applicationContext)
-            modules(listOf(networkModule, remoteModule, repositoryModule, viewModelModule))
+            modules(listOf(networkModule, remoteModule, localModule, repositoryModule, viewModelModule))
         }
     }
 }
