@@ -112,7 +112,10 @@ class MenuStudentFragmentView : ConstraintLayout {
                 addItemDecoration(
                     CustomWidgetPaddingItemDecoration(
                         padding = 6.toDP(context),
-                        viewTypes = listOf(MenuAdapter.NO_MESSAGE_WIDGET_TYPE, MenuAdapter.MESSAGE_WIDGET_TYPE, MenuAdapter.CALENDAR_WIDGET_TYPE, MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE))
+                        viewTypes = listOf(MenuAdapter.NO_MESSAGE_WIDGET_TYPE,
+                            MenuAdapter.MESSAGE_WIDGET_TYPE,
+                            MenuAdapter.CALENDAR_WIDGET_TYPE,
+                            MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE))
                 )
             }
 
@@ -144,6 +147,7 @@ class MenuStudentFragmentView : ConstraintLayout {
 
     fun updateMenu(menusDTO: List<MenuDTO>) {
         val items = mutableListOf<MenuAdapter.Item>()
+
         menusDTO.forEach { menuDTO ->
             items.add(MenuAdapter.Item(type = menuDTO.type, code = menuDTO.code, title = menuDTO.name))
 

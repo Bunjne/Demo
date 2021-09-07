@@ -2,7 +2,6 @@ package whiz.sspark.library.utility
 
 import android.content.Context
 import whiz.sspark.library.R
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
