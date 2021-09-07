@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="132dp"
+    android:layout_width="152dp"
     android:layout_height="wrap_content">
 
     <com.sinaseyfi.advancedcardview.AdvancedCardView
@@ -28,7 +28,7 @@
         android:id="@+id/tvNewsSmallTextImageTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="14dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:lines="3"
@@ -48,7 +48,7 @@
         android:id="@+id/tvNewsSmallTextImageAuthor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="14dp"
         android:layout_marginTop="12dp"
         android:ellipsize="end"
         android:maxLines="1"
@@ -65,7 +65,7 @@
         android:id="@+id/tvNewsSmallTextImageDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="14dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="10dp"
@@ -93,7 +93,7 @@
         app:shadow0_Outer_Alpha="1"
         app:shadow0_Outer_Blur="30dp"
         app:shadow0_Outer_Color="@color/shadowColor"
-        app:shadow_Outer_Area="2dp">
+        app:shadow_Outer_Area="4dp">
 
         <whiz.sspark.library.view.general.TopCropImageView
             android:id="@+id/ivNewsSmallTextImageView"

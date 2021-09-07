@@ -28,8 +28,8 @@ class HappeningsNewsSmallAdapter(private val context: Context,
 
             when (position) {
                 0 -> holder.itemView.setPadding(8.toDP(context), 0, 0, 0)
-                newsDetail.lastIndex -> holder.itemView.setPadding(12.toDP(context), 0, 8.toDP(context), 0)
-                else -> holder.itemView.setPadding(12.toDP(context), 0, 0, 0)
+                newsDetail.lastIndex -> holder.itemView.setPadding(8.toDP(context), 0, 8.toDP(context), 0)
+                else -> holder.itemView.setPadding(8.toDP(context), 0, 0, 0)
             }
 
             holder.itemView.setOnClickListener {
