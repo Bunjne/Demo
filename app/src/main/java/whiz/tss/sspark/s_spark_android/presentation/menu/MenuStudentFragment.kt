@@ -17,7 +17,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.unility.logout
+import whiz.tss.sspark.s_spark_android.utility.logout
 
 class MenuStudentFragment : BaseFragment() {
 
