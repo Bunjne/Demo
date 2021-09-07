@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.class_detail.class_activity
+package whiz.tss.sspark.s_spark_android.presentation.class_detail.student_class_activity
 
 import android.graphics.Color
 import android.net.Uri
@@ -16,7 +16,7 @@ import whiz.tss.sspark.s_spark_android.BuildConfig
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.unility.retrieveAuthenticationInformation
+import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
 import java.net.URISyntaxException
 
 class ClassActivityFragment : BaseFragment() {

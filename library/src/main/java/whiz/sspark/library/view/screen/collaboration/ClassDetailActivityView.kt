@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.screen.class_detail
+package whiz.sspark.library.view.screen.collaboration
 
 import android.content.Context
 import android.graphics.Color

@@ -1,9 +1,17 @@
 package whiz.sspark.library.data.viewModel
 
-import android.content.DialogInterface
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
+import whiz.sspark.library.data.entity.ApiResponseX
+import whiz.sspark.library.data.entity.PlatformOnlineClass
+import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.data.repository.StudentClassActivityRepositoryImpl
 
 class StudentClassActivityViewModel(private val studentClassActivityRepository: StudentClassActivityRepositoryImpl) : ViewModel() {
@@ -12,57 +20,71 @@ class StudentClassActivityViewModel(private val studentClassActivityRepository: 
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    val posts = MutableLiveData<List<Post>>()
-    val postErrorResponse = MutableLiveData<ApiErrorResponse>()
+    private val _posts = MutableLiveData<List<Post>>()
+    val posts: LiveData<List<Post>>
+        get() = _posts
 
-    val onlineClassesResponse = MutableLiveData<List<PlatformOnlineClass>>()
-    val onlineClassesErrorResponse = MutableLiveData<ApiErrorResponse>()
+    private val _postErrorResponse = MutableLiveData<ApiResponseX?>()
+    val postErrorResponse: LiveData<ApiResponseX?>
+        get() = _postErrorResponse
 
-    fun listPosts(id: Long, isNetworkPreferred: Boolean) {
-        state.postLoading.value = true
+    private val _onlineClassesResponse = MutableLiveData<List<PlatformOnlineClass>>()
+    val onlineClassesResponse: LiveData<List<PlatformOnlineClass>>
+        get() = _onlineClassesResponse
 
-        classCollaborationRepository.listPosts(id, isNetworkPreferred).observeForever {
-            state.postLoading.value = false
+    private val _onlineClassesErrorResponse = MutableLiveData<ApiResponseX>()
+    val onlineClassesErrorResponse: LiveData<ApiResponseX>
+        get() = _onlineClassesErrorResponse
 
-            val data = it?.data
-            data?.let {
-                posts.value = it
-            } ?: {
-                postErrorResponse.value = it?.error
-            }()
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
+    fun listPosts(id: Long) {
+        viewModelScope.launch {
+            studentClassActivityRepository.listPosts(id)
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _posts.value = it
+                    } ?: run {
+                        _postErrorResponse.value = it.error
+                    }
+                }
         }
     }
 
     fun listOnlineClasses(classId: Long) {
-        state.onlineClassesLoading.value = true
-        classCollaborationRepository.listOnlineClasses(classId).observeForever {
-            state.onlineClassesLoading.value = false
-
-            val data = it.data
-            data?.let {
-                onlineClassesResponse.value = it
-            } ?: {
-                onlineClassesErrorResponse.value = it.error
-            }()
-        }
-    }
-
-    fun getMSTeamsUrl(sectionId: Long, handleFailedGenerateMSTeamsUrl: () -> Unit) {
-        state.getMSTeamsURLLoading.value = true
-        classCollaborationRepository.getMSTeamsUrl(sectionId).observeForever {
-            state.getMSTeamsURLLoading.value = false
-
-            val data = it.data
-            data?.let {
-                getMSTeamsURLResponse.value = it
-
-                if (it.onlineClassUrl.isNullOrBlank()) {
-                    handleFailedGenerateMSTeamsUrl()
+        viewModelScope.launch {
+            studentClassActivityRepository.listOnlineClasses(classId)
+                .onStart {
+                    _viewLoading.value = true
                 }
-            } ?: {
-                getMSTeamsURLErrorResponse.value = it.error
-                handleFailedGenerateMSTeamsUrl()
-            }()
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _onlineClassesResponse.value = it
+                    } ?: run {
+                        _onlineClassesErrorResponse.value = it.error
+                    }
+                }
         }
     }
 }

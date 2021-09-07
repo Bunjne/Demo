@@ -12,7 +12,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.databinding.ViewJuniorLearningOutcomeFragmentBinding
-import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.widget.general.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 
 class JuniorLearningOutcomeFragmentView: ConstraintLayout {

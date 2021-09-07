@@ -9,7 +9,7 @@
     android:paddingTop="14dp"
     android:paddingBottom="20dp">
 
-    <whiz.sspark.library.view.general.SSparkTextView
+    <whiz.sspark.library.view.widget.general.SSparkTextView
         android:id="@+id/tvSchoolName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         app:ssparkFont="regular"
         tools:text="โรงเรียนสาธิตแห่งมหาวิทยาลัยธรรมศาสตร์" />
 
-    <whiz.sspark.library.view.general.SSparkTextView
+    <whiz.sspark.library.view.widget.general.SSparkTextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

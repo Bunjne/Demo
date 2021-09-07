@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_navigation_back" />
 
-    <whiz.sspark.library.view.general.SSparkTextView
+    <whiz.sspark.library.view.widget.general.SSparkTextView
         android:id="@+id/tvBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:ssparkFont="bold" />
 
-    <whiz.sspark.library.view.general.SSparkTextView
+    <whiz.sspark.library.view.widget.general.SSparkTextView
         android:id="@+id/tvCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         tools:text="6123456" />
 
 
-    <whiz.sspark.library.view.general.SSparkTextView
+    <whiz.sspark.library.view.widget.general.SSparkTextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.class_detail.student_class_activity.ClassActivityFragment
 
 class ClassDetailActivity : BaseActivity() {
 
@@ -84,7 +85,7 @@ class ClassDetailActivity : BaseActivity() {
                     if (currentFragment != it) {
                         currentFragment = it
                         when (it) {
-//                            BottomNavigationId.ACTIVITY.id -> renderFragment(ClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager)
+                            BottomNavigationId.ACTIVITY.id -> renderFragment(ClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager, currentFragment)
 //                            BottomNavigationId.ATTENDANCE.id -> renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, courseCode, sectionNumber), supportFragmentManager)
 //                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id as? String ?: ""), supportFragmentManager)
                         }
@@ -108,18 +109,6 @@ class ClassDetailActivity : BaseActivity() {
                 else -> { }
             }
         }
-    }
-
-    override fun observeView() {
-        TODO("Not yet implemented")
-    }
-
-    override fun observeData() {
-        TODO("Not yet implemented")
-    }
-
-    override fun observeError() {
-        TODO("Not yet implemented")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/viewBasePrimaryColor">
 
-    <whiz.sspark.library.view.screen.class_detail.ClassDetailActivityView
+    <whiz.sspark.library.view.screen.collaboration.ClassDetailActivityView
         android:id="@+id/vClassDetail"
         android:layout_width="0dp"
         android:layout_height="0dp"

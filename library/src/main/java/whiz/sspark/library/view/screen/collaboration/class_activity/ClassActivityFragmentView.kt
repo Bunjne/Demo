@@ -1,22 +1,18 @@
-package whiz.sspark.library.view.screen.class_detail.class_activity
+package whiz.sspark.library.view.screen.collaboration.class_activity
 
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.view_class_activity_fragment.view.*
+import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostAdapter
 import whiz.u.library.R
 import whiz.u.library.USparkLibrary
-import whiz.u.library.data.entity.OnlineClass
-import whiz.u.library.data.entity.PlatformOnlineClass
 import whiz.u.library.data.entity.Post
-import whiz.u.library.extension.inflate
 import whiz.u.library.extension.show
 import whiz.u.library.utility.openFile
 import whiz.u.library.widget.collaboration.detail.post.ClassPostAdapter
@@ -28,8 +24,8 @@ class ClassActivityFragmentView : ConstraintLayout {
 
     private var items = mutableListOf<ClassPostAdapter.Item>()
 
-    init {
-        inflate(R.layout.view_class_activity_fragment)
+    private val binding by lazy {
+        
     }
 
     fun init(items: List<ClassPostAdapter.Item>,
@@ -43,7 +39,7 @@ class ClassActivityFragmentView : ConstraintLayout {
              onLikeClicked: (Post) -> Unit,
              onCommentClicked: (Post, Boolean) -> Unit,
              onPostRead: (Any) -> Unit,
-             onShowAllOnlineClassPlatformsClicked: () -> Unit,
+             onShowAllOnlineClassPlatformsClicked: () -> Unit = { },
              onOnlineClassPlatformClicked: (String) -> Unit,
              onPostLikedUsersClicked:(Any) -> Unit,
              onPostSeenUsersClicked:(Any) -> Unit) {
@@ -140,6 +136,10 @@ class ClassActivityFragmentView : ConstraintLayout {
         clCreatePost.setOnClickListener {
             onCreatePostClicked()
         }
+    }
+
+    fun setCreatePostVisibility(isVisible: Boolean) {
+
     }
 
     fun refreshRecyclerView(items: List<ClassPostAdapter.Item>) {

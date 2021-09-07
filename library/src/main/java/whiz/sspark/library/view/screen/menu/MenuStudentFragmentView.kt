@@ -14,7 +14,7 @@ import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewMenuStudentFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showUserProfileCircle
-import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.widget.general.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.menu.MenuSegmentAdapter
 import whiz.sspark.library.view.widget.menu.MenuMemberAdapter
 

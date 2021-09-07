@@ -109,4 +109,7 @@
 
     <!-- Indicator -->
     <color name="indicatorBackground">#BCBCBC</color>
+
+    <!-- Online Class -->
+    <color name="onlineClassStrokeColor">#F0F0F0</color>
 </resources>
