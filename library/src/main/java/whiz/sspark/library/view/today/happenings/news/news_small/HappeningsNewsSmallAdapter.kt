@@ -27,8 +27,8 @@ class HappeningsNewsSmallAdapter(private val context: Context,
             (holder.itemView as? HappeningsNewsSmallTextImageView)?.init(item)
 
             when (position) {
-                0 -> holder.itemView.setPadding(16.toDP(context), 0, 0, 0)
-                newsDetail.lastIndex -> holder.itemView.setPadding(12.toDP(context), 0, 16.toDP(context), 0)
+                0 -> holder.itemView.setPadding(8.toDP(context), 0, 0, 0)
+                newsDetail.lastIndex -> holder.itemView.setPadding(12.toDP(context), 0, 8.toDP(context), 0)
                 else -> holder.itemView.setPadding(12.toDP(context), 0, 0, 0)
             }
 

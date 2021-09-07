@@ -30,9 +30,9 @@ class HappeningsEventSmallItemAdapter (private val context: Context,
             (holder.itemView as? EventSmallItemView)?.apply {
                 init(event, onEventClicked)
                 when (position) {
-                    0 -> holder.itemView.setPadding(16.toDP(context), 0, 0, 0)
-                    events.lastIndex -> holder.itemView.setPadding(16.toDP(context), 0, 16.toDP(context), 0)
-                    else -> holder.itemView.setPadding(16.toDP(context), 0, 0, 0)
+                    0 -> holder.itemView.setPadding(8.toDP(context), 0, 0, 0)
+                    events.lastIndex -> holder.itemView.setPadding(12.toDP(context), 0, 8.toDP(context), 0)
+                    else -> holder.itemView.setPadding(12.toDP(context), 0, 0, 0)
                 }
             }
         }
