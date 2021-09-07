@@ -5,12 +5,11 @@ object DateTimePattern {
     const val generalYear = "yyyy"
     const val twoPositionYear = "yy"
 
-    const val todayAbbreviatedDateFormatEn = "d MMMM yyyy"
-    const val todayAbbreviatedDayMonthFormatTh = "d MMM "
+    const val dayNameThreePositionFormat = "EEE"
+    const val singleDayFormat = "d"
 
     const val serviceDateFormat = "dd/MM/yyyy"
 
-    const val singleDayFormat = "d"
-
-    const val dayNameThreePositionFormat = "EEE"
+    const val todayAbbreviatedDateFormatEn = "d MMMM yyyy"
+    const val todayAbbreviatedDayMonthFormatTh = "d MMM "
 }

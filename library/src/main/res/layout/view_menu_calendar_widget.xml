@@ -4,11 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:translationY="6dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +23,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/ivGradient"
@@ -65,13 +66,13 @@
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvDate"
                 android:layout_width="0dp"
-                android:layout_height="34dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginTop="12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/primaryColor"
-                android:textSize="26dp"
+                android:textSize="38dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivGradient"
@@ -93,6 +94,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDate"
+                app:layout_constraintVertical_bias="1"
                 app:ssparkFont="regular"
                 tools:text="วันเปิดภาคเรียน\n 1/2564" />
 

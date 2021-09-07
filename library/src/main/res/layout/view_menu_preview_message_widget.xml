@@ -9,6 +9,7 @@
     <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:translationY="6dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"

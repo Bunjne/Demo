@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.CalendarWidgetItem
+import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewMenuCalendarWidgetBinding
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
@@ -23,8 +24,8 @@ class MenuCalendarWidget: ConstraintLayout {
         binding.ivGradient.show(R.drawable.bg_primary_gradient_0)
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
-        binding.tvDay.text = calendarWidgetInfo.date?.convertToDateString("EEEE")
-        binding.tvDate.text = calendarWidgetInfo.date?.convertToDateString("d")
+        binding.tvDay.text = calendarWidgetInfo.date?.convertToDateString(DateTimePattern.dayNameThreePositionFormat)
+        binding.tvDate.text = calendarWidgetInfo.date?.convertToDateString(DateTimePattern.singleDayFormat)
         binding.tvTerm.text = calendarWidgetInfo.title
     }
 }

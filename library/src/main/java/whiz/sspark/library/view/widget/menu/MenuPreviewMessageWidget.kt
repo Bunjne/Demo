@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.data.entity.PreviewMessageItem
+import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewMenuPreviewMessageWidgetBinding
 import whiz.sspark.library.extension.convertToDateString
 
@@ -17,12 +18,17 @@ class MenuPreviewMessageWidget: ConstraintLayout {
         ViewMenuPreviewMessageWidgetBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(previewMessageInfo: PreviewMessageItem) {
+    fun init(title: String,
+             previewMessageInfo: PreviewMessageItem) {
         with(previewMessageInfo) {
-            binding.tvScreen.text = screen
-            binding.tvTitle.text = title
+            binding.tvScreen.text = title
+            binding.tvTitle.text = this.title
             binding.tvDescription.text = description
-            binding.tvLastUpdate.text = date?.convertToDateString("d MM yyyy")
+            binding.tvLastUpdate.text = date?.convertToDateString(
+                defaultPattern = DateTimePattern.todayAbbreviatedDateFormatEn,
+                dayMonthThPattern = DateTimePattern.todayAbbreviatedDayMonthFormatTh,
+                yearThPattern = DateTimePattern.generalYear
+            )
         }
     }
 }

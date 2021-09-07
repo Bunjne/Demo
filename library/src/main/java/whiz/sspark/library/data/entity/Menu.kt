@@ -6,11 +6,13 @@ import whiz.sspark.library.utility.localize
 data class MenuDTO(
     @SerializedName("code") val code: String = "",
     @SerializedName("nameEn") val nameEn: String = "",
-    @SerializedName("nameTh") private val nameTh: String = "",
+    @SerializedName("nameTh") val nameTh: String = "",
     @SerializedName("type") val type: String = "",
-    @SerializedName("items") val _items: List<MenuItemDTO>? = null
+    @SerializedName("imageUrl") val imageUrl: String = "",
+    @SerializedName("items") private val _items: List<MenuItemDTO>? = null
 ) {
-    val item get() = _items ?: listOf()
+    val name get() = localize(nameEn, nameTh, nameEn, false)
+    val items get() = _items ?: listOf()
 }
 
 data class MenuItemDTO(
@@ -18,6 +20,11 @@ data class MenuItemDTO(
     @SerializedName("nameEn") val nameEn: String = "",
     @SerializedName("nameTh") val nameTh: String = "",
     @SerializedName("type") val type: String = "",
+    @SerializedName("imageUrl") val imageUrl: String = ""
 ) {
     val name: String get() = localize(nameEn, nameTh, nameEn, false)
+
+    fun convertToAdapterItem(): MenuItem {
+        return MenuItem(code, name, imageUrl)
+    }
 }

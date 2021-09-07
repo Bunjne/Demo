@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <whiz.sspark.library.view.general.TopCropImageView
+        <whiz.sspark.library.view.general.image_view.TopCropImageView
             android:id="@+id/ivBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

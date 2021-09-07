@@ -1,0 +1,102 @@
+{
+  "code": "200",
+  "messageEn": "Success",
+  "messageTh": "Success",
+  "data": [
+    {
+      "code": "LEARNING",
+      "nameEn": "การเรียน (EN)",
+      "nameTh": "การเรียน",
+      "type": "Header",
+      "items": [
+        {
+          "code": "LEARNINGOUTCOME",
+          "nameEn": "ผลการเรียนรู้ (EN)",
+          "nameTh": "ผลการเรียนรู้",
+          "type": "Menu",
+          "items": null
+        }
+      ]
+    },
+    {
+      "code": "SCHOOL",
+      "nameEn": "โรงเรียน (EN)",
+      "nameTh": "โรงเรียน",
+      "type": "Header",
+      "items": [
+        {
+          "code": "GRADESUMMARY",
+          "nameEn": "GRADESUMMARY",
+          "nameTh": "เกรดรวม",
+          "type": "GradeSummary",
+          "items": null
+        },
+        {
+          "code": "NOTIFICATIONINBOX",
+          "nameEn": "NOTIFICATIONINBOX",
+          "nameTh": "อินบ้อก",
+          "type": "NotificationInbox",
+          "items": null
+        },
+        {
+          "code": "INSURANCE",
+          "nameEn": "สิทธิ์ประกัน(EN)",
+          "nameTh": "สิทธิ์ประกัน",
+          "type": "Menu",
+          "items": null
+        },
+        {
+          "code": "CONTACTINFO",
+          "nameEn": "ช่องทางการติดต่อ(EN)",
+          "nameTh": "ช่องทางการติดต่อ",
+          "type": "Menu",
+          "items": null
+        }
+      ]
+    },
+    {
+      "code": "",
+      "nameEn": "กิจกรรมและสิ่งอำนวยความสะดวก (EN)",
+      "nameTh": "กิจกรรมและสิ่งอำนวยความสะดวก",
+      "type": "Header",
+      "items": [
+        {
+          "code": "EVENT",
+          "nameEn": "กิจกรรม (EN)",
+          "nameTh": "กิจกรรม",
+          "type": "Menu",
+          "items": null
+        },
+        {
+          "code": "LIBRARY",
+          "nameEn": "ห้องสมุด (EN)",
+          "nameTh": "ห้องสมุด",
+          "type": "Menu",
+          "items": null
+        }
+      ]
+    },
+    {
+      "code": "",
+      "nameEn": "การตั้งค่า (EN)",
+      "nameTh": "การตั้งค่า",
+      "type": "Header",
+      "items": [
+        {
+          "code": "SETTING",
+          "nameEn": "ตั้งค่า (EN)",
+          "nameTh": "ตั้งค่า",
+          "type": "Menu",
+          "items": null
+        },
+        {
+          "code": "LOGOUT",
+          "nameEn": "ออกจากระบบ (EN)",
+          "nameTh": "ออกจากระบบ",
+          "type": "Menu",
+          "items": null
+        }
+      ]
+    }
+  ]
+}

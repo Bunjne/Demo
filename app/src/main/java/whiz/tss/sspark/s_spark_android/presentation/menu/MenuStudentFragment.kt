@@ -82,6 +82,9 @@ class MenuStudentFragment : BaseFragment() {
             onMemberClicked = {
 
             },
+            onMenuClicked = {
+
+            },
             onRefresh = {
                 viewModel.getMenu()
             }
@@ -104,15 +107,46 @@ class MenuStudentFragment : BaseFragment() {
 
         viewModel.menuResponse.observe(this) {
             it?.let {
+                binding.vMenu.updateMenu(it)
+                viewModel.fetchWidget(it)
+            }
+        }
 
+        viewModel.advisingNoteResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateAdvisingNote(it)
+            }
+        }
+
+        viewModel.calendarResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateCalendar(it)
+            }
+        }
+
+        viewModel.notificationInboxResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateNotificationInbox(it)
+            }
+        }
+
+        viewModel.gradeSummaryResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateGradeSummary(it)
             }
         }
     }
 
     override fun observeError() {
-        viewModel.menuErrorResponse.observe(this) {
-            it?.let {
-                showApiResponseXAlert(requireContext(), it)
+        listOf(viewModel.menuErrorResponse,
+                viewModel.calendarErrorResponse, //TODO wait confirm discuss about show or not show alert
+                viewModel.advisingNoteErrorResponse,
+                viewModel.notificationInboxErrorResponse,
+                viewModel.gradeSummaryErrorResponse).forEach {
+            it.observe(this) {
+                it?.let {
+                    showApiResponseXAlert(requireContext(), it)
+                }
             }
         }
 

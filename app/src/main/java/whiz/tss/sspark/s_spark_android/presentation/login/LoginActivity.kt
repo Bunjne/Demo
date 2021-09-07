@@ -8,10 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.SSparkApp
-import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
@@ -70,7 +68,7 @@ class LoginActivity : LocalizationActivity() {
         viewModel.loginResponse.observe(this) {
             it?.let {
                 saveAuthenticationInformation(this, it)
-                SSparkApp.setJuniorApp()
+                SSparkApp.setSeniorApp()
 
                 viewModel.getProfile()
             }

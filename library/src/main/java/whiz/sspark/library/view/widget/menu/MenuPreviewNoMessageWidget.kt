@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import whiz.sspark.library.R
 import whiz.sspark.library.databinding.ViewMenuPreviewNoMessageWidgetBinding
+import whiz.sspark.library.extension.show
 
 class MenuPreviewNoMessageWidget: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -17,5 +19,6 @@ class MenuPreviewNoMessageWidget: ConstraintLayout {
 
     fun init(screen: String) {
         binding.tvScreen.text = screen
+        binding.ivArrow.show(R.drawable.ic_arrow_right)
     }
 }

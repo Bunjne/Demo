@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import whiz.sspark.library.data.entity.ApiResponseX
-import whiz.sspark.library.data.entity.MenuDTO
+import whiz.sspark.library.data.entity.*
+import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.repository.MenuRepositoryImpl
 
 class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewModel() {
@@ -26,6 +26,38 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
     private val _menuErrorResponse = MutableLiveData<ApiResponseX?>()
     val menuErrorResponse: LiveData<ApiResponseX?>
         get() = _menuErrorResponse
+
+    private val _advisingNoteResponse = MutableLiveData<MenuAdvisingNoteDTO>()
+    val advisingNoteResponse: LiveData<MenuAdvisingNoteDTO>
+        get() = _advisingNoteResponse
+
+    private val _advisingNoteErrorResponse = MutableLiveData<ApiResponseX?>()
+    val advisingNoteErrorResponse: LiveData<ApiResponseX?>
+        get() = _advisingNoteErrorResponse
+
+    private val _notificationInboxResponse = MutableLiveData<MenuNotificationInboxDTO>()
+    val notificationInboxResponse: LiveData<MenuNotificationInboxDTO>
+        get() = _notificationInboxResponse
+
+    private val _notificationInboxErrorResponse = MutableLiveData<ApiResponseX?>()
+    val notificationInboxErrorResponse: LiveData<ApiResponseX?>
+        get() = _notificationInboxErrorResponse
+
+    private val _calendarResponse = MutableLiveData<MenuCalendarDTO>()
+    val calendarResponse: LiveData<MenuCalendarDTO>
+        get() = _calendarResponse
+
+    private val _calendarErrorResponse = MutableLiveData<ApiResponseX?>()
+    val calendarErrorResponse: LiveData<ApiResponseX?>
+        get() = _calendarErrorResponse
+
+    private val _gradeSummaryResponse = MutableLiveData<List<MenuGradeSummaryDTO>>()
+    val gradeSummaryResponse: LiveData<List<MenuGradeSummaryDTO>>
+        get() = _gradeSummaryResponse
+
+    private val _gradeSummaryErrorResponse = MutableLiveData<ApiResponseX?>()
+    val gradeSummaryErrorResponse: LiveData<ApiResponseX?>
+        get() = _gradeSummaryErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
@@ -52,6 +84,115 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
                         _menuErrorResponse.value = it.error
                     }
                 }
+        }
+    }
+
+    private fun getAdvising() {
+        viewModelScope.launch {
+            menuRepositoryImpl.getAdvisingNote()
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _advisingNoteResponse.value = it
+                    } ?: run {
+                        _advisingNoteErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    private fun getNotificationInbox() {
+        viewModelScope.launch {
+            menuRepositoryImpl.getNotificationInbox()
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _notificationInboxResponse.value = it
+                    } ?: run {
+                        _notificationInboxErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    private fun getCalendar() {
+        viewModelScope.launch {
+            menuRepositoryImpl.getCalendar()
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _calendarResponse.value = it
+                    } ?: run {
+                        _calendarErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    private fun getGradeSummary() {
+        viewModelScope.launch {
+            menuRepositoryImpl.getGradeSummary()
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _gradeSummaryResponse.value = it
+                    } ?: run {
+                        _gradeSummaryErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    fun fetchWidget(menusDTO: List<MenuDTO>) {
+        menusDTO.forEach {
+            it.items.forEach {
+                when (it.type) {
+                    MenuItemType.ADVISING_WIDGET.type -> getAdvising()
+                    MenuItemType.NOTIFICATION_WIDGET.type -> getNotificationInbox()
+                    MenuItemType.CALENDAR_WIDGET.type -> getCalendar()
+                    MenuItemType.GRADE_SUMMARY.type -> getGradeSummary()
+                }
+            }
         }
     }
 }

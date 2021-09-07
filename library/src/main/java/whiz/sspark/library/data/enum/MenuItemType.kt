@@ -1,9 +1,9 @@
 package whiz.sspark.library.data.enum
 
-enum class MenuItemType(val type: String) {  //TODO wait confirm name
-    DEFAULT("Default"),
-    CALENDAR_WIDGET("calendar"),
-    ADVISING_WIDGET("advising"),
-    NOTIFICATION_WIDGET("notification"),
-    CHART_WIDGET("Default"),
+enum class MenuItemType(val type: String) {
+    MENU("Menu"),
+    CALENDAR_WIDGET("Calendar"), //TODO wait confirm name
+    ADVISING_WIDGET("Advising"), //TODO wait confirm name
+    NOTIFICATION_WIDGET("NotificationInbox"),
+    GRADE_SUMMARY("GradeSummary"),
 }

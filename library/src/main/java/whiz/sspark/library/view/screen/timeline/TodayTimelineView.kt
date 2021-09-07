@@ -14,9 +14,9 @@ import whiz.sspark.library.data.entity.TimelineResponse
 import whiz.sspark.library.data.enum.TimeLineBodyFontStyle
 import whiz.sspark.library.databinding.ViewTodayTimelineBinding
 import whiz.sspark.library.utility.getDifferenceDayTimelineValue
-import whiz.sspark.library.view.today.timeline.TimelineAdapter
-import whiz.sspark.library.view.today.timeline.TimelineSegmentAdapter
-import whiz.sspark.library.view.today.timeline.TimelineUniversityAnnouncementsAdapter
+import whiz.sspark.library.view.widget.today.timeline.TimelineAdapter
+import whiz.sspark.library.view.widget.today.timeline.TimelineSegmentAdapter
+import whiz.sspark.library.view.widget.today.timeline.TimelineUniversityAnnouncementsAdapter
 import java.util.*
 import kotlin.math.abs
 
