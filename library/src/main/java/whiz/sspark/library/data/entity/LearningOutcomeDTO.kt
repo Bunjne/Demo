@@ -4,23 +4,31 @@ import com.google.gson.annotations.SerializedName
 import whiz.sspark.library.utility.localize
 
 data class LearningOutcomeDTO(
-    @SerializedName("headerEn") val headerEn: String = "",
-    @SerializedName("headerTh") val headerTh: String = "",
-    @SerializedName("headerCn") val headerCn: String = "",
-    @SerializedName("gradientColor1") val gradientColor1: String = "",
-    @SerializedName("gradientColor2") val gradientColor2: String = "",
+    @SerializedName("nameEn") val nameEn: String = "",
+    @SerializedName("nameTh") val nameTh: String = "",
+    @SerializedName("value") val value: Float? = 3f,
+    @SerializedName("fullValue") val fullValue: Float = 4f,
+    @SerializedName("colorCode1") val colorCode1: String = "",
+    @SerializedName("colorCode2") val colorCode2: String = "",
     @SerializedName("courses") private val _courses: List<LearningOutcomeCourseDTO>? = null
 ) {
-    val header get() = localize(headerEn, headerTh, headerCn, false)
+    val name get() = localize(nameEn, nameTh, nameEn, false)
     val courses get() = _courses ?: listOf()
 }
 
 data class LearningOutcomeCourseDTO(
+    @SerializedName("code") val code: String = "",
     @SerializedName("nameEn") val nameEn: String = "",
     @SerializedName("nameTh") val nameTh: String = "",
     @SerializedName("nameCn") val nameCn: String = "",
     @SerializedName("credits") val credits: Int = 0,
-    @SerializedName("percentPerformance") val percentPerformance: Int? = null
+    @SerializedName("value") val value: Float? = null,
+    @SerializedName("fullValue") val fullValue: Float? = null
 ) {
     val name get() = localize(nameEn, nameTh, nameCn, false)
+    val percentPerformance = if (value != null && fullValue != null) {
+        ((value / fullValue) * 100).toInt()
+    } else {
+       null
+    }
 }

@@ -4,6 +4,8 @@
     <string name="general_text_retry">Retry</string>
     <string name="general_text_cancel">Cancel</string>
     <string name="general_text_discard">Discard</string>
+    <string name="general_text_at">at</string>
+    <string name="general_text_hrs">hrs.</string>
 
     <!--General alert message-->
     <string name="general_alertmessage_no_internet_connection">No internet connection</string>
@@ -23,6 +25,16 @@
     <string name="update_failed">UPDATE FAILED</string>
     <string name="update_new_data">PLEASE WAIT...</string>
     <string name="update_just_now">UPDATED JUST NOW</string>
+    <string name="date_time_just_now">Just Now</string>
+    <plurals name="date_time_hour_ago">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+
+    <plurals name="date_time_minute_ago">
+        <item quantity="one">%1$d minute ago</item>
+        <item quantity="other">%1$d minutes ago</item>
+    </plurals>
 
     <!-- Happenings -->
     <string name="today_happenings_announcement">ANNOUNCEMENT</string>
@@ -50,4 +62,12 @@
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
+    <string name="school_record_in_progress">In Progress</string>
+    <string name="school_record_complete">Completed</string>
+    <string name="school_record_grade_summary_text">ภาพรวมพัฒนาการ</string>
+    <string name="school_record_evaluation_title">เกณฑ์การประเมิน</string>
+    <string name="school_record_beginning_text">Beginning</string>
+    <string name="school_record_Deverloping_text">Developing</string>
+    <string name="school_record_Deverloping_text">Proficient</string>
+    <string name="school_record_Deverloping_text">Advanced</string>
 </resources>

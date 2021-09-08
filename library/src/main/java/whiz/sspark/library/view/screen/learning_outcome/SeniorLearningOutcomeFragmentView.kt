@@ -9,19 +9,22 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.CourseGroupGrade
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.databinding.ViewJuniorLearningOutcomeFragmentBinding
+import whiz.sspark.library.databinding.ViewSeniorLearningOutcomeFragmentBinding
 import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
+import whiz.sspark.library.view.widget.learning_outcome.SeniorLearningOutcomeAdapter
 
-class JuniorLearningOutcomeFragmentView: ConstraintLayout {
+class SeniorLearningOutcomeFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewJuniorLearningOutcomeFragmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewSeniorLearningOutcomeFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(onRefresh: () -> Unit,
@@ -40,7 +43,7 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
             }
 
             layoutManager = LinearLayoutManager(context)
-            adapter = JuniorLearningOutcomeAdapter(context, onItemClicked)
+            adapter = SeniorLearningOutcomeAdapter(context, onItemClicked)
         }
     }
 
@@ -49,10 +52,29 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
     }
 
     fun updateItem(learningOutcomes: List<LearningOutcomeDTO> = listOf()) {
-        val item: MutableList<JuniorLearningOutcomeAdapter.Item> = mutableListOf()
+        val item: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
+        val filteredLearningOutcome = learningOutcomes.filter { it.value != null }
 
-        learningOutcomes.forEach { learningOutcome ->
-            val titleItem = JuniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
+        val titleItem = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
+        val fullValue = filteredLearningOutcome.maxOfOrNull { it.fullValue } ?: 0f
+        val gradeSummary = filteredLearningOutcome.map {
+            CourseGroupGrade(
+                nameEn = it.nameEn,
+                nameTh = it.nameTh,
+                startColorCode = it.colorCode1,
+                endColorCode = it.colorCode2,
+                grade = it.value!!)
+        }
+
+        item.add(titleItem)
+        item.add(SeniorLearningOutcomeAdapter.Item(
+            gradeSummary = gradeSummary,
+            fullValue = fullValue
+        ))
+
+        filteredLearningOutcome.forEach { learningOutcome ->
+
+            val titleItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
             item.add(titleItem)
 
             learningOutcome.courses.forEach {
@@ -72,12 +94,12 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
                     }
                 }
 
-                val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
+                val learningOutcomeItem = SeniorLearningOutcomeAdapter.Item(
                     learningOutcome = LearningOutcome(
                         startColor = startColor,
                         endColor = endColor,
                         credit = it.credits,
-                        percentPerformance = it.percentPerformance,
+                        percentPerformance = it.percentPerformance ?: 0,
                         courseCode = it.nameEn,
                         courseName = it.nameTh)
                 )
@@ -86,9 +108,9 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
             }
         }
 
-        (binding.rvLearningOutcome.adapter as? JuniorLearningOutcomeAdapter)?.submitList(item)
+        (binding.rvLearningOutcome.adapter as? SeniorLearningOutcomeAdapter)?.submitList(item)
 
-        if (learningOutcomes.isNotEmpty()) {
+        if (filteredLearningOutcome.isNotEmpty()) {
             binding.tvNoRecord.visibility = View.GONE
             binding.rvLearningOutcome.visibility = View.VISIBLE
         } else {

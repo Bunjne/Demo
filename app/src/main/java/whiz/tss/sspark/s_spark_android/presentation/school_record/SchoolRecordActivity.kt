@@ -8,8 +8,9 @@ import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivitySchoolRecordBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.JuniorLearningOutcomeFragment
+import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.SeniorLearningOutcomeFragment
 
-class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRefresh {
+class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRefresh, SeniorLearningOutcomeFragment.OnRefresh {
 
     companion object {
         val LEARNING_OUTCOME_VIEW = 0
@@ -45,7 +46,13 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
             onSegmentClicked = {
                 currentSegment = it
                 when(it) {
-                    LEARNING_OUTCOME_VIEW -> binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentSemesterId), LEARNING_OUTCOME_VIEW)
+                    LEARNING_OUTCOME_VIEW -> {
+                        if (SSparkApp.role == RoleType.JUNIOR) {
+                            binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentSemesterId), LEARNING_OUTCOME_VIEW)
+                        } else {
+                            binding.vSchoolRecord.renderFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(currentSemesterId), LEARNING_OUTCOME_VIEW)
+                        }
+                    }
                     //TODO wait implement other screen
                 }
             }

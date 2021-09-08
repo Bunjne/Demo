@@ -9,14 +9,15 @@ import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorLearningOutcomeBinding
+import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.ExpectOutcomeBottomSheetDialog
 
-class JuniorLearningOutcomeFragment : BaseFragment() {
+class SeniorLearningOutcomeFragment : BaseFragment() {
 
     companion object {
         private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
-        fun newInstance(currentSemesterId: Int) = JuniorLearningOutcomeFragment().apply {
+        fun newInstance(currentSemesterId: Int) = SeniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
                 putInt("currentSemesterId", currentSemesterId)
             }
@@ -29,12 +30,12 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
         arguments?.getInt("currentSemesterId") ?: 0
     }
 
-    private var _binding: FragmentJuniorLearningOutcomeBinding? = null
+    private var _binding: FragmentSeniorLearningOutcomeBinding? = null
     private val binding get() = _binding!!
     private var listener: OnRefresh? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentJuniorLearningOutcomeBinding.inflate(inflater, container, false)
+        _binding = FragmentSeniorLearningOutcomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

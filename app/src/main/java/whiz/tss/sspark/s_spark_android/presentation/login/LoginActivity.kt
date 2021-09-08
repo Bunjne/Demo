@@ -8,13 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.SSparkApp
-import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
-import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.*
 
 class LoginActivity : LocalizationActivity() {
@@ -49,10 +47,11 @@ class LoginActivity : LocalizationActivity() {
     private fun initView() {
         val authenticationInformation = retrieveAuthenticationInformation(this)
         if (authenticationInformation != null) {
+            SSparkApp.setSeniorApp()
             viewModel.getProfile()
         } else {
             val deviceID = retrieveDeviceID(this)
-            viewModel.login("6101234556", "TuGreatsTeam", deviceID, operatorName)
+            viewModel.login("test2", "123456", deviceID, operatorName)
         }
     }
 
@@ -70,7 +69,6 @@ class LoginActivity : LocalizationActivity() {
         viewModel.loginResponse.observe(this) {
             it?.let {
                 saveAuthenticationInformation(this, it)
-                SSparkApp.setJuniorApp()
 
                 viewModel.getProfile()
             }
@@ -82,7 +80,7 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, SchoolRecordActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }
