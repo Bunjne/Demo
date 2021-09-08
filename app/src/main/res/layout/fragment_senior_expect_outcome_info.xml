@@ -48,11 +48,12 @@
             android:layout_height="wrap_content">
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_zero_score_text"
+                android:text="@string/school_record_beginning_text"
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="17dp"
                 app:ssparkFont="bold" />
@@ -61,11 +62,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_zero_score_description_text"
+                android:text="@string/school_record_beginning_description_text"
                 android:textColor="@color/textBaseThirdColor"
                 android:textSize="13dp"
                 app:ssparkFont="regular" />
@@ -78,11 +78,12 @@
             android:layout_marginTop="8dp">
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_one_score_text"
+                android:text="@string/school_record_developing_text"
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="17dp"
                 app:ssparkFont="bold" />
@@ -91,11 +92,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_one_score_description_text"
+                android:text="@string/school_record_developing_description_text"
                 android:textColor="@color/textBaseThirdColor"
                 android:textSize="13dp"
                 app:ssparkFont="regular" />
@@ -108,11 +108,12 @@
             android:layout_marginTop="8dp">
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_two_score_text"
+                android:text="@string/school_record_proficient_text"
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="17dp"
                 app:ssparkFont="bold" />
@@ -121,11 +122,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_two_score_description_text"
+                android:text="@string/school_record_proficient_description_text"
                 android:textColor="@color/textBaseThirdColor"
                 android:textSize="13dp"
                 app:ssparkFont="regular" />
@@ -138,11 +138,12 @@
             android:layout_marginTop="8dp">
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_three_score_text"
+                android:text="@string/school_record_advance_text"
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="17dp"
                 app:ssparkFont="bold" />
@@ -151,71 +152,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/school_record_three_score_description_text"
-                android:textColor="@color/textBaseThirdColor"
-                android:textSize="13dp"
-                app:ssparkFont="regular" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/school_record_four_score_text"
-                android:textColor="@color/textBasePrimaryColor"
-                android:textSize="17dp"
-                app:ssparkFont="bold" />
-
-            <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/school_record_four_score_description_text"
-                android:textColor="@color/textBaseThirdColor"
-                android:textSize="13dp"
-                app:ssparkFont="regular" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/school_record_five_score_text"
-                android:textColor="@color/textBasePrimaryColor"
-                android:textSize="17dp"
-                app:ssparkFont="bold" />
-
-            <whiz.sspark.library.view.general.SSparkTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/school_record_five_score_description_text"
+                android:text="@string/school_record_advance_description_text"
                 android:textColor="@color/textBaseThirdColor"
                 android:textSize="13dp"
                 app:ssparkFont="regular" />

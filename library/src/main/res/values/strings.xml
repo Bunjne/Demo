@@ -67,7 +67,4 @@
     <string name="school_record_grade_summary_text">ภาพรวมพัฒนาการ</string>
     <string name="school_record_evaluation_title">เกณฑ์การประเมิน</string>
     <string name="school_record_beginning_text">Beginning</string>
-    <string name="school_record_Deverloping_text">Developing</string>
-    <string name="school_record_Deverloping_text">Proficient</string>
-    <string name="school_record_Deverloping_text">Advanced</string>
 </resources>

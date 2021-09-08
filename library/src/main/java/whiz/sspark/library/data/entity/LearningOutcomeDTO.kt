@@ -26,7 +26,7 @@ data class LearningOutcomeCourseDTO(
     @SerializedName("fullValue") val fullValue: Float? = null
 ) {
     val name get() = localize(nameEn, nameTh, nameCn, false)
-    val percentPerformance = if (value != null && fullValue != null) {
+    val percentPerformance get() = if (value != null && fullValue != null) {
         ((value / fullValue) * 100).toInt()
     } else {
        null

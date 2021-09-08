@@ -10,11 +10,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import whiz.tss.sspark.s_spark_android.R
+import whiz.tss.sspark.s_spark_android.SSparkApp
+import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentExpectOutcomeBinding
 
 class ExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
 
     companion object {
+        private const val EXPECT_OUTCOME_INFO = "ExpectOutcomeInfo"
+
         fun newInstance(title: String, subTitle: String, credit: Int) = ExpectOutcomeBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("title", title)
@@ -87,7 +91,14 @@ class ExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                 dialog?.dismiss()
             },
             onInfoClicked = {
-                //TODO wait implement info dialog
+                val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_INFO) != null
+                if (!isShowing) {
+                    if (SSparkApp.role == RoleType.JUNIOR) {
+                        JuniorExpectOutcomeInfoDialog.newInstance().show(childFragmentManager, EXPECT_OUTCOME_INFO)
+                    } else {
+                        SeniorExpectOutcomeInfoDialog.newInstance().show(childFragmentManager, EXPECT_OUTCOME_INFO)
+                    }
+                }
             },
             onRefresh = {
                 //TODO wait implement API
