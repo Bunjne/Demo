@@ -6,7 +6,6 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
-import java.util.*
 
 data class Student(
     @SerializedName("advisors") private val _advisors: List<StudentInstructorInfo>? = null,
@@ -35,12 +34,12 @@ fun Student.convertToProfile(): Profile {
     return Profile(this.imageUrl, this.gender, this.code, this.firstName, this.lastName)
 }
 
-fun Student.getMenuMember(context: Context): List<MenuMember> {
-    val member: MutableList<MenuMember> = mutableListOf()
+fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
+    val memberItem: MutableList<MenuMemberItem> = mutableListOf()
 
     advisor.forEachIndexed { index, studentInstructorInfo ->
-        member.add(
-            MenuMember(
+        memberItem.add(
+            MenuMemberItem(
                 type = MenuSegmentType.INSTRUCTOR,
                 index = index,
                 imageUrl = studentInstructorInfo.imageUrl,
@@ -53,8 +52,8 @@ fun Student.getMenuMember(context: Context): List<MenuMember> {
 
 
     guardians.forEachIndexed { index, studentInstructorInfo ->
-        member.add(
-            MenuMember(
+        memberItem.add(
+            MenuMemberItem(
                 type = MenuSegmentType.GUARDIAN,
                 index = index,
                 imageUrl = studentInstructorInfo.imageUrl,
@@ -65,5 +64,5 @@ fun Student.getMenuMember(context: Context): List<MenuMember> {
         )
     }
 
-    return member
+    return memberItem
 }

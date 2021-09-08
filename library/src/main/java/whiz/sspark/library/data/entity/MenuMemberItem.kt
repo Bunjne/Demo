@@ -2,7 +2,7 @@ package whiz.sspark.library.data.entity
 
 import whiz.sspark.library.data.enum.MenuSegmentType
 
-data class MenuMember(
+data class MenuMemberItem(
     val type: MenuSegmentType,
     val index: Int,
     val imageUrl: String,

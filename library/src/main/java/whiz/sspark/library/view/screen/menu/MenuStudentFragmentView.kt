@@ -37,17 +37,17 @@ class MenuStudentFragmentView : ConstraintLayout {
     private var memberAdapter: MenuMemberAdapter? = null
     private var menuAdapter: MenuAdapter? = null
 
-    private val members: MutableList<MenuMember> = mutableListOf()
+    private val memberItems: MutableList<MenuMemberItem> = mutableListOf()
 
     fun init(student: Student,
              segments: List<MenuSegment>,
              onCameraClicked: () -> Unit,
              onMenuClicked: (String) -> Unit,
-             onMemberClicked: (MenuMember) -> Unit,
+             onMemberClicked: (MenuMemberItem) -> Unit,
              onRefresh: () -> Unit) {
 
         val convertedMember = student.getMenuMember(context)
-        with(this.members) {
+        with(this.memberItems) {
             clear()
             addAll(convertedMember)
         }
@@ -137,7 +137,7 @@ class MenuStudentFragmentView : ConstraintLayout {
     }
 
     private fun updateMemberAdapter() {
-        val filterMember = members.filter { it.type.type == menuSegmentType }
+        val filterMember = memberItems.filter { it.type.type == menuSegmentType }
         memberAdapter?.submitList(filterMember)
     }
 

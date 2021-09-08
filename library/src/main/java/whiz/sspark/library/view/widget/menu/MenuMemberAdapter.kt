@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.MenuMember
+import whiz.sspark.library.data.entity.MenuMemberItem
 import whiz.sspark.library.view.widget.base.MemberWithRightArrowView
 
 class MenuMemberAdapter(private val context: Context,
-                        private val onMemberClicked: (MenuMember) -> Unit): ListAdapter<MenuMember, MenuMemberAdapter.ViewHolder>(MenuMemberDiffCallback()) {
+                        private val onMemberClicked: (MenuMemberItem) -> Unit): ListAdapter<MenuMemberItem, MenuMemberAdapter.ViewHolder>(MenuMemberDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE = 2222
@@ -55,11 +55,11 @@ class MenuMemberAdapter(private val context: Context,
     }
 }
 
-private class MenuMemberDiffCallback : DiffUtil.ItemCallback<MenuMember>() {
-    override fun areItemsTheSame(oldItem: MenuMember, newItem: MenuMember): Boolean {
+private class MenuMemberDiffCallback : DiffUtil.ItemCallback<MenuMemberItem>() {
+    override fun areItemsTheSame(oldItem: MenuMemberItem, newItem: MenuMemberItem): Boolean {
         return oldItem == newItem
     }
-    override fun areContentsTheSame(oldItem: MenuMember, newItem: MenuMember): Boolean {
+    override fun areContentsTheSame(oldItem: MenuMemberItem, newItem: MenuMemberItem): Boolean {
         return oldItem == newItem
     }
 }
