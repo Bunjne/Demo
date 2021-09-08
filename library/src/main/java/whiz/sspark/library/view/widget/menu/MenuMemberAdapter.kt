@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.MenuMember
+import whiz.sspark.library.view.widget.base.MemberWithRightArrowView
 
 class MenuMemberAdapter(private val context: Context,
                         private val onMemberClicked: (MenuMember) -> Unit): ListAdapter<MenuMember, MenuMemberAdapter.ViewHolder>(MenuMemberDiffCallback()) {
@@ -24,7 +25,7 @@ class MenuMemberAdapter(private val context: Context,
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(MenuMemberView(context).apply {
+        return ViewHolder(MemberWithRightArrowView(context).apply {
             layoutParams = RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -35,8 +36,14 @@ class MenuMemberAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val member = getItem(position)
         member?.let {
-            (holder.itemView as? MenuMemberView)?.apply {
-                init(it, onMemberClicked)
+            (holder.itemView as? MemberWithRightArrowView)?.apply {
+                init(
+                    member = it.convertToMemberItem(),
+                    onMemberClicked = {
+                        onMemberClicked(it)
+                    }
+                )
+
                 background = when {
                     itemCount == 1 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_single)
                     position == 0 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)

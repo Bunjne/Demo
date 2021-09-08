@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.dataSource.local.impl.HappeningsCacheImpl
-import whiz.sspark.library.data.dataSource.remote.service.HappeningsService
+import whiz.sspark.library.data.data_source.local.impl.HappeningsCacheImpl
+import whiz.sspark.library.data.data_source.remote.service.HappeningsService
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.utility.NetworkManager
@@ -20,7 +20,8 @@ interface HappeningsRepository {
 
 class HappeningsRepositoryImpl(private val context: Context,
                                private val local: HappeningsCacheImpl,
-                               private val remote: HappeningsService): HappeningsRepository {
+                               private val remote: HappeningsService
+): HappeningsRepository {
     override suspend fun getTodayNews(): Flow<DataWrapperX<List<News>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

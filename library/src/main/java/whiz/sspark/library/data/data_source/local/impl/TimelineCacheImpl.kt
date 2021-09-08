@@ -1,7 +1,7 @@
-package whiz.sspark.library.data.dataSource.local.impl
+package whiz.sspark.library.data.data_source.local.impl
 
 import st.lowlevel.storo.Storo
-import whiz.sspark.library.data.dataSource.local.TimelineCache
+import whiz.sspark.library.data.data_source.local.TimelineCache
 import whiz.sspark.library.data.entity.TimelineResponse
 import java.util.concurrent.TimeUnit
 

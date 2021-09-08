@@ -62,7 +62,7 @@ fun convertToFullNameWithPosition(position: String?, firstName: String?, middleN
     val fullName = StringBuilder()
 
     if (!position.isNullOrBlank()) {
-        fullName.append(firstName)
+        fullName.append(position)
         fullName.append(" ")
     }
 

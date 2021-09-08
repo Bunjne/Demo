@@ -77,10 +77,16 @@ class MenuStudentFragment : BaseFragment() {
             student = student,
             segments = segments,
             onCameraClicked = {
-
+                //TODO wait implement camera
             },
             onMemberClicked = {
-
+                if (it.type == MenuSegmentType.INSTRUCTOR) {
+                    val advisor = student.advisor.getOrNull(it.index)
+                    //TODO wait contact in screen
+                } else {
+                    val guardian = student.guardians.getOrNull(it.index)
+                    //TODO wait contact in screen
+                }
             },
             onMenuClicked = {
 
@@ -138,15 +144,9 @@ class MenuStudentFragment : BaseFragment() {
     }
 
     override fun observeError() {
-        listOf(viewModel.menuErrorResponse,
-                viewModel.calendarErrorResponse, //TODO wait confirm discuss about show or not show alert
-                viewModel.advisingNoteErrorResponse,
-                viewModel.notificationInboxErrorResponse,
-                viewModel.gradeSummaryErrorResponse).forEach {
-            it.observe(this) {
-                it?.let {
-                    showApiResponseXAlert(requireContext(), it)
-                }
+        viewModel.menuErrorResponse.observe(this) {
+            it?.let {
+                showApiResponseXAlert(requireContext(), it)
             }
         }
 

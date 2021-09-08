@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.datasource.remote.service.MenuStudentService
+import whiz.sspark.library.data.data_source.remote.service.MenuStudentService
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.extension.toObject

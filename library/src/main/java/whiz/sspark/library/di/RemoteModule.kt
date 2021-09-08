@@ -2,11 +2,11 @@ package whiz.sspark.library.di
 
 import org.koin.dsl.module
 import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.data.datasource.remote.service.LearningOutcomeService
-import whiz.sspark.library.data.datasource.remote.service.MenuStudentService
-import whiz.sspark.library.data.dataSource.remote.RetrofitBuilder
-import whiz.sspark.library.data.dataSource.remote.service.TimelineService
-import whiz.sspark.library.data.dataSource.remote.service.HappeningsService
+import whiz.sspark.library.data.data_source.remote.service.MenuStudentService
+import whiz.sspark.library.data.data_source.remote.RetrofitBuilder
+import whiz.sspark.library.data.data_source.remote.service.TimelineService
+import whiz.sspark.library.data.data_source.remote.service.HappeningsService
+import whiz.sspark.library.data.data_source.remote.service.LearningOutcomeService
 
 val remoteModule = module {
     factory<HappeningsService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }

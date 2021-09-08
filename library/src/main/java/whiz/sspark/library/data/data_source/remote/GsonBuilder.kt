@@ -1,4 +1,4 @@
-package whiz.sspark.library.data.dataSource.remote
+package whiz.sspark.library.data.data_source.remote
 
 import com.google.gson.GsonBuilder
 import retrofit2.converter.gson.GsonConverterFactory
