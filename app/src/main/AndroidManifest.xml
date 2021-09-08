@@ -30,6 +30,9 @@
         <activity
             android:name=".presentation.school_record.SchoolRecordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.class_detail.ClassDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

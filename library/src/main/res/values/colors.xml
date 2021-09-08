@@ -112,4 +112,8 @@
 
     <!-- Online Class -->
     <color name="onlineClassStrokeColor">#F0F0F0</color>
+    <color name="onlineClassShowColor">#BB2432</color>
+    <color name="onlineClassHideColor">#BABABA</color>
+    <color name="onlineClassMoodleColor">#F48020</color>
+    <color name="onlineClassNormalColor">#787878</color>
 </resources>

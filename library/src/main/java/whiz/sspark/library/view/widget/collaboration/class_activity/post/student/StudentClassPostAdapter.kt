@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.collaboration.class_activity.post
+package whiz.sspark.library.view.widget.collaboration.class_activity.post.student
 
 import android.content.Context
 import android.view.View
@@ -8,24 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
-import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.OnlineClassContainerView
+import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.student.StudentOnlineClassContainerView
 
-class ClassPostAdapter(private val context: Context,
-                       private val items: List<Item>,
-                       private val allMemberCount: Int,
-                       private val color: Int,
-                       private val onDeletePostClicked: (Post) -> Unit,
-                       private val onEditPostClicked: (Post) -> Unit,
-                       private val onPostRead: (Any) -> Unit,
-                       private val onPostClicked: (Post) -> Unit,
-                       private val onImageClicked: (ImageView, Attachment) -> Unit,
-                       private val onLikeClicked: (Post) -> Unit,
-                       private val onCommentClicked: (Post) -> Unit,
-                       private val onFileClicked: (Attachment) -> Unit,
-                       private val onDisplayLikedUsersClicked: (Any) -> Unit,
-                       private val onDisplaySeenUsersClicked: (Any) -> Unit,
-                       private val onOnlineClassPlatformClicked: (String) -> Unit,
-                       private val onShowAllOnlineClassPlatformsClicked: () -> Unit) : RecyclerView.Adapter<ClassPostAdapter.ViewHolder>() {
+class StudentClassPostAdapter(private val context: Context,
+                              private val items: List<Item>,
+                              private val allMemberCount: Int,
+                              private val color: Int,
+                              private val onPostRead: (Any) -> Unit,
+                              private val onPostClicked: (Post) -> Unit,
+                              private val onImageClicked: (ImageView, Attachment) -> Unit,
+                              private val onLikeClicked: (Post) -> Unit,
+                              private val onCommentClicked: (Post) -> Unit,
+                              private val onFileClicked: (Attachment) -> Unit,
+                              private val onDisplayLikedUsersClicked: (Any) -> Unit,
+                              private val onDisplaySeenUsersClicked: (Any) -> Unit,
+                              private val onOnlineClassPlatformClicked: (String) -> Unit) : RecyclerView.Adapter<StudentClassPostAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -37,7 +34,7 @@ class ClassPostAdapter(private val context: Context,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == ClassPostItemType.POST.type) {
             ViewHolder(
-                ClassPostView(context).apply {
+                StudentClassPostView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -46,7 +43,7 @@ class ClassPostAdapter(private val context: Context,
             )
         } else {
             ViewHolder(
-                OnlineClassContainerView(context).apply {
+                StudentOnlineClassContainerView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -60,12 +57,10 @@ class ClassPostAdapter(private val context: Context,
         val item = items.getOrNull(position) ?: Item()
 
         item.post?.let { post ->
-            (holder.itemView as? ClassPostView)?.init(
+            (holder.itemView as? StudentClassPostView)?.init(
                 post = post,
                 allMemberCount = allMemberCount,
                 color = color,
-                onDeletePostClicked = onDeletePostClicked,
-                onEditPostClicked = onEditPostClicked,
                 onPostRead = onPostRead,
                 onPostClicked = onPostClicked,
                 onImageClicked = onImageClicked,
@@ -77,11 +72,8 @@ class ClassPostAdapter(private val context: Context,
         }
 
         item.onlineClasses?.let {
-            (holder.itemView as? OnlineClassContainerView)?.apply {
-                init(
-                    onShowAllOnlineClassPlatformsClicked = onShowAllOnlineClassPlatformsClicked,
-                    onOnlineClassPlatformClicked = onOnlineClassPlatformClicked
-                )
+            (holder.itemView as? StudentOnlineClassContainerView)?.apply {
+                init(onOnlineClassPlatformClicked)
                 renderOnlineClasses(it)
             }
         }

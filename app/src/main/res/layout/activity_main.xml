@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <whiz.sspark.library.view.widget.general.BottomNavigationBarView
+    <whiz.sspark.library.view.general.BottomNavigationBarView
         android:id="@+id/vBottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

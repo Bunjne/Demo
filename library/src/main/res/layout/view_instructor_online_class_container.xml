@@ -15,12 +15,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:text="@string/online_class_title"
+        android:text="@string/online_class_container_title"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="16sp"
-        app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="1sp"
+        android:textSize="16dp"
+        app:autoSizeMaxTextSize="16dp"
+        app:autoSizeMinTextSize="12dp"
+        app:autoSizeStepGranularity="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ivOption"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,11 +32,11 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginVertical="8dp"
-        android:src="@drawable/ic_post_option"
         app:tint="@color/textBaseSecondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_option"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlatformOnline"

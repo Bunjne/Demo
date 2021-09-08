@@ -10,14 +10,15 @@
 
     <ImageView
         android:id="@+id/ivIcon"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginVertical="8dp"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="11dp"
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_teams" />
+        tools:srcCompat="@drawable/ic_megaphone" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvTitle"
@@ -27,17 +28,17 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="16sp"
-        app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="1sp"
+        android:textSize="16dp"
+        app:autoSizeMaxTextSize="16dp"
+        app:autoSizeMinTextSize="12dp"
+        app:autoSizeStepGranularity="1dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ivOnlineArrow"
         app:layout_constraintStart_toEndOf="@+id/ivIcon"
         app:layout_constraintTop_toTopOf="parent"
         app:ssparkFont="bold"
-        tools:text="@string/online_class_join_label" />
+        tools:text="Microsoft Teams" />
 
     <ImageView
         android:id="@+id/ivOnlineArrow"

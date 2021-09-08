@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.class_detail.student_class_activity
+package whiz.tss.sspark.s_spark_android.presentation.class_detail.instructor_class_activity
 
 import android.graphics.Color
 import android.net.Uri
@@ -6,23 +6,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.transports.WebSocket
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.json.JSONObject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.SSparkLibrary
+import whiz.sspark.library.data.entity.Instructor
+import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.data.viewModel.InstructorClassActivityViewModel
+import whiz.sspark.library.extension.isUrlValid
+import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostAdapter
 import whiz.tss.sspark.s_spark_android.BuildConfig
 import whiz.tss.sspark.s_spark_android.SSparkApp
-import whiz.tss.sspark.s_spark_android.databinding.FragmentClassActivityBinding
+import whiz.tss.sspark.s_spark_android.databinding.FragmentInstructorClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.utility.logout
+import whiz.tss.sspark.s_spark_android.utility.refreshToken
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
 import java.net.URISyntaxException
 
-class ClassActivityFragment : BaseFragment() {
+class InstructorClassActivityFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(classGroupId: String, color: Int, allMemberCount: Int) = ClassActivityFragment().apply {
+        fun newInstance(classGroupId: String, color: Int, allMemberCount: Int) = InstructorClassActivityFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
                 putInt("color", color)
@@ -37,7 +51,7 @@ class ClassActivityFragment : BaseFragment() {
                 transports = arrayOf(WebSocket.NAME)
             }
 
-            IO.socket(SSparkApp.collaborationSocketBaseURL, options)
+            IO.socket(SSparkLibrary.collaborationSocketBaseURL, options)
         } catch (exception: URISyntaxException) {
             null
         }
@@ -55,9 +69,11 @@ class ClassActivityFragment : BaseFragment() {
         arguments?.getInt("allMemberCounts", 0) ?: 0
     }
 
-    private val items = mutableListOf<ClassPostAdapter.Item>()
+    private val items = mutableListOf<InstructorClassPostAdapter.Item>()
 
-    private var _binding: FragmentClassActivityBinding? = null
+    private var instructor: Instructor? = null
+
+    private var _binding: FragmentInstructorClassActivityBinding? = null
     private val binding get() = _binding!!
 
     private val onPostLiked by lazy {
@@ -74,11 +90,11 @@ class ClassActivityFragment : BaseFragment() {
                     if (itemPosition > -1) {
                         items[itemPosition].post?.run {
                             likeCount = likeCounts
-                            isLike = if (student?.userId == userId) isSocketLiked else isLike
+                            isLike = if (instructor?.userId == userId) isSocketLiked else isLike
                         }
 
                         activity?.runOnUiThread {
-                            vClassActivity.notifyRecycleViewItemChanged(itemPosition)
+                            binding.vClassActivity.notifyRecycleViewItemChanged(itemPosition)
                         }
                     }
                 }
@@ -102,11 +118,11 @@ class ClassActivityFragment : BaseFragment() {
                     if (itemPosition > -1) {
                         items[itemPosition].post?.run {
                             likeCount = likeCounts
-                            isLike = if (student?.userId == userId) isSocketLiked else isLike
+                            isLike = if (instructor?.userId == userId) isSocketLiked else isLike
                         }
 
                         activity?.runOnUiThread {
-                            vClassActivity.notifyRecycleViewItemChanged(itemPosition)
+                            binding.vClassActivity.notifyRecycleViewItemChanged(itemPosition)
                         }
                     }
                 }
@@ -130,7 +146,7 @@ class ClassActivityFragment : BaseFragment() {
                         }
 
                         activity?.runOnUiThread {
-                            vClassActivity.notifyRecycleViewItemChanged(itemPosition)
+                            binding.vClassActivity.notifyRecycleViewItemChanged(itemPosition)
                         }
                     }
                 }
@@ -153,7 +169,7 @@ class ClassActivityFragment : BaseFragment() {
                         }
 
                         activity?.runOnUiThread {
-                            vClassActivity.notifyRecycleViewItemChanged(itemPosition)
+                            binding.vClassActivity.notifyRecycleViewItemChanged(itemPosition)
                         }
                     }
                 }
@@ -164,21 +180,21 @@ class ClassActivityFragment : BaseFragment() {
 
     private val onSocketAuthenticated by lazy {
         Emitter.Listener {
-            socket?.off(BuildConfig.COLLABORATION_SOCKET_LISTENER_AUTHENTICATION)
-            socket?.on(BuildConfig.COLLABORATION_SOCKET_LISTENER_AUTHENTICATION) {
+            socket?.off(SSparkLibrary.collaborationSocketListenerAuthenticationPath)
+            socket?.on(SSparkLibrary.collaborationSocketListenerAuthenticationPath) {
                 establishSocketListener()
             }
-            socket?.off(BuildConfig.COLLABORATION_SOCKET_LISTENER_UNAUTHENTICATION)
-            socket?.on(BuildConfig.COLLABORATION_SOCKET_LISTENER_UNAUTHENTICATION) {
+            socket?.off(SSparkLibrary.collaborationSocketListenerUnAuthenticationPath)
+            socket?.on(SSparkLibrary.collaborationSocketListenerUnAuthenticationPath) {
 
                 if (socket?.connected() == true) {
                     socket?.disconnect()
                 }
 
                 activity?.runOnUiThread {
-                    refreshToken(activity!!) {
-                        val authenticationInformation = retrieveAuthenticationInformation(activity!!)
-                        socket?.emit(BuildConfig.COLLABORATION_SOCKET_EMITTER_AUTHENTICATION, JSONObject().apply {
+                    refreshToken(requireActivity()) {
+                        val authenticationInformation = retrieveAuthenticationInformation(requireActivity())
+                        socket?.emit(SSparkLibrary.collaborationSocketEmitterAuthenticationPath, JSONObject().apply {
                             put("token", authenticationInformation?.accessToken)
                         })
                     }
@@ -187,10 +203,10 @@ class ClassActivityFragment : BaseFragment() {
         }
     }
 
-    private val viewModel: ClassActivityViewModel by viewModel()
+    private val viewModel: InstructorClassActivityViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentClassActivityBinding.inflate(inflater, container, false)
+        _binding = FragmentInstructorClassActivityBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -206,8 +222,8 @@ class ClassActivityFragment : BaseFragment() {
 
                     connect()
 
-                    val authenticationInformation = retrieveAuthenticationInformation(activity!!)
-                    socket?.emit(BuildConfig.COLLABORATION_SOCKET_EMITTER_AUTHENTICATION, JSONObject().apply {
+                    val authenticationInformation = retrieveAuthenticationInformation(requireActivity())
+                    socket?.emit(SSparkLibrary.collaborationSocketEmitterAuthenticationPath, JSONObject().apply {
                         put("token", authenticationInformation?.accessToken)
                     })
                 }
@@ -217,20 +233,31 @@ class ClassActivityFragment : BaseFragment() {
 
     private fun establishSocketListener() {
         socket?.run {
-            off(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_LIKE, onPostLiked)
-            off(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_UNLIKE, onPostUnliked)
-            off(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_COMMENT, onCommentAdded)
-            off(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_DELETE_COMMENT, onCommentDeleted)
+            off(SSparkLibrary.collaborationSocketListenerPostLikePath, onPostLiked)
+            off(SSparkLibrary.collaborationSocketListenerPostUnLikePath, onPostUnliked)
+            off(SSparkLibrary.collaborationSocketListenerPostCommentPath, onCommentAdded)
+            off(SSparkLibrary.collaborationSocketListenerPostDeleteCommentPath, onCommentDeleted)
 
-            on(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_LIKE, onPostLiked)
-            on(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_UNLIKE, onPostUnliked)
-            on(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_COMMENT, onCommentAdded)
-            on(BuildConfig.COLLABORATION_SOCKET_LISTENER_POST_DELETE_COMMENT, onCommentDeleted)
+            on(SSparkLibrary.collaborationSocketListenerPostLikePath, onPostLiked)
+            on(SSparkLibrary.collaborationSocketListenerPostUnLikePath, onPostUnliked)
+            on(SSparkLibrary.collaborationSocketListenerPostCommentPath, onCommentAdded)
+            on(SSparkLibrary.collaborationSocketListenerPostDeleteCommentPath, onCommentDeleted)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            profileManager.instructor.collect {
+                it?.let {
+                    instructor = it
+                    initView()
+                } ?: run {
+                    logout(requireContext())
+                }
+            }
+        }
 
         activity?.let {
             initView()
@@ -238,23 +265,22 @@ class ClassActivityFragment : BaseFragment() {
             observeData()
             observeError()
 
-            viewModel.listOnlineClassesV3(classGroupId)
+            viewModel.listOnlineClasses(classGroupId)
         }
     }
 
-    private fun initView() {
-        vClassActivity.init(
-            items = items,
+    override fun initView() {
+        binding.vClassActivity.init(
             allMemberCount = allMemberCount,
             color = color,
             onRefresh = {
-                viewModel.listOnlineClassesV3(classGroupId)
+                viewModel.listOnlineClasses(classGroupId)
             },
             onPostClicked = { post, isKeyboardShown ->
                 openDetail(post, isKeyboardShown)
             },
             onImageClicked = { imageView, imageUrl ->
-                showImage(activity!!, imageView, imageUrl)
+//                showImage(requireActivity(), imageView, imageUrl)
             },
             onLikeClicked = { post ->
                 likePost(post)
@@ -266,12 +292,12 @@ class ClassActivityFragment : BaseFragment() {
                 readPost(postId as? String ?: "")
             },
             onPostLikedUsersClicked = { postId ->
-                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.LIKE.type)
-                dialog.show(childFragmentManager, "")
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.LIKE.type)
+//                dialog.show(childFragmentManager, "")
             },
             onPostSeenUsersClicked = { postId ->
-                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.SEEN.type)
-                dialog.show(childFragmentManager, "")
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.SEEN.type)
+//                dialog.show(childFragmentManager, "")
             },
             onShowAllOnlineClassPlatformsClicked = {
 
@@ -279,7 +305,7 @@ class ClassActivityFragment : BaseFragment() {
             onOnlineClassPlatformClicked = { url ->
                 if (url.isUrlValid() && (url.contains("http://") || url.contains("https://"))) {
                     CustomTabsIntent.Builder().build().apply {
-                        launchUrl(context, Uri.parse(url))
+                        launchUrl(requireContext(), Uri.parse(url))
                     }
                 }
             }
@@ -287,72 +313,68 @@ class ClassActivityFragment : BaseFragment() {
     }
 
     private fun openDetail(post: Post, isKeyboardShown: Boolean) {
-        val dialog = PostDetailSheetDialog.newInstance(classGroupId, post, color, allMemberCount, isKeyboardShown)
-        dialog.show(childFragmentManager, "")
+//        val dialog = PostDetailSheetDialog.newInstance(classGroupId, post, color, allMemberCount, isKeyboardShown)
+//        dialog.show(childFragmentManager, "")
     }
 
-    private fun observeView() {
-        viewModel.state.postLoading.observe(this, Observer { isLoading ->
-            vClassActivity.setSwipeRefreshLayout(isLoading)
-        })
-
-        viewModel.state.onlineClassesLoading.observe(this, Observer { isLoading ->
-            vClassActivity.setSwipeRefreshLayout(isLoading)
-        })
+    override fun observeView() {
+        viewModel.viewLoading.observe(this) { isLoading ->
+            binding.vClassActivity.setSwipeRefreshLayout(isLoading)
+        }
     }
 
-    private fun observeData() {
-        viewModel.posts.observe(this, Observer {
+    override fun observeData() {
+        viewModel.posts.observe(this) {
             it?.let { posts ->
                 items.removeAll { it.post != null }
 
                 with(items) {
                     posts.forEach {
-                        add(ClassPostAdapter.Item(post = it))
+                        add(InstructorClassPostAdapter.Item(post = it))
                     }
                 }
 
-                with (vClassActivity) {
+                with (binding.vClassActivity) {
                     refreshRecyclerView(items)
                     checkPostAmount()
                 }
             }
-        })
+        }
 
-        viewModel.onlineClassesResponse.observe(this, Observer {
+        viewModel.onlineClassesResponse.observe(this) {
             it?.let {
                 val shownOnlineClasses = it.filter { it.isShown }
                 with (items) {
                     removeAll { it.onlineClasses != null }
-                    add(ClassPostAdapter.Item(onlineClasses = shownOnlineClasses))
+                    add(InstructorClassPostAdapter.Item(onlineClasses = shownOnlineClasses))
                 }
 
-                viewModel.listPostsV3(classGroupId)
+                viewModel.listPosts(classGroupId)
             }
-        })
+        }
     }
 
     private fun likePost(post: Post) {
         val data = JSONObject()
-        data.put("userId", student?.userId)
+        data.put("userId", instructor?.userId)
         data.put("postId", post.id.toString())
 
         if (post.isLike) {
-            socket?.emit(BuildConfig.COLLABORATION_SOCKET_EMITTER_POST_UNLIKE, data)
+            socket?.emit(SSparkLibrary.collaborationSocketEmitterPostUnLikePath, data)
         } else {
-            socket?.emit(BuildConfig.COLLABORATION_SOCKET_EMITTER_POST_LIKE, data)
+            socket?.emit(SSparkLibrary.collaborationSocketEmitterPostLikePath, data)
         }
     }
 
     private fun readPost(postId: String) {
         val data = JSONObject()
-        data.put("userId", student?.userId)
+        data.put("userId", instructor?.userId)
         data.put("postId", postId.toString())
-        socket?.emit(BuildConfig.COLLABORATION_SOCKET_EMITTER_POST_SEEN, data)
+        socket?.emit(SSparkLibrary.collaborationSocketEmitterPostSeenPath, data)
     }
 
-    private fun observeError() {
-        viewModel.postErrorResponseV3.observe(this, Observer {
+    override fun observeError() {
+        viewModel.postErrorResponse.observe(this, Observer {
             it?.let {
                 if (it.statusCode != 404) {
                     showApiResponseXAlert(activity, it)
@@ -361,20 +383,20 @@ class ClassActivityFragment : BaseFragment() {
 
             items.removeAll { it.post != null }
 
-            with (vClassActivity) {
+            with (binding.vClassActivity) {
                 refreshRecyclerView(items)
                 checkPostAmount()
             }
         })
 
-        viewModel.onlineClassesErrorResponseV3.observe(this, Observer {
+        viewModel.onlineClassesErrorResponse.observe(this, Observer {
             it?.let {
                 showApiResponseXAlert(activity, it)
             }
 
             items.removeAll { it.onlineClasses != null }
 
-            viewModel.listPostsV3(classGroupId)
+            viewModel.listPosts(classGroupId)
         })
     }
 
@@ -392,5 +414,10 @@ class ClassActivityFragment : BaseFragment() {
         if (socket?.connected() == true) {
             socket?.disconnect()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

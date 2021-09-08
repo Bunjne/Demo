@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.collaboration.class_activity.post
+package whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor
 
 import android.content.Context
 import android.graphics.PorterDuff
@@ -12,17 +12,21 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.Post
-import whiz.sspark.library.databinding.ViewClassPostBinding
+import whiz.sspark.library.databinding.ViewInstructorClassPostBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toAttachmentFiles
+import whiz.sspark.library.extension.toAttachmentImages
 import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostFileView
+import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostImageView
 
-class ClassPostView : ConstraintLayout {
+class InstructorClassPostView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewClassPostBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewInstructorClassPostBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     private val defaultColor by lazy {
@@ -42,7 +46,7 @@ class ClassPostView : ConstraintLayout {
              onFileClicked: (Attachment) -> Unit,
              onDisplayLikedUsersClicked: (Any) -> Unit,
              onDisplaySeenUsersClicked: (Any) -> Unit) {
-        binding.ivMore.show(R.drawable.ic_post_option)
+        binding.ivMore.show(R.drawable.ic_option)
         if (!post.isRead) {
             onPostRead(post.id)
         }
@@ -66,12 +70,6 @@ class ClassPostView : ConstraintLayout {
                     inflate(R.menu.menu_class_post)
                     show()
                 }
-            }
-
-            visibility = if (USparkLibrary.isStudent) {
-                View.GONE
-            } else {
-                View.VISIBLE
             }
         }
 
@@ -127,7 +125,7 @@ class ClassPostView : ConstraintLayout {
             val likeString = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
             val commentString = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
             text = if (post.likeCount > 0 && post.commentCount > 0) {
-                resources.getString(R.string.post_like_comments, likeString, commentString)
+                resources.getString(R.string.class_post_like_and_comments_title, likeString, commentString)
             } else if (post.likeCount <= 0 && post.commentCount > 0) {
                 commentString
             } else if (post.likeCount > 0 && post.commentCount <= 0) {

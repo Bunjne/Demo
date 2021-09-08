@@ -6,9 +6,9 @@ import retrofit2.http.Path
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface StudentClassActivityService {
-    @GET("v1/classes/{id}/posts")
-    suspend fun listPosts(@Path("id") id: Long): Response<ApiResponseX>
+    @GET("v3/classgroups/{classGroupId}/posts")
+    suspend fun listPosts(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
 
-    @GET("v2/classes/{classId}/online_classes")
-    suspend fun listOnlineClasses(@Path("classId") classId: Long): Response<ApiResponseX>
+    @GET("v3/classgroups/{classGroupId}/online_classes")
+    suspend fun listOnlineClasses(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
 }

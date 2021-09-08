@@ -14,7 +14,7 @@ import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewMenuStudentFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showUserProfileCircle
-import whiz.sspark.library.view.widget.general.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.menu.MenuSegmentAdapter
 import whiz.sspark.library.view.widget.menu.MenuMemberAdapter
 
@@ -91,10 +91,12 @@ class MenuStudentFragmentView : ConstraintLayout {
 
         with(binding.rvMenu) {
             if (itemDecorationCount == 0) {
-                addItemDecoration(CustomDividerMultiItemDecoration(
+                addItemDecoration(
+                    CustomDividerMultiItemDecoration(
                     divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
                     dividerViewType = listOf(MenuMemberAdapter.VIEW_TYPE)
-                ))
+                )
+                )
             }
 
             this.layoutManager = layoutManager

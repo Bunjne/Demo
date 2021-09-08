@@ -40,9 +40,9 @@ class StudentClassActivityViewModel(private val studentClassActivityRepository: 
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun listPosts(id: Long) {
+    fun listPosts(classGroupId: String) {
         viewModelScope.launch {
-            studentClassActivityRepository.listPosts(id)
+            studentClassActivityRepository.listPosts(classGroupId)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -64,9 +64,9 @@ class StudentClassActivityViewModel(private val studentClassActivityRepository: 
         }
     }
 
-    fun listOnlineClasses(classId: Long) {
+    fun listOnlineClasses(classGroupId: String) {
         viewModelScope.launch {
-            studentClassActivityRepository.listOnlineClasses(classId)
+            studentClassActivityRepository.listOnlineClasses(classGroupId)
                 .onStart {
                     _viewLoading.value = true
                 }

@@ -14,6 +14,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
+import whiz.tss.sspark.s_spark_android.presentation.class_detail.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
 import whiz.tss.sspark.s_spark_android.utility.*
 
@@ -52,7 +53,7 @@ class LoginActivity : LocalizationActivity() {
             viewModel.getProfile()
         } else {
             val deviceID = retrieveDeviceID(this)
-            viewModel.login("6101234556", "TuGreatsTeam", deviceID, operatorName)
+            viewModel.login("test1", "123456", deviceID, operatorName)
         }
     }
 
@@ -82,7 +83,7 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, ClassDetailActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }

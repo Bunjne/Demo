@@ -14,17 +14,17 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface StudentClassActivityRepository {
-    fun listPosts(id: Long): Flow<DataWrapperX<List<Post>>>
-    fun listOnlineClasses(classId: Long): Flow<DataWrapperX<List<PlatformOnlineClass>>>
+    fun listPosts(classGroupId: String): Flow<DataWrapperX<List<Post>>>
+    fun listOnlineClasses(classGroupId: String): Flow<DataWrapperX<List<PlatformOnlineClass>>>
 }
 
 class StudentClassActivityRepositoryImpl(private val context: Context,
                                          private val remote: StudentClassActivityService): StudentClassActivityRepository {
-    override fun listPosts(id: Long): Flow<DataWrapperX<List<Post>>> {
+    override fun listPosts(classGroupId: String): Flow<DataWrapperX<List<Post>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.listPosts(id)
+                    val response = remote.listPosts(classGroupId)
                     fetchX(response, Array<Post>::class.java)
                 } catch (e: Exception) {
                     throw e
@@ -35,11 +35,11 @@ class StudentClassActivityRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun listOnlineClasses(classId: Long): Flow<DataWrapperX<List<PlatformOnlineClass>>> {
+    override fun listOnlineClasses(classGroupId: String): Flow<DataWrapperX<List<PlatformOnlineClass>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.listOnlineClasses(classId)
+                    val response = remote.listOnlineClasses(classGroupId)
                     fetchX(response, Array<PlatformOnlineClass>::class.java)
                 } catch (e: Exception) {
                     throw e

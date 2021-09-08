@@ -7,16 +7,17 @@ import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
 import whiz.sspark.library.data.enum.BottomNavigationType
 import whiz.tss.sspark.s_spark_android.R
+import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
+import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
-import whiz.tss.sspark.s_spark_android.presentation.class_detail.student_class_activity.ClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.class_detail.instructor_class_activity.InstructorClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.class_detail.student_class_activity.StudentClassActivityFragment
 
 class ClassDetailActivity : BaseActivity() {
 
-    private val binding by lazy {
-        ActivityClassDetailBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityClassDetailBinding
 
     private val id by lazy {
         intent?.getStringExtra("id") ?: ""
@@ -42,7 +43,10 @@ class ClassDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityClassDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        initView()
     }
 
     override fun initView() {
@@ -72,7 +76,7 @@ class ClassDetailActivity : BaseActivity() {
             BottomNavigationBarItem(id = BottomNavigationId.ACTIVITY.id, title = resources.getString(R.string.class_detail_tab_activity), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_activity, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.ATTENDANCE.id, title = resources.getString(R.string.class_detail_tab_attendance), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_attendance, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.STUDENT.id, title = resources.getString(R.string.class_detail_tab_student), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_member, colors = colors.toList()),
-            BottomNavigationBarItem(id = BottomNavigationId.HOMEWORK.id, title = resources.getString(R.string.class_detail_tab_student), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_homework, colors = colors.toList())
+            BottomNavigationBarItem(id = BottomNavigationId.HOMEWORK.id, title = resources.getString(R.string.class_detail_tab_homework), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_homework, colors = colors.toList())
         )
 
         with (binding.vClassDetail) {
@@ -85,7 +89,13 @@ class ClassDetailActivity : BaseActivity() {
                     if (currentFragment != it) {
                         currentFragment = it
                         when (it) {
-                            BottomNavigationId.ACTIVITY.id -> renderFragment(ClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager, currentFragment)
+                            BottomNavigationId.ACTIVITY.id -> {
+                                if (SSparkApp.role != RoleType.INSTRUCTOR) {
+                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager, currentFragment)
+                                } else {
+                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager, currentFragment)
+                                }
+                            }
 //                            BottomNavigationId.ATTENDANCE.id -> renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, courseCode, sectionNumber), supportFragmentManager)
 //                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id as? String ?: ""), supportFragmentManager)
                         }
@@ -98,7 +108,7 @@ class ClassDetailActivity : BaseActivity() {
 
             when (currentFragment) {
                 BottomNavigationId.ACTIVITY.id -> {
-                    renderFragment(ClassActivityFragment.newInstance(this@ClassDetailActivity.id, color, allMemberCount), supportFragmentManager, currentFragment)
+                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, color, allMemberCount), supportFragmentManager, currentFragment)
                 }
 //                BottomNavigationId.ATTENDANCE.id -> {
 //                    renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id, color, courseCode), supportFragmentManager, currentFragment)

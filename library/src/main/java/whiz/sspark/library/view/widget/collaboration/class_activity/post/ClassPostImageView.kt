@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_class_post_image.view.*
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.databinding.ViewClassPostImageBinding
+import whiz.sspark.library.extension.show
 
 class ClassPostImageView : LinearLayout {
     constructor(context: Context) : super(context)
@@ -21,7 +22,7 @@ class ClassPostImageView : LinearLayout {
     fun init(attachment: Attachment,
              navigateToImage: (ImageView, Attachment) -> Unit) {
 
-        binding.ivPost.showAttachmentImageByURL(attachment)
+        binding.ivPost.show(attachment.url)
 
         setOnClickListener {
             navigateToImage(ivPost, attachment)

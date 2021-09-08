@@ -30,23 +30,19 @@ class OnlineClassItemView : LinearLayout {
 
         when (platform.nameEn) {
             Platform.MicrosoftTeams.type -> {
-                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.onlineClassLabelColor))
-                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.onlineClassLabelColor))
-            }
-
-            Platform.GoogleClassroom.type -> {
-                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.external_online_class_normal))
-                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.external_online_class_normal))
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.microsoftTeamBaseColor))
+                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.microsoftTeamBaseColor))
             }
 
             Platform.Moodle.type -> {
-                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.external_online_class_moodle))
-                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.external_online_class_moodle))
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.onlineClassMoodleColor))
+                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.onlineClassMoodleColor))
             }
 
+            Platform.GoogleClassroom.type,
             Platform.Other.type -> {
-                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.external_online_class_normal))
-                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.external_online_class_normal))
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.onlineClassNormalColor))
+                binding.ivOnlineArrow.setColorFilter(ContextCompat.getColor(context, R.color.onlineClassNormalColor))
             }
         }
 

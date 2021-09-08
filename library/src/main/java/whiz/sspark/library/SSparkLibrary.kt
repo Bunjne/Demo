@@ -17,6 +17,20 @@ object SSparkLibrary {
     var apiKey = ""
     var baseUrl = ""
     var baseUrlV3 = ""
+    var collaborationSocketBaseURL = ""
+    var collaborationSocketEmitterAuthenticationPath = ""
+    var collaborationSocketListenerAuthenticationPath = ""
+    var collaborationSocketListenerUnAuthenticationPath = ""
+    var collaborationSocketListenerPostSeenPath = ""
+    var collaborationSocketEmitterPostSeenPath = ""
+    var collaborationSocketListenerPostLikePath = ""
+    var collaborationSocketEmitterPostLikePath = ""
+    var collaborationSocketListenerPostUnLikePath = ""
+    var collaborationSocketEmitterPostUnLikePath = ""
+    var collaborationSocketListenerPostCommentPath = ""
+    var collaborationSocketEmitterPostCommentPath = ""
+    var collaborationSocketListenerPostDeleteCommentPath = ""
+    var collaborationSocketEmitterPostDeleteCommentPath = ""
 
     var isAutoDarkModeEnabled = false
     var isSystemDarkModeEnable = false

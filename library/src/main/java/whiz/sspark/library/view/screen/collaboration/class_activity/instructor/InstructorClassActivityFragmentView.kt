@@ -1,35 +1,36 @@
-package whiz.sspark.library.view.screen.collaboration.class_activity
+package whiz.sspark.library.view.screen.collaboration.class_activity.instructor
 
 import android.content.Context
+import android.graphics.Rect
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.view_class_activity_fragment.view.*
+import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Post
-import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostAdapter
-import whiz.u.library.R
-import whiz.u.library.USparkLibrary
-import whiz.u.library.data.entity.Post
-import whiz.u.library.extension.show
-import whiz.u.library.utility.openFile
-import whiz.u.library.widget.collaboration.detail.post.ClassPostAdapter
+import whiz.sspark.library.databinding.ViewInstructorClassActivityFragmentBinding
+import whiz.sspark.library.extension.show
+import whiz.sspark.library.utility.openFile
+import whiz.sspark.library.utility.updateItem
+import whiz.sspark.library.view.general.CustomDividerItemDecoration
+import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostAdapter
 
-class ClassActivityFragmentView : ConstraintLayout {
+class InstructorClassActivityFragmentView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private var items = mutableListOf<ClassPostAdapter.Item>()
+    private var items = mutableListOf<InstructorClassPostAdapter.Item>()
 
     private val binding by lazy {
-        
+        ViewInstructorClassActivityFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(items: List<ClassPostAdapter.Item>,
-             allMemberCount: Int,
+    fun init(allMemberCount: Int,
              color: Int,
              onRefresh: () -> Unit,
              onDeletePostClicked: (Post) -> Unit = { },
@@ -43,25 +44,17 @@ class ClassActivityFragmentView : ConstraintLayout {
              onOnlineClassPlatformClicked: (String) -> Unit,
              onPostLikedUsersClicked:(Any) -> Unit,
              onPostSeenUsersClicked:(Any) -> Unit) {
-
-        with(this.items) {
-            clear()
-            addAll(items)
-        }
-
-        ivActivity.show(R.drawable.ic_create_post)
+        binding.ivActivity.show(R.drawable.ic_create_post)
 
         val linearLayoutManager = LinearLayoutManager(context)
-        with(rvPost) {
+        with(binding.rvPost) {
             layoutManager = linearLayoutManager
 
-            addItemDecoration(DividerItemDecoration(context!!, linearLayoutManager.orientation).apply {
-                setDrawable(ContextCompat.getDrawable(context!!, R.drawable.divider_post)!!)
-            })
+            addItemDecoration(CustomDividerItemDecoration(ContextCompat.getDrawable(context!!, R.drawable.divider_post)!!, InstructorClassPostAdapter.ClassPostItemType.POST.type))
 
-            adapter = ClassPostAdapter(
+            adapter = InstructorClassPostAdapter(
                     context = context!!,
-                    items = this@ClassActivityFragmentView.items,
+                    items = items,
                     allMemberCount = allMemberCount,
                     color = color,
                     onDeletePostClicked = { post ->
@@ -101,7 +94,7 @@ class ClassActivityFragmentView : ConstraintLayout {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val rvRect = Rect()
-                    rvPost.getGlobalVisibleRect(rvRect)
+                    binding.rvPost.getGlobalVisibleRect(rvRect)
 
                     val firstVisiblePosition = linearLayoutManager.findFirstVisibleItemPosition()
                     val lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
@@ -123,17 +116,13 @@ class ClassActivityFragmentView : ConstraintLayout {
             })
         }
 
-        srlContainer.setOnRefreshListener {
+        binding.srlContainer.setOnRefreshListener {
             onRefresh()
-        }
-
-        if (USparkLibrary.isStudent) {
-            clCreatePost.visibility = View.GONE
         }
     }
 
     fun setOnCreatePostClicked(onCreatePostClicked: () -> Unit) {
-        clCreatePost.setOnClickListener {
+        binding.clCreatePost.setOnClickListener {
             onCreatePostClicked()
         }
     }
@@ -142,30 +131,25 @@ class ClassActivityFragmentView : ConstraintLayout {
 
     }
 
-    fun refreshRecyclerView(items: List<ClassPostAdapter.Item>) {
-        with(this.items) {
-            clear()
-            addAll(items)
-        }
-
-        rvPost.adapter?.notifyDataSetChanged()
+    fun refreshRecyclerView(items: List<InstructorClassPostAdapter.Item>) {
+        binding.rvPost.adapter?.updateItem(this.items, items)
     }
 
     fun notifyRecycleViewItemChanged(index: Int) {
-        rvPost.adapter?.notifyItemChanged(index)
+        binding.rvPost.adapter?.notifyItemChanged(index)
     }
 
-    fun setSwipeRefreshLayout(isLoading: Boolean) {
-        srlContainer.isRefreshing = isLoading == true
+        fun setSwipeRefreshLayout(isLoading: Boolean) {
+        binding.srlContainer.isRefreshing = isLoading == true
     }
 
     fun checkPostAmount() {
-        tvNoPost.visibility = if (items.filter { it.post != null }.any()) View.INVISIBLE else View.VISIBLE
+        binding.tvNoPost.visibility = if (items.filter { it.post != null }.any()) View.INVISIBLE else View.VISIBLE
     }
 
     fun scrollToTopPost() {
         if (items.any()) {
-            rvPost.layoutManager?.scrollToPosition(0)
+            binding.rvPost.layoutManager?.scrollToPosition(0)
         }
     }
 }
