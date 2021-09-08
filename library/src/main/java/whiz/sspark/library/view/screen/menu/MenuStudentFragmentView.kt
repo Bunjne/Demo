@@ -107,12 +107,15 @@ class MenuStudentFragmentView : ConstraintLayout {
                 addItemDecoration(
                     CustomDividerMultiItemDecoration(
                         divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                        dividerViewType = listOf(MenuMemberAdapter.VIEW_TYPE, MenuAdapter.MENU_TYPE))
+                        dividerViewType = listOf(
+                            MenuMemberAdapter.VIEW_TYPE,
+                            MenuAdapter.MENU_TYPE))
                 )
                 addItemDecoration(
                     CustomWidgetPaddingItemDecoration(
                         padding = 6.toDP(context),
-                        viewTypes = listOf(MenuAdapter.NO_MESSAGE_WIDGET_TYPE,
+                        viewTypes = listOf(
+                            MenuAdapter.NO_MESSAGE_WIDGET_TYPE,
                             MenuAdapter.MESSAGE_WIDGET_TYPE,
                             MenuAdapter.CALENDAR_WIDGET_TYPE,
                             MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE))

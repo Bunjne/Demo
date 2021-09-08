@@ -23,8 +23,7 @@ interface TimelineRepository {
 
 class TimelineRepositoryImpl(private val context: Context,
                              private val local: TimelineCacheImpl,
-                             private val remote: TimelineService
-): TimelineRepository {
+                             private val remote: TimelineService): TimelineRepository {
     override suspend fun getTimeline(date: Date,
                                      differDay: Int,
                                      isNetworkPreferred: Boolean): Flow<DataWrapperX<TimelineResponse>> {

@@ -17,8 +17,7 @@ interface ProfileRepository {
 }
 
 class ProfileRepositoryImpl(private val context: Context,
-                            private val remote: ProfileService
-): ProfileRepository {
+                            private val remote: ProfileService): ProfileRepository {
     override suspend fun profile(): Flow<DataWrapperX<Student>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

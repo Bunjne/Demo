@@ -20,8 +20,7 @@ interface HappeningsRepository {
 
 class HappeningsRepositoryImpl(private val context: Context,
                                private val local: HappeningsCacheImpl,
-                               private val remote: HappeningsService
-): HappeningsRepository {
+                               private val remote: HappeningsService): HappeningsRepository {
     override suspend fun getTodayNews(): Flow<DataWrapperX<List<News>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

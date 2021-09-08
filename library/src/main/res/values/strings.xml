@@ -18,6 +18,11 @@
     <string name="general_alertmessage_serviceerror_503_title">Internal Server Error (503)</string>
     <string name="general_alertmessage_error_code">(Error Code: %1$s)</string>
 
+    <!--general-->
+    <string name="general_room">ห้องพัก %1$s</string>
+    <string name="general_triple_text_format">%1$s %2$s %3$s</string>
+    <string name="general_credit">%1$s หน่วยกิต</string>
+
     <!--Datetime-->
     <string name="screen_header_subtitle">LAST UPDATED AT %1$s HRS.</string>
     <string name="update_failed">UPDATE FAILED</string>
@@ -44,14 +49,11 @@
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
     <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
     <string name="menu_notification_inbox_text">กล่องข้อความ</string>
-
-    <!--general-->
-    <string name="general_room">ห้องพัก %1$s</string>
     <string name="no_message_text">ไม่มีข้อความ</string>
-    <string name="general_triple_text_format">%1$s %2$s %3$s</string>
-    <string name="general_credit">%1$s หน่วยกิต</string>
 
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
+
+
 </resources>
