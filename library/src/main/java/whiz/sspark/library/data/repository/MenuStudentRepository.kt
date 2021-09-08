@@ -31,16 +31,8 @@ class MenuStudentRepositoryImpl(private val context: Context,
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = BufferedReader(InputStreamReader(context.resources.assets.open("classScheduleSample.json"))).readText().toObject<ApiResponseX>()
-                    emit(
-                        DataWrapperX(
-                            data = response?.data?.toObjects(Array<MenuDTO>::class.java),
-                            error = response,
-                            dataSource = DataSource.NETWORK
-                    )) //TODO remove mock data
-
-//                    val response = remote.getMenu()
-//                    fetchX(response, Array<MenuDTO>::class.java)
+                    val response = remote.getMenu()
+                    fetchX(response, Array<MenuDTO>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }
