@@ -1,14 +1,11 @@
 <resources>
     <!--App config-->
-    <string name="app_name_stg">TSS App stg</string>
-    <string name="app_name_prd">TSS App</string>
-    <string name="app_version">%1$s %2$s</string>
     <string name="school_name">โรงเรียนสาธิตแห่งมหาวิทยาลัยธรรมศาสตร์</string>
 
     <!--Main-->
-    <string name="tab_today">today</string>
-    <string name="tab_class">class</string>
-    <string name="tab_id_card">id card</string>
+    <string name="tab_today">วันนี้</string>
+    <string name="tab_class">กลุ่มเรียน</string>
+    <string name="tab_id_card">บัตร</string>
 
     <!--Menu-->
     <string name="menu_junior_segment_instructor_text">อาจารย์ประจำชั้น</string>
@@ -16,7 +13,7 @@
     <string name="menu_segment_guardian_text">ผู้ปกครอง</string>
 
     <!--general-->
-    <string name="general_back_text">back</string>
+    <string name="general_back_text">ย้อนกลับ</string>
 
     <!--Learning outcome-->
     <string-array name="junior_school_record_segment">
