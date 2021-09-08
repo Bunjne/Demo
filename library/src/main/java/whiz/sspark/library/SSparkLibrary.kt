@@ -17,6 +17,7 @@ object SSparkLibrary {
     var baseUrl = ""
     var baseUrlV3 = ""
 
+    var isDarkModeEnabled = false
     var isAutoDarkModeEnabled = false
     var isSystemDarkModeEnable = false
     var isChangeDarkModeFromSetting = false
