@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/viewBaseSecondaryColor"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvTitle"
+            style="@style/ScreenHeaderTitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvLatestUpdated"
+            style="@style/ScreenHeaderSubTitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/screen_header_subtitle"
+            app:layout_constraintEnd_toEndOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlContact"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/clTitle"
+        app:layout_constraintStart_toStartOf="@id/clTitle"
+        app:layout_constraintTop_toBottomOf="@id/clTitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContact"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="true"
+            android:overScrollMode="never"
+            android:paddingVertical="12dp"
+            tools:listitem="@layout/view_contact_list_item" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

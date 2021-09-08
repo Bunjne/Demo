@@ -14,4 +14,6 @@
     <!-- Event -->
     <string name="event_list_title">กิจกรรม</string>
 
+    <!-- Contact -->
+    <string name="contact_title">ช่องทางการติดต่อ</string>
 </resources>
