@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
-import whiz.sspark.library.data.repository.MenuRepositoryImpl
+import whiz.sspark.library.data.repository.MenuStudentRepositoryImpl
 
-class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewModel() {
+class MenuViewModel(private val menuStudentRepositoryImpl: MenuStudentRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -65,7 +65,7 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
 
     fun getMenu() {
         viewModelScope.launch {
-            menuRepositoryImpl.getMenu()
+            menuStudentRepositoryImpl.getMenu()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -89,7 +89,7 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
 
     private fun getAdvising() {
         viewModelScope.launch {
-            menuRepositoryImpl.getAdvisingNote()
+            menuStudentRepositoryImpl.getAdvisingNote()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -113,7 +113,7 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
 
     private fun getNotificationInbox() {
         viewModelScope.launch {
-            menuRepositoryImpl.getNotificationInbox()
+            menuStudentRepositoryImpl.getNotificationInbox()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -137,7 +137,7 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
 
     private fun getCalendar() {
         viewModelScope.launch {
-            menuRepositoryImpl.getCalendar()
+            menuStudentRepositoryImpl.getCalendar()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -161,7 +161,7 @@ class MenuViewModel(private val menuRepositoryImpl: MenuRepositoryImpl): ViewMod
 
     private fun getGradeSummary() {
         viewModelScope.launch {
-            menuRepositoryImpl.getGradeSummary()
+            menuStudentRepositoryImpl.getGradeSummary()
                 .onStart {
                     _viewLoading.value = true
                 }

@@ -4,7 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface MenuService {
+interface MenuStudentService {
     @GET("v1/menu") //TODO wait confirm path
     suspend fun getMenu(): Response<ApiResponseX>
 
