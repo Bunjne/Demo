@@ -7,7 +7,7 @@ data class MenuAdvisingNoteDTO (
     @SerializedName("unreadMessageCount") val unreadMessageCount: Int = 0,
     @SerializedName("message") val message: String = "",
     @SerializedName("createdAt") val createdAt: Date? = null,
-    @SerializedName("advisor") val advisor: StudentInstructorInfo? = null
+    @SerializedName("advisor") val advisor: StudentInstructorDTO? = null
 ) {
     fun convertToPreviewMessageItem(): PreviewMessageItem {
         return PreviewMessageItem(

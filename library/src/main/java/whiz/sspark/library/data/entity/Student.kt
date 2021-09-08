@@ -8,7 +8,7 @@ import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 
 data class Student(
-    @SerializedName("advisors") private val _advisors: List<StudentInstructorInfo>? = null,
+    @SerializedName("advisors") private val _advisors: List<StudentInstructorDTO>? = null,
     @SerializedName("imageUrl") var imageUrl: String = "",
     @SerializedName("code") val code: String = "",
     @SerializedName("middleNameEn") val _middleNameEn: String = "",
@@ -16,7 +16,7 @@ data class Student(
     @SerializedName("firstNameEn") val _firstNameEn: String = "",
     @SerializedName("firstNameTh") val _firstNameTh: String = "",
     @SerializedName("gender") val gender: String = "",
-    @SerializedName("guardians") private val _guardians: List<StudentGuardianInfo>? = null,
+    @SerializedName("guardians") private val _guardians: List<StudentGuardianDTO>? = null,
     @SerializedName("lastNameEn") val _lastNameEn: String = "",
     @SerializedName("lastNameTh") val _lastNameTh: String = "",
     @SerializedName("userId") val userId: String = ""
@@ -35,10 +35,10 @@ fun Student.convertToProfile(): Profile {
 }
 
 fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
-    val memberItem: MutableList<MenuMemberItem> = mutableListOf()
+    val menuMemberItems: MutableList<MenuMemberItem> = mutableListOf()
 
     advisor.forEachIndexed { index, studentInstructorInfo ->
-        memberItem.add(
+        menuMemberItems.add(
             MenuMemberItem(
                 type = MenuSegmentType.INSTRUCTOR,
                 index = index,
@@ -52,7 +52,7 @@ fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
 
 
     guardians.forEachIndexed { index, studentInstructorInfo ->
-        memberItem.add(
+        menuMemberItems.add(
             MenuMemberItem(
                 type = MenuSegmentType.GUARDIAN,
                 index = index,
@@ -64,5 +64,5 @@ fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
         )
     }
 
-    return memberItem
+    return menuMemberItems
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import whiz.sspark.library.utility.convertToFullNameWithPosition
 import whiz.sspark.library.utility.localize
 
-data class StudentInstructorInfo(
+data class StudentInstructorDTO(
         @SerializedName("code") val code: String = "",
         @SerializedName("gender") val gender: String = "",
         @SerializedName("firstNameEn") val firstNameEn: String = "",
