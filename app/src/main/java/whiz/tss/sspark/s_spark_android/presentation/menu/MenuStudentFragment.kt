@@ -38,7 +38,7 @@ class MenuStudentFragment : BaseFragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
-    private var student: Student = Student()
+    private lateinit var student: Student
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -52,16 +52,15 @@ class MenuStudentFragment : BaseFragment() {
             profileManager.student.collect {
                 it?.let {
                     student = it
+
                     initView()
+
+                    viewModel.getMenu()
                 } ?: run {
                     logout(requireContext())
                 }
             }
         }
-
-        initView()
-
-        viewModel.getMenu()
     }
 
     override fun initView() {

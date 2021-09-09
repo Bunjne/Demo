@@ -138,6 +138,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         updateMemberAdapter()
         segmentAdapter?.resetSelectedTab()
         menuAdapter?.submitList(listOf())
+        menuAdapter?.resetHeight()
     }
 
     private fun updateMemberAdapter() {

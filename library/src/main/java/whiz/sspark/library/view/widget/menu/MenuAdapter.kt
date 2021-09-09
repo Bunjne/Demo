@@ -12,7 +12,6 @@ import whiz.sspark.library.data.entity.MenuItem
 import whiz.sspark.library.data.entity.PreviewMessageItem
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.extension.setDarkModeBackground
-import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
@@ -20,6 +19,25 @@ class MenuAdapter(private val context: Context,
                   private val onMenuClicked: (String) -> Unit): ListAdapter<MenuAdapter.Item, RecyclerView.ViewHolder>(MenuDiffCallback()) {
 
     private var requiredHeight = 0
+
+    private fun notifyWidgetHeightChange() {
+        listOf(
+            MenuItemType.ADVISING_WIDGET.type,
+            MenuItemType.NOTIFICATION_WIDGET.type,
+            MenuItemType.CALENDAR_WIDGET.type,
+            MenuItemType.GRADE_SUMMARY.type
+        ).forEach { type ->
+            val index = currentList.indexOfFirst { it.type == type }
+
+            if (index != -1) {
+                notifyItemChanged(index)
+            }
+        }
+    }
+
+    fun resetHeight() {
+        requiredHeight = 0
+    }
 
     companion object {
         const val TITLE_TYPE = 3333
@@ -131,7 +149,7 @@ class MenuAdapter(private val context: Context,
                     val height = holder.itemView.height
                     if (height > requiredHeight) {
                         requiredHeight = height
-                        notifyDataSetChanged()
+                        notifyWidgetHeightChange()
                     } else {
                         holder.itemView.layoutParams.height = requiredHeight
                     }
@@ -148,7 +166,7 @@ class MenuAdapter(private val context: Context,
                     val height = holder.itemView.height
                     if (height > requiredHeight) {
                         requiredHeight = height
-                        notifyDataSetChanged()
+                        notifyWidgetHeightChange()
                     } else {
                         holder.itemView.layoutParams.height = requiredHeight
                     }
@@ -165,7 +183,7 @@ class MenuAdapter(private val context: Context,
                     val height = holder.itemView.height
                     if (height > requiredHeight) {
                         requiredHeight = height
-                        notifyDataSetChanged()
+                        notifyWidgetHeightChange()
                     } else {
                         holder.itemView.layoutParams.height = requiredHeight
                     }
@@ -182,7 +200,7 @@ class MenuAdapter(private val context: Context,
                     val height = holder.itemView.height
                     if (height > requiredHeight) {
                         requiredHeight = height
-                        notifyDataSetChanged()
+                        notifyWidgetHeightChange()
                     } else {
                         holder.itemView.layoutParams.height = requiredHeight
                     }
@@ -209,6 +227,10 @@ class MenuAdapter(private val context: Context,
 
 private class MenuDiffCallback : DiffUtil.ItemCallback<MenuAdapter.Item>() {
     override fun areItemsTheSame(oldItem: MenuAdapter.Item, newItem: MenuAdapter.Item): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: MenuAdapter.Item, newItem: MenuAdapter.Item): Boolean {
         val sameGradeSummary = if (oldItem.gradeSummary != null && newItem.gradeSummary != null) {
             oldItem.gradeSummary!!.containsAll(newItem.gradeSummary!!) && newItem.gradeSummary!!.containsAll(oldItem.gradeSummary!!)
         } else {
@@ -216,14 +238,11 @@ private class MenuDiffCallback : DiffUtil.ItemCallback<MenuAdapter.Item>() {
         }
 
         return oldItem.type == newItem.type &&
-                oldItem.code == newItem.type &&
+                oldItem.code == newItem.code &&
                 oldItem.title == newItem.title &&
                 oldItem.menuItem == newItem.menuItem &&
                 oldItem.calendarItem == newItem.calendarItem &&
                 oldItem.previewMessageItem == newItem.previewMessageItem &&
                 sameGradeSummary
-    }
-    override fun areContentsTheSame(oldItem: MenuAdapter.Item, newItem: MenuAdapter.Item): Boolean {
-        return oldItem == newItem
     }
 }

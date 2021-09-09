@@ -22,6 +22,7 @@ class MenuGradeSummaryWidget: ConstraintLayout {
         binding.vGradeSummary.init(
             gradeSummaries = gradeSummarySummary,
             isDrawText = false,
-            numberOfCategory = gradeSummarySummary.size)
+            numberOfCategory = gradeSummarySummary.size
+        )
     }
 }
