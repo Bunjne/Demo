@@ -24,6 +24,8 @@
     <string name="general_room">ห้องพัก %1$s</string>
     <string name="general_triple_text_format">%1$s %2$s %3$s</string>
     <string name="general_credit">%1$s หน่วยกิต</string>
+    <string name="general_no_message_text">ไม่มีข้อความ</string>
+    <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
 
     <!--Datetime-->
     <string name="screen_header_subtitle">อัปเดตล่าสุดเมื่อ %1$s น.</string>
@@ -48,8 +50,6 @@
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
     <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
     <string name="menu_notification_inbox_text">กล่องข้อความ</string>
-    <string name="no_message_text">ไม่มีข้อความ</string>
-    <string name="no_activity_text">ไม่มีกิจกรรม</string>
 
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>

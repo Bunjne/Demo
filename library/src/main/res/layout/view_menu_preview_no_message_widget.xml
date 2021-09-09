@@ -45,9 +45,6 @@
                     android:text="@string/menu_notification_inbox_text"
                     android:textColor="@color/textBaseThirdColor"
                     android:textSize="13dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:ssparkFont="regular" />
 
                 <ImageView
@@ -81,7 +78,7 @@
                         android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:gravity="center"
-                        android:text="@string/no_message_text"
+                        android:text="@string/general_no_message_text"
                         android:textColor="@color/textBaseThirdColor"
                         android:textSize="14dp"
                         app:layout_constraintBottom_toBottomOf="parent"

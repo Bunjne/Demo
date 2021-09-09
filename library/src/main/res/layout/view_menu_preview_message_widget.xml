@@ -125,7 +125,7 @@
                         android:layout_marginTop="6dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="@color/textBaseSecondaryColor"
+                        android:textColor="@color/textBaseThirdColor"
                         android:textSize="9dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

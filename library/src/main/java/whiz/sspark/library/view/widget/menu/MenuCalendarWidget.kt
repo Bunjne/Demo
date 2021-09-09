@@ -27,7 +27,7 @@ class MenuCalendarWidget: ConstraintLayout {
         val activity = if (calendarWidgetInfo.title.isNotBlank()) {
             calendarWidgetInfo.title
         } else {
-            resources.getString(R.string.no_activity_text)
+            resources.getString(R.string.general_no_activity_text)
         }
 
         binding.tvDay.text = calendarWidgetInfo.date.convertToDateString(DateTimePattern.fullDayNameFormat)
