@@ -4,5 +4,5 @@ import java.util.*
 
 data class CalendarWidgetItem(
     val title: String = "",
-    val date: Date? = null
+    val date: Date = Date()
 )

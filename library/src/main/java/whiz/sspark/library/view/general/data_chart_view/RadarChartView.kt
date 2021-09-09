@@ -455,8 +455,6 @@ class RadarChartView: View {
         }
 
         setMeasuredDimension(width, height)
-
-        invalidate()
     }
 
     private fun setupStyleable(context: Context, attrs: AttributeSet?) {

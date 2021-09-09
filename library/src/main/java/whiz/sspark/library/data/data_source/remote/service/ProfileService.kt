@@ -6,5 +6,5 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface ProfileService {
     @GET("v1/students/me")
-    suspend fun getProfile(): Response<ApiResponseX>
+    suspend fun getStudentProfile(): Response<ApiResponseX>
 }

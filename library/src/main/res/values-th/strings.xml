@@ -18,6 +18,7 @@
     <string name="general_alertmessage_serviceerror_500_title">เกิดข้อผิดพลาดภายในระบบหลัก (500)</string>
     <string name="general_alertmessage_serviceerror_503_title">เกิดข้อผิดพลาดภายในระบบหลัก (503)</string>
     <string name="general_alertmessage_error_code">(รหัสข้อผิดพลาด: %1$s)</string>
+    <string name="general_alertmessage_cannot_specify_role">ไม่สามารถระบุประเภทของผู้ใช้งานได้</string>
 
     <!--general-->
     <string name="general_room">ห้องพัก %1$s</string>
@@ -48,6 +49,7 @@
     <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
     <string name="menu_notification_inbox_text">กล่องข้อความ</string>
     <string name="no_message_text">ไม่มีข้อความ</string>
+    <string name="no_activity_text">ไม่มีกิจกรรม</string>
 
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>

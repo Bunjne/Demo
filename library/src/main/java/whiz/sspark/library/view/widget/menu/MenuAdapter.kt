@@ -12,6 +12,7 @@ import whiz.sspark.library.data.entity.MenuItem
 import whiz.sspark.library.data.entity.PreviewMessageItem
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.extension.setDarkModeBackground
+import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
@@ -208,7 +209,19 @@ class MenuAdapter(private val context: Context,
 
 private class MenuDiffCallback : DiffUtil.ItemCallback<MenuAdapter.Item>() {
     override fun areItemsTheSame(oldItem: MenuAdapter.Item, newItem: MenuAdapter.Item): Boolean {
-        return oldItem == newItem
+        val sameGradeSummary = if (oldItem.gradeSummary != null && newItem.gradeSummary != null) {
+            oldItem.gradeSummary!!.containsAll(newItem.gradeSummary!!) && newItem.gradeSummary!!.containsAll(oldItem.gradeSummary!!)
+        } else {
+            !(oldItem.gradeSummary != null || newItem.gradeSummary != null)
+        }
+
+        return oldItem.type == newItem.type &&
+                oldItem.code == newItem.type &&
+                oldItem.title == newItem.title &&
+                oldItem.menuItem == newItem.menuItem &&
+                oldItem.calendarItem == newItem.calendarItem &&
+                oldItem.previewMessageItem == newItem.previewMessageItem &&
+                sameGradeSummary
     }
     override fun areContentsTheSame(oldItem: MenuAdapter.Item, newItem: MenuAdapter.Item): Boolean {
         return oldItem == newItem

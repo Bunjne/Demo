@@ -12,7 +12,7 @@ data class MenuCalendarDTO (
 
     fun convertToCalendarItem(): CalendarWidgetItem {
         return CalendarWidgetItem(
-            date = createdAt,
+            date = createdAt ?: Date(),
             title = events.firstOrNull()?.name ?: ""
         )
     }

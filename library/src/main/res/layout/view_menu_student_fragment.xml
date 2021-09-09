@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/vGradientTop"
         android:layout_width="0dp"
-        android:layout_height="106dp"
+        android:layout_height="94dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,6 @@
         android:id="@+id/cvProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"

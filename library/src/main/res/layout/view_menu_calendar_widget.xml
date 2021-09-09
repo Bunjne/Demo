@@ -80,7 +80,7 @@
                 tools:text="6" />
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:id="@+id/tvTerm"
+                android:id="@+id/tvActivity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"

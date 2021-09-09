@@ -24,8 +24,14 @@ class MenuCalendarWidget: ConstraintLayout {
         binding.ivGradient.show(R.drawable.bg_primary_gradient_0)
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
-        binding.tvDay.text = calendarWidgetInfo.date?.convertToDateString(DateTimePattern.dayNameThreePositionFormat)
-        binding.tvDate.text = calendarWidgetInfo.date?.convertToDateString(DateTimePattern.singleDayFormat)
-        binding.tvTerm.text = calendarWidgetInfo.title
+        val activity = if (calendarWidgetInfo.title.isNotBlank()) {
+            calendarWidgetInfo.title
+        } else {
+            resources.getString(R.string.no_activity_text)
+        }
+
+        binding.tvDay.text = calendarWidgetInfo.date.convertToDateString(DateTimePattern.fullDayNameFormat)
+        binding.tvDate.text = calendarWidgetInfo.date.convertToDateString(DateTimePattern.singleDayFormat)
+        binding.tvActivity.text = activity
     }
 }

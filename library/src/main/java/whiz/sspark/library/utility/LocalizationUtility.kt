@@ -37,28 +37,7 @@ fun localize(valueEn: String, valueTh: String, valueCn:String, isDefaultTextEnab
 fun isThaiLanguage() = Locale.getDefault().language == "th"
 fun isChineseLanguage() = Locale.getDefault().language == "zh"
 
-fun convertToFullName(firstName: String?, middleName: String?, lastName: String?): String {
-    val fullName = StringBuilder()
-
-    if (!firstName.isNullOrBlank()) {
-        fullName.append(firstName)
-        fullName.append(" ")
-    }
-
-    if (!middleName.isNullOrBlank()) {
-        fullName.append(middleName)
-        fullName.append(" ")
-    }
-
-    if (!lastName.isNullOrBlank()) {
-        fullName.append(lastName)
-        fullName.append(" ")
-    }
-
-    return fullName.toString()
-}
-
-fun convertToFullNameWithPosition(position: String?, firstName: String?, middleName: String?, lastName: String?): String {
+fun convertToFullName(firstName: String?, middleName: String?, lastName: String?, position: String? = null): String {
     val fullName = StringBuilder()
 
     if (!position.isNullOrBlank()) {

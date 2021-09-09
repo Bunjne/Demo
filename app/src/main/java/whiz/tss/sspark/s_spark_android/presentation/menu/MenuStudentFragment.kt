@@ -13,7 +13,7 @@ import whiz.sspark.library.data.entity.MenuSegment
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
-import whiz.sspark.library.data.viewModel.MenuViewModel
+import whiz.sspark.library.data.viewModel.MenuStudentViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
@@ -33,7 +33,7 @@ class MenuStudentFragment : BaseFragment() {
         }
     }
 
-    private val viewModel: MenuViewModel by viewModel()
+    private val viewModel: MenuStudentViewModel by viewModel()
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
@@ -89,7 +89,7 @@ class MenuStudentFragment : BaseFragment() {
                 }
             },
             onMenuClicked = {
-
+                //TODO wait implement contact info
             },
             onRefresh = {
                 viewModel.getMenu()
@@ -98,8 +98,8 @@ class MenuStudentFragment : BaseFragment() {
     }
 
     override fun observeView() {
-        viewModel.viewLoading.observe(this) {
-            binding.vMenu.setSwipeRefreshLoading(it)
+        viewModel.viewLoading.observe(this) { isLoading ->
+            binding.vMenu.setSwipeRefreshLoading(isLoading)
         }
     }
 

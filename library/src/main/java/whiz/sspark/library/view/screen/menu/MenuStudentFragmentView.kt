@@ -137,6 +137,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         menuSegmentType = MenuSegmentType.INSTRUCTOR.type
         updateMemberAdapter()
         segmentAdapter?.resetSelectedTab()
+        menuAdapter?.submitList(listOf())
     }
 
     private fun updateMemberAdapter() {
@@ -174,9 +175,8 @@ class MenuStudentFragmentView : ConstraintLayout {
 
         if (index != -1) {
             items.getOrNull(index)?.previewMessageItem = menuAdvisingNoteDTO.convertToPreviewMessageItem()
+            menuAdapter?.notifyItemChanged(index)
         }
-
-        menuAdapter?.submitList(items)
     }
 
     fun updateCalendar(menuCalendarDTO: MenuCalendarDTO) {
@@ -185,9 +185,8 @@ class MenuStudentFragmentView : ConstraintLayout {
 
         if (index != -1) {
             items.getOrNull(index)?.calendarItem = menuCalendarDTO.convertToCalendarItem()
+            menuAdapter?.notifyItemChanged(index)
         }
-
-        menuAdapter?.submitList(items)
     }
 
     fun updateNotificationInbox(menuNotificationInboxDTO: MenuNotificationInboxDTO) {
@@ -196,9 +195,8 @@ class MenuStudentFragmentView : ConstraintLayout {
 
         if (index != -1) {
             items.getOrNull(index)?.previewMessageItem = menuNotificationInboxDTO.convertToPreviewMessageItem()
+            menuAdapter?.notifyItemChanged(index)
         }
-
-        menuAdapter?.submitList(items)
     }
 
     fun updateGradeSummary(grades: List<MenuGradeSummaryDTO>) {
@@ -207,8 +205,7 @@ class MenuStudentFragmentView : ConstraintLayout {
 
         if (index != -1) {
             items.getOrNull(index)?.gradeSummary = convertToGradeSummaryItem(grades)
+            menuAdapter?.notifyItemChanged(index)
         }
-
-        menuAdapter?.submitList(items)
     }
 }

@@ -13,7 +13,7 @@ import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.repository.MenuStudentRepositoryImpl
 
-class MenuViewModel(private val menuStudentRepositoryImpl: MenuStudentRepositoryImpl): ViewModel() {
+class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>

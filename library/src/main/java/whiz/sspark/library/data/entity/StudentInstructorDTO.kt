@@ -1,7 +1,7 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
-import whiz.sspark.library.utility.convertToFullNameWithPosition
+import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 
 data class StudentInstructorDTO(
@@ -26,5 +26,5 @@ data class StudentInstructorDTO(
         val middleName: String get() = localize(middleNameEn, middleNameTh, middleNameEn, false)
         val position: String get() = localize(positionEn, positionTh, positionEn, false)
 
-        val fullName get() = convertToFullNameWithPosition(position, firstName, middleName, lastName)
+        val fullName get() = convertToFullName(firstName, middleName, lastName, position)
 }

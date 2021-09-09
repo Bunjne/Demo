@@ -50,7 +50,6 @@ fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
         )
     }
 
-
     guardians.forEachIndexed { index, studentInstructorInfo ->
         menuMemberItems.add(
             MenuMemberItem(

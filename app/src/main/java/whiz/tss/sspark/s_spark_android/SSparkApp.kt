@@ -64,7 +64,7 @@ class SSparkApp: Application() {
     private val localizationDelegate = LocalizationApplicationDelegate()
 
     override fun attachBaseContext(base: Context) {
-        localizationDelegate.setDefaultLanguage(base, "Th")
+        localizationDelegate.setDefaultLanguage(base, "th")
         super.attachBaseContext(localizationDelegate.attachBaseContext(base))
     }
 
