@@ -16,7 +16,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/textBaseThirdColor"
-        android:textSize="10sp"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/appName"
         app:layout_constraintStart_toStartOf="parent"

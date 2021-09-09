@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--General text-->
+    <string name="general_text_ok">ตกลง</string>
+    <string name="general_text_retry">ลองอีกครั้ง</string>
+    <string name="general_text_cancel">ยกเลิก</string>
+    <string name="general_text_discard">ละทิ้ง</string>
+
+    <!--General alert message-->
+    <string name="general_alertmessage_no_internet_connection">ไม่มีอินเทอร์เน็ต</string>
+    <string name="general_alertmessage_title">เกิดข้อผิดพลาด</string>
+    <string name="general_alertmessage_serviceerror_title">เกิดข้อผิดพลาด</string>
+    <string name="general_alertmessage_somethingwentwrong_title">มีบางอย่างผิดพลาด</string>
+    <string name="general_alertmessage_serviceerror_400_title">ไม่สามารถเรียกดูข้อมูลได้ (400)</string>
+    <string name="general_alertmessage_serviceerror_401_title">ไม่อนุญาตให้ใช้งาน (401)</string>
+    <string name="general_alertmessage_serviceerror_403_title">ไม่สามารถเรียกดูข้อมูลได้ (403)</string>
+    <string name="general_alertmessage_serviceerror_404_title">ไม่พบข้อมูล (404)</string>
+    <string name="general_alertmessage_serviceerror_500_title">เกิดข้อผิดพลาดภายในระบบหลัก (500)</string>
+    <string name="general_alertmessage_serviceerror_503_title">เกิดข้อผิดพลาดภายในระบบหลัก (503)</string>
+    <string name="general_alertmessage_error_code">(รหัสข้อผิดพลาด: %1$s)</string>
+    <string name="general_alertmessage_cannot_specify_role">ไม่สามารถระบุประเภทของผู้ใช้งานได้</string>
+
+    <!--general-->
+    <string name="general_room">ห้องพัก %1$s</string>
+    <string name="general_triple_text_format">%1$s %2$s %3$s</string>
+    <string name="general_credit">%1$s หน่วยกิต</string>
+    <string name="general_no_message_text">ไม่มีข้อความ</string>
+    <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
+
+    <!--Datetime-->
+    <string name="screen_header_subtitle">อัปเดตล่าสุดเมื่อ %1$s น.</string>
+    <string name="update_failed">อัปเดตข้อมูลผิดพลาด กรุณาลองอีกครั้ง</string>
+    <string name="update_new_data">รอสักครู่...</string>
+    <string name="update_just_now">สักครู่นี้</string>
 
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
@@ -14,4 +46,12 @@
     <!-- Event -->
     <string name="event_list_title">กิจกรรม</string>
 
+    <!--Menu-->
+    <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
+    <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
+    <string name="menu_notification_inbox_text">กล่องข้อความ</string>
+
+    <!--school record-->
+    <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
+    <string name="school_record_no_record">ไม่มีการเรียน</string>
 </resources>

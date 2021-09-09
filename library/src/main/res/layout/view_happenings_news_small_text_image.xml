@@ -95,7 +95,7 @@
         app:shadow0_Outer_Color="@color/shadowColor"
         app:shadow_Outer_Area="4dp">
 
-        <whiz.sspark.library.view.general.TopCropImageView
+        <whiz.sspark.library.view.general.image_view.TopCropImageView
             android:id="@+id/ivNewsSmallTextImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

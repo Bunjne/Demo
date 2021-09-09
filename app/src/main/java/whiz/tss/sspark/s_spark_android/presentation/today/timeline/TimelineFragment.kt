@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.TimeLineAuthorityType
 import whiz.sspark.library.data.viewModel.TimelineViewModel
 import whiz.sspark.library.extension.toLocalDate
-import whiz.sspark.library.utility.isDarkModeEnabled
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentTimelineBinding
@@ -144,7 +144,7 @@ class TimelineFragment : BaseFragment() {
                 binding.vTimeline.updateTimeline(it)
                 binding.vTimeline.updateUniversityEvent(it.alertAnnouncements)
 
-                val backgroundImageUrl = if (isDarkModeEnabled(requireActivity())) {
+                val backgroundImageUrl = if (SSparkLibrary.isDarkModeEnabled) {
                     it.nightImageUrl
                 } else {
                     it.dayImageUrl
