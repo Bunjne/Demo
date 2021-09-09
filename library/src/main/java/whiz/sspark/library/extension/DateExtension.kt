@@ -60,7 +60,7 @@ fun Date.toPostTime(context: Context): String {
         timeDifferencesInHours > 20 -> {
             val dateMonth = this.toLocalDate()?.convertToDateString(DateTimePattern.dayFullMonthFormatTh)
             val time = this.toLocalDate()?.convertToDateString(DateTimePattern.generalTime)
-            context.resources.getString(R.string.general_text_hrs)
+
             val lastUpdated = StringBuilder()
             lastUpdated.append(dateMonth)
             lastUpdated.append(context.resources.getString(R.string.general_text_at))

@@ -12,7 +12,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.databinding.ViewJuniorLearningOutcomeFragmentBinding
-import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 
 class JuniorLearningOutcomeFragmentView: ConstraintLayout {
@@ -33,10 +33,11 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
 
         with(binding.rvLearningOutcome) {
             if (itemDecorationCount == 0) {
-                addItemDecoration(CustomDividerMultiItemDecoration(
-                    divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                    dividerViewType = listOf(JuniorLearningOutcomeAdapter.PROGRESS_BAR_TYPE, JuniorLearningOutcomeAdapter.UNDER_EVALUATION_TYPE)
-                ))
+                addItemDecoration(
+                    CustomDividerMultiItemDecoration(
+                        divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
+                        dividerViewType = listOf(JuniorLearningOutcomeAdapter.PROGRESS_BAR_TYPE, JuniorLearningOutcomeAdapter.UNDER_EVALUATION_TYPE))
+                )
             }
 
             layoutManager = LinearLayoutManager(context)

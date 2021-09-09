@@ -9,12 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.CourseGroupGrade
+import whiz.sspark.library.data.entity.GradeSummary
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
-import whiz.sspark.library.databinding.ViewJuniorLearningOutcomeFragmentBinding
 import whiz.sspark.library.databinding.ViewSeniorLearningOutcomeFragmentBinding
-import whiz.sspark.library.view.general.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 import whiz.sspark.library.view.widget.learning_outcome.SeniorLearningOutcomeAdapter
 
@@ -36,10 +35,12 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
 
         with(binding.rvLearningOutcome) {
             if (itemDecorationCount == 0) {
-                addItemDecoration(CustomDividerMultiItemDecoration(
-                    divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                    dividerViewType = listOf(JuniorLearningOutcomeAdapter.PROGRESS_BAR_TYPE, JuniorLearningOutcomeAdapter.UNDER_EVALUATION_TYPE)
-                ))
+                addItemDecoration(
+                    CustomDividerMultiItemDecoration(
+                        divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
+                        dividerViewType = listOf(JuniorLearningOutcomeAdapter.PROGRESS_BAR_TYPE, JuniorLearningOutcomeAdapter.UNDER_EVALUATION_TYPE)
+                    )
+                )
             }
 
             layoutManager = LinearLayoutManager(context)
@@ -57,10 +58,9 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
 
         val titleItem = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
         val fullValue = filteredLearningOutcome.maxOfOrNull { it.fullValue } ?: 0f
-        val gradeSummary = filteredLearningOutcome.map {
-            CourseGroupGrade(
-                nameEn = it.nameEn,
-                nameTh = it.nameTh,
+        val gradeSummaries = filteredLearningOutcome.map {
+            GradeSummary(
+                name = it.name,
                 startColorCode = it.colorCode1,
                 endColorCode = it.colorCode2,
                 grade = it.value!!)
@@ -68,7 +68,7 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
 
         item.add(titleItem)
         item.add(SeniorLearningOutcomeAdapter.Item(
-            gradeSummary = gradeSummary,
+            gradeSummaries = gradeSummaries,
             fullValue = fullValue
         ))
 

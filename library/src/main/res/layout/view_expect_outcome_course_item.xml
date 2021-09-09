@@ -33,7 +33,7 @@
         app:ssparkFont="regular"
         tools:text="อธิบายความหมายประเภทของความหลากหลายทางชีวภาพและอธิบายปัจจัยทีี่มีผลต่อความหลากหลายของสิ่งมีชีวิตได้" />
 
-    <whiz.sspark.library.view.widget.ScaleIndicator
+    <whiz.sspark.library.view.general.indicator.ScaleIndicator
         android:id="@+id/vProgressBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.CourseGroupGrade
+import whiz.sspark.library.data.entity.GradeSummary
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
@@ -31,7 +31,7 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
             item.learningOutcome != null -> {
                 COURSE_TYPE
             }
-            item.gradeSummary != null -> {
+            item.gradeSummaries != null -> {
                 GRADE_SUMMARY_TYPE
             }
             else -> {
@@ -93,7 +93,7 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
                 }
             }
             GRADE_SUMMARY_TYPE -> {
-                (holder.itemView as? LearningOutcomeGradeSummaryItemView)?.init(item.gradeSummary!!)
+                (holder.itemView as? LearningOutcomeGradeSummaryItemView)?.init(item.gradeSummaries!!)
             }
             else -> {
                 (holder.itemView as? ItemListTitleView)?.apply {
@@ -106,7 +106,7 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
     data class Item(
         val title: String? = null,
         val learningOutcome: LearningOutcome? = null,
-        val gradeSummary: List<CourseGroupGrade>? = null,
+        val gradeSummaries: List<GradeSummary>? = null,
         val fullValue: Float? = null
     )
 }

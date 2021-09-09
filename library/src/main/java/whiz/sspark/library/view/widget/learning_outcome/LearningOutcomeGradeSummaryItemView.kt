@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.data.entity.CourseGroupGrade
+import whiz.sspark.library.data.entity.GradeSummary
 import whiz.sspark.library.databinding.ViewLearningOutcomeGradeSummaryItemBinding
 
 class LearningOutcomeGradeSummaryItemView: ConstraintLayout {
@@ -16,11 +16,11 @@ class LearningOutcomeGradeSummaryItemView: ConstraintLayout {
         ViewLearningOutcomeGradeSummaryItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(gradeSummary: List<CourseGroupGrade>) {
+    fun init(gradeSummaries: List<GradeSummary>) {
         binding.vGradeSummary.init(
-            courseGroupGrades = gradeSummary,
+            gradeSummaries = gradeSummaries,
             isDrawText = true,
-            numberOfCategory = gradeSummary.size
+            numberOfCategory = gradeSummaries.size
         )
     }
 }
