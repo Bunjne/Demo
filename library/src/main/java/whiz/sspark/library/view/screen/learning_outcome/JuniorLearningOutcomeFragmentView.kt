@@ -79,8 +79,8 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
                         endColor = endColor,
                         credit = it.credits,
                         percentPerformance = it.percentPerformance,
-                        courseCode = it.nameEn,
-                        courseName = it.nameTh)
+                        courseCode = it.code,
+                        courseName = it.name)
                 )
 
                 item.add(learningOutcomeItem)

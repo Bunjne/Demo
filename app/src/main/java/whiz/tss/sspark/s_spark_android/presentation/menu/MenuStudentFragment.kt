@@ -1,5 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.menu
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
 
 class MenuStudentFragment : BaseFragment() {
@@ -87,8 +89,13 @@ class MenuStudentFragment : BaseFragment() {
                     //TODO wait contact in screen
                 }
             },
-            onMenuClicked = {
-                //TODO wait implement contact info
+            onMenuClicked = { code ->
+                when(code) {
+                    "GRADESUMMARY" -> {
+                        val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
             },
             onRefresh = {
                 viewModel.getMenu()
