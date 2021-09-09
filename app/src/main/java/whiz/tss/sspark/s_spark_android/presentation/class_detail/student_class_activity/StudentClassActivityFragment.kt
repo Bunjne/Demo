@@ -14,24 +14,25 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.transports.WebSocket
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.SSparkLibrary
+import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.viewModel.StudentClassActivityViewModel
 import whiz.sspark.library.extension.isUrlValid
+import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.student.StudentClassPostAdapter
-import whiz.tss.sspark.s_spark_android.BuildConfig
-import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.utility.logout
 import whiz.tss.sspark.s_spark_android.utility.refreshToken
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.net.URISyntaxException
 
 class StudentClassActivityFragment : BaseFragment() {
@@ -378,6 +379,13 @@ class StudentClassActivityFragment : BaseFragment() {
 
             items.removeAll { it.post != null }
 
+            val reader = BufferedReader(InputStreamReader(requireContext().resources.assets.open("sample.json")))
+            val objects = reader.readText().toObjects(Array<Post>::class.java)
+
+            objects.forEach {
+                items.add(StudentClassPostAdapter.Item(post = it))
+            }
+
             with (binding.vClassActivity) {
                 refreshRecyclerView(items)
                 checkPostAmount()
@@ -390,6 +398,11 @@ class StudentClassActivityFragment : BaseFragment() {
             }
 
             items.removeAll { it.onlineClasses != null }
+
+            val reader = BufferedReader(InputStreamReader(requireContext().resources.assets.open("onlineClasses.json")))
+            val objects = reader.readText().toObjects(Array<PlatformOnlineClass>::class.java)
+
+            items.add(StudentClassPostAdapter.Item(onlineClasses = objects))
 
             viewModel.listPosts(classGroupId)
         }

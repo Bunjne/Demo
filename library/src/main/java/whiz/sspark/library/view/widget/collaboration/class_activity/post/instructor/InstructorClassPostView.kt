@@ -30,7 +30,7 @@ class InstructorClassPostView : ConstraintLayout {
     }
 
     private val defaultColor by lazy {
-        ContextCompat.getColor(context, R.color.textBaseThirdColor)
+        ContextCompat.getColor(context, R.color.textBasePrimaryColor)
     }
 
     fun init(post: Post,
@@ -113,6 +113,9 @@ class InstructorClassPostView : ConstraintLayout {
             binding.llPostFile.visibility = View.GONE
         }
 
+        binding.ivLike.show(R.drawable.ic_like)
+        binding.ivComment.show(R.drawable.ic_comment)
+
         if (post.isLike) {
             binding.ivLike.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
             binding.tvLike.setTextColor(color)
@@ -121,19 +124,29 @@ class InstructorClassPostView : ConstraintLayout {
             binding.tvLike.setTextColor(defaultColor)
         }
 
-        with(binding.tvLikeCommentCount) {
-            val likeString = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
-            val commentString = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
-            text = if (post.likeCount > 0 && post.commentCount > 0) {
-                resources.getString(R.string.class_post_like_and_comments_title, likeString, commentString)
-            } else if (post.likeCount <= 0 && post.commentCount > 0) {
-                commentString
-            } else if (post.likeCount > 0 && post.commentCount <= 0) {
-                likeString
-            } else {
-                ""
-            }
-            visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
+        if (post.likeCount > 0 && post.commentCount > 0) {
+            binding.tvLikeCount.visibility = View.VISIBLE
+            binding.tvInterpunct.visibility = View.VISIBLE
+            binding.tvCommentCount.visibility = View.VISIBLE
+
+            binding.tvLikeCount.text = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
+            binding.tvCommentCount.text = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
+        } else if (post.likeCount <= 0 && post.commentCount > 0) {
+            binding.tvLikeCount.visibility = View.GONE
+            binding.tvInterpunct.visibility = View.GONE
+            binding.tvCommentCount.visibility = View.VISIBLE
+
+            binding.tvCommentCount.text = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
+        } else if (post.likeCount > 0 && post.commentCount <= 0) {
+            binding.tvLikeCount.visibility = View.VISIBLE
+            binding.tvInterpunct.visibility = View.GONE
+            binding.tvCommentCount.visibility = View.GONE
+
+            binding.tvLikeCount.text = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
+        } else {
+            binding.tvLikeCount.visibility = View.GONE
+            binding.tvInterpunct.visibility = View.GONE
+            binding.tvCommentCount.visibility = View.GONE
         }
 
         val readCount = post.readCount
@@ -156,9 +169,11 @@ class InstructorClassPostView : ConstraintLayout {
             onLikeClicked(post)
         }
 
-        binding.tvLikeCommentCount.setOnClickListener {
-            if (post.likeCount > 0) {
-                onDisplayLikedUsersClicked(post.id)
+        listOf(binding.tvLikeCount, binding.tvCommentCount, binding.tvInterpunct).forEach {
+            it.setOnClickListener {
+                if (post.likeCount > 0) {
+                    onDisplayLikedUsersClicked(post.id)
+                }
             }
         }
 

@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             app:background_Color="@color/viewBaseSecondaryColor"
-            app:cornerRadius="14dp"
+            app:cornerRadius="13dp"
             app:shadow_Outer_Area="8dp"
             app:shadow0_Outer_Color="@color/shadowColor"
             app:shadow0_Outer_Alpha="1"
@@ -82,22 +82,23 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvStudyPlan"
-                    tools:src="@drawable/ic_camera" />
+                    tools:src="@drawable/ic_attendance" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
                     android:id="@+id/tvStudyPlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
+                    android:paddingVertical="2dp"
                     android:textColor="@color/accentRedV100"
                     android:textSize="13dp"
+                    android:text="@string/class_detail_study_plan_title"
                     app:ssparkFont="bold"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintStart_toEndOf="@id/ivStudyPlan"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/ivStudyPlan"
-                    app:layout_constraintBottom_toBottomOf="@id/ivStudyPlan"
-                    tools:text="แผนการเรียน" />
+                    app:layout_constraintBottom_toBottomOf="@id/ivStudyPlan" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

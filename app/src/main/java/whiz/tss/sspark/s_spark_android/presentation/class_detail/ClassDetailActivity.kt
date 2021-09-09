@@ -1,7 +1,9 @@
 package whiz.tss.sspark.s_spark_android.presentation.class_detail
 
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
@@ -23,8 +25,12 @@ class ClassDetailActivity : BaseActivity() {
         intent?.getStringExtra("id") ?: ""
     }
 
-    private val color by lazy {
-        intent?.getIntExtra("color", Color.BLACK) ?: Color.BLACK
+    private val startColor by lazy {
+        intent?.getIntExtra("color", ContextCompat.getColor(this, R.color.primaryStartColor)) ?: ContextCompat.getColor(this, R.color.primaryStartColor)
+    }
+
+    private val endColor by lazy {
+        intent?.getIntExtra("endColor", ContextCompat.getColor(this, R.color.primaryEndColor)) ?: ContextCompat.getColor(this, R.color.primaryEndColor)
     }
 
     private val allMemberCount by lazy {
@@ -39,7 +45,7 @@ class ClassDetailActivity : BaseActivity() {
         intent?.getStringExtra("courseName") ?: ""
     }
 
-    private var currentFragment: Int = -1
+    private var currentFragment: Int = BottomNavigationId.ACTIVITY.id
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,25 +56,27 @@ class ClassDetailActivity : BaseActivity() {
     }
 
     override fun initView() {
-//        with (vProfile) { TODO waiting for implement Profile Header
-//            setBackgroundColor(color)
-//            setTitleColor(Color.WHITE)
-//            setSubTitleColor(Color.WHITE)
-//            setVerticalBarColor(Color.WHITE)
-//        }
+        val gradientDrawable = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            gradientType = GradientDrawable.LINEAR_GRADIENT
+            orientation = GradientDrawable.Orientation.LEFT_RIGHT
+            colors = listOf(startColor, endColor).toIntArray()
+        }
 
-        if (SSparkLibrary.isDarkModeEnabled) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.viewBaseSecondaryColor)
-//            vProfile.background = ContextCompat.getDrawable(this, R.color.viewBaseSecondary)
-//            vProfile.setVerticalBarColor(color)
-        } else {
-            window.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_primary_gradient_0))
+        with (binding.vProfile) {
+            init(backgroundDrawable = gradientDrawable)
 
-//            vProfile.setVerticalBarColor(ContextCompat.getColor(this, R.color.white))
+            if (SSparkLibrary.isDarkModeEnabled) {
+                window.statusBarColor = ContextCompat.getColor(this@ClassDetailActivity, R.color.viewBaseSecondaryColor) //TODO change this line when darkmode is enable
+            } else {
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.statusBarColor = Color.TRANSPARENT
+                window.setBackgroundDrawable(gradientDrawable)
+            }
         }
 
         val colors = intArrayOf(
-            color,
+            startColor,
             Color.GRAY
         )
 
@@ -81,7 +89,7 @@ class ClassDetailActivity : BaseActivity() {
 
         with (binding.vClassDetail) {
             init(
-                color = color,
+                backgroundDrawable = gradientDrawable,
                 courseName = courseName,
                 courseCode = courseCode,
                 bottomNavigationBarItems =  bottomNavigationBarItems,
@@ -91,9 +99,9 @@ class ClassDetailActivity : BaseActivity() {
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
                                 if (SSparkApp.role != RoleType.INSTRUCTOR) {
-                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 } else {
-                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 }
                             }
 //                            BottomNavigationId.ATTENDANCE.id -> renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, courseCode, sectionNumber), supportFragmentManager)
@@ -108,7 +116,7 @@ class ClassDetailActivity : BaseActivity() {
 
             when (currentFragment) {
                 BottomNavigationId.ACTIVITY.id -> {
-                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, color, allMemberCount), supportFragmentManager, currentFragment)
+                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
                 }
 //                BottomNavigationId.ATTENDANCE.id -> {
 //                    renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id, color, courseCode), supportFragmentManager, currentFragment)

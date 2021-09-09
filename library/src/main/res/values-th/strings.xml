@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
     <string name="today_happenings_announcement">ประกาศ</string>
@@ -47,6 +46,7 @@
     <string name="class_detail_tab_attendance">การเข้าเรียน</string>
     <string name="class_detail_tab_student">นักเรียน</string>
     <string name="class_detail_tab_homework">การบ้าน</string>
+    <string name="class_detail_study_plan_title">แผนการเรียน</string>
 
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
@@ -62,7 +62,6 @@
     <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s</string>
     <string name="class_post_delete">ลบ</string>
     <string name="class_post_edit">แก้ไข</string>
-    <string name="class_post_like_and_comments_title">%1$s • %2$s</string>
 
     <plurals name="class_post_count_like">
         <item quantity="zero">0 ถูกใจ</item>

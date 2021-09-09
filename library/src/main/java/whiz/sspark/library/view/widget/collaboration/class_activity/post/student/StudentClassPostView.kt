@@ -12,6 +12,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.databinding.ViewStudentClassPostBinding
+import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.toAttachmentFiles
 import whiz.sspark.library.extension.toAttachmentImages
 import whiz.sspark.library.extension.toObjects
@@ -28,7 +29,7 @@ class StudentClassPostView : ConstraintLayout {
     }
 
     private val defaultColor by lazy {
-        ContextCompat.getColor(context, R.color.textBaseThirdColor)
+        ContextCompat.getColor(context, R.color.textBasePrimaryColor)
     }
 
     fun init(post: Post,
@@ -91,6 +92,9 @@ class StudentClassPostView : ConstraintLayout {
             binding.llPostFile.visibility = View.GONE
         }
 
+        binding.ivLike.show(R.drawable.ic_like)
+        binding.ivComment.show(R.drawable.ic_comment)
+
         if (post.isLike) {
             binding.ivLike.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
             binding.tvLike.setTextColor(color)
@@ -99,19 +103,29 @@ class StudentClassPostView : ConstraintLayout {
             binding.tvLike.setTextColor(defaultColor)
         }
 
-        with(binding.tvLikeCommentCount) {
-            val likeString = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
-            val commentString = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
-            text = if (post.likeCount > 0 && post.commentCount > 0) {
-                resources.getString(R.string.class_post_like_and_comments_title, likeString, commentString)
-            } else if (post.likeCount <= 0 && post.commentCount > 0) {
-                commentString
-            } else if (post.likeCount > 0 && post.commentCount <= 0) {
-                likeString
-            } else {
-                ""
-            }
-            visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
+        if (post.likeCount > 0 && post.commentCount > 0) {
+            binding.tvLikeCount.visibility = View.VISIBLE
+            binding.tvInterpunct.visibility = View.VISIBLE
+            binding.tvCommentCount.visibility = View.VISIBLE
+
+            binding.tvLikeCount.text = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
+            binding.tvCommentCount.text = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
+        } else if (post.likeCount <= 0 && post.commentCount > 0) {
+            binding.tvLikeCount.visibility = View.GONE
+            binding.tvInterpunct.visibility = View.GONE
+            binding.tvCommentCount.visibility = View.VISIBLE
+
+            binding.tvCommentCount.text = resources.getQuantityString(R.plurals.class_post_count_comment, post.commentCount, post.commentCount)
+        } else if (post.likeCount > 0 && post.commentCount <= 0) {
+            binding.tvLikeCount.visibility = View.VISIBLE
+            binding.tvInterpunct.visibility = View.GONE
+            binding.tvCommentCount.visibility = View.GONE
+
+            binding.tvLikeCount.text = resources.getQuantityString(R.plurals.class_post_count_like, post.likeCount, post.likeCount)
+        } else {
+            binding.tvLikeCount.visibility = View.GONE
+            binding.tvInterpunct.visibility = View.GONE
+            binding.tvCommentCount.visibility = View.GONE
         }
 
         val readCount = post.readCount
@@ -134,9 +148,11 @@ class StudentClassPostView : ConstraintLayout {
             onLikeClicked(post)
         }
 
-        binding.tvLikeCommentCount.setOnClickListener {
-            if (post.likeCount > 0) {
-                onDisplayLikedUsersClicked(post.id)
+        listOf(binding.tvLikeCount, binding.tvCommentCount, binding.tvInterpunct).forEach {
+            it.setOnClickListener {
+                if (post.likeCount > 0) {
+                    onDisplayLikedUsersClicked(post.id)
+                }
             }
         }
 
