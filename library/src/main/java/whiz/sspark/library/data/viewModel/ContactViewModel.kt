@@ -23,8 +23,8 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
     val contactsResponse: LiveData<List<Contact>>
         get() = _contactsResponse
 
-    private val _contactsErrorResponse = MutableLiveData<ApiResponseX>()
-    val contactsErrorResponse: LiveData<ApiResponseX>
+    private val _contactsErrorResponse = MutableLiveData<ApiResponseX?>()
+    val contactsErrorResponse: LiveData<ApiResponseX?>
         get() = _contactsErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
