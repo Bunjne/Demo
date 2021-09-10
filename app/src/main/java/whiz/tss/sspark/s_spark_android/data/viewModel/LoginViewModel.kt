@@ -60,9 +60,9 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
         }
     }
 
-    fun getProfile() {
+    fun getStudentProfile() {
         viewModelScope.launch {
-            profileRepository.profile()
+            profileRepository.getStudentProfile()
                 .onStart { _viewLoading.value = true }
                 .onCompletion { _viewLoading.value = false }
                 .catch {

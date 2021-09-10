@@ -14,10 +14,11 @@ class OnlineClassAdapter(private val context: Context,
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemWidth = context.resources.displayMetrics.widthPixels - 140.toDP(context)
         return ViewHolder(
             OnlineClassItemView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    itemWidth,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
             })

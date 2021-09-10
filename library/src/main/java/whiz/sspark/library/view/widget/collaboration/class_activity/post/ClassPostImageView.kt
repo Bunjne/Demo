@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.view_class_post_image.view.*
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.databinding.ViewClassPostImageBinding
 import whiz.sspark.library.extension.show
@@ -22,10 +21,16 @@ class ClassPostImageView : LinearLayout {
     fun init(attachment: Attachment,
              navigateToImage: (ImageView, Attachment) -> Unit) {
 
-        binding.ivPost.show(attachment.url)
+        if (attachment.isLocal) {
+            attachment.file?.let {
+                binding.ivPost.show(it)
+            }
+        } else {
+            binding.ivPost.show(attachment.url)
+        }
 
         setOnClickListener {
-            navigateToImage(ivPost, attachment)
+            navigateToImage(binding.ivPost, attachment)
         }
     }
 }

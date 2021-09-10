@@ -22,7 +22,6 @@ import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.utility.getAPKSignedSignature
 import whiz.tss.sspark.s_spark_android.utility.logout
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
-import java.util.*
 
 class SSparkApp: Application() {
 
@@ -34,19 +33,6 @@ class SSparkApp: Application() {
     private external fun getApiKey(key: String): String
     private external fun getApiBaseURLV3(key: String): String
     private external fun getCollaborationSocketURL(key: String): String
-    private external fun getCollaborationSocketEmitterAuthenticationPath(key: String): String
-    private external fun getCollaborationSocketListenerAuthenticationPath(key: String): String
-    private external fun getCollaborationSocketListenerUnAuthenticationPath(key: String): String
-    private external fun getCollaborationSocketListenerPostSeenPath(key: String): String
-    private external fun getCollaborationSocketEmitterPostSeenPath(key: String): String
-    private external fun getCollaborationSocketListenerPostLikePath(key: String): String
-    private external fun getCollaborationSocketEmitterPostLikePath(key: String): String
-    private external fun getCollaborationSocketListenerPostUnLikePath(key: String): String
-    private external fun getCollaborationSocketEmitterPostUnLikePath(key: String): String
-    private external fun getCollaborationSocketListenerPostCommentPath(key: String): String
-    private external fun getCollaborationSocketEmitterPostCommentPath(key: String): String
-    private external fun getCollaborationSocketListenerPostDeleteCommentPath(key: String): String
-    private external fun getCollaborationSocketEmitterPostDeleteCommentPath(key: String): String
 
     companion object {
         init {
@@ -78,7 +64,7 @@ class SSparkApp: Application() {
     private val localizationDelegate = LocalizationApplicationDelegate()
 
     override fun attachBaseContext(base: Context) {
-        localizationDelegate.setDefaultLanguage(base, Locale.ENGLISH)
+        localizationDelegate.setDefaultLanguage(base, "th")
         super.attachBaseContext(localizationDelegate.attachBaseContext(base))
     }
 
@@ -105,19 +91,6 @@ class SSparkApp: Application() {
             baseUrl = getApiBaseURL(getAPKSignedSignature(applicationContext))
             baseUrlV3 = getApiBaseURLV3(getAPKSignedSignature(applicationContext))
             collaborationSocketBaseURL = getCollaborationSocketURL(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerAuthenticationPath = getCollaborationSocketListenerAuthenticationPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketEmitterAuthenticationPath = getCollaborationSocketEmitterAuthenticationPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerUnAuthenticationPath = getCollaborationSocketListenerAuthenticationPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerPostSeenPath = getCollaborationSocketListenerPostSeenPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketEmitterPostSeenPath = getCollaborationSocketEmitterPostSeenPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerPostLikePath = getCollaborationSocketListenerPostLikePath(getAPKSignedSignature(applicationContext))
-            collaborationSocketEmitterPostLikePath = getCollaborationSocketEmitterPostLikePath(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerPostUnLikePath = getCollaborationSocketListenerPostUnLikePath(getAPKSignedSignature(applicationContext))
-            collaborationSocketEmitterPostUnLikePath = getCollaborationSocketEmitterPostUnLikePath(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerPostCommentPath = getCollaborationSocketListenerPostCommentPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketEmitterPostCommentPath = getCollaborationSocketEmitterPostCommentPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketListenerPostDeleteCommentPath = getCollaborationSocketListenerPostDeleteCommentPath(getAPKSignedSignature(applicationContext))
-            collaborationSocketEmitterPostDeleteCommentPath = getCollaborationSocketEmitterPostDeleteCommentPath(getAPKSignedSignature(applicationContext))
 
             setOnSessionExpireCallback {
                 logout(applicationContext)

@@ -10,6 +10,7 @@ import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.enum.Platform
 import whiz.sspark.library.databinding.ViewOnlineClassItemBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toDP
 
 class OnlineClassItemView : LinearLayout {
     constructor(context: Context) : super(context)

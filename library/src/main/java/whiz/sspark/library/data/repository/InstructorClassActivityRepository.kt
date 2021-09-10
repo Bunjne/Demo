@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.datasource.remote.service.InstructorClassActivityService
-import whiz.sspark.library.data.datasource.remote.service.StudentClassActivityService
+import whiz.sspark.library.data.data_source.remote.service.InstructorClassActivityService
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
@@ -20,7 +19,8 @@ interface InstructorClassActivityRepository {
 }
 
 class InstructorClassActivityRepositoryImpl(private val context: Context,
-                                            private val remote: InstructorClassActivityService): InstructorClassActivityRepository {
+                                            private val remote: InstructorClassActivityService
+): InstructorClassActivityRepository {
     override fun listPosts(classGroupId: String): Flow<DataWrapperX<List<Post>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

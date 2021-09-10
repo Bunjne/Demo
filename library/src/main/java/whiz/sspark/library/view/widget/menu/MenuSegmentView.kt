@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.data.entity.MenuSegment
-import whiz.sspark.library.databinding.ViewMenuSegmentItemBinding
+import whiz.sspark.library.databinding.ViewPackedSegmentBinding
 
 class MenuSegmentView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -13,7 +13,7 @@ class MenuSegmentView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewMenuSegmentItemBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewPackedSegmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(selectTab: Int,

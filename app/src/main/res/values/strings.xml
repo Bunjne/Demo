@@ -6,9 +6,9 @@
     <string name="school_name">โรงเรียนสาธิตแห่งมหาวิทยาลัยธรรมศาสตร์</string>
 
     <!--Main-->
-    <string name="tab_today">today</string>
-    <string name="tab_class">class</string>
-    <string name="tab_id_card">id card</string>
+    <string name="tab_today">วันนี้</string>
+    <string name="tab_class">กลุ่มเรียน</string>
+    <string name="tab_id_card">บัตร</string>
 
     <!--Menu-->
     <string name="menu_junior_segment_instructor_text">อาจารย์ประจำชั้น</string>
@@ -30,4 +30,7 @@
         <item>สมรรถนะ</item>
         <item>ความคิดเห็น</item>
     </string-array>
+
+    <!-- Image -->
+    <string name="image_transition_name" translatable="false">image_transition</string>
 </resources>

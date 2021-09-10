@@ -19,6 +19,7 @@ class ClassPostFileView : LinearLayout {
     }
 
     fun init(attachment: Attachment, onFileClicked: (Attachment) -> Unit) {
+        binding.ivArrowRight.show(R.drawable.ic_arrow_right)
         binding.ivFile.show(R.drawable.ic_post_file)
         with(attachment) {
             binding.tvFileName.text = name

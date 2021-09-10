@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.instructor.InstructorClassContainerView
 import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.student.StudentOnlineClassContainerView
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.student.StudentClassPostView
@@ -62,20 +63,25 @@ class InstructorClassPostAdapter(private val context: Context,
         val item = items.getOrNull(position) ?: Item()
 
         item.post?.let { post ->
-            (holder.itemView as? InstructorClassPostView)?.init(
-                post = post,
-                allMemberCount = allMemberCount,
-                color = color,
-                onDeletePostClicked = onDeletePostClicked,
-                onEditPostClicked = onEditPostClicked,
-                onPostRead = onPostRead,
-                onPostClicked = onPostClicked,
-                onImageClicked = onImageClicked,
-                onLikeClicked = onLikeClicked,
-                onCommentClicked = onCommentClicked,
-                onFileClicked = onFileClicked,
-                onDisplayLikedUsersClicked = onDisplayLikedUsersClicked,
-                onDisplaySeenUsersClicked = onDisplaySeenUsersClicked)
+            (holder.itemView as? InstructorClassPostView)?.apply {
+                init(
+                    post = post,
+                    allMemberCount = allMemberCount,
+                    color = color,
+                    onDeletePostClicked = onDeletePostClicked,
+                    onEditPostClicked = onEditPostClicked,
+                    onPostRead = onPostRead,
+                    onPostClicked = onPostClicked,
+                    onImageClicked = onImageClicked,
+                    onLikeClicked = onLikeClicked,
+                    onCommentClicked = onCommentClicked,
+                    onFileClicked = onFileClicked,
+                    onDisplayLikedUsersClicked = onDisplayLikedUsersClicked,
+                    onDisplaySeenUsersClicked = onDisplaySeenUsersClicked
+                )
+
+                setPadding(8.toDP(context), 0, 8.toDP(context), 4.toDP(context))
+            }
         }
 
         item.onlineClasses?.let {
@@ -85,6 +91,7 @@ class InstructorClassPostAdapter(private val context: Context,
                     onOnlineClassPlatformClicked = onOnlineClassPlatformClicked
                 )
                 renderOnlineClasses(it)
+                setPadding(8.toDP(context), 0, 0, 16.toDP(context))
             }
         }
     }

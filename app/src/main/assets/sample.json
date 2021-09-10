@@ -50,7 +50,7 @@
       "gender": "M"
     },
     "message": "final test create a post",
-    "attachments": "[{\"Url\":\"https://ausparkstorage.blob.core.windows.net/posts/4e70d3e7-0c51-4f02-81d3-055902889ba2/file_example_XLS_10.xls?sv=2018-03-28&sr=b&sig=GS8uOPuIAdH6YbtIt1FFW8fvNJ4W9lqLhzvBoWzPbW8%3D&st=2021-09-09T10%3A29%3A46Z&se=2021-09-09T10%3A49%3A46Z&sp=r\",\"Name\":\"file_example_XLS_10.xls\",\"Type\":\"file\",\"Extension\":\".xls\"},{\"Url\":\"https://ausparkstorage.blob.core.windows.net/posts/4e70d3e7-0c51-4f02-81d3-055902889ba2/temp_file_.jpg?sv=2018-03-28&sr=b&sig=1W8Fx%2B0L4nJMqWXp27EeUUvmuAPZIF%2F1sivWcSJ8g44%3D&st=2021-09-09T10%3A29%3A46Z&se=2021-09-09T10%3A49%3A46Z&sp=r\",\"Name\":\"temp_file_.jpg\",\"Type\":\"image\",\"Extension\":\".jpg\"}]",
+    "attachments": "[{\"Url\":\"https://ausparkstorage.blob.core.windows.net/posts/4e70d3e7-0c51-4f02-81d3-055902889ba2/file_example_XLS_10.xls?sv=2018-03-28&sr=b&sig=GS8uOPuIAdH6YbtIt1FFW8fvNJ4W9lqLhzvBoWzPbW8%3D&st=2021-09-09T10%3A29%3A46Z&se=2021-09-09T10%3A49%3A46Z&sp=r\",\"Name\":\"file_example_XLS_10.xls\",\"Type\":\"file\",\"Extension\":\".xls\"},{\"Url\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png\",\"Name\":\"temp_file_.jpg\",\"Type\":\"image\",\"Extension\":\".jpg\"}]",
     "isRead": true,
     "isLike": false,
     "readsCount": 2,

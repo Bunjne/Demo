@@ -83,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             tools:text="ผลการเรียน ม.3" />
 
-        <whiz.sspark.library.view.general.SegmentTabView
+        <whiz.sspark.library.view.general.segment.SegmentTabView
             android:id="@+id/vSegment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

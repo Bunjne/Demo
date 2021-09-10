@@ -12,26 +12,13 @@ object SSparkLibrary {
     lateinit var regularTypeface: Typeface
     lateinit var regularSerifTypeface: Typeface
 
-    var isDarkModeEnabled = false
     var projectType: ProjectType? = null
     var apiKey = ""
     var baseUrl = ""
     var baseUrlV3 = ""
     var collaborationSocketBaseURL = ""
-    var collaborationSocketEmitterAuthenticationPath = ""
-    var collaborationSocketListenerAuthenticationPath = ""
-    var collaborationSocketListenerUnAuthenticationPath = ""
-    var collaborationSocketListenerPostSeenPath = ""
-    var collaborationSocketEmitterPostSeenPath = ""
-    var collaborationSocketListenerPostLikePath = ""
-    var collaborationSocketEmitterPostLikePath = ""
-    var collaborationSocketListenerPostUnLikePath = ""
-    var collaborationSocketEmitterPostUnLikePath = ""
-    var collaborationSocketListenerPostCommentPath = ""
-    var collaborationSocketEmitterPostCommentPath = ""
-    var collaborationSocketListenerPostDeleteCommentPath = ""
-    var collaborationSocketEmitterPostDeleteCommentPath = ""
 
+    var isDarkModeEnabled = false
     var isAutoDarkModeEnabled = false
     var isSystemDarkModeEnable = false
     var isChangeDarkModeFromSetting = false

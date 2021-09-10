@@ -7,15 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.databinding.ViewStudentClassActivityFragmentBinding
 import whiz.sspark.library.utility.openFile
 import whiz.sspark.library.utility.updateItem
-import whiz.sspark.library.view.general.CustomDividerItemDecoration
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.student.StudentClassPostAdapter
 
 class StudentClassActivityFragmentView : ConstraintLayout {
@@ -44,8 +41,6 @@ class StudentClassActivityFragmentView : ConstraintLayout {
         val linearLayoutManager = LinearLayoutManager(context)
         with(binding.rvPost) {
             layoutManager = linearLayoutManager
-
-            addItemDecoration(CustomDividerItemDecoration(ContextCompat.getDrawable(context!!, R.drawable.divider_post)!!, StudentClassPostAdapter.ClassPostItemType.POST.type))
 
             adapter = StudentClassPostAdapter(
                     context = context!!,

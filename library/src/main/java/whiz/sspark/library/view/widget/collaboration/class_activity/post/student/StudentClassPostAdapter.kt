@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.student.StudentOnlineClassContainerView
 
 class StudentClassPostAdapter(private val context: Context,
@@ -57,24 +58,30 @@ class StudentClassPostAdapter(private val context: Context,
         val item = items.getOrNull(position) ?: Item()
 
         item.post?.let { post ->
-            (holder.itemView as? StudentClassPostView)?.init(
-                post = post,
-                allMemberCount = allMemberCount,
-                color = color,
-                onPostRead = onPostRead,
-                onPostClicked = onPostClicked,
-                onImageClicked = onImageClicked,
-                onLikeClicked = onLikeClicked,
-                onCommentClicked = onCommentClicked,
-                onFileClicked = onFileClicked,
-                onDisplayLikedUsersClicked = onDisplayLikedUsersClicked,
-                onDisplaySeenUsersClicked = onDisplaySeenUsersClicked)
+            (holder.itemView as? StudentClassPostView)?.apply {
+                init(
+                    post = post,
+                    allMemberCount = allMemberCount,
+                    color = color,
+                    onPostRead = onPostRead,
+                    onPostClicked = onPostClicked,
+                    onImageClicked = onImageClicked,
+                    onLikeClicked = onLikeClicked,
+                    onCommentClicked = onCommentClicked,
+                    onFileClicked = onFileClicked,
+                    onDisplayLikedUsersClicked = onDisplayLikedUsersClicked,
+                    onDisplaySeenUsersClicked = onDisplaySeenUsersClicked
+                )
+
+                setPadding(8.toDP(context), 0, 8.toDP(context), 4.toDP(context))
+            }
         }
 
         item.onlineClasses?.let {
             (holder.itemView as? StudentOnlineClassContainerView)?.apply {
                 init(onOnlineClassPlatformClicked)
                 renderOnlineClasses(it)
+                setPadding(8.toDP(context), 0, 0, 16.toDP(context))
             }
         }
     }

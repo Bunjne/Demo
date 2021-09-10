@@ -6,17 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_class_post_file"
-    android:paddingStart="16dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="8dp">
+    android:padding="12dp">
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvFileName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginHorizontal="12dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/textBaseSecondaryColor"
@@ -32,8 +28,7 @@
         android:id="@+id/tvFileType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginHorizontal="12dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textAllCaps="true"
@@ -50,6 +45,7 @@
         android:id="@+id/ivArrowRight"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

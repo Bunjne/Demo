@@ -16,7 +16,7 @@ import whiz.sspark.library.databinding.ViewInstructorClassActivityFragmentBindin
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.utility.openFile
 import whiz.sspark.library.utility.updateItem
-import whiz.sspark.library.view.general.CustomDividerItemDecoration
+import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostAdapter
 
 class InstructorClassActivityFragmentView : ConstraintLayout {
