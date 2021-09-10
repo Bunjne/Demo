@@ -6,9 +6,7 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -16,7 +14,7 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapper
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.enum.DATASOURCE
+import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.data.enum.ItemPosition
 import whiz.sspark.library.utility.getItemPositionType
 import whiz.sspark.library.utility.getLatestUpdatedDateTime
@@ -35,11 +33,11 @@ fun TextView.showViewState(dataWrapper: DataWrapper<Any>?) {
         this.showUpdatingData()
     } else {
         with(dataWrapper) {
-            if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == true) {
+            if (dataSource == DataSource.CACHE && isNetworkPreferred == true) {
                 this@showViewState.showUpdatingData()
-            } else if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == false) {
+            } else if (dataSource == DataSource.CACHE && isNetworkPreferred == false) {
                 this@showViewState.showLatestUpdated(latestDateTime ?: Date())
-            } else if (dataSource == DATASOURCE.NETWORK) {
+            } else if (dataSource == DataSource.NETWORK) {
                 if (data != null || statusCode == 204) {
                     this@showViewState.showLatestUpdated(Date())
                 } else {
@@ -59,11 +57,11 @@ fun TextView.showViewStateX(dataWrapper: DataWrapperX<Any>?) {
         this.showUpdatingData()
     } else {
         with(dataWrapper) {
-            if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == true) {
+            if (dataSource == DataSource.CACHE && isNetworkPreferred == true) {
                 this@showViewStateX.showUpdatingData()
-            } else if (dataSource == DATASOURCE.CACHE && isNetworkPreferred == false) {
+            } else if (dataSource == DataSource.CACHE && isNetworkPreferred == false) {
                 this@showViewStateX.showLatestUpdated(latestDateTime ?: Date())
-            } else if (dataSource == DATASOURCE.NETWORK) {
+            } else if (dataSource == DataSource.NETWORK) {
                 if (data != null || statusCode == "204") {
                     this@showViewStateX.showLatestUpdated(Date())
                 } else {
@@ -130,4 +128,10 @@ fun View.setDarkModeBackground(isNextItemHeader: Boolean, isPreviousItemHeader: 
             ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_middle)
         }
     }
+}
+
+fun Window.setGradientDrawable(drawable: Int) {
+    this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    this.statusBarColor = Color.TRANSPARENT
+    this.setBackgroundDrawable(ContextCompat.getDrawable(this.context, drawable))
 }

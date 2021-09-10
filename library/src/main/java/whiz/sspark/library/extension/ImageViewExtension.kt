@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import jp.wasabeef.glide.transformations.BlurTransformation
 import whiz.sspark.library.R
 import whiz.sspark.library.data.enum.Gender
 import java.io.File
@@ -46,6 +47,17 @@ fun ImageView.show(bitmap: Bitmap) {
             .skipMemoryCache(true)
         )
         .load(bitmap)
+        .into(this)
+}
+
+fun ImageView.showBlurImage(url: String, blurRadius: Int) {
+    Glide.with(this.context)
+        .setDefaultRequestOptions(RequestOptions
+            .diskCacheStrategyOf(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+        )
+        .load(url)
+        .apply(RequestOptions.bitmapTransform(BlurTransformation(blurRadius, 3)))
         .into(this)
 }
 

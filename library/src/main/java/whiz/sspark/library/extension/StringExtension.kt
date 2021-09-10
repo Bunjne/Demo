@@ -11,6 +11,19 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 
+fun String.convertToTime(): String {
+    return if (this.isBlank()) {
+        ""
+    } else {
+        val timeStamp = this.split(":")
+        if (timeStamp.size < 2) {
+            ""
+        } else {
+            "${timeStamp[0]}:${timeStamp[1]}"
+        }
+    }
+}
+
 fun String.toQRCodeDrawable(context: Context, size: Int): Drawable? {
     val result: BitMatrix? = try {
         MultiFormatWriter().encode(

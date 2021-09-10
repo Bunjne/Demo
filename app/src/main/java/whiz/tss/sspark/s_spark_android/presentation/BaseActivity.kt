@@ -6,7 +6,7 @@ import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.Profile
-import whiz.tss.sspark.s_spark_android.unility.ProfileManager
+import whiz.tss.sspark.s_spark_android.utility.ProfileManager
 
 abstract class BaseActivity: LocalizationActivity() {
 

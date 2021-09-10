@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAllCaps="true"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvSeeMore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular"
+        tools:text="university announcement" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvSeeMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:includeFontPadding="false"
+        android:text="@string/today_happenings_see_more"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+        app:layout_constraintEnd_toStartOf="@+id/ivMore"
+        app:layout_constraintStart_toEndOf="@+id/tvTitle"
+        app:layout_constraintTop_toTopOf="@id/tvTitle"
+        app:ssparkFont="regular" />
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_margin="4dp"
+        android:padding="2dp"
+        android:layout_marginEnd="12dp"
+        android:scaleType="fitCenter"
+        app:tint="@color/textBaseThirdColor"
+        app:layout_constraintBottom_toBottomOf="@id/tvSeeMore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvSeeMore"
+        app:layout_constraintTop_toTopOf="@id/tvSeeMore"
+        tools:srcCompat="@drawable/ic_arrow_right" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:overScrollMode="never"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
