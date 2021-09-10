@@ -13,7 +13,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.customview.view.AbsSavedState
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.data.entity.CourseGroupGrade
+import whiz.sspark.library.data.entity.GradeSummary
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObjects
@@ -31,7 +31,7 @@ class RadarChartView: View {
     private val DEFAULT_RADAR_COLOR = ContextCompat.getColor(context, R.color.primaryColor)
     private val DEFAULT_INNER_LINE_COLOR =  ContextCompat.getColor(context, R.color.naturalV100)
 
-    private var courseGroupGrades = mutableListOf<CourseGroupGrade>()
+    private var courseGroupGrades = mutableListOf<GradeSummary>()
     private var isDrawText: Boolean = false
 
     var radarBackgroundColor = DEFAULT_RADAR_BACKGROUND_COLOR
@@ -131,7 +131,6 @@ class RadarChartView: View {
 
     private var radarPath = Path()
     private var actualWidth = 0f
-    private var desiredViewHeight = 0f
     private var screenWidth = 0f
     private var categoryCirclePadding = 0f
     private var textPadding = 0f
@@ -140,16 +139,15 @@ class RadarChartView: View {
     init {
         val metrics = context.resources.displayMetrics
         actualWidth = metrics.widthPixels.toFloat() - (paddingStart + paddingEnd + margin + margin)
-        desiredViewHeight = 300f.toDP(context)
         screenWidth = metrics.widthPixels.toFloat()
     }
 
-    fun init(courseGroupGrades: List<CourseGroupGrade>,
+    fun init(gradeSummaries: List<GradeSummary>,
              isDrawText: Boolean,
              numberOfCategory: Int){
         with(this.courseGroupGrades) {
             clear()
-            addAll(courseGroupGrades)
+            addAll(gradeSummaries)
         }
         numberOfCategoryJoints = numberOfCategory
         this.isDrawText = isDrawText
@@ -424,10 +422,10 @@ class RadarChartView: View {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val desiredWidth = actualWidth.toInt()
-        val desiredHeight = desiredViewHeight.toInt()
 
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
 
         val width = when (widthMode) {
@@ -437,7 +435,12 @@ class RadarChartView: View {
             else -> desiredWidth
         }
         categoryCirclePadding = width.getPercentage(5)
-        textPadding = width.getPercentage(6)
+        textPadding = if (isDrawText) {
+            width.getPercentage(6)
+        } else {
+            0f
+        }
+
         val defaultPadding = width.getPercentage(15)
         val backgroundRadius = width/2 - categoryCirclePadding - textPadding - defaultPadding
         val categoryCircleRadius = backgroundRadius / 12
@@ -445,10 +448,10 @@ class RadarChartView: View {
         val exactHeightSize = ((backgroundRadius * 2) + (categoryCirclePadding * 2) + (categoryCircleDiameter * 2)).toInt()
 
         val height = when (heightMode) {
-            MeasureSpec.EXACTLY -> exactHeightSize
-            MeasureSpec.AT_MOST -> exactHeightSize.coerceAtMost(desiredHeight)
-            MeasureSpec.UNSPECIFIED -> desiredHeight
-            else -> desiredHeight
+            MeasureSpec.EXACTLY -> heightSize
+            MeasureSpec.AT_MOST -> heightSize.coerceAtMost(exactHeightSize)
+            MeasureSpec.UNSPECIFIED -> exactHeightSize
+            else -> exactHeightSize
         }
 
         setMeasuredDimension(width, height)
@@ -501,7 +504,7 @@ class RadarChartView: View {
         when(state) {
             is SavedState -> {
                 super.onRestoreInstanceState(state.superState)
-                this.courseGroupGrades = state.courseGroupGrades.toObjects(Array<CourseGroupGrade>::class.java)
+                this.courseGroupGrades = state.courseGroupGrades.toObjects(Array<GradeSummary>::class.java)
                 this.numberOfCategoryJoints = state.numberOfCategoryJoints
                 this.isDrawText = state.isDrawText
             }
