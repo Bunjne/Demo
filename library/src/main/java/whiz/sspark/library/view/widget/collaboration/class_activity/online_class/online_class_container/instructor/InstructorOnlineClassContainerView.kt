@@ -11,7 +11,7 @@ import whiz.sspark.library.databinding.ViewInstructorOnlineClassContainerBinding
 import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.OnlineClassAdapter
 
-class InstructorClassContainerView : ConstraintLayout {
+class InstructorOnlineClassContainerView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

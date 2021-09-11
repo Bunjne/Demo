@@ -23,18 +23,20 @@ class StudentClassPostAdapter(private val context: Context,
                               private val onFileClicked: (Attachment) -> Unit,
                               private val onDisplayLikedUsersClicked: (Any) -> Unit,
                               private val onDisplaySeenUsersClicked: (Any) -> Unit,
-                              private val onOnlineClassPlatformClicked: (String) -> Unit) : RecyclerView.Adapter<StudentClassPostAdapter.ViewHolder>() {
+                              private val onOnlineClassPlatformClicked: (String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    class StudentClassPostViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    class StudentOnlineClassContainerViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     enum class ClassPostItemType(val type: Int) {
         POST(0),
         ONLINE_CLASSES(1)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ClassPostItemType.POST.type) {
-            ViewHolder(
+            StudentClassPostViewHolder(
                 StudentClassPostView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -43,7 +45,7 @@ class StudentClassPostAdapter(private val context: Context,
                 }
             )
         } else {
-            ViewHolder(
+            StudentOnlineClassContainerViewHolder(
                 StudentOnlineClassContainerView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -54,7 +56,7 @@ class StudentClassPostAdapter(private val context: Context,
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items.getOrNull(position) ?: Item()
 
         item.post?.let { post ->

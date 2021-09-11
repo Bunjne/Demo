@@ -9,13 +9,13 @@ import whiz.sspark.library.extension.toDP
 
 class OnlineClassAdapter(private val context: Context,
                          private val items: List<PlatformOnlineClass>,
-                         private val onOnlineClassClicked: (String) -> Unit) : RecyclerView.Adapter<OnlineClassAdapter.ViewHolder>() {
+                         private val onOnlineClassClicked: (String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class OnlineClassItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemWidth = context.resources.displayMetrics.widthPixels - 140.toDP(context)
-        return ViewHolder(
+        return OnlineClassItemViewHolder(
             OnlineClassItemView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     itemWidth,
@@ -26,7 +26,7 @@ class OnlineClassAdapter(private val context: Context,
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val platformOnlineClass = items.getOrNull(position)
         platformOnlineClass?.let {
             (holder.itemView as? OnlineClassItemView)?.apply {

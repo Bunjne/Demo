@@ -9,9 +9,7 @@ import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.extension.toDP
-import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.instructor.InstructorClassContainerView
-import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.student.StudentOnlineClassContainerView
-import whiz.sspark.library.view.widget.collaboration.class_activity.post.student.StudentClassPostView
+import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.online_class_container.instructor.InstructorOnlineClassContainerView
 
 class InstructorClassPostAdapter(private val context: Context,
                                  private val items: List<Item>,
@@ -28,19 +26,21 @@ class InstructorClassPostAdapter(private val context: Context,
                                  private val onDisplayLikedUsersClicked: (Any) -> Unit,
                                  private val onDisplaySeenUsersClicked: (Any) -> Unit,
                                  private val onOnlineClassPlatformClicked: (String) -> Unit,
-                                 private val onShowAllOnlineClassPlatformsClicked: () -> Unit) : RecyclerView.Adapter<InstructorClassPostAdapter.ViewHolder>() {
+                                 private val onShowAllOnlineClassPlatformsClicked: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    class InstructorClassPostViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    class InstructorOnlineClassContainerViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     enum class ClassPostItemType(val type: Int) {
         POST(0),
         ONLINE_CLASSES(1)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ClassPostItemType.POST.type) {
-            ViewHolder(
-                StudentClassPostView(context).apply {
+            InstructorClassPostViewHolder(
+                InstructorClassPostView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -48,8 +48,8 @@ class InstructorClassPostAdapter(private val context: Context,
                 }
             )
         } else {
-            ViewHolder(
-                StudentOnlineClassContainerView(context).apply {
+            InstructorOnlineClassContainerViewHolder(
+                InstructorOnlineClassContainerView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -59,7 +59,7 @@ class InstructorClassPostAdapter(private val context: Context,
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items.getOrNull(position) ?: Item()
 
         item.post?.let { post ->
@@ -85,7 +85,7 @@ class InstructorClassPostAdapter(private val context: Context,
         }
 
         item.onlineClasses?.let {
-            (holder.itemView as? InstructorClassContainerView)?.apply {
+            (holder.itemView as? InstructorOnlineClassContainerView)?.apply {
                 init(
                     onShowAllOnlineClassPlatformsClicked = onShowAllOnlineClassPlatformsClicked,
                     onOnlineClassPlatformClicked = onOnlineClassPlatformClicked
