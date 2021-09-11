@@ -25,8 +25,8 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.ClassPostCommentViewModel
 import whiz.sspark.library.extension.convertToDate
-import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithMultipleItems
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.student.StudentClassPostCommentAdapter
 import whiz.tss.sspark.s_spark_android.R
@@ -36,8 +36,6 @@ import whiz.tss.sspark.s_spark_android.utility.logout
 import whiz.tss.sspark.s_spark_android.utility.refreshToken
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
 import whiz.tss.sspark.s_spark_android.utility.showImage
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.net.URISyntaxException
 import java.util.*
 
@@ -330,17 +328,6 @@ class StudentClassPostCommentActivity : BaseActivity() {
         )
 
         renderPost()
-
-        val reader = BufferedReader(InputStreamReader(resources.assets.open("comment.json")))
-        val objects = reader.readText().toObjects(Array<Post>::class.java)
-
-        with(comments) {
-            clear()
-            addAll(objects)
-        }
-
-        renderComments()
-        binding.vPostDetailSheetDialog.showKeyboardMessageEdittext(isKeyboardShown)
     }
 
     private fun showCommentOption(comment: Post) {
@@ -472,6 +459,12 @@ class StudentClassPostCommentActivity : BaseActivity() {
                         showApiResponseXAlert(this@StudentClassPostCommentActivity, it)
                     }
                 })
+            }
+        }
+
+        viewModel.errorMessage.observe(this) {
+            it?.let {
+                showAlertWithOkButton(it)
             }
         }
     }
