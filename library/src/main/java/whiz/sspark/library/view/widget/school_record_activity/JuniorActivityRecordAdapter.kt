@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.ActivityRecordItem
+import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
-class JuniorActivityRecordAdapter(private val context: Context): ListAdapter<ActivityRecordItem, RecyclerView.ViewHolder>(JuniorActivityRecordDiffCallback()) {
+class JuniorActivityRecordAdapter(private val context: Context,
+                                  private val items: List<JuniorActivityRecordAdapter.Item>): ListAdapter<JuniorActivityRecordAdapter.Item, RecyclerView.ViewHolder>(JuniorActivityRecordDiffCallback()) {
 
     companion object {
         private val TITLE_VIEW_TYPE = 1111
@@ -26,9 +28,9 @@ class JuniorActivityRecordAdapter(private val context: Context): ListAdapter<Act
         }
 
         return when {
-            item.status != null && item.description != null -> STATUS_WITH_DESCRIPTON_VIEW_TYPE
-            item.status != null -> STATUS_VIEW_TYPE
-            item.description != null -> TITLE_WITH_DESCRIPTION_VIEW_TYPE
+            item.activityRecordItem?.status != null && item.activityRecordItem.description != null -> STATUS_WITH_DESCRIPTON_VIEW_TYPE
+            item.activityRecordItem?.status != null -> STATUS_VIEW_TYPE
+            item.activityRecordItem?.description != null -> TITLE_WITH_DESCRIPTION_VIEW_TYPE
             else -> TITLE_VIEW_TYPE
         }
     }
@@ -42,11 +44,80 @@ class JuniorActivityRecordAdapter(private val context: Context): ListAdapter<Act
     class TitleWithDescriptionViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
+        return when (viewType) {
+            STATUS_WITH_DESCRIPTON_VIEW_TYPE -> {
+                StatusWithDescriptionViewHolder(JuniorActivityRecordStatusWithDescriptionItemView(context).apply {
+                    layoutParams = RecyclerView.LayoutParams(
+                        RecyclerView.LayoutParams.MATCH_PARENT,
+                        RecyclerView.LayoutParams.WRAP_CONTENT
+                    )
+                })
+            }
+            STATUS_VIEW_TYPE -> {
+                StatusViewHolder(JuniorActivityRecordStatusItemView(context).apply {
+                    layoutParams = RecyclerView.LayoutParams(
+                        RecyclerView.LayoutParams.MATCH_PARENT,
+                        RecyclerView.LayoutParams.WRAP_CONTENT
+                    )
+                })
+            }
+            TITLE_WITH_DESCRIPTION_VIEW_TYPE -> {
+                TitleWithDescriptionViewHolder(JuniorActivityRecordTitleWithDescriptionItemView(context).apply {
+                    layoutParams = RecyclerView.LayoutParams(
+                        RecyclerView.LayoutParams.MATCH_PARENT,
+                        RecyclerView.LayoutParams.WRAP_CONTENT
+                    )
+                })
+            }
+            else -> {
+                TitleViewHolder(ItemListTitleView(context).apply {
+                    layoutParams = RecyclerView.LayoutParams(
+                        RecyclerView.LayoutParams.MATCH_PARENT,
+                        RecyclerView.LayoutParams.WRAP_CONTENT
+                    )
+                })
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = items[position]
+        item?.let {
+            val viewType = getItemViewType(position)
+
+            when(viewType) {
+                STATUS_WITH_DESCRIPTON_VIEW_TYPE -> {
+                    (holder.itemView as? JuniorActivityRecordStatusWithDescriptionItemView)?.apply {
+                        init(
+                            status = it.activityRecordItem?.status ?: false,
+                            title = it.activityRecordItem?.title ?: "",
+                            description = it.activityRecordItem?.description ?: ""
+                        )
+                    }
+                }
+                STATUS_VIEW_TYPE -> {
+                    (holder.itemView as? JuniorActivityRecordStatusItemView)?.apply {
+                        init(
+                            status = it.activityRecordItem?.status ?: false,
+                            title = it.activityRecordItem?.title ?: ""
+                        )
+                    }
+                }
+                TITLE_WITH_DESCRIPTION_VIEW_TYPE -> {
+                    (holder.itemView as? JuniorActivityRecordTitleWithDescriptionItemView)?.apply {
+                        init(
+                            title = it.activityRecordItem?.title ?: "",
+                            description = it.activityRecordItem?.description ?: ""
+                        )
+                    }
+                }
+                else -> {
+                    (holder.itemView as? ItemListTitleView)?.apply {
+                        init(it.title ?: "")
+                    }
+                }
+            }
+        }
     }
 
     data class Item(
