@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.datasource.remote.service.LearningOutcomeService
+import whiz.sspark.library.data.data_source.remote.service.LearningOutcomeService
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.LearningOutcomeAPIBody
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
@@ -18,7 +18,7 @@ interface LearningOutcomeRepository {
 }
 
 class LearningOutcomeRepositoryImpl(private val context: Context,
-                                    private val remote: LearningOutcomeService):LearningOutcomeRepository {
+                                    private val remote: LearningOutcomeService): LearningOutcomeRepository {
     override suspend fun getLearningOutcome(currentSemesterId: Int): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

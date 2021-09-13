@@ -10,6 +10,18 @@ fun Date.toThaiYear() = Calendar.getInstance().apply {
     add(Calendar.YEAR, 543)
 }.time
 
+fun getDifferenceDayTimelineValue(sourceDate: Date, targetDate: Date): Int {
+    val targetDayNumber = Calendar.getInstance().apply {
+        time = targetDate
+    }.get(Calendar.DAY_OF_YEAR)
+
+    val sourceDayNumber = Calendar.getInstance().apply {
+        time = sourceDate
+    }.get(Calendar.DAY_OF_YEAR)
+
+    return sourceDayNumber - targetDayNumber
+}
+
 fun getLatestUpdatedDateTime(context: Context, date: Date): String {
     val dateTimeFormat = if (isThaiLanguage()) {
         SimpleDateFormat("d/M/yy HH:mm", Locale.getDefault()).format(date.toThaiYear())
@@ -17,36 +29,4 @@ fun getLatestUpdatedDateTime(context: Context, date: Date): String {
         SimpleDateFormat("d/M/yy HH:mm", Locale.getDefault()).format(date)
     }
     return context.resources.getString(R.string.screen_header_subtitle, dateTimeFormat)
-}
-
-/*
-defaultPattern is default for EN and will be use for thai format when dayMonthThPattern is blank
-dayMonthThPattern is date and month in thai format
-yearThPattern is year in thai format
-timeThPattern is time in thai format
-
-example
-    defaultPattern = "dd/MM/yyyy HH:mm"
-    dayMonthPattern = "dd/MM/"
-    yearPattern = "yyyy "
-    timePattern = "HH:mm"
-*/
-fun Date.convertToDateString(defaultPattern: String, dayMonthThPattern: String = "", yearThPattern: String = "", timeThPattern: String = ""): String {
-    return if (isThaiLanguage()) {
-        if (dayMonthThPattern.isBlank()) {
-            SimpleDateFormat(defaultPattern, Locale.getDefault()).format(this)
-        } else {
-            val dateMonth = SimpleDateFormat(dayMonthThPattern, Locale.getDefault()).format(this)
-            val year = SimpleDateFormat(yearThPattern, Locale.getDefault()).format(this.toThaiYear()) ?: ""
-            val time = SimpleDateFormat(timeThPattern, Locale.getDefault()).format(this) ?: ""
-
-            val datetime = StringBuilder()
-            datetime.append(dateMonth)
-            datetime.append(year)
-            datetime.append(time)
-            datetime.toString()
-        }
-    } else {
-        SimpleDateFormat(defaultPattern, Locale.getDefault()).format(this)
-    }
 }

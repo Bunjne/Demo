@@ -20,4 +20,14 @@
         <attr name="ssparkFont" />
     </declare-styleable>
 
+    <declare-styleable name="RadarChartView">
+        <attr name="radarColor" format="color|reference" />
+        <attr name="radarBackgroundColor" format="color|reference" />
+        <attr name="textColor" format="color|reference" />
+        <attr name="innerLineColor" format="color|reference" />
+        <attr name="innerLineWidth" format="dimension" />
+        <attr name="categoryNumber" format="integer" />
+        <attr name="ssparkFont" />
+    </declare-styleable>
+
 </resources>
