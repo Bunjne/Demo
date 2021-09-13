@@ -100,9 +100,9 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
 
     private fun notifyCommentItemOnPost(size: Int) {
         if (size == 1) {
-            binding.rvPostComment?.adapter?.notifyItemInserted(0)
+            binding.rvPostComment.adapter?.notifyItemInserted(0)
         } else {
-            binding.rvPostComment?.adapter?.notifyItemChanged(0)
+            binding.rvPostComment.adapter?.notifyItemChanged(0)
         }
     }
 
@@ -121,18 +121,18 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
     }
 
     fun notifyRecycleViewItemChanged(index: Int) {
-        binding.rvPostComment?.adapter?.notifyItemChanged(index)
+        binding.rvPostComment.adapter?.notifyItemChanged(index)
     }
 
     fun notifyRecycleViewItemInserted(index: Int) {
-        binding.rvPostComment?.adapter?.notifyItemInserted(index)
+        binding.rvPostComment.adapter?.notifyItemInserted(index)
     }
 
     fun notifyRecycleViewItemRangeInserted(startIndex: Int, endIndex: Int) {
-        binding.rvPostComment?.adapter?.notifyItemRangeInserted(startIndex, endIndex)
+        binding.rvPostComment.adapter?.notifyItemRangeInserted(startIndex, endIndex)
     }
 
     fun notifyRecycleViewItemRemoved(index: Int) {
-        binding.rvPostComment?.adapter?.notifyItemRemoved(index)
+        binding.rvPostComment.adapter?.notifyItemRemoved(index)
     }
 }

@@ -37,10 +37,10 @@
             android:name=".presentation.image.ImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.collaboration.class_post_comment.instructor_class_post_comment.InstructorClassPostCommentActivity"
+            android:name=".presentation.collaboration.class_post_comment.instructor.InstructorClassPostCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.collaboration.class_post_comment.student_class_post_comment.StudentClassPostCommentActivity"
+            android:name=".presentation.collaboration.class_post_comment.student.StudentClassPostCommentActivity"
             android:screenOrientation="portrait" />
     </application>
 

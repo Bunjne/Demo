@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/clContainer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="12dp"
@@ -16,10 +16,10 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:scaleType="fitCenter"
-        app:tint="@color/viewBaseSecondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/viewBaseSecondaryColor"
         tools:src="@drawable/ic_navigation_back" />
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -36,7 +36,7 @@
         app:ssparkFont="bold" />
 
     <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvCode"
+        android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
@@ -45,7 +45,7 @@
         android:textAlignment="textEnd"
         android:textColor="@color/naturalV100"
         android:textSize="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvName"
+        app:layout_constraintBottom_toTopOf="@+id/tvCode"
         app:layout_constraintEnd_toStartOf="@+id/ivProfile"
         app:layout_constraintStart_toEndOf="@+id/tvBack"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,9 +53,8 @@
         app:ssparkFont="bold"
         tools:text="6123456" />
 
-
     <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
@@ -67,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ivProfile"
         app:layout_constraintStart_toEndOf="@+id/tvBack"
-        app:layout_constraintTop_toBottomOf="@+id/tvCode"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
         app:ssparkFont="bold"
         tools:text="เพชรภูมิ" />
 
@@ -75,7 +74,7 @@
         android:id="@+id/ivProfile"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:civ_border_color="@color/viewBaseThirdColor"
+        app:civ_border_color="@android:color/white"
         app:civ_border_width="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student_class_activity
+package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor
 
 import android.content.Intent
 import android.graphics.Color
@@ -9,37 +9,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.transports.WebSocket
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.Post
-import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.static.SocketPath
-import whiz.sspark.library.data.viewModel.StudentClassActivityViewModel
+import whiz.sspark.library.data.viewModel.InstructorClassActivityViewModel
 import whiz.sspark.library.extension.isUrlValid
-import whiz.sspark.library.utility.showAlertWithOkButton
+import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.collaboration.class_activity.post.student.StudentClassPostAdapter
-import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassActivityBinding
+import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostAdapter
+import whiz.tss.sspark.s_spark_android.databinding.FragmentInstructorClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.student_class_post_comment.StudentClassPostCommentActivity
-import whiz.tss.sspark.s_spark_android.utility.logout
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.instructor.InstructorClassPostCommentActivity
 import whiz.tss.sspark.s_spark_android.utility.refreshToken
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
+import whiz.tss.sspark.s_spark_android.utility.retrieveUserID
 import whiz.tss.sspark.s_spark_android.utility.showImage
 import java.net.URISyntaxException
 
-class StudentClassActivityFragment : BaseFragment() {
+class InstructorClassActivityFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(classGroupId: String, color: Int, allMemberCount: Int) = StudentClassActivityFragment().apply {
+        fun newInstance(classGroupId: String, color: Int, allMemberCount: Int) = InstructorClassActivityFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
                 putInt("color", color)
@@ -72,11 +68,13 @@ class StudentClassActivityFragment : BaseFragment() {
         arguments?.getInt("allMemberCounts", 0) ?: 0
     }
 
-    private var student: Student? = null
+    private val items = mutableListOf<InstructorClassPostAdapter.Item>()
 
-    private val items = mutableListOf<StudentClassPostAdapter.Item>()
+    private val instructorUserId by lazy {
+        retrieveUserID(requireContext())
+    }
 
-    private var _binding: FragmentStudentClassActivityBinding? = null
+    private var _binding: FragmentInstructorClassActivityBinding? = null
     private val binding get() = _binding!!
 
     private val onPostLiked by lazy {
@@ -93,7 +91,11 @@ class StudentClassActivityFragment : BaseFragment() {
                     if (itemPosition > -1) {
                         items[itemPosition].post?.run {
                             likeCount = likeCounts
-                            isLike = if (student?.userId == userId) isSocketLiked else isLike
+                            isLike = if (instructorUserId == userId) {
+                                isSocketLiked
+                            } else {
+                                isLike
+                            }
                         }
 
                         activity?.runOnUiThread {
@@ -121,7 +123,11 @@ class StudentClassActivityFragment : BaseFragment() {
                     if (itemPosition > -1) {
                         items[itemPosition].post?.run {
                             likeCount = likeCounts
-                            isLike = if (student?.userId == userId) isSocketLiked else isLike
+                            isLike = if (instructorUserId == userId) {
+                                isSocketLiked
+                            } else {
+                                isLike
+                            }
                         }
 
                         activity?.runOnUiThread {
@@ -206,10 +212,10 @@ class StudentClassActivityFragment : BaseFragment() {
         }
     }
 
-    private val viewModel: StudentClassActivityViewModel by viewModel()
+    private val viewModel: InstructorClassActivityViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentStudentClassActivityBinding.inflate(inflater, container, false)
+        _binding = FragmentInstructorClassActivityBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -251,17 +257,6 @@ class StudentClassActivityFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            profileManager.student.collect {
-                it?.let {
-                    student = it
-                    initView()
-                } ?: run {
-                    logout(requireContext())
-                }
-            }
-        }
-
         activity?.let {
             initView()
 
@@ -275,6 +270,12 @@ class StudentClassActivityFragment : BaseFragment() {
             color = color,
             onRefresh = {
                 viewModel.listOnlineClasses(classGroupId)
+            },
+            onCreatePostClicked = {
+//                startActivityForResult(Intent(activity, CreatePostActivity::class.java).apply {
+//                    putExtra("classGroupId", classGroupId) TODO uncomment when create post UI design has come.
+//                    putExtra("color", color)
+//                }, REQUEST_CREATE_POST)
             },
             onPostClicked = { post, isKeyboardShown ->
                 openDetail(post, isKeyboardShown)
@@ -293,11 +294,14 @@ class StudentClassActivityFragment : BaseFragment() {
             },
             onPostLikedUsersClicked = { postId ->
 //                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.LIKE.type)
-//                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
+//                dialog.show(childFragmentManager, "")
             },
             onPostSeenUsersClicked = { postId ->
 //                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.SEEN.type)
-//                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
+//                dialog.show(childFragmentManager, "")
+            },
+            onShowAllOnlineClassPlatformsClicked = {
+                   // TODO waiting for Design
             },
             onOnlineClassPlatformClicked = { url ->
                 if (url.isUrlValid() && (url.contains("http://") || url.contains("https://"))) {
@@ -310,9 +314,9 @@ class StudentClassActivityFragment : BaseFragment() {
     }
 
     private fun openDetail(post: Post, isKeyboardShown: Boolean) {
-        val intent = Intent(requireContext(), StudentClassPostCommentActivity::class.java).apply {
+        val intent = Intent(requireContext(), InstructorClassPostCommentActivity::class.java).apply {
             putExtra("classGroupId", classGroupId)
-            putExtra("post", post)
+            putExtra("post", post.toJson())
             putExtra("color", color)
             putExtra("allMemberCount", allMemberCount)
             putExtra("isKeyboardShown", isKeyboardShown)
@@ -322,19 +326,19 @@ class StudentClassActivityFragment : BaseFragment() {
     }
 
     override fun observeView() {
-        viewModel.viewLoading.observe(this, Observer { isLoading ->
+        viewModel.viewLoading.observe(this) { isLoading ->
             binding.vClassActivity.setSwipeRefreshLayout(isLoading)
-        })
+        }
     }
 
     override fun observeData() {
-        viewModel.posts.observe(this, Observer {
+        viewModel.posts.observe(this) {
             it?.let { posts ->
                 items.removeAll { it.post != null }
 
                 with(items) {
                     posts.forEach {
-                        add(StudentClassPostAdapter.Item(post = it))
+                        add(InstructorClassPostAdapter.Item(post = it))
                     }
                 }
 
@@ -343,24 +347,24 @@ class StudentClassActivityFragment : BaseFragment() {
                     checkPostAmount()
                 }
             }
-        })
+        }
 
-        viewModel.onlineClassesResponse.observe(this, Observer {
+        viewModel.onlineClassesResponse.observe(this) {
             it?.let {
                 val shownOnlineClasses = it.filter { it.isShown }
                 with (items) {
                     removeAll { it.onlineClasses != null }
-                    add(StudentClassPostAdapter.Item(onlineClasses = shownOnlineClasses))
+                    add(InstructorClassPostAdapter.Item(onlineClasses = shownOnlineClasses))
                 }
 
                 viewModel.listPosts(classGroupId)
             }
-        })
+        }
     }
 
     private fun likePost(post: Post) {
         val data = JSONObject()
-        data.put("userId", student?.userId)
+        data.put("userId", instructorUserId)
         data.put("postId", post.id.toString())
 
         if (post.isLike) {
@@ -372,13 +376,13 @@ class StudentClassActivityFragment : BaseFragment() {
 
     private fun readPost(postId: String) {
         val data = JSONObject()
-        data.put("userId", student?.userId)
-        data.put("postId", postId.toString())
+        data.put("userId", instructorUserId)
+        data.put("postId", postId)
         socket?.emit(SocketPath.collaborationSocketEmitterPostSeenPath, data)
     }
 
     override fun observeError() {
-        viewModel.postErrorResponse.observe(this) {
+        viewModel.postErrorResponse.observe(this, Observer {
             it?.let {
                 if (it.statusCode != 404) {
                     showApiResponseXAlert(activity, it)
@@ -391,9 +395,9 @@ class StudentClassActivityFragment : BaseFragment() {
                 refreshRecyclerView(items)
                 checkPostAmount()
             }
-        }
+        })
 
-        viewModel.onlineClassesErrorResponse.observe(this) {
+        viewModel.onlineClassesErrorResponse.observe(this, Observer {
             it?.let {
                 showApiResponseXAlert(activity, it)
             }
@@ -401,13 +405,7 @@ class StudentClassActivityFragment : BaseFragment() {
             items.removeAll { it.onlineClasses != null }
 
             viewModel.listPosts(classGroupId)
-        }
-
-        viewModel.errorMessage.observe(this) {
-            it?.let {
-                context?.showAlertWithOkButton(it)
-            }
-        }
+        })
     }
 
     override fun onPause() {

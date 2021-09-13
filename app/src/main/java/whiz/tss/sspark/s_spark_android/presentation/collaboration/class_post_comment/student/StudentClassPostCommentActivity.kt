@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.student_class_post_comment
+package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.student
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -25,6 +25,8 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.ClassPostCommentViewModel
 import whiz.sspark.library.extension.convertToDate
+import whiz.sspark.library.extension.toObject
+import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithMultipleItems
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -36,6 +38,8 @@ import whiz.tss.sspark.s_spark_android.utility.logout
 import whiz.tss.sspark.s_spark_android.utility.refreshToken
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
 import whiz.tss.sspark.s_spark_android.utility.showImage
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.net.URISyntaxException
 import java.util.*
 
@@ -70,7 +74,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
     }
 
     private val post by lazy {
-        intent?.getParcelableExtra("post") ?: Post()
+        intent?.getStringExtra("post")?.toObject<Post>() ?: Post()
     }
 
     private val color by lazy {
@@ -97,7 +101,12 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
                     if (postId.contains(post.id.toString(), true)) {
                         post.run {
-                            isLike = if (userId == student?.userId) isSocketLiked else isLike
+                            isLike = if (userId == student.userId) {
+                                isSocketLiked
+                            } else {
+                                isLike
+                            }
+
                             likeCount = likeCounts
                         }
 
@@ -124,7 +133,12 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
                     if (postId.contains(post.id.toString(), true)) {
                         post.run {
-                            isLike = if (student?.userId == userId) isSocketLiked else isLike
+                            isLike = if (student.userId == userId) {
+                                isSocketLiked
+                            } else {
+                                isLike
+                            }
+
                             likeCount = likeCounts
                         }
 
@@ -153,8 +167,8 @@ class StudentClassPostCommentActivity : BaseActivity() {
                     if (postId.contains(post.id.toString(), true)) {
                         var member = members?.students?.singleOrNull { it.userId == userId } ?: members?.instructors?.singleOrNull { it.userId == userId }
 
-                        if (member == null && student != null && userId == student?.userId) {
-                            with(student!!) {
+                        if (member == null && userId == student.userId) {
+                            with(student) {
                                 member = ClassMember(
                                     code = code,
                                     userId = userId,
@@ -162,7 +176,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
                                     _firstNameTh = _firstNameTh,
                                     _lastNameEn = _lastNameEn,
                                     _lastNameTh = _lastNameTh,
-                                    profileImageUrl = imageUrl
+                                    profileImageUrl = profileImageUrl
                                 )
                             }
                         }
@@ -180,7 +194,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
                             runOnUiThread {
                                 insertComment(comment)
 
-                                if (student?.userId == userId) {
+                                if (student.userId == userId) {
                                     binding.vPostDetailSheetDialog.scrollToPosition(postCommentItems.lastIndex)
                                 }
                             }
@@ -328,6 +342,17 @@ class StudentClassPostCommentActivity : BaseActivity() {
         )
 
         renderPost()
+
+        val reader = BufferedReader(InputStreamReader(resources.assets.open("comment.json")))
+        val objects = reader.readText().toObjects(Array<Post>::class.java)
+
+        with(comments) {
+            clear()
+            addAll(objects)
+        }
+
+        renderComments()
+        binding.vPostDetailSheetDialog.showKeyboardMessageEdittext(isKeyboardShown)
     }
 
     private fun showCommentOption(comment: Post) {

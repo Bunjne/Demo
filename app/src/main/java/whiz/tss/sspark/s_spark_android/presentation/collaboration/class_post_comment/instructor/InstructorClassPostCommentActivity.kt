@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.instructor_class_post_comment
+package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.instructor
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -25,6 +25,7 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.ClassPostCommentViewModel
 import whiz.sspark.library.extension.convertToDate
+import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.utility.showAlertWithMultipleItems
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.instructor.InstructorClassPostCommentAdapter
@@ -69,7 +70,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     }
 
     private val post by lazy {
-        intent?.getParcelableExtra("post") ?: Post()
+        intent?.getStringExtra("post")?.toObject<Post>() ?: Post()
     }
 
     private val color by lazy {
@@ -96,7 +97,12 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
                     if (postId.contains(post.id.toString(), true)) {
                         post.run {
-                            isLike = if (userId == instructor?.userId) isSocketLiked else isLike
+                            isLike = if (userId == instructor.userId) {
+                                isSocketLiked
+                            } else {
+                                isLike
+                            }
+
                             likeCount = likeCounts
                         }
 
@@ -123,7 +129,12 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
                     if (postId.contains(post.id.toString(), true)) {
                         post.run {
-                            isLike = if (instructor.userId == userId) isSocketLiked else isLike
+                            isLike = if (instructor.userId == userId) {
+                                isSocketLiked
+                            } else {
+                                isLike
+                            }
+
                             likeCount = likeCounts
                         }
 
@@ -152,8 +163,8 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     if (postId.contains(post.id.toString(), true)) {
                         var member = members?.students?.singleOrNull { it.userId == userId } ?: members?.instructors?.singleOrNull { it.userId == userId }
 
-                        if (member == null && instructor != null && userId == instructor?.userId) {
-                            with(instructor!!) {
+                        if (member == null && userId == instructor.userId) {
+                            with(instructor) {
                                 member = ClassMember(
                                     code = code,
                                     userId = userId,
@@ -237,7 +248,6 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         }
     }
 
-    private var isDataFetched = false
     private val comments = mutableListOf<Post>()
     private var members: Member? = null
 
@@ -353,7 +363,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
     private fun emitComment(text: String) {
         val data = JSONObject().apply {
-            put("userId", instructor?.userId)
+            put("userId", instructor.userId)
             put("postId", post.id.toString())
             put("message", text)
             put("classId", classGroupId)

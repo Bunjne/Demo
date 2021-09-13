@@ -9,5 +9,3 @@ fun ClassMember.toInstructorFullName() = if (this.position.isBlank()) {
 } else {
     "${this.position} ${this.firstName} ${this.lastName}"
 }
-
-fun ClassMember.toCommentDisplayName() = "${this.firstName} ${this.lastName}"

@@ -33,6 +33,7 @@ class InstructorClassActivityFragmentView : ConstraintLayout {
     fun init(allMemberCount: Int,
              color: Int,
              onRefresh: () -> Unit,
+             onCreatePostClicked: () -> Unit,
              onDeletePostClicked: (Post) -> Unit = { },
              onEditPostClicked: (Post) -> Unit = { },
              onPostClicked: (Post, Boolean) -> Unit,
@@ -116,19 +117,13 @@ class InstructorClassActivityFragmentView : ConstraintLayout {
             })
         }
 
-        binding.srlContainer.setOnRefreshListener {
-            onRefresh()
-        }
-    }
-
-    fun setOnCreatePostClicked(onCreatePostClicked: () -> Unit) {
         binding.clCreatePost.setOnClickListener {
             onCreatePostClicked()
         }
-    }
 
-    fun setCreatePostVisibility(isVisible: Boolean) {
-
+        binding.srlContainer.setOnRefreshListener {
+            onRefresh()
+        }
     }
 
     fun refreshRecyclerView(items: List<InstructorClassPostAdapter.Item>) {

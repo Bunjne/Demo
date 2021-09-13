@@ -38,7 +38,7 @@ class ClassDetailActivityView : ConstraintLayout {
             }
         }
 
-        binding.ivStudyPlan.show(R.drawable.ic_attendance)
+        binding.ivStudyPlan.show(R.drawable.ic_clipboard)
 
         binding.cvStudyPlan.setOnClickListener {
             onStudyPlanClicked()

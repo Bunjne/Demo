@@ -114,8 +114,7 @@ fun clearData(context: Context) {
 fun refreshToken(context: Context, onTokenRefreshed: () -> Unit) {
     val refreshToken = retrieveAuthenticationInformation(context)?.refreshToken
 
-    if (!refreshToken.isNullOrBlank())
-    {
+    if (!refreshToken.isNullOrBlank()) {
         val remote: LoginService by inject(LoginService::class.java)
         val uuid = retrieveDeviceID(context)
         val userId = retrieveUserID(context)

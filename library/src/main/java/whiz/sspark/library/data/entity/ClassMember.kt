@@ -1,12 +1,9 @@
 package whiz.sspark.library.data.entity
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import whiz.sspark.library.utility.localize
 import java.util.*
 
-@Parcelize
 data class ClassMember(
     @SerializedName("code") val code: String = "",
     @SerializedName("userId") val userId: String? = null,
@@ -25,7 +22,7 @@ data class ClassMember(
     @SerializedName("gender") val gender: String = "",
     @SerializedName("healthStatus") val healthStatus: String = "",
     @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date()
-) : Parcelable {
+) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val lastName: String get() = localize(_lastNameEn, _lastNameTh, _lastNameEn, true)
     val facultyName: String get() = localize(_facultyNameEn, _facultyNameTh, _facultyNameEn, true)

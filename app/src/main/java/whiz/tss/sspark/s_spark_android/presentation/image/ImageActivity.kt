@@ -2,6 +2,7 @@ package whiz.tss.sspark.s_spark_android.presentation.image
 
 import android.os.Bundle
 import whiz.sspark.library.extension.show
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityImageBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
@@ -29,6 +30,8 @@ class ImageActivity : BaseActivity() {
             show(imageUrl)
             scale = medium
         }
+
+        binding.ivClose.show(R.drawable.ic_close)
 
         binding.ivClose.setOnClickListener {
             onBackPressed()

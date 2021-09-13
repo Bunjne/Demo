@@ -1,9 +1,7 @@
 package whiz.tss.sspark.s_spark_android.presentation.collaboration
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
@@ -15,8 +13,8 @@ import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
-import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor_class_activity.InstructorClassActivityFragment
-import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student_class_activity.StudentClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor.InstructorClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
 
 class ClassDetailActivity : BaseActivity() {
 
@@ -46,7 +44,7 @@ class ClassDetailActivity : BaseActivity() {
         intent?.getStringExtra("courseName") ?: ""
     }
 
-    private var currentFragment: Int = BottomNavigationId.ACTIVITY.id
+    private var currentFragment: Int = BottomNavigationId.NONE_SELECTED.id
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +74,7 @@ class ClassDetailActivity : BaseActivity() {
 
         val colors = intArrayOf(
             startColor,
-            Color.GRAY
+            ContextCompat.getColor(this, R.color.textBaseThirdColor)
         )
 
         val bottomNavigationBarItems = mutableListOf(
@@ -112,29 +110,6 @@ class ClassDetailActivity : BaseActivity() {
                     // TODO wait for activity navigation
                 }
             )
-
-            when (currentFragment) {
-                BottomNavigationId.ACTIVITY.id -> {
-                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
-                }
-//                BottomNavigationId.ATTENDANCE.id -> {
-//                    renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id, color, courseCode), supportFragmentManager, currentFragment)
-//                }
-//                BottomNavigationId.STUDENT.id -> {
-//                    renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id), supportFragmentManager, currentFragment)
-//                }
-                else -> { }
-            }
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("lastShowedFragment", currentFragment)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        currentFragment = savedInstanceState.getInt("lastShowedFragment")
     }
 }
