@@ -12,7 +12,7 @@ class SSparkLoadingDialog(context: Context) {
     private val dialog: AlertDialog = AlertDialog.Builder(context)
         .setView(ViewLoadingDialogBinding.inflate(LayoutInflater.from(context)).root)
         .setCancelable(false)
-        .create().apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) }
+        .create()
 
     fun show() {
         dialog.show()
