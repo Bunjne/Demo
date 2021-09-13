@@ -34,47 +34,35 @@ fun Student.convertToProfile(): Profile {
     return Profile(this.imageUrl, this.gender, this.code, this.firstName, this.lastName)
 }
 
-fun Student.getGuardianMemberContactInfo(context: Context): MutableList<MenuContactInfoItem> {
-    val memberContactInfo = mutableListOf<MenuContactInfoItem>()
-
-    guardians.forEachIndexed { index, studentGuardianContactInfo ->
-        memberContactInfo.add(
-            MenuContactInfoItem(
-                menuSegmentType = MenuSegmentType.GUARDIAN,
-                index = index,
-                imageUrl = studentGuardianContactInfo.imageUrl,
-                gender = studentGuardianContactInfo.gender,
-                description = context.resources.getString(R.string.general_relation, studentGuardianContactInfo.relation),
-                name = studentGuardianContactInfo.fullName,
-                personalPhone = studentGuardianContactInfo.personalPhoneNumber,
-                personalEmail = studentGuardianContactInfo.personalEmail
-            )
+fun Student.getGuardianMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {
+    return with(guardians[position]) {
+        MenuContactInfoItem(
+            menuSegmentType = MenuSegmentType.GUARDIAN,
+            index = position,
+            imageUrl = imageUrl,
+            gender = gender,
+            description = context.resources.getString(R.string.general_relation, relation),
+            name = fullName,
+            personalPhone = personalPhoneNumber,
+            personalEmail = personalEmail
         )
     }
-
-    return memberContactInfo
 }
 
-fun Student.getAdvisorMemberContactInfo(context: Context): MutableList<MenuContactInfoItem> {
-    val memberContactInfo = mutableListOf<MenuContactInfoItem>()
-
-    advisor.forEachIndexed { index, studentInstructorContactInfo ->
-        memberContactInfo.add(
-            MenuContactInfoItem(
-                menuSegmentType = MenuSegmentType.INSTRUCTOR,
-                index = index,
-                imageUrl = studentInstructorContactInfo.imageUrl,
-                gender = studentInstructorContactInfo.gender,
-                description = context.resources.getString(R.string.general_room, studentInstructorContactInfo.officeRoom),
-                name = studentInstructorContactInfo.fullName,
-                personalPhone = studentInstructorContactInfo.personalPhoneNumber,
-                officePhone = studentInstructorContactInfo.officePhoneNumber,
-                officeEmail = studentInstructorContactInfo.officeEmail
-            )
+fun Student.getAdvisorMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {
+    return with(this.advisor[position]) {
+        MenuContactInfoItem(
+            menuSegmentType = MenuSegmentType.INSTRUCTOR,
+            index = position,
+            imageUrl = imageUrl,
+            gender = gender,
+            description = context.resources.getString(R.string.general_room, officeRoom),
+            name = fullName,
+            personalPhone = personalPhoneNumber,
+            officePhone = officePhoneNumber,
+            officeEmail = officeEmail
         )
     }
-
-    return memberContactInfo
 }
 
 fun Student.getMenuMember(context: Context): List<MenuMemberItem> {

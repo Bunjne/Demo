@@ -99,13 +99,13 @@ class MenuStudentFragment : BaseFragment() {
             },
             onMemberClicked = {
                 if (it.type == MenuSegmentType.INSTRUCTOR) {
-                    val advisors = student.getAdvisorMemberContactInfo(requireContext())
-                    advisors.getOrNull(it.index)?.let {
+                    student.getAdvisorMemberContactInfo(requireContext(), it.index)?.let {
+
                         MenuContactInfoDialog.newInstance(it).show(parentFragmentManager, "")
                     }
                 } else {
-                    val guardians = student.getGuardianMemberContactInfo(requireContext())
-                    guardians.getOrNull(it.index)?.let {
+                    student.getGuardianMemberContactInfo(requireContext(), it.index)?.let {
+
                         MenuContactInfoDialog.newInstance(it).show(parentFragmentManager, "")
                     }
                 }
