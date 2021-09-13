@@ -69,6 +69,5 @@
     <string name="school_record_complete">Completed</string>
     <string name="school_record_grade_summary_text">ภาพรวมพัฒนาการ</string>
     <string name="school_record_evaluation_title">เกณฑ์การประเมิน</string>
-    <string name="school_record_beginning_text">Beginning</string>
     <string name="school_record_overall_text">Overall</string>
 </resources>

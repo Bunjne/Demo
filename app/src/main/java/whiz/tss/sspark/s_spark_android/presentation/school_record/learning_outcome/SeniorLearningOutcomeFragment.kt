@@ -8,10 +8,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.ExpectOutcomeBottomSheetDialog
+import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.SeniorExpectOutcomeBottomSheetDialog
 
 class SeniorLearningOutcomeFragment : BaseFragment() {
 
@@ -61,7 +60,7 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
             onItemClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_TAG) != null
                 if (!isShowing) {
-                    ExpectOutcomeBottomSheetDialog.newInstance(it.courseCode, it.courseName, it.credit).show(childFragmentManager, EXPECT_OUTCOME_TAG)
+                    SeniorExpectOutcomeBottomSheetDialog.newInstance(it.courseCode, it.courseName, it.credit).show(childFragmentManager, EXPECT_OUTCOME_TAG)
                 }
             }
         )

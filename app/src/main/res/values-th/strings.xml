@@ -29,6 +29,7 @@
     </string-array>
 
     <!--Expect outcome info-->
+    <string name="school_record_beginning_text">Beginning</string>
     <string name="school_record_beginning_description_text">เริ่มต้น</string>
     <string name="school_record_developing_text">Developing</string>
     <string name="school_record_developing_description_text">กำลังพัฒนา</string>
