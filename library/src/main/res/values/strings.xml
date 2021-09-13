@@ -25,6 +25,7 @@
     <string name="general_credit">%1$s หน่วยกิต</string>
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
+    <string name="general_alertmessage_loading_title">Please Wait...</string>
 
     <!--Datetime-->
     <string name="screen_header_subtitle">LAST UPDATED AT %1$s HRS.</string>
