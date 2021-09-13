@@ -34,6 +34,49 @@ fun Student.convertToProfile(): Profile {
     return Profile(this.imageUrl, this.gender, this.code, this.firstName, this.lastName)
 }
 
+fun Student.getGuardianMemberContactInfo(context: Context): MutableList<MenuContactInfoItem> {
+    val memberContactInfo = mutableListOf<MenuContactInfoItem>()
+
+    guardians.forEachIndexed { index, studentGuardianContactInfo ->
+        memberContactInfo.add(
+            MenuContactInfoItem(
+                menuSegmentType = MenuSegmentType.GUARDIAN,
+                index = index,
+                imageUrl = studentGuardianContactInfo.imageUrl,
+                gender = studentGuardianContactInfo.gender,
+                description = context.resources.getString(R.string.general_relation, studentGuardianContactInfo.relation),
+                name = studentGuardianContactInfo.fullName,
+                personalPhone = studentGuardianContactInfo.personalPhoneNumber,
+                personalEmail = studentGuardianContactInfo.personalEmail
+            )
+        )
+    }
+
+    return memberContactInfo
+}
+
+fun Student.getAdvisorMemberContactInfo(context: Context): MutableList<MenuContactInfoItem> {
+    val memberContactInfo = mutableListOf<MenuContactInfoItem>()
+
+    advisor.forEachIndexed { index, studentInstructorContactInfo ->
+        memberContactInfo.add(
+            MenuContactInfoItem(
+                menuSegmentType = MenuSegmentType.INSTRUCTOR,
+                index = index,
+                imageUrl = studentInstructorContactInfo.imageUrl,
+                gender = studentInstructorContactInfo.gender,
+                description = context.resources.getString(R.string.general_room, studentInstructorContactInfo.officeRoom),
+                name = studentInstructorContactInfo.fullName,
+                personalPhone = studentInstructorContactInfo.personalPhoneNumber,
+                officePhone = studentInstructorContactInfo.officePhoneNumber,
+                officeEmail = studentInstructorContactInfo.officeEmail
+            )
+        )
+    }
+
+    return memberContactInfo
+}
+
 fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
     val menuMemberItems: MutableList<MenuMemberItem> = mutableListOf()
 
