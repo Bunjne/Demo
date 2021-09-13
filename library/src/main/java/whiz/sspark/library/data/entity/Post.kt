@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class Post(
-        @SerializedName("id") val _id: String = "",
+        @SerializedName("id") val id: String = "",
         @SerializedName("author") val author: ClassMember = ClassMember(),
         @SerializedName("attachments") private val _attachments: String? = null,
         @SerializedName("createdAt") val createdAt: Date = Date(),
@@ -16,6 +16,5 @@ data class Post(
         @SerializedName("likesCount") var likeCount: Int = 0,
         @SerializedName("commentsCount") var commentCount: Int = 0
 ) {
-    val id: Any get() = _id.toLongOrNull() ?: _id
     val attachments: String get() = _attachments ?: ""
 }

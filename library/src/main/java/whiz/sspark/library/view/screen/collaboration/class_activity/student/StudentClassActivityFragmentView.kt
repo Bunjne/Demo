@@ -33,10 +33,10 @@ class StudentClassActivityFragmentView : ConstraintLayout {
              onImageClicked: (ImageView, String) -> Unit,
              onLikeClicked: (Post) -> Unit,
              onCommentClicked: (Post, Boolean) -> Unit,
-             onPostRead: (Any) -> Unit,
+             onPostRead: (String) -> Unit,
              onOnlineClassPlatformClicked: (String) -> Unit,
-             onPostLikedUsersClicked:(Any) -> Unit,
-             onPostSeenUsersClicked:(Any) -> Unit) {
+             onPostLikedUsersClicked:(String) -> Unit,
+             onPostSeenUsersClicked:(String) -> Unit) {
 
         val linearLayoutManager = LinearLayoutManager(context)
         with(binding.rvPost) {
@@ -47,7 +47,6 @@ class StudentClassActivityFragmentView : ConstraintLayout {
                     items = items,
                     allMemberCount = allMemberCount,
                     color = color,
-                    onPostRead = { id -> },
                     onPostClicked = { post ->
                         onPostClicked(post, false)
                     },
@@ -84,8 +83,7 @@ class StudentClassActivityFragmentView : ConstraintLayout {
 
                     for (position in firstVisiblePosition..lastVisibleItemPosition) {
                         val itemRect = Rect()
-                        linearLayoutManager.findViewByPosition(position)
-                            ?.getGlobalVisibleRect(itemRect)
+                        linearLayoutManager.findViewByPosition(position)?.getGlobalVisibleRect(itemRect)
 
                         val post = items.getOrNull(position)?.post
 
@@ -106,6 +104,8 @@ class StudentClassActivityFragmentView : ConstraintLayout {
 
     fun refreshRecyclerView(items: List<StudentClassPostAdapter.Item>) {
         binding.rvPost.adapter?.updateItem(this.items, items)
+
+        checkPostAmount()
     }
 
     fun notifyRecycleViewItemChanged(index: Int) {
@@ -116,13 +116,13 @@ class StudentClassActivityFragmentView : ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun checkPostAmount() {
-        binding.tvNoPost.visibility = if (items.filter { it.post != null }.any()) View.INVISIBLE else View.VISIBLE
-    }
-
     fun scrollToTopPost() {
         if (items.any()) {
             binding.rvPost.layoutManager?.scrollToPosition(0)
         }
+    }
+
+    private fun checkPostAmount() {
+        binding.tvNoPost.visibility = if (items.filter { it.post != null }.any()) View.INVISIBLE else View.VISIBLE
     }
 }

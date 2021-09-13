@@ -42,8 +42,6 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
 
         val linearLayoutManager = LinearLayoutManager(context)
         with(binding.rvPostComment) {
-            isNestedScrollingEnabled = true
-
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation).apply {
                 setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_comment)!!)

@@ -68,7 +68,6 @@
     <string name="date_time_just_now">เมื่อสักครู่นี้</string>
 
     <string name="date_time_post_at">เวลา</string>
-    <string name="date_time_nor_nhu">น.</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>
@@ -108,6 +107,7 @@
 
     <!-- Class Post Comments -->
     <string name="class_post_comment_write_comment">แสดงความคิดเห็น…</string>
+    <string name="class_post_comment_author_name_place_holder">#%1$s %2$s</string>
 
     <string-array name="class_post_comment_action_owner">
         <item>คัดลอกข้อความ</item>

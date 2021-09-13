@@ -22,7 +22,8 @@ class StudentOnlineClassContainerView : ConstraintLayout {
         ViewStudentOnlineClassContainerBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(onOnlineClassPlatformClicked: (String) -> Unit) {
+    fun init(platformOnlineClasses: List<PlatformOnlineClass>,
+             onOnlineClassPlatformClicked: (String) -> Unit) {
         with(binding.rvPlatformOnline) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = OnlineClassAdapter(
@@ -31,9 +32,11 @@ class StudentOnlineClassContainerView : ConstraintLayout {
                 onOnlineClassClicked = onOnlineClassPlatformClicked
             )
         }
+
+        renderOnlineClasses(platformOnlineClasses)
     }
 
-    fun renderOnlineClasses(platformOnlineClasses: List<PlatformOnlineClass>) {
+    private fun renderOnlineClasses(platformOnlineClasses: List<PlatformOnlineClass>) {
         binding.rvPlatformOnline.adapter?.updateItem(platformList, platformOnlineClasses)
 
         if (platformList.isNotEmpty()) {

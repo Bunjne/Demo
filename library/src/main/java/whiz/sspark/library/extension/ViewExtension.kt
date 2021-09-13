@@ -132,10 +132,10 @@ fun View.setDarkModeBackground(isNextItemHeader: Boolean, isPreviousItemHeader: 
     }
 }
 
-fun Window.setGradientDrawable(drawable: Int) {
+fun Window.setGradientDrawable(resourceId: Int) {
     this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     this.statusBarColor = Color.TRANSPARENT
-    this.setBackgroundDrawable(ContextCompat.getDrawable(this.context, drawable))
+    this.setBackgroundDrawable(ContextCompat.getDrawable(this.context, resourceId))
 }
 
 fun Window.setGradientDrawable(drawable: Drawable) {

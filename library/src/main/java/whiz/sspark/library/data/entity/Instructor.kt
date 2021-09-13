@@ -12,8 +12,6 @@ data class Instructor(
         @SerializedName("firstNameTh") val firstNameTh: String = "",
         @SerializedName("lastNameEn") val lastNameEn: String = "",
         @SerializedName("lastNameTh") val lastNameTh: String = "",
-        @SerializedName("fullNameEn") val fullNameEn: String = "",
-        @SerializedName("fullNameTh") val fullNameTh: String = "",
         @SerializedName("facultyImageUrl") val facultyImageUrl: String = "",
         @SerializedName("facultyNameEn") val facultyNameEn: String = "",
         @SerializedName("facultyNameTh") val facultyNameTh: String = "",
@@ -43,7 +41,6 @@ data class Instructor(
 ) {
         val firstName: String get() = localize(firstNameEn, firstNameTh, firstNameEn, false)
         val lastName: String get() = localize(lastNameEn, lastNameTh, lastNameEn, false)
-        val fullName: String get() = localize(fullNameEn, fullNameTh, fullNameEn, false)
         val position: String get() = localize(positionEn, positionTh, positionEn, false)
 }
 

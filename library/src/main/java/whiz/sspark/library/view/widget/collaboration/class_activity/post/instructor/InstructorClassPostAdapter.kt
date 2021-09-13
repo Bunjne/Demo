@@ -17,14 +17,13 @@ class InstructorClassPostAdapter(private val context: Context,
                                  private val color: Int,
                                  private val onDeletePostClicked: (Post) -> Unit,
                                  private val onEditPostClicked: (Post) -> Unit,
-                                 private val onPostRead: (Any) -> Unit,
                                  private val onPostClicked: (Post) -> Unit,
                                  private val onImageClicked: (ImageView, Attachment) -> Unit,
                                  private val onLikeClicked: (Post) -> Unit,
                                  private val onCommentClicked: (Post) -> Unit,
                                  private val onFileClicked: (Attachment) -> Unit,
-                                 private val onDisplayLikedUsersClicked: (Any) -> Unit,
-                                 private val onDisplaySeenUsersClicked: (Any) -> Unit,
+                                 private val onDisplayLikedUsersClicked: (String) -> Unit,
+                                 private val onDisplaySeenUsersClicked: (String) -> Unit,
                                  private val onOnlineClassPlatformClicked: (String) -> Unit,
                                  private val onShowAllOnlineClassPlatformsClicked: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -70,7 +69,6 @@ class InstructorClassPostAdapter(private val context: Context,
                     color = color,
                     onDeletePostClicked = onDeletePostClicked,
                     onEditPostClicked = onEditPostClicked,
-                    onPostRead = onPostRead,
                     onPostClicked = onPostClicked,
                     onImageClicked = onImageClicked,
                     onLikeClicked = onLikeClicked,
@@ -80,18 +78,19 @@ class InstructorClassPostAdapter(private val context: Context,
                     onDisplaySeenUsersClicked = onDisplaySeenUsersClicked
                 )
 
-                setPadding(8.toDP(context), 0, 8.toDP(context), 4.toDP(context))
+                setPadding(6.toDP(context), 0, 6.toDP(context), 0)
             }
         }
 
         item.onlineClasses?.let {
             (holder.itemView as? InstructorOnlineClassContainerView)?.apply {
                 init(
+                    platformOnlineClasses = it,
                     onShowAllOnlineClassPlatformsClicked = onShowAllOnlineClassPlatformsClicked,
                     onOnlineClassPlatformClicked = onOnlineClassPlatformClicked
                 )
-                renderOnlineClasses(it)
-                setPadding(8.toDP(context), 0, 0, 16.toDP(context))
+
+                setPadding(8.toDP(context), 0, 0, 10.toDP(context))
             }
         }
     }

@@ -15,14 +15,13 @@ class StudentClassPostAdapter(private val context: Context,
                               private val items: List<Item>,
                               private val allMemberCount: Int,
                               private val color: Int,
-                              private val onPostRead: (Any) -> Unit,
                               private val onPostClicked: (Post) -> Unit,
                               private val onImageClicked: (ImageView, Attachment) -> Unit,
                               private val onLikeClicked: (Post) -> Unit,
                               private val onCommentClicked: (Post) -> Unit,
                               private val onFileClicked: (Attachment) -> Unit,
-                              private val onDisplayLikedUsersClicked: (Any) -> Unit,
-                              private val onDisplaySeenUsersClicked: (Any) -> Unit,
+                              private val onDisplayLikedUsersClicked: (String) -> Unit,
+                              private val onDisplaySeenUsersClicked: (String) -> Unit,
                               private val onOnlineClassPlatformClicked: (String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class StudentClassPostViewHolder(val view: View) : RecyclerView.ViewHolder(view)
@@ -65,7 +64,6 @@ class StudentClassPostAdapter(private val context: Context,
                     post = post,
                     allMemberCount = allMemberCount,
                     color = color,
-                    onPostRead = onPostRead,
                     onPostClicked = onPostClicked,
                     onImageClicked = onImageClicked,
                     onLikeClicked = onLikeClicked,
@@ -75,15 +73,15 @@ class StudentClassPostAdapter(private val context: Context,
                     onDisplaySeenUsersClicked = onDisplaySeenUsersClicked
                 )
 
-                setPadding(8.toDP(context), 0, 8.toDP(context), 4.toDP(context))
+                setPadding(6.toDP(context), 0, 6.toDP(context), 0)
             }
         }
 
         item.onlineClasses?.let {
             (holder.itemView as? StudentOnlineClassContainerView)?.apply {
-                init(onOnlineClassPlatformClicked)
-                renderOnlineClasses(it)
-                setPadding(8.toDP(context), 0, 0, 16.toDP(context))
+                init(it, onOnlineClassPlatformClicked)
+
+                setPadding(8.toDP(context), 0, 0, 10.toDP(context))
             }
         }
     }

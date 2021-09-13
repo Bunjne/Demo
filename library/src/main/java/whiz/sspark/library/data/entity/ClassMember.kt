@@ -1,6 +1,7 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
+import whiz.sspark.library.extension.toFirstCharacter
 import whiz.sspark.library.utility.localize
 import java.util.*
 
@@ -12,6 +13,8 @@ data class ClassMember(
     @SerializedName("firstNameTh") private val _firstNameTh: String = "",
     @SerializedName("lastNameEn") val _lastNameEn: String = "",
     @SerializedName("lastNameTh") private val _lastNameTh: String = "",
+    @SerializedName("nicknameEn") val _nicknameEn: String = "",
+    @SerializedName("nicknameTh") val _nicknameTh: String = "",
     @SerializedName("positionEn") private val positionEn: String = "",
     @SerializedName("positionTh") private val positionTh: String = "",
     @SerializedName("facultyNameEn") private val _facultyNameEn: String = "",
@@ -21,20 +24,14 @@ data class ClassMember(
     @SerializedName("colorCode") val colorCode: String? = null,
     @SerializedName("gender") val gender: String = "",
     @SerializedName("healthStatus") val healthStatus: String = "",
-    @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date()
+    @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date(),
+    @SerializedName("number") val number: String = ""
 ) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val lastName: String get() = localize(_lastNameEn, _lastNameTh, _lastNameEn, true)
+    val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, true)
     val facultyName: String get() = localize(_facultyNameEn, _facultyNameTh, _facultyNameEn, true)
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
+    val abbreviatedName: String get() = firstName.toFirstCharacter() + lastName.toFirstCharacter()
 
-    val abbreviatedLastName: String
-        get() {
-            val localizedLastName = localize(_lastNameEn, _lastNameTh, _lastNameEn, false)
-            return if (localizedLastName.any()) {
-                localizedLastName.take(1) + "."
-            } else {
-                ""
-            }
-        }
 }

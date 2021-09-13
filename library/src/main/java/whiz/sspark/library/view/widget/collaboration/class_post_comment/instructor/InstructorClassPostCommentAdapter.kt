@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostView
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.ClassPostCommentView
 
@@ -72,7 +73,17 @@ class InstructorClassPostCommentAdapter(private val context: Context,
                     onDisplaySeenUsersClicked = { onDisplaySeenUsersClicked() })
             } else {
                 val comment = item.post
-                (holder.itemView as ClassPostCommentView).init(comment, color, onCommentItemClicked)
+                (holder.itemView as ClassPostCommentView).apply {
+                    init(comment, color, onCommentItemClicked)
+
+                    val isFirstComment = position == 1
+
+                    if (isFirstComment) {
+                        setPadding(0, 20.toDP(context), 0, 0)
+                    } else {
+                        setPadding(0, 0, 0, 0)
+                    }
+                }
             }
         }
     }

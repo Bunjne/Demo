@@ -4,13 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cvProfile"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -23,8 +22,8 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="16dp"
-        app:autoSizeMaxTextSize="16dp"
+        android:textSize="17dp"
+        app:autoSizeMaxTextSize="17dp"
         app:autoSizeMinTextSize="12dp"
         app:autoSizeStepGranularity="1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +56,7 @@
         android:id="@+id/cvNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         app:cardBackgroundColor="@color/primaryColor"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
@@ -74,7 +73,7 @@
             android:text="@string/class_post_author_header_new"
             android:textColor="@color/naturalV100"
             android:textSize="9dp"
-            app:ssparkFont="regular" />
+            app:ssparkFont="bold" />
 
     </androidx.cardview.widget.CardView>
 

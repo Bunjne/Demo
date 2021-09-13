@@ -24,7 +24,7 @@ fun Date.toPostTime(context: Context): String {
     val timeDifferencesInHours = timeDifferencesInMinutes / 60
 
     return when {
-        timeDifferencesInHours > 20 -> SimpleDateFormat("d MMMM", Locale.getDefault()).format(this.toLocalDate()!!) + " " + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat("HH:mm", Locale.getDefault()).format(this.toLocalDate()!!) + " " + context.resources.getString(R.string.date_time_nor_nhu)
+        timeDifferencesInHours > 20 -> SimpleDateFormat("d MMMM", Locale.getDefault()).format(this.toLocalDate()!!) + " " + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat("HH:mm", Locale.getDefault()).format(this.toLocalDate()!!)
         timeDifferencesInHours in 1L..20 -> context.resources.getQuantityString(R.plurals.date_time_hour_ago, timeDifferencesInHours.toInt(), timeDifferencesInHours.toInt())
         timeDifferencesInMinutes in 1L..59 -> context.resources.getQuantityString(R.plurals.date_time_minute_ago, timeDifferencesInMinutes.toInt(), timeDifferencesInMinutes.toInt())
         else -> context.getString(R.string.date_time_just_now)

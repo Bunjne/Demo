@@ -92,7 +92,7 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, ClassDetailActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }

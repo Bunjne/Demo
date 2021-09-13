@@ -27,6 +27,7 @@ class ClassDetailActivityView : ConstraintLayout {
     fun init(backgroundDrawable: GradientDrawable,
              courseName: String,
              courseCode: String,
+             color: Int,
              bottomNavigationBarItems: List<BottomNavigationBarItem>,
              onNavigationItemSelected: (Int) -> Unit,
              onStudyPlanClicked: () -> Unit) {
@@ -38,7 +39,12 @@ class ClassDetailActivityView : ConstraintLayout {
             }
         }
 
-        binding.ivStudyPlan.show(R.drawable.ic_clipboard)
+        with (binding.ivStudyPlan) {
+            show(R.drawable.ic_clipboard)
+            setColorFilter(color)
+        }
+
+        binding.tvStudyPlan.setTextColor(color)
 
         binding.cvStudyPlan.setOnClickListener {
             onStudyPlanClicked()

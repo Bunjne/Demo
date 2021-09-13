@@ -219,8 +219,12 @@ class InstructorClassActivityFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
+
+        if (items.isNotEmpty()) {
+            viewModel.listPosts(classGroupId)
+        }
 
         activity?.let {
             socket?.run {
@@ -336,16 +340,11 @@ class InstructorClassActivityFragment : BaseFragment() {
             it?.let { posts ->
                 items.removeAll { it.post != null }
 
-                with(items) {
-                    posts.forEach {
-                        add(InstructorClassPostAdapter.Item(post = it))
-                    }
+                posts.forEach {
+                    items.add(InstructorClassPostAdapter.Item(post = it))
                 }
 
-                with (binding.vClassActivity) {
-                    refreshRecyclerView(items)
-                    checkPostAmount()
-                }
+                binding.vClassActivity.refreshRecyclerView(items)
             }
         }
 
@@ -365,7 +364,7 @@ class InstructorClassActivityFragment : BaseFragment() {
     private fun likePost(post: Post) {
         val data = JSONObject()
         data.put("userId", instructorUserId)
-        data.put("postId", post.id.toString())
+        data.put("postId", post.id)
 
         if (post.isLike) {
             socket?.emit(SocketPath.collaborationSocketEmitterPostUnLikePath, data)
@@ -391,10 +390,7 @@ class InstructorClassActivityFragment : BaseFragment() {
 
             items.removeAll { it.post != null }
 
-            with (binding.vClassActivity) {
-                refreshRecyclerView(items)
-                checkPostAmount()
-            }
+            binding.vClassActivity.refreshRecyclerView(items)
         })
 
         viewModel.onlineClassesErrorResponse.observe(this, Observer {

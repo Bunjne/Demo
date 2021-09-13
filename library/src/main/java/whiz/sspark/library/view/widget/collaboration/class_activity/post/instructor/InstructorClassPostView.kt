@@ -36,7 +36,6 @@ class InstructorClassPostView : ConstraintLayout {
     fun init(post: Post,
              allMemberCount: Int,
              color: Int,
-             onPostRead: (Any) -> Unit = {},
              onPostClicked: (Post) -> Unit = {},
              onDeletePostClicked: (Post) -> Unit,
              onEditPostClicked: (Post) -> Unit,
@@ -44,12 +43,9 @@ class InstructorClassPostView : ConstraintLayout {
              onLikeClicked: (Post) -> Unit,
              onCommentClicked: (Post) -> Unit = {},
              onFileClicked: (Attachment) -> Unit,
-             onDisplayLikedUsersClicked: (Any) -> Unit,
-             onDisplaySeenUsersClicked: (Any) -> Unit) {
+             onDisplayLikedUsersClicked: (String) -> Unit,
+             onDisplaySeenUsersClicked: (String) -> Unit) {
         binding.ivMore.show(R.drawable.ic_option)
-        if (!post.isRead) {
-            onPostRead(post.id)
-        }
         binding.vAuthor.init(post.author, post.createdAt, post.updatedAt, post.isRead, color)
         with(binding.tvPostText) {
             text = post.message
@@ -84,11 +80,10 @@ class InstructorClassPostView : ConstraintLayout {
                 binding.llPostImage.visibility = View.VISIBLE
                 images.forEach { image ->
                     binding.llPostImage.addView(
-                        ClassPostImageView(
-                            context
-                        ).apply {
-                        init(image, onImageClicked)
-                    })
+                        ClassPostImageView(context).apply {
+                            init(image, onImageClicked)
+                        }
+                    )
                 }
             }
 
@@ -101,11 +96,10 @@ class InstructorClassPostView : ConstraintLayout {
                 binding.llPostFile.visibility = View.VISIBLE
                 files.forEach { file ->
                     binding.llPostFile.addView(
-                        ClassPostFileView(
-                            context
-                        ).apply {
-                        init(file, onFileClicked)
-                    })
+                        ClassPostFileView(context).apply {
+                            init(file, onFileClicked)
+                        }
+                    )
                 }
             }
         } else {

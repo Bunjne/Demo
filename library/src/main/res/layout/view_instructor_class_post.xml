@@ -10,7 +10,7 @@
     app:shadow0_Outer_Color="@color/shadowColor"
     app:shadow0_Outer_Blur="30dp"
     app:shadow0_Outer_Alpha="1"
-    app:shadow_Outer_Area="4dp">
+    app:shadow_Outer_Area="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

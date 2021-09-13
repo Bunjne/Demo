@@ -59,7 +59,7 @@ class ClassDetailActivity : BaseActivity() {
             shape = GradientDrawable.RECTANGLE
             gradientType = GradientDrawable.LINEAR_GRADIENT
             orientation = GradientDrawable.Orientation.LEFT_RIGHT
-            colors = listOf(startColor, endColor).toIntArray()
+            colors = intArrayOf(startColor, endColor)
         }
 
         with (binding.vProfile) {
@@ -89,6 +89,7 @@ class ClassDetailActivity : BaseActivity() {
                 backgroundDrawable = gradientDrawable,
                 courseName = courseName,
                 courseCode = courseCode,
+                color = startColor,
                 bottomNavigationBarItems =  bottomNavigationBarItems,
                 onNavigationItemSelected = {
                     if (currentFragment != it) {
@@ -96,13 +97,13 @@ class ClassDetailActivity : BaseActivity() {
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
                                 if (SSparkApp.role != RoleType.INSTRUCTOR) {
-                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 } else {
-                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 }
                             }
-//                            BottomNavigationId.ATTENDANCE.id -> renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id as? String ?: "", color, courseCode, sectionNumber), supportFragmentManager)
-//                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id as? String ?: ""), supportFragmentManager)
+//                            BottomNavigationId.ATTENDANCE.id -> renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id, color, courseCode, sectionNumber), supportFragmentManager)
+//                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id), supportFragmentManager)
                         }
                     }
                 },

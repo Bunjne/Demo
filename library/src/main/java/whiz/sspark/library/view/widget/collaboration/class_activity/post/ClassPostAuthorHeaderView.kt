@@ -9,10 +9,8 @@ import android.widget.LinearLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.databinding.ViewClassPostAuthorHeaderBinding
-import whiz.sspark.library.extension.showClassMemberProfileCircle
-import whiz.sspark.library.extension.toColor
-import whiz.sspark.library.extension.toInstructorFullName
-import whiz.sspark.library.extension.toPostTime
+import whiz.sspark.library.extension.*
+import whiz.sspark.library.utility.convertToFullName
 import java.util.*
 
 class ClassPostAuthorHeaderView : LinearLayout {
@@ -34,7 +32,7 @@ class ClassPostAuthorHeaderView : LinearLayout {
 
             binding.cvProfile.showClassMemberProfileCircle(it.profileImageUrl, it, Color.WHITE, memberColor)
 
-            binding.tvName.text = it.toInstructorFullName().toUpperCase()
+            binding.tvName.text = convertToFullName(it.firstName, null, it.lastName, it.position).toUpperCase()
             binding.tvDate.text = if (createdAt == updatedAt) {
                 updatedAt.toPostTime(context)
             } else {

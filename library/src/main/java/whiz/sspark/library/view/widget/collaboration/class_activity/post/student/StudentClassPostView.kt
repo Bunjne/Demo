@@ -35,17 +35,13 @@ class StudentClassPostView : ConstraintLayout {
     fun init(post: Post,
              allMemberCount: Int,
              color: Int,
-             onPostRead: (Any) -> Unit = {},
              onPostClicked: (Post) -> Unit = {},
              onImageClicked: (ImageView, Attachment) -> Unit,
              onLikeClicked: (Post) -> Unit,
              onCommentClicked: (Post) -> Unit = {},
              onFileClicked: (Attachment) -> Unit,
-             onDisplayLikedUsersClicked: (Any) -> Unit,
-             onDisplaySeenUsersClicked: (Any) -> Unit) {
-        if (!post.isRead) {
-            onPostRead(post.id)
-        }
+             onDisplayLikedUsersClicked: (String) -> Unit,
+             onDisplaySeenUsersClicked: (String) -> Unit) {
         binding.vAuthor.init(post.author, post.createdAt, post.updatedAt, post.isRead, color)
         with(binding.tvPostText) {
             text = post.message
@@ -63,11 +59,10 @@ class StudentClassPostView : ConstraintLayout {
                 binding.llPostImage.visibility = View.VISIBLE
                 images.forEach { image ->
                     binding.llPostImage.addView(
-                        ClassPostImageView(
-                            context
-                        ).apply {
-                        init(image, onImageClicked)
-                    })
+                        ClassPostImageView(context).apply {
+                            init(image, onImageClicked)
+                        }
+                    )
                 }
             }
 
@@ -80,11 +75,10 @@ class StudentClassPostView : ConstraintLayout {
                 binding.llPostFile.visibility = View.VISIBLE
                 files.forEach { file ->
                     binding.llPostFile.addView(
-                        ClassPostFileView(
-                            context
-                        ).apply {
-                        init(file, onFileClicked)
-                    })
+                        ClassPostFileView(context).apply {
+                            init(file, onFileClicked)
+                        }
+                    )
                 }
             }
         } else {

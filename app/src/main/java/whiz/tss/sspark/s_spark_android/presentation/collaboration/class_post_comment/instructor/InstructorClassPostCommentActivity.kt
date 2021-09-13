@@ -95,7 +95,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     val likeCounts = data.getInt("likeCounts")
                     val isSocketLiked = data.getBoolean("isLike")
 
-                    if (postId.contains(post.id.toString(), true)) {
+                    if (postId.contains(post.id, true)) {
                         post.run {
                             isLike = if (userId == instructor.userId) {
                                 isSocketLiked
@@ -127,7 +127,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     val likeCounts = data.getInt("likeCounts")
                     val isSocketLiked = data.getBoolean("isLike")
 
-                    if (postId.contains(post.id.toString(), true)) {
+                    if (postId.contains(post.id, true)) {
                         post.run {
                             isLike = if (instructor.userId == userId) {
                                 isSocketLiked
@@ -160,29 +160,14 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     val message = data.getString("message")
                     val createdAtString = data.getString("createdAt")
 
-                    if (postId.contains(post.id.toString(), true)) {
-                        var member = members?.students?.singleOrNull { it.userId == userId } ?: members?.instructors?.singleOrNull { it.userId == userId }
-
-                        if (member == null && userId == instructor.userId) {
-                            with(instructor) {
-                                member = ClassMember(
-                                    code = code,
-                                    userId = userId,
-                                    _firstNameEn = firstNameEn,
-                                    _firstNameTh = firstNameTh,
-                                    _lastNameEn = lastNameEn,
-                                    _lastNameTh = lastNameTh,
-                                    profileImageUrl = profileImageUrl,
-                                    colorCode = colorCode
-                                )
-                            }
-                        }
+                    if (postId.contains(post.id, true)) {
+                        val member = members?.students?.singleOrNull { it.userId == userId } ?: members?.instructors?.singleOrNull { it.userId == userId }
 
                         member?.let { member ->
                             val createdAt = createdAtString.convertToDate(DateTimePattern.serviceDateFullFormat) ?: Date()
 
                             val comment = Post(
-                                _id = commentId.toString().toLowerCase(),
+                                id = commentId.toString().toLowerCase(),
                                 author = member,
                                 message = message,
                                 createdAt = createdAt
@@ -210,7 +195,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                 data?.let { data ->
                     val postId = data.getString("postId")
 
-                    if (postId.contains(post.id.toString(), true)) {
+                    if (postId.contains(post.id, true)) {
                         val commentId = data.getString("commentId").toLowerCase()
 
                         runOnUiThread {
@@ -271,8 +256,12 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
+
+        if (members == null) {
+            viewModel.listComments(post.id)
+        }
 
         socket?.run {
             if (!connected()) {
@@ -328,11 +317,11 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                 emitComment(message)
             },
             onDisplayLikedUsersClicked = {
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id as? String ?: "", color, PostInteraction.LIKE.type)
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id, color, PostInteraction.LIKE.type)
 //                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
             },
             onDisplaySeenUsersClicked = {
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id as? String ?: "", color, PostInteraction.SEEN.type)
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id, color, PostInteraction.SEEN.type)
 //                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
             }
         )
@@ -364,7 +353,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     private fun emitComment(text: String) {
         val data = JSONObject().apply {
             put("userId", instructor.userId)
-            put("postId", post.id.toString())
+            put("postId", post.id)
             put("message", text)
             put("classId", classGroupId)
         }
@@ -374,8 +363,8 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
     private fun deleteComment(comment: Post) {
         val data = JSONObject().apply {
-            put("postId", post.id.toString())
-            put("commentId", comment.id.toString())
+            put("postId", post.id)
+            put("commentId", comment.id)
         }
 
         socket?.emit(SocketPath.collaborationSocketEmitterPostDeleteCommentPath, data)
@@ -438,7 +427,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     }
 
     private fun updateCommentDeletion(postId: String) {
-        val commentPosition = postCommentItems.indexOfFirst { it.post.id.toString().contains(postId, true) }
+        val commentPosition = postCommentItems.indexOfFirst { it.post.id.contains(postId, true) }
         if (commentPosition > -1) {
             comments.removeAll { it.id == postId }
             postCommentItems.removeAll { it.post.id == postId }
@@ -450,8 +439,8 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
     private fun likePost(post: Post) {
         val data = JSONObject().apply {
-            put("userId", instructor.userId.toString())
-            put("postId", post.id.toString())
+            put("userId", instructor.userId)
+            put("postId", post.id)
         }
 
         if (post.isLike) {

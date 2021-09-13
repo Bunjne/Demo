@@ -19,8 +19,7 @@ interface StudentClassActivityRepository {
 }
 
 class StudentClassActivityRepositoryImpl(private val context: Context,
-                                         private val remote: StudentClassActivityService
-): StudentClassActivityRepository {
+                                         private val remote: StudentClassActivityService): StudentClassActivityRepository {
     override fun listPosts(classGroupId: String): Flow<DataWrapperX<List<Post>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

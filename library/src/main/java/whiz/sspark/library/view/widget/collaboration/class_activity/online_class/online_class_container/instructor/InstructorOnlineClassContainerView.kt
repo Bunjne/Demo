@@ -22,7 +22,8 @@ class InstructorOnlineClassContainerView : ConstraintLayout {
         ViewInstructorOnlineClassContainerBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(onShowAllOnlineClassPlatformsClicked: () -> Unit,
+    fun init(platformOnlineClasses: List<PlatformOnlineClass>,
+             onShowAllOnlineClassPlatformsClicked: () -> Unit,
              onOnlineClassPlatformClicked: (String) -> Unit) {
         with(binding.rvPlatformOnline) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -36,6 +37,8 @@ class InstructorOnlineClassContainerView : ConstraintLayout {
         binding.ivOption.setOnClickListener {
             onShowAllOnlineClassPlatformsClicked()
         }
+
+        renderOnlineClasses(platformOnlineClasses)
     }
 
     fun renderOnlineClasses(platformOnlineClasses: List<PlatformOnlineClass>) {

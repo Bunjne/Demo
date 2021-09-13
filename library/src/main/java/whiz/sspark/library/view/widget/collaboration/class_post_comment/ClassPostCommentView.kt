@@ -5,11 +5,11 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.databinding.ViewClassPostCommentBinding
 import whiz.sspark.library.extension.showClassMemberProfileCircle
 import whiz.sspark.library.extension.toColor
-import whiz.sspark.library.extension.toInstructorFullName
 import whiz.sspark.library.extension.toPostTime
 
 class ClassPostCommentView : ConstraintLayout {
@@ -34,9 +34,13 @@ class ClassPostCommentView : ConstraintLayout {
 
             binding.cvProfile.showClassMemberProfileCircle(author.profileImageUrl, author, Color.WHITE, authorColor)
 
-            val fullName = author.toInstructorFullName()
+            val commentAuthorName = if (author.position.isNotBlank()) {
+                resources.getString(R.string.class_post_comment_author_name_place_holder, author.number, author.firstName)
+            } else {
+                resources.getString(R.string.class_post_comment_author_name_place_holder, author.number, author.nickname)
+            }
 
-            binding.tvName.text = fullName
+            binding.tvName.text = commentAuthorName
             binding.tvDate.text = createdAt.toPostTime(context)
             with(binding.tvMessage) {
                 text = message
