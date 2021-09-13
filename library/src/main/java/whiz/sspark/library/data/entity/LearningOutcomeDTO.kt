@@ -21,6 +21,7 @@ data class LearningOutcomeCourseDTO(
     @SerializedName("nameEn") val nameEn: String = "",
     @SerializedName("nameTh") val nameTh: String = "",
     @SerializedName("nameCn") val nameCn: String = "",
+    @SerializedName("isCompleted") val isCompleted: Boolean = false,
     @SerializedName("credits") val credits: Int = 0,
     @SerializedName("value") val value: Float? = null,
     @SerializedName("fullValue") val fullValue: Float? = null

@@ -68,8 +68,8 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
     }
 
     override fun observeView() {
-        viewModel.viewLoading.observe(this) {
-            binding.vLearningOutcome.setSwipeRefreshLoading(it)
+        viewModel.viewLoading.observe(this) { isLoading ->
+            binding.vLearningOutcome.setSwipeRefreshLoading(isLoading)
         }
 
         viewModel.viewRendering.observe(this) {

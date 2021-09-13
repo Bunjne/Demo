@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome
+package whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.info
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,18 +9,18 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import whiz.sspark.library.extension.show
 import whiz.tss.sspark.s_spark_android.R
-import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorExpectOutcomeInfoBinding
+import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorExpectOutcomeInfoBinding
 
-class JuniorExpectOutcomeInfoDialog: DialogFragment() {
+class SeniorExpectOutcomeInfoDialog: DialogFragment() {
     companion object {
-        fun newInstance() = JuniorExpectOutcomeInfoDialog()
+        fun newInstance() = SeniorExpectOutcomeInfoDialog()
     }
 
-    private var _binding: FragmentJuniorExpectOutcomeInfoBinding? = null
+    private var _binding: FragmentSeniorExpectOutcomeInfoBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentJuniorExpectOutcomeInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentSeniorExpectOutcomeInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -94,12 +94,18 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
                     }
                 }
 
+                val percentPerformance = if (it.isCompleted) {
+                    it.percentPerformance ?: 0
+                } else {
+                    null
+                }
+
                 val learningOutcomeItem = SeniorLearningOutcomeAdapter.Item(
                     learningOutcome = LearningOutcome(
                         startColor = startColor,
                         endColor = endColor,
                         credit = it.credits,
-                        percentPerformance = it.percentPerformance ?: 0,
+                        percentPerformance = percentPerformance,
                         courseCode = it.code,
                         courseName = it.name)
                 )

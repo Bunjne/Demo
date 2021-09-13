@@ -13,6 +13,8 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentExpectOutcomeBinding
+import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.info.JuniorExpectOutcomeInfoDialog
+import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.info.SeniorExpectOutcomeInfoDialog
 
 class ExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
 

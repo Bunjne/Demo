@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
-import whiz.sspark.library.databinding.ViewExpectOutcomeFragmentBinding
+import whiz.sspark.library.databinding.ViewJuniorExpectOutcomeFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.view.widget.expect_outcome.ExpectOutcomeAdapter
 
-class ExpectOutcomeFragmentView: ConstraintLayout {
+class JuniorExpectOutcomeFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewExpectOutcomeFragmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewJuniorExpectOutcomeFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(title: String,

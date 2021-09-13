@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.InstructorCommentItem
 import whiz.sspark.library.data.entity.ExpectOutcomeCourseItem
+import whiz.sspark.library.data.entity.ExpectOutcomeOverallItem
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.InstructorCommentView
 import whiz.sspark.library.view.widget.base.ItemListTitleView
-import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 import java.lang.IndexOutOfBoundsException
 
 class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutcomeAdapter.Item, RecyclerView.ViewHolder>(ExpectOutcomeDiffCallback()) {
@@ -20,6 +20,7 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
         const val TITLE_TYPE = 1111
         const val COMMENT_TYPE = 2222
         const val COURSE_TYPE = 3333
+        const val OVERALL_TYPE = 4444
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -32,6 +33,7 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
         return when {
             item.courseItem != null -> COURSE_TYPE
             item.commentItem != null -> COMMENT_TYPE
+            item.overAllItem != null -> COMMENT_TYPE
             else -> TITLE_TYPE
         }
     }
@@ -41,6 +43,8 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
     class CommentViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     class CourseViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    class OverallViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -54,6 +58,14 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
             }
             COURSE_TYPE -> {
                 CourseViewHolder(ExpectOutcomeItemView(context).apply {
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                })
+            }
+            OVERALL_TYPE -> {
+                OverallViewHolder(ExpectOutcomeOverAllItemView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -74,8 +86,8 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         val viewType = getItemViewType(position)
-        val isNextItemHeader = getItemViewType(position + 1) == JuniorLearningOutcomeAdapter.TITLE_TYPE
-        val isPreviousItemHeader = getItemViewType(position - 1) == JuniorLearningOutcomeAdapter.TITLE_TYPE
+        val isNextItemHeader = getItemViewType(position + 1) != COURSE_TYPE
+        val isPreviousItemHeader = getItemViewType(position - 1) != COURSE_TYPE
 
         when (viewType) {
             COMMENT_TYPE -> {
@@ -87,6 +99,9 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
                     setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
                 }
             }
+            OVERALL_TYPE -> {
+                (holder.itemView as? ExpectOutcomeOverAllItemView)?.init(item.overAllItem!!)
+            }
             TITLE_TYPE -> {
                 (holder.itemView as? ItemListTitleView)?.init(item.title!!)
             }
@@ -96,6 +111,7 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
     data class Item(
         val title: String? = null,
         val commentItem: InstructorCommentItem? = null,
+        val overAllItem: ExpectOutcomeOverallItem? = null,
         val courseItem: ExpectOutcomeCourseItem? = null
     )
 }
