@@ -1,0 +1,30 @@
+<resources>
+    <!--App config-->
+    <string name="school_name">โรงเรียนสาธิตแห่งมหาวิทยาลัยธรรมศาสตร์</string>
+
+    <!--Main-->
+    <string name="tab_today">วันนี้</string>
+    <string name="tab_class">กลุ่มเรียน</string>
+    <string name="tab_id_card">บัตร</string>
+
+    <!--Menu-->
+    <string name="menu_junior_segment_instructor_text">อาจารย์ประจำชั้น</string>
+    <string name="menu_senior_segment_instructor_text">อาจารย์ที่ปรึกษา</string>
+    <string name="menu_segment_guardian_text">ผู้ปกครอง</string>
+
+    <!--general-->
+    <string name="general_back_text">ย้อนกลับ</string>
+
+    <!--Learning outcome-->
+    <string-array name="junior_school_record_segment">
+        <item>การเรียน</item>
+        <item>กิจกรรม</item>
+        <item>ความคิดเห็น</item>
+    </string-array>
+
+    <string-array name="senior_school_record_segment">
+        <item>การเรียน</item>
+        <item>สมรรถนะ</item>
+        <item>ความคิดเห็น</item>
+    </string-array>
+</resources>

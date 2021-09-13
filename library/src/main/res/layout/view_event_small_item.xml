@@ -14,14 +14,14 @@
         app:background_Color="@color/viewBaseSecondaryColor"
         app:background_Type="fill"
         app:cornerRadius="12dp"
-        app:shadow_Outer_Area="4dp"
-        app:shadow0_Outer_Blur="30dp"
-        app:shadow0_Outer_Color="@color/shadowColor"
-        app:shadow0_Outer_Alpha="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="4dp" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvName"
@@ -85,17 +85,17 @@
         app:background_Color="@color/viewBaseSecondaryColor"
         app:background_Type="fill"
         app:cornerRadius="8dp"
-        app:shadow_Outer_Area="4dp"
-        app:shadow0_Outer_Blur="30dp"
-        app:shadow0_Outer_Color="@color/shadowColor"
-        app:shadow0_Outer_Alpha="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="4dp">
 
-        <whiz.sspark.library.view.general.FixRatioImageView
+        <whiz.sspark.library.view.general.image_view.FixRatioImageView
             android:id="@+id/ivCover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

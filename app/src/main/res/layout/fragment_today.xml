@@ -139,7 +139,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.30" />
 
-    <whiz.sspark.library.view.general.PrimarySegmentTabView
+    <whiz.sspark.library.view.general.segment.PrimarySegmentTabView
         android:id="@+id/stvPage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

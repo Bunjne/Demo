@@ -2,5 +2,6 @@
     <!-- Base application theme. -->
     <style name="Theme.Ssparkandroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
+        <item name="android:statusBarColor">@color/primaryColor</item>
     </style>
 </resources>
