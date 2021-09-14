@@ -93,7 +93,7 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
 
                     override fun onStateChanged(bottomSheet: View, state: Int) {
                         if (state == BottomSheetBehavior.STATE_COLLAPSED) {
-                            dialog?.dismiss()
+                            dismiss()
                         }
                     }
                 })
@@ -107,7 +107,7 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
             subTitle = courseName,
             credit = credit,
             onCloseClicked = {
-                dialog?.dismiss()
+                dismiss()
             },
             onInfoClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_INFO) != null

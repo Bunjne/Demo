@@ -180,7 +180,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         }
     }
 
-    override fun onRefresh(data: DataWrapperX<Any>?) {
+    override fun onSetLatestUpdatedText(data: DataWrapperX<Any>?) {
         binding.vSchoolRecord.setLatestUpdatedText(data)
     }
 

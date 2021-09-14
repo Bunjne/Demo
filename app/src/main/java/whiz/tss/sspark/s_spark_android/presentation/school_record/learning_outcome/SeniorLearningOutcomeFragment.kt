@@ -59,10 +59,11 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
         if (savedInstanceState != null) {
             dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
 
-            if (dataWrapper?.data != null) {
-                listener?.onRefresh(dataWrapper)
-                val outcomes = dataWrapper!!.data!!.toJson().toObjects(Array<LearningOutcomeDTO>::class.java)
+            if (dataWrapper != null) {
+                val outcomes = dataWrapper?.data?.toJson()?.toObjects(Array<LearningOutcomeDTO>::class.java) ?: listOf()
                 binding.vLearningOutcome.updateItem(outcomes)
+
+                listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
                 viewModel.getLearningOutcome(termId)
             }
@@ -98,7 +99,7 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
         viewModel.viewRendering.observe(this) {
             dataWrapper = it
-            listener?.onRefresh(it)
+            listener?.onSetLatestUpdatedText(it)
         }
     }
 
@@ -122,7 +123,7 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
         super.onHiddenChanged(hidden)
         if (!hidden) {
             dataWrapper?.let {
-                listener?.onRefresh(it)
+                listener?.onSetLatestUpdatedText(it)
             }
         }
     }
@@ -138,6 +139,6 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
     }
 
     interface OnRefresh {
-        fun onRefresh(data: DataWrapperX<Any>?)
+        fun onSetLatestUpdatedText(data: DataWrapperX<Any>?)
     }
 }

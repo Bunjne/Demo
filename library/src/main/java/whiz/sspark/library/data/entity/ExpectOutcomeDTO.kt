@@ -17,7 +17,7 @@ data class ExpectOutcomeDTO(
     @SerializedName("colorCode1") val colorCode1: String = "",
     @SerializedName("colorCode2") val colorCode2: String = "",
     @SerializedName("term") val term: Term? = null,
-    @SerializedName("instructorComments") val instructorComments: InstructorCommentDTO? = null,
+    @SerializedName("instructorComment") val instructorComment: InstructorCommentDTO? = null,
     @SerializedName("outcomes") private val _outcomes: List<OutcomeDTO>? = null,
 ) {
     val name get() = localize(nameEn, nameTh, nameCn, false)

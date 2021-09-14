@@ -54,10 +54,20 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
     }
 
     fun updateItem(learningOutcomes: List<LearningOutcomeDTO> = listOf()) {
-        val item: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
         val filteredLearningOutcome = learningOutcomes.filter { it.value != null }
 
-        val titleItem = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
+        if (filteredLearningOutcome.isEmpty()) {
+            binding.tvNoRecord.visibility = View.VISIBLE
+            binding.rvLearningOutcome.visibility = View.GONE
+            return
+        } else {
+            binding.tvNoRecord.visibility = View.GONE
+            binding.rvLearningOutcome.visibility = View.VISIBLE
+        }
+
+        val item: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
+
+        val title = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
         val fullValue = filteredLearningOutcome.maxOfOrNull { it.fullValue } ?: 0f
         val gradeSummaries = filteredLearningOutcome.map {
             GradeSummary(
@@ -67,7 +77,7 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
                 grade = it.value!!)
         }
 
-        item.add(titleItem)
+        item.add(title)
         item.add(SeniorLearningOutcomeAdapter.Item(
             gradeSummaries = gradeSummaries,
             fullValue = fullValue
@@ -75,8 +85,8 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
 
         filteredLearningOutcome.forEach { learningOutcome ->
 
-            val titleItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
-            item.add(titleItem)
+            val titleListItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
+            item.add(titleListItem)
 
             learningOutcome.courses.forEach {
                 val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(context, R.color.primaryStartColor))
@@ -104,13 +114,5 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
         }
 
         (binding.rvLearningOutcome.adapter as? SeniorLearningOutcomeAdapter)?.submitList(item)
-
-        if (filteredLearningOutcome.isNotEmpty()) {
-            binding.tvNoRecord.visibility = View.GONE
-            binding.rvLearningOutcome.visibility = View.VISIBLE
-        } else {
-            binding.tvNoRecord.visibility = View.VISIBLE
-            binding.rvLearningOutcome.visibility = View.GONE
-        }
     }
 }
