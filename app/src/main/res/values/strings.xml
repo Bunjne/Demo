@@ -69,4 +69,8 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <!--School record-->
+    <string name="school_record_title">ผลการเรียน ม.%1$s</string>
+    <string name="school_record_term">%1$s/%2$s</string>
 </resources>

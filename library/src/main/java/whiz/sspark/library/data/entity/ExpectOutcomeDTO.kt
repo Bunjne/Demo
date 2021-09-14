@@ -16,7 +16,7 @@ data class ExpectOutcomeDTO(
     @SerializedName("fullValue") val fullValue: Float = 0f,
     @SerializedName("colorCode1") val colorCode1: String = "",
     @SerializedName("colorCode2") val colorCode2: String = "",
-    @SerializedName("term") val term: TermDTO? = null,
+    @SerializedName("term") val term: Term? = null,
     @SerializedName("instructorComments") val instructorComments: InstructorCommentDTO? = null,
     @SerializedName("outcomes") private val _outcomes: List<OutcomeDTO>? = null,
 ) {

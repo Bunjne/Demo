@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.DataWrapperX
+import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
+import whiz.sspark.library.extension.toJson
+import whiz.sspark.library.extension.toNullableJson
+import whiz.sspark.library.extension.toObject
+import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
@@ -33,6 +38,8 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
     private val binding get() = _binding!!
     private var listener: OnRefresh? = null
 
+    private var dataWrapper: DataWrapperX<Any>? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentJuniorLearningOutcomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,7 +56,19 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
 
         initView()
 
-        viewModel.getLearningOutcome(termId)
+        if (savedInstanceState != null) {
+            dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
+
+            if (dataWrapper?.data != null) {
+                listener?.onRefresh(dataWrapper)
+                val outcomes = dataWrapper!!.data!!.toJson().toObjects(Array<LearningOutcomeDTO>::class.java)
+                binding.vLearningOutcome.updateItem(outcomes)
+            } else {
+                viewModel.getLearningOutcome(termId)
+            }
+        } else {
+            viewModel.getLearningOutcome(termId)
+        }
     }
 
     override fun initView() {
@@ -73,11 +92,12 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
     }
 
     override fun observeView() {
-        viewModel.viewLoading.observe(this) {
-            binding.vLearningOutcome.setSwipeRefreshLoading(it)
+        viewModel.viewLoading.observe(this) { isLoading->
+            binding.vLearningOutcome.setSwipeRefreshLoading(isLoading)
         }
 
         viewModel.viewRendering.observe(this) {
+            dataWrapper = it
             listener?.onRefresh(it)
         }
     }
@@ -96,6 +116,20 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
                 showApiResponseXAlert(requireContext(), it)
             }
         }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            dataWrapper?.let {
+                listener?.onRefresh(it)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("dataWrapper", dataWrapper?.toNullableJson())
     }
 
     override fun onDestroyView() {

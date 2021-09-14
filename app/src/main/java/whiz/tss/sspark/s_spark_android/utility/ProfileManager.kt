@@ -8,10 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import whiz.sspark.library.data.entity.Instructor
-import whiz.sspark.library.data.entity.Profile
-import whiz.sspark.library.data.entity.Student
-import whiz.sspark.library.data.entity.convertToProfile
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.SSparkApp
@@ -51,9 +48,9 @@ class ProfileManager(private val context: Context) {
         }
     }
 
-    suspend fun clearStudent() {
+    suspend fun clearData() {
         context.dataStore.edit {
-            it.remove(STUDENT_KEY)
+            it.clear()
         }
     }
 }

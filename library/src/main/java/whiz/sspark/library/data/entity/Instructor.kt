@@ -37,6 +37,7 @@ data class Instructor(
         @SerializedName("instructorEmail") val instructorEmail: String = "",
         @SerializedName("personalEmail") var personalEmail: String = "",
         @SerializedName("personalPhone") var personalPhone: String = "",
+        @SerializedName("term") var term: Term = Term(),
         @SerializedName("today") var today: Date = Date()
 ) {
         val firstName: String get() = localize(firstNameEn, firstNameTh, firstNameEn, false)
