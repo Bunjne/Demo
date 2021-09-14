@@ -31,12 +31,6 @@ class TimelineFragment : BaseFragment() {
     private var _binding: FragmentTimelineBinding? = null
     private val binding get() = _binding!!
 
-    private val loadingDialog by lazy {
-//        activity?.indeterminateProgressDialog(resources.getString(R.string.loading_dialog_title)) {
-//            setCancelable(false) TODO Insert undeprecated progress dialog here
-//        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentTimelineBinding.inflate(inflater, container, false)
         return binding.root

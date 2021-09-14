@@ -30,6 +30,18 @@
         <activity
             android:name=".presentation.school_record.SchoolRecordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.collaboration.ClassDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.image.ImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.collaboration.class_post_comment.instructor.InstructorClassPostCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.collaboration.class_post_comment.student.StudentClassPostCommentActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

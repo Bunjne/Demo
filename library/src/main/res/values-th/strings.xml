@@ -34,6 +34,20 @@
     <string name="update_new_data">รอสักครู่...</string>
     <string name="update_just_now">สักครู่นี้</string>
 
+    <plurals name="date_time_hour_ago">
+        <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
+        <item quantity="other">%1$d ชั่วโมงที่แล้ว</item>
+    </plurals>
+
+    <plurals name="date_time_minute_ago">
+        <item quantity="one">%1$d นาทีที่แล้ว</item>
+        <item quantity="other">%1$d นาทีที่แล้ว</item>
+    </plurals>
+
+    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
+
+    <string name="date_time_post_at">เวลา</string>
+
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
     <string name="today_happenings_announcement">ประกาศ</string>
@@ -55,4 +69,55 @@
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
+
+    <!-- Class Detail -->
+    <string name="class_detail_tab_activity">ข่าวสาร</string>
+    <string name="class_detail_tab_attendance">การเข้าเรียน</string>
+    <string name="class_detail_tab_student">นักเรียน</string>
+    <string name="class_detail_tab_homework">ASSIGNMENT</string>
+    <string name="class_detail_study_plan_title">แผนการเรียน</string>
+
+    <!-- Class Activity -->
+    <string name="class_post_create_post_title">สร้างโพสต์ใหม่</string>
+    <string name="class_post_no_post">ไม่มีโพสต์</string>
+    <string name="class_post_action_title_like">ถูกใจ</string>
+    <string name="class_post_action_title_comment">ความคิดเห็น</string>
+    <string name="class_post_open_file_title">เปิดไฟล์ด้วย</string>
+    <string name="class_post_author_header_new">ใหม่</string>
+    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s</string>
+    <string name="class_post_delete">ลบ</string>
+    <string name="class_post_edit">แก้ไข</string>
+
+    <plurals name="class_post_count_like">
+        <item quantity="zero">0 ถูกใจ</item>
+        <item quantity="one">1 ถูกใจ</item>
+        <item quantity="other">%1$d ถูกใจ</item>
+    </plurals>
+
+    <plurals name="class_post_count_comment">
+        <item quantity="zero">0 ความคิดเห็น</item>
+        <item quantity="one">1 ความคิดเห็น</item>
+        <item quantity="other">%1$d ความคิดเห็น</item>
+    </plurals>
+
+    <string name="class_post_count_read">เห็นแล้ว %1d คน</string>
+    <string name="class_post_count_read_everyone">เห็นแล้วทุกคน</string>
+
+    <!-- Online Class -->
+    <string name="online_class_container_title">คลาสเรียนออนไลน์</string>
+
+    <!-- Class Post Comments -->
+    <string name="class_post_comment_write_comment">แสดงความคิดเห็น…</string>
+    <string name="class_post_comment_author_name_place_holder">#%1$s %2$s</string>
+
+    <string-array name="class_post_comment_action_owner">
+        <item>คัดลอกข้อความ</item>
+        <item>ลบ</item>
+        <item>ยกเลิก</item>
+    </string-array>
+
+    <string-array name="class_post_comment_action_other">
+        <item>คัดลอกข้อความ</item>
+        <item>ยกเลิก</item>
+    </string-array>
 </resources>

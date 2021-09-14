@@ -22,7 +22,6 @@ import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.utility.getAPKSignedSignature
 import whiz.tss.sspark.s_spark_android.utility.logout
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
-import java.util.*
 
 class SSparkApp: Application() {
 
@@ -33,6 +32,7 @@ class SSparkApp: Application() {
     private external fun getApiBaseURL(key: String): String
     private external fun getApiKey(key: String): String
     private external fun getApiBaseURLV3(key: String): String
+    private external fun getCollaborationSocketURL(key: String): String
 
     companion object {
         init {
@@ -86,9 +86,12 @@ class SSparkApp: Application() {
 
         with(SSparkLibrary) {
             setProjectType(applicationContext, ProjectType.TSS)
+
             apiKey = getApiKey(getAPKSignedSignature(applicationContext))
             baseUrl = getApiBaseURL(getAPKSignedSignature(applicationContext))
             baseUrlV3 = getApiBaseURLV3(getAPKSignedSignature(applicationContext))
+            collaborationSocketBaseURL = getCollaborationSocketURL(getAPKSignedSignature(applicationContext))
+
             setOnSessionExpireCallback {
                 logout(applicationContext)
             }
