@@ -33,7 +33,7 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
         return when {
             item.courseItem != null -> COURSE_TYPE
             item.commentItem != null -> COMMENT_TYPE
-            item.overAllItem != null -> COMMENT_TYPE
+            item.overAllItem != null -> OVERALL_TYPE
             else -> TITLE_TYPE
         }
     }

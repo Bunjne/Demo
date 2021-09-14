@@ -24,8 +24,8 @@ class ExpectOutcomeOverAllItemView: ConstraintLayout {
             binding.tvGrade.text = value.toString()
 
             binding.vProgressBar.setOnLongClickListener {
-                binding.tvGrade.visibility = View.VISIBLE
-                true
+                binding.cvGrade.visibility = View.VISIBLE
+                false
             }
         }
     }

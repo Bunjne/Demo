@@ -75,6 +75,9 @@
     <string name="school_record_grade_summary_text">ภาพรวมพัฒนาการ</string>
     <string name="school_record_evaluation_title">เกณฑ์การประเมิน</string>
     <string name="school_record_overall_text">Overall</string>
+    <string name="school_record_progress_text">ความก้าวหน้าตามจุดประสงค์การเรียนรู้</string>
+    <string name="school_record_instructor_comment_text">ความคิดเห็นอาจารย์ประจำวิชา</string>
+    <string name="school_record_expect_text">ผลการเรียนรู้ที่คาดหวัง</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>

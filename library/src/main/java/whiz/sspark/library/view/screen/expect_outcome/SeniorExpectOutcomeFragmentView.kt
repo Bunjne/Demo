@@ -66,9 +66,14 @@ class SeniorExpectOutcomeFragmentView: ConstraintLayout {
         val startColor = expectOutcome.colorCode1.toColor(ContextCompat.getColor(context, R.color.primaryStartColor))
         val endColor = expectOutcome.colorCode2.toColor(ContextCompat.getColor(context, R.color.primaryEndColor))
 
-        val instructorCommentItem = expectOutcome.instructorComments?.convertToAdapterItem()
+        val instructorCommentItem = expectOutcome.instructorComment?.convertToAdapterItem()
         instructorCommentItem?.let {
+            items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_instructor_comment_text)))
             items.add(ExpectOutcomeAdapter.Item(commentItem = instructorCommentItem))
+        }
+
+        if (expectOutcome.isCompleted || expectOutcome.outcomes.isNotEmpty()) {
+            items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_progress_text)))
         }
 
         if (expectOutcome.isCompleted) {
@@ -86,6 +91,7 @@ class SeniorExpectOutcomeFragmentView: ConstraintLayout {
 
         expectOutcome.outcomes.forEach {
             val convertedValue = (it.value ?: 0 / (it.fullValue / indicators.size))
+
             val courseItem = ExpectOutcomeCourseItem(
                 title = it.code,
                 description = it.description,
