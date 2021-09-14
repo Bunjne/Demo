@@ -33,7 +33,7 @@
         android:lines="3"
         android:maxLines="3"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="16dp"
+        android:textSize="14dp"
         app:autoSizeMaxTextSize="14dp"
         app:autoSizeMinTextSize="10dp"
         app:autoSizeStepGranularity="1dp"

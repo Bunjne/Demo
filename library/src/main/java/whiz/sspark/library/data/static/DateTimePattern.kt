@@ -5,6 +5,7 @@ object DateTimePattern {
     const val generalYear = "yyyy"
     const val twoPositionYear = "yy"
     const val generalTime = "HH:mm"
+    const val serviceDateFullFormat = "yyyy-MM-dd'T'HH:mm:ss"
 
     const val dayNameThreePositionFormat = "EEE"
     const val fullDayNameFormat = "EEEE"

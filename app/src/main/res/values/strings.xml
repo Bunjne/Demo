@@ -31,6 +31,9 @@
         <item>ความคิดเห็น</item>
     </string-array>
 
+    <!-- Image -->
+    <string name="image_transition_name" translatable="false">image_transition</string>
+
     <!--Expect outcome info-->
     <string name="school_record_beginning_text">Beginning</string>
     <string name="school_record_beginning_description_text">เริ่มต้น</string>
