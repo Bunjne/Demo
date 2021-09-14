@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.databinding.ViewInstructorOnlineClassContainerBinding
-import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.widget.collaboration.class_activity.online_class.OnlineClassAdapter
 
 class InstructorOnlineClassContainerView : ConstraintLayout {
@@ -35,8 +34,6 @@ class InstructorOnlineClassContainerView : ConstraintLayout {
         binding.ivOption.setOnClickListener {
             onShowAllOnlineClassPlatformsClicked()
         }
-
-        binding.rvPlatformOnline.adapter?.updateItem(platformOnlineClasses.toMutableList(), platformOnlineClasses)
 
         if (platformOnlineClasses.isNotEmpty()) {
             binding.tvTitle.visibility = View.GONE
