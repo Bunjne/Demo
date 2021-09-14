@@ -13,6 +13,7 @@ import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.data.entity.ExpectOutcomeOverallItem
 import whiz.sspark.library.databinding.ViewSeniorExpectOutcomeFragmentBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.view.widget.expect_outcome.ExpectOutcomeAdapter
 
 class SeniorExpectOutcomeFragmentView: ConstraintLayout {
@@ -62,21 +63,8 @@ class SeniorExpectOutcomeFragmentView: ConstraintLayout {
     fun updateItem(expectOutcome: ExpectOutcomeDTO, indicators: List<String>) {
         val items: MutableList<ExpectOutcomeAdapter.Item> = mutableListOf()
 
-        val startColor = if (expectOutcome.colorCode1.isNotBlank()) {
-            Color.parseColor(expectOutcome.colorCode1)
-        } else {
-            ContextCompat.getColor(context, R.color.primaryStartColor)
-        }
-
-        val endColor = if (expectOutcome.colorCode1.isNotBlank() && expectOutcome.colorCode2.isNotBlank()) {
-            Color.parseColor(expectOutcome.colorCode2)
-        } else {
-            if (expectOutcome.colorCode1.isNotBlank()) {
-                Color.parseColor(expectOutcome.colorCode1)
-            } else {
-                ContextCompat.getColor(context, R.color.primaryEndColor)
-            }
-        }
+        val startColor = expectOutcome.colorCode1.toColor(ContextCompat.getColor(context, R.color.primaryStartColor))
+        val endColor = expectOutcome.colorCode2.toColor(ContextCompat.getColor(context, R.color.primaryEndColor))
 
         val instructorCommentItem = expectOutcome.instructorComments?.convertToAdapterItem()
         instructorCommentItem?.let {

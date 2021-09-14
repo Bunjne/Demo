@@ -13,6 +13,7 @@ import whiz.sspark.library.data.entity.GradeSummary
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.databinding.ViewSeniorLearningOutcomeFragmentBinding
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 import whiz.sspark.library.view.widget.learning_outcome.SeniorLearningOutcomeAdapter
@@ -78,21 +79,8 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
             item.add(titleItem)
 
             learningOutcome.courses.forEach {
-                val startColor = if (learningOutcome.colorCode1.isNotBlank()) {
-                    Color.parseColor(learningOutcome.colorCode1)
-                } else {
-                    ContextCompat.getColor(context, R.color.primaryStartColor)
-                }
-
-                val endColor = if (learningOutcome.colorCode1.isNotBlank() && learningOutcome.colorCode2.isNotBlank()) {
-                    Color.parseColor(learningOutcome.colorCode2)
-                } else {
-                    if (learningOutcome.colorCode1.isNotBlank()) {
-                        Color.parseColor(learningOutcome.colorCode1)
-                    } else {
-                        ContextCompat.getColor(context, R.color.primaryEndColor)
-                    }
-                }
+                val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(context, R.color.primaryStartColor))
+                val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(context, R.color.primaryEndColor))
 
                 val percentPerformance = if (it.isCompleted) {
                     it.percentPerformance ?: 0

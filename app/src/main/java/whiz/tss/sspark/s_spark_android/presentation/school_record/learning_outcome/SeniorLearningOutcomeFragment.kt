@@ -60,7 +60,12 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
             onItemClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_TAG) != null
                 if (!isShowing) {
-                    SeniorExpectOutcomeBottomSheetDialog.newInstance(termId, it.courseId, it.courseCode, it.courseName, it.credit).show(childFragmentManager, EXPECT_OUTCOME_TAG)
+                    SeniorExpectOutcomeBottomSheetDialog.newInstance( termId = termId,
+                        courseId = it.courseId,
+                        courseCode = it.courseCode,
+                        courseName = it.courseName,
+                        credit = it.credit
+                    ).show(childFragmentManager, EXPECT_OUTCOME_TAG)
                 }
             }
         )
