@@ -79,7 +79,7 @@ class InstructorClassPostCommentAdapter(private val context: Context,
                     val isFirstComment = position == 1
 
                     if (isFirstComment) {
-                        setPadding(0, 20.toDP(context), 0, 0)
+                        setPadding(0, 16.toDP(context), 0, 0)
                     } else {
                         setPadding(0, 0, 0, 0)
                     }

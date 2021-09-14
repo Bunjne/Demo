@@ -34,6 +34,20 @@
     <string name="update_new_data">รอสักครู่...</string>
     <string name="update_just_now">สักครู่นี้</string>
 
+    <plurals name="date_time_hour_ago">
+        <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
+        <item quantity="other">%1$d ชั่วโมงที่แล้ว</item>
+    </plurals>
+
+    <plurals name="date_time_minute_ago">
+        <item quantity="one">%1$d นาทีที่แล้ว</item>
+        <item quantity="other">%1$d นาทีที่แล้ว</item>
+    </plurals>
+
+    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
+
+    <string name="date_time_post_at">เวลา</string>
+
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
     <string name="today_happenings_announcement">ประกาศ</string>
@@ -55,20 +69,6 @@
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
-
-    <plurals name="date_time_hour_ago">
-        <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
-        <item quantity="other">%1$d ชั่วโมงที่แล้ว</item>
-    </plurals>
-
-    <plurals name="date_time_minute_ago">
-        <item quantity="one">%1$d นาทีที่แล้ว</item>
-        <item quantity="other">%1$d นาทีที่แล้ว</item>
-    </plurals>
-
-    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
-
-    <string name="date_time_post_at">เวลา</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>

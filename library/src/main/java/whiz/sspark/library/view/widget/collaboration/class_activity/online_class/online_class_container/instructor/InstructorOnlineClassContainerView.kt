@@ -16,8 +16,6 @@ class InstructorOnlineClassContainerView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private var platformList = mutableListOf<PlatformOnlineClass>()
-
     private val binding by lazy {
         ViewInstructorOnlineClassContainerBinding.inflate(LayoutInflater.from(context), this, true)
     }
@@ -29,7 +27,7 @@ class InstructorOnlineClassContainerView : ConstraintLayout {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = OnlineClassAdapter(
                 context = context,
-                items = platformList,
+                items = platformOnlineClasses,
                 onOnlineClassClicked = onOnlineClassPlatformClicked
             )
         }
@@ -38,13 +36,9 @@ class InstructorOnlineClassContainerView : ConstraintLayout {
             onShowAllOnlineClassPlatformsClicked()
         }
 
-        renderOnlineClasses(platformOnlineClasses)
-    }
+        binding.rvPlatformOnline.adapter?.updateItem(platformOnlineClasses.toMutableList(), platformOnlineClasses)
 
-    fun renderOnlineClasses(platformOnlineClasses: List<PlatformOnlineClass>) {
-        binding.rvPlatformOnline.adapter?.updateItem(platformList, platformOnlineClasses)
-
-        if (platformList.isNotEmpty()) {
+        if (platformOnlineClasses.isNotEmpty()) {
             binding.tvTitle.visibility = View.GONE
             binding.rvPlatformOnline.visibility = View.VISIBLE
         } else {

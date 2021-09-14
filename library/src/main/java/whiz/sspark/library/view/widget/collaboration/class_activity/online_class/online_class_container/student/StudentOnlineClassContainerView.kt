@@ -16,8 +16,6 @@ class StudentOnlineClassContainerView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private var platformList = mutableListOf<PlatformOnlineClass>()
-
     private val binding by lazy {
         ViewStudentOnlineClassContainerBinding.inflate(LayoutInflater.from(context), this, true)
     }
@@ -28,18 +26,14 @@ class StudentOnlineClassContainerView : ConstraintLayout {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = OnlineClassAdapter(
                 context = context,
-                items = platformList,
+                items = platformOnlineClasses,
                 onOnlineClassClicked = onOnlineClassPlatformClicked
             )
         }
 
-        renderOnlineClasses(platformOnlineClasses)
-    }
+        binding.rvPlatformOnline.adapter?.updateItem(platformOnlineClasses.toMutableList(), platformOnlineClasses)
 
-    private fun renderOnlineClasses(platformOnlineClasses: List<PlatformOnlineClass>) {
-        binding.rvPlatformOnline.adapter?.updateItem(platformList, platformOnlineClasses)
-
-        if (platformList.isNotEmpty()) {
+        if (platformOnlineClasses.isNotEmpty()) {
             binding.rvPlatformOnline.visibility = View.VISIBLE
         } else {
             binding.rvPlatformOnline.visibility = View.GONE

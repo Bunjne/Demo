@@ -294,14 +294,14 @@ class InstructorClassActivityFragment : BaseFragment() {
                 openDetail(post, isKeyboardShown)
             },
             onPostRead = { postId ->
-                readPost(postId as? String ?: "")
+                readPost(postId)
             },
             onPostLikedUsersClicked = { postId ->
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.LIKE.type)
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId, color, PostInteraction.LIKE.type)
 //                dialog.show(childFragmentManager, "")
             },
             onPostSeenUsersClicked = { postId ->
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.SEEN.type)
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId, color, PostInteraction.SEEN.type)
 //                dialog.show(childFragmentManager, "")
             },
             onShowAllOnlineClassPlatformsClicked = {

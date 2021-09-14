@@ -32,7 +32,7 @@ class ClassPostAuthorHeaderView : LinearLayout {
 
             binding.cvProfile.showClassMemberProfileCircle(it.profileImageUrl, it, Color.WHITE, memberColor)
 
-            binding.tvName.text = convertToFullName(it.firstName, null, it.lastName, it.position).toUpperCase()
+            binding.tvName.text = convertToFullName(it.firstName, it.middleName, it.lastName, it.position).toUpperCase()
             binding.tvDate.text = if (createdAt == updatedAt) {
                 updatedAt.toPostTime(context)
             } else {

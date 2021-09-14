@@ -7,26 +7,20 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.transports.WebSocket
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.entity.Post
-import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.ClassPostCommentViewModel
 import whiz.sspark.library.extension.convertToDate
 import whiz.sspark.library.extension.toObject
-import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithMultipleItems
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -34,22 +28,11 @@ import whiz.sspark.library.view.widget.collaboration.class_post_comment.student.
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityStudentClassPostCommentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
-import whiz.tss.sspark.s_spark_android.utility.logout
-import whiz.tss.sspark.s_spark_android.utility.refreshToken
-import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
-import whiz.tss.sspark.s_spark_android.utility.showImage
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import whiz.tss.sspark.s_spark_android.utility.*
 import java.net.URISyntaxException
 import java.util.*
 
 class StudentClassPostCommentActivity : BaseActivity() {
-
-    private val loadingDialog by lazy {
-//        activity!!.indeterminateProgressDialog(resources.getString(R.string.general_alertmessage_pleasewait_title)) {
-//            setCancelable(false) TODO waiting for loading dialog implement
-//        }
-    }
 
     private val socket by lazy {
         try {
@@ -67,7 +50,9 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
     private lateinit var binding: ActivityStudentClassPostCommentBinding
 
-    private lateinit var student: Student
+    private val studentUserId by lazy {
+        retrieveUserID(this)
+    }
 
     private val classGroupId by lazy {
         intent?.getStringExtra("classGroupId") ?: ""
@@ -101,7 +86,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
                     if (postId.contains(post.id, true)) {
                         post.run {
-                            isLike = if (userId == student.userId) {
+                            isLike = if (userId == studentUserId) {
                                 isSocketLiked
                             } else {
                                 isLike
@@ -133,7 +118,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
                     if (postId.contains(post.id, true)) {
                         post.run {
-                            isLike = if (student.userId == userId) {
+                            isLike = if (studentUserId == userId) {
                                 isSocketLiked
                             } else {
                                 isLike
@@ -180,7 +165,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
                             runOnUiThread {
                                 insertComment(comment)
 
-                                if (student.userId == userId) {
+                                if (studentUserId == userId) {
                                     binding.vPostDetailSheetDialog.scrollToPosition(postCommentItems.lastIndex)
                                 }
                             }
@@ -247,17 +232,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
         binding = ActivityStudentClassPostCommentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lifecycleScope.launch {
-            profileManager.student.collect {
-                it?.let {
-                    student = it
-
-                    initView()
-                } ?: run {
-                    logout(this@StudentClassPostCommentActivity)
-                }
-            }
-        }
+        initView()
     }
 
     override fun onResume() {
@@ -334,7 +309,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
     }
 
     private fun showCommentOption(comment: Post) {
-        if (comment.author.userId == student.userId) {
+        if (comment.author.userId == studentUserId) {
             showAlertWithMultipleItems(resources.getStringArray(R.array.class_post_comment_action_owner).toList()) { index ->
                 when (index) {
                     0 -> (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(comment.message, comment.message))
@@ -356,7 +331,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
     private fun emitComment(text: String) {
         val data = JSONObject().apply {
-            put("userId", student?.userId)
+            put("userId", studentUserId)
             put("postId", post.id)
             put("message", text)
             put("classId", classGroupId)
@@ -443,7 +418,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
 
     private fun likePost(post: Post) {
         val data = JSONObject().apply {
-            put("userId", student.userId)
+            put("userId", studentUserId)
             put("postId", post.id)
         }
 

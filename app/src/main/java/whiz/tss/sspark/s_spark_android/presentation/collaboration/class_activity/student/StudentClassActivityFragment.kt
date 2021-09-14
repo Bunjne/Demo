@@ -16,22 +16,21 @@ import io.socket.engineio.client.transports.WebSocket
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.data.entity.PlatformOnlineClass
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.StudentClassActivityViewModel
 import whiz.sspark.library.extension.isUrlValid
 import whiz.sspark.library.extension.toJson
-import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.student.StudentClassPostAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.student.StudentClassPostCommentActivity
-import whiz.tss.sspark.s_spark_android.utility.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import whiz.tss.sspark.s_spark_android.utility.refreshToken
+import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
+import whiz.tss.sspark.s_spark_android.utility.retrieveUserID
+import whiz.tss.sspark.s_spark_android.utility.showImage
 import java.net.URISyntaxException
 
 class StudentClassActivityFragment : BaseFragment() {
@@ -290,14 +289,14 @@ class StudentClassActivityFragment : BaseFragment() {
                 openDetail(post, isKeyboardShown)
             },
             onPostRead = { postId ->
-                readPost(postId as? String ?: "")
+                readPost(postId)
             },
             onPostLikedUsersClicked = { postId ->
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.LIKE.type)
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId, color, PostInteraction.LIKE.type)
 //                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
             },
             onPostSeenUsersClicked = { postId ->
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId as? String ?: "", color, PostInteraction.SEEN.type)
+//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId, color, PostInteraction.SEEN.type)
 //                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
             },
             onOnlineClassPlatformClicked = { url ->
