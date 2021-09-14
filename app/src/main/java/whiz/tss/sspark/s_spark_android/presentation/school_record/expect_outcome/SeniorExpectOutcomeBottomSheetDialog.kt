@@ -139,7 +139,9 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     private fun observeError() {
         viewModel.expectOutcomeErrorResponse.observe(this) {
             it?.let {
-                showApiResponseXAlert(requireActivity(), it)
+                showApiResponseXAlert(requireActivity(), it) {
+                    dismiss()
+                }
             }
         }
     }

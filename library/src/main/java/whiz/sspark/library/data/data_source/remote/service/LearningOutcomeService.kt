@@ -8,5 +8,5 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface LearningOutcomeService {
     @GET("v1/students/me/grades")
-    suspend fun getLearningOutcome(@Query("termId") type: String): Response<ApiResponseX>
+    suspend fun getLearningOutcome(@Query("termId") termId: String): Response<ApiResponseX>
 }
