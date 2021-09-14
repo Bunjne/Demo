@@ -21,6 +21,7 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
     companion object {
         private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
+
         fun newInstance(termId: String) = SeniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)

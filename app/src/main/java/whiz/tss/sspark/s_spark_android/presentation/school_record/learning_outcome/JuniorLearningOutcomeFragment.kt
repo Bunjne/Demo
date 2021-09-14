@@ -21,6 +21,7 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
 
     companion object {
         private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
+
         fun newInstance(termId: String) = JuniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)

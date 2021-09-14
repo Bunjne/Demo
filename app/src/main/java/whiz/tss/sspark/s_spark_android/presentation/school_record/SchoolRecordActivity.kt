@@ -61,7 +61,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         with(binding.vSchoolRecord) {
             init(
                 title = title,
-                selectedTerm = term,
+                term = term,
                 segmentTitles = segmentTitles,
                 onSelectTerm = {
                     PopupMenu(this@SchoolRecordActivity, it).run {
@@ -96,10 +96,10 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
 
             val isSelectTermAble = terms.isNotEmpty()
             setSelectTermAble(isSelectTermAble)
-        }
 
-        if (lastedFragment != -1) {
-            binding.vSchoolRecord.setSelectedTab(lastedFragment)
+            if (lastedFragment != -1) {
+                setSelectedTab(lastedFragment)
+            }
         }
     }
 

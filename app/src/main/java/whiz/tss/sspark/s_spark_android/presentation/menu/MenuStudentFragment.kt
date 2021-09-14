@@ -96,6 +96,7 @@ class MenuStudentFragment : BaseFragment() {
                         val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
                         startActivity(intent)
                     }
+                    //TODO wait implement other screen
                 }
             },
             onRefresh = {

@@ -23,14 +23,14 @@ class SchoolRecordActivityView: ConstraintLayout {
     }
 
     fun init(title: String,
-             selectedTerm: String,
+             term: String,
              segmentTitles: List<String>,
              onSelectTerm: (View) -> Unit,
              onSegmentClicked: (Int) -> Unit) {
         binding.ivDropdown.show(R.drawable.ic_dropdown)
 
         binding.tvTitle.text = title
-        binding.tvTerm.text = selectedTerm
+        binding.tvTerm.text = term
         binding.vSegment.init(segmentTitles, onSegmentClicked)
 
         binding.cvTerm.setOnClickListener {
