@@ -9,6 +9,9 @@ import android.widget.FrameLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
+import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorExpectOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.info.JuniorExpectOutcomeInfoDialog
@@ -18,17 +21,28 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     companion object {
         private const val EXPECT_OUTCOME_INFO = "ExpectOutcomeInfo"
 
-        fun newInstance(courseCode: String, courseName: String, credit: Int) = JuniorExpectOutcomeBottomSheetDialog().apply {
+        fun newInstance(termId: String, courseId: String, courseCode: String, courseName: String, credit: Int) = JuniorExpectOutcomeBottomSheetDialog().apply {
             arguments = Bundle().apply {
+                putString("termId", termId)
+                putString("courseId", courseId)
                 putString("courseCode", courseCode)
                 putString("courseName", courseName)
                 putInt("credit", credit)
             }
         }
     }
+    private val viewModel: ExpectOutcomeViewModel by viewModel()
 
     private var _binding: FragmentJuniorExpectOutcomeBinding? = null
     private val binding get() = _binding!!
+
+    private val termId by lazy {
+        arguments?.getString("termId") ?: ""
+    }
+
+    private val courseId by lazy {
+        arguments?.getString("courseId") ?: ""
+    }
 
     private val courseCode by lazy {
         arguments?.getString("courseCode") ?: ""
@@ -43,7 +57,7 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private val indicators by lazy {
-        resources.getStringArray(R.array.school_record_junior_indicator)
+        resources.getStringArray(R.array.school_record_junior_indicator).toList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,6 +76,8 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         dialog?.setOnShowListener {
             validateDialog()
         }
+
+        viewModel.getExpectOutcome(courseId = courseId, termId = termId)
     }
 
     private fun validateDialog() {
@@ -100,21 +116,31 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                 }
             },
             onRefresh = {
-                //TODO wait implement API
+                viewModel.getExpectOutcome(courseId = courseId, termId = termId)
             }
         )
     }
 
     private fun observeView() {
-
+        viewModel.viewLoading.observe(this) { isLoading ->
+            binding.vExpectOutcome.setSwipeRefreshLayout(isLoading)
+        }
     }
 
     private fun observeData() {
-
+        viewModel.expectOutcomeResponse.observe(this) {
+            it?.let {
+                binding.vExpectOutcome.updateItem(expectOutcome = it, indicators = indicators)
+            }
+        }
     }
 
     private fun observeError() {
-
+        viewModel.expectOutcomeErrorResponse.observe(this) {
+            it?.let {
+                showApiResponseXAlert(requireActivity(), it)
+            }
+        }
     }
 
     override fun onDestroyView() {

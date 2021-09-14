@@ -55,6 +55,10 @@ class JuniorExpectOutcomeFragmentView: ConstraintLayout {
         }
     }
 
+    fun setSwipeRefreshLayout(isLoading: Boolean) {
+        binding.srlContainer.isRefreshing = isLoading == true
+    }
+
     fun updateItem(expectOutcome: ExpectOutcomeDTO, indicators: List<String>) {
         val items: MutableList<ExpectOutcomeAdapter.Item> = mutableListOf()
 

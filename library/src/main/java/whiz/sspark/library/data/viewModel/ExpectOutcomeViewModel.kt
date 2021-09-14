@@ -11,10 +11,12 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.DataWrapperX
+import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
+import whiz.sspark.library.data.repository.ExpectOutcomeRepositoryImpl
 import whiz.sspark.library.data.repository.LearningOutcomeRepositoryImpl
 
-class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: LearningOutcomeRepositoryImpl): ViewModel() {
+class ExpectOutcomeViewModel(private val learningOutcomeRepositoryImpl: ExpectOutcomeRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -24,21 +26,21 @@ class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: Learni
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _learningOutcomeResponse = MutableLiveData<List<LearningOutcomeDTO>>()
-    val learningOutcomeResponse: LiveData<List<LearningOutcomeDTO>>
-        get() = _learningOutcomeResponse
+    private val _expectOutcomeResponse = MutableLiveData<ExpectOutcomeDTO>()
+    val expectOutcomeResponse: LiveData<ExpectOutcomeDTO>
+        get() = _expectOutcomeResponse
 
-    private val _learningOutcomeErrorResponse = MutableLiveData<ApiResponseX?>()
-    val learningOutcomeErrorResponse: LiveData<ApiResponseX?>
-        get() = _learningOutcomeErrorResponse
+    private val _expectOutcomeErrorResponse = MutableLiveData<ApiResponseX?>()
+    val expectOutcomeErrorResponse: LiveData<ApiResponseX?>
+        get() = _expectOutcomeErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getLearningOutcome(termId: String) {
+    fun getExpectOutcome(courseId: String, termId: String) {
         viewModelScope.launch {
-            learningOutcomeRepositoryImpl.getLearningOutcome(termId)
+            learningOutcomeRepositoryImpl.getExpectOutcome(courseId, termId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true
@@ -54,9 +56,9 @@ class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: Learni
                     val data = it.data
 
                     data?.let {
-                        _learningOutcomeResponse.value = it
+                        _expectOutcomeResponse.value = it
                     } ?: run {
-                        _learningOutcomeErrorResponse.value = it.error
+                        _expectOutcomeErrorResponse.value = it.error
                     }
                 }
         }

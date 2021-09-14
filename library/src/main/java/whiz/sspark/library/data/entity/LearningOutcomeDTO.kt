@@ -17,6 +17,7 @@ data class LearningOutcomeDTO(
 }
 
 data class LearningOutcomeCourseDTO(
+    @SerializedName("id") val id: String = "",
     @SerializedName("code") val code: String = "",
     @SerializedName("nameEn") val nameEn: String = "",
     @SerializedName("nameTh") val nameTh: String = "",

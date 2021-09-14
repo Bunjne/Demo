@@ -102,6 +102,7 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
 
                 val learningOutcomeItem = SeniorLearningOutcomeAdapter.Item(
                     learningOutcome = LearningOutcome(
+                        courseId = it.id,
                         startColor = startColor,
                         endColor = endColor,
                         credit = it.credits,

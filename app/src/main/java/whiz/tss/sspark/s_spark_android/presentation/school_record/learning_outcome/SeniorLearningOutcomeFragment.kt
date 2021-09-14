@@ -16,17 +16,17 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
     companion object {
         private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
-        fun newInstance(currentSemesterId: Int) = SeniorLearningOutcomeFragment().apply {
+        fun newInstance(termId: String) = SeniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
-                putInt("currentSemesterId", currentSemesterId)
+                putString("termId", termId)
             }
         }
     }
 
     private val viewModel: LearningOutcomeViewModel by viewModel()
 
-    private val currentSemesterId by lazy {
-        arguments?.getInt("currentSemesterId") ?: 0
+    private val termId by lazy {
+        arguments?.getString("termId") ?: "0"
     }
 
     private var _binding: FragmentSeniorLearningOutcomeBinding? = null
@@ -49,18 +49,18 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
         initView()
 
-        viewModel.getLearningOutcome(currentSemesterId)
+        viewModel.getLearningOutcome(termId)
     }
 
     override fun initView() {
         binding.vLearningOutcome.init(
             onRefresh = {
-                viewModel.getLearningOutcome(currentSemesterId)
+                viewModel.getLearningOutcome(termId)
             },
             onItemClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_TAG) != null
                 if (!isShowing) {
-                    SeniorExpectOutcomeBottomSheetDialog.newInstance(it.courseCode, it.courseName, it.credit).show(childFragmentManager, EXPECT_OUTCOME_TAG)
+                    SeniorExpectOutcomeBottomSheetDialog.newInstance(termId, it.courseId, it.courseCode, it.courseName, it.credit).show(childFragmentManager, EXPECT_OUTCOME_TAG)
                 }
             }
         )

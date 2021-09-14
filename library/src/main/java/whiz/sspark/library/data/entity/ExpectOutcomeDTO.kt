@@ -6,14 +6,16 @@ import whiz.sspark.library.utility.localize
 import java.util.*
 
 data class ExpectOutcomeDTO(
+    @SerializedName("code") val code: String = "",
     @SerializedName("nameEn") val nameEn: String = "",
     @SerializedName("nameTh") val nameTh: String = "",
     @SerializedName("nameCn") val nameCn: String = "",
+    @SerializedName("isCompleted") val isCompleted: Boolean = false,
+    @SerializedName("credits") val credits: Int = 0,
     @SerializedName("value") val value: Float? = null,
     @SerializedName("fullValue") val fullValue: Float = 0f,
     @SerializedName("colorCode1") val colorCode1: String = "",
     @SerializedName("colorCode2") val colorCode2: String = "",
-    @SerializedName("isCompleted") val isCompleted: Boolean = false,
     @SerializedName("term") val term: TermDTO? = null,
     @SerializedName("instructorComments") val instructorComments: InstructorCommentDTO? = null,
     @SerializedName("outcomes") private val _outcomes: List<OutcomeDTO>? = null,

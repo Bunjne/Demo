@@ -13,18 +13,23 @@ import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outco
 class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRefresh, SeniorLearningOutcomeFragment.OnRefresh {
 
     companion object {
-        val LEARNING_OUTCOME_VIEW = 0
+        val LEARNING_OUTCOME_FRAGMENT = 0
     }
 
     private lateinit var binding: ActivitySchoolRecordBinding
 
-    private var currentSegment = LEARNING_OUTCOME_VIEW
-    private var currentSemesterId = 1 //TODO wait confirm object from API
+    private var currentSegment = -1
+    private var lastedFragment = -1
+    private var termId = "0" //TODO wait confirm object from API
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySchoolRecordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (savedInstanceState != null) {
+            onRestoreInstanceState(savedInstanceState)
+        }
 
         initView()
     }
@@ -37,29 +42,49 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         }
 
         binding.vSchoolRecord.init(
-            title = "ผลการเรียน ม.3", //TODO wait confirm object from API
-            selectedTerm = "1/2564", //TODO wait confirm object from API
+            title = "ผลการเรียน ม.3",
+            selectedTerm = "1/2564",
             segmentTitles = titles,
             onSelectTerm = {
                //TODO wait confirm UI
             },
             onSegmentClicked = {
-                currentSegment = it
-                when(it) {
-                    LEARNING_OUTCOME_VIEW -> {
-                        if (SSparkApp.role == RoleType.JUNIOR) {
-                            binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentSemesterId), LEARNING_OUTCOME_VIEW)
-                        } else {
-                            binding.vSchoolRecord.renderFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(currentSemesterId), LEARNING_OUTCOME_VIEW)
-                        }
-                    }
-                    //TODO wait implement other screen
-                }
+                renderFragment(fragmentId = it)
             }
         )
+
+        if (lastedFragment != -1) {
+            renderFragment(fragmentId = lastedFragment)
+            lastedFragment = -1
+        }
+    }
+
+    private fun renderFragment(fragmentId: Int) {
+        currentSegment = fragmentId
+        when(currentSegment) {
+            LEARNING_OUTCOME_FRAGMENT -> {
+                if (SSparkApp.role == RoleType.JUNIOR) {
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(termId), LEARNING_OUTCOME_FRAGMENT)
+                } else {
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(termId), LEARNING_OUTCOME_FRAGMENT)
+                }
+            }
+            //TODO wait implement other screen
+        }
     }
 
     override fun onRefresh(data: DataWrapperX<Any>?) {
         binding.vSchoolRecord.setLatestUpdatedText(data)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        lastedFragment = savedInstanceState.getInt("lastedFragment", -1)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("lastedFragment", currentSegment)
     }
 }

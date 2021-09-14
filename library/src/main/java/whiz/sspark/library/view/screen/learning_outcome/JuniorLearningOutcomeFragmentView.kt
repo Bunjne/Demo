@@ -75,6 +75,7 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
 
                 val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
                     learningOutcome = LearningOutcome(
+                        courseId = it.id,
                         startColor = startColor,
                         endColor = endColor,
                         credit = it.credits,
