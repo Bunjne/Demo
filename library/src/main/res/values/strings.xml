@@ -74,7 +74,7 @@
     <string name="class_detail_tab_attendance">การเข้าเรียน</string>
     <string name="class_detail_tab_student">นักเรียน</string>
     <string name="class_detail_tab_homework">ASSIGNMENT</string>
-    <string name="class_detail_study_plan_title">แผนการเรียน</string>
+    <string name="class_detail_study_plan_title">แผนการสอน</string>
 
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
@@ -126,5 +126,16 @@
         <item>คัดลอกข้อความ</item>
         <item>ยกเลิก</item>
     </string-array>
+
+    <!-- Class Attendance -->
+    <string name="class_attendance_summary_info_from">จาก</string>
+    <string name="class_attendance_valid_class_count">%1d คาบเรียน</string>
+    <string name="class_attendance_checked_item_title_place_holder">เรียนครั้งที่ %1$s</string>
+    <string name="class_attendance_present">มาเรียน</string>
+    <string name="class_attendance_absent">ขาด</string>
+    <string name="class_attendance_leave">ลา</string>
+    <string name="class_attendance_late">เข้าร่วมช้า</string>
+    <string name="class_attendance_no_record">ไม่มีบันทึก</string>
+    <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
 
 </resources>

@@ -11,5 +11,6 @@ val viewModelModule = module {
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { MenuStudentViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
+    viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }
