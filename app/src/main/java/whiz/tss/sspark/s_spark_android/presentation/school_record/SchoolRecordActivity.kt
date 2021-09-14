@@ -6,6 +6,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.viewModel.SchoolRecordViewModel
+import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
@@ -37,6 +38,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySchoolRecordBinding.inflate(layoutInflater)
+        window.setGradientDrawable(R.drawable.bg_primary_gradient_0)
         setContentView(binding.root)
 
         if (savedInstanceState != null) {
@@ -140,7 +142,13 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
     private fun updateTerm() {
         val title = resources.getString(R.string.school_record_title, getHighSchoolLevel(currentTerm.academicGrade!!).toString())
         val term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString())
-        binding.vSchoolRecord.changeTerm(title, term)
+        val segmentTitles = if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
+            resources.getStringArray(R.array.junior_school_record_segment).toList()
+        } else {
+            resources.getStringArray(R.array.senior_school_record_segment).toList()
+        }
+
+        binding.vSchoolRecord.changeTerm(title, term, segmentTitles, currentSegment)
         forceRenderNewFragment(currentSegment)
     }
 

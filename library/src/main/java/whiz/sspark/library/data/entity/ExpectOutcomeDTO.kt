@@ -58,7 +58,10 @@ data class InstructorCommentDTO(
 
 data class OutcomeDTO(
     @SerializedName("code") val code: String = "",
-    @SerializedName("description") val description: String = "",
+    @SerializedName("descriptionEn") private val descriptionEn: String = "",
+    @SerializedName("descriptionTh") private val descriptionTh: String = "",
     @SerializedName("value") val value: Float? = null,
     @SerializedName("fullValue") val fullValue: Float = 0f,
-)
+) {
+    val description get() = localize(descriptionEn, descriptionTh, descriptionEn, false)
+}

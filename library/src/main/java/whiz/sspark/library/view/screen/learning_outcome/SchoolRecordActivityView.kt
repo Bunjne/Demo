@@ -45,9 +45,12 @@ class SchoolRecordActivityView: ConstraintLayout {
     }
 
     fun changeTerm(title: String,
-                   selectedTerm: String) {
+                   selectedTerm: String,
+                   segmentTitles: List<String>,
+                   currentSegment: Int) {
         binding.tvTitle.text = title
         binding.tvTerm.text = selectedTerm
+        binding.vSegment.updateSegmentTitle(segmentTitles, currentSegment)
     }
 
     fun setSelectTermAble(isSelectAble: Boolean) {
