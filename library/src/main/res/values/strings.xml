@@ -56,5 +56,5 @@
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
-    <string name="school_record_no_activity">ไม่มีกิจกรรม</string>
+    <string name="school_record_no_activity">ไม่มีผลประเมินกิจกรรม</string>
 </resources>

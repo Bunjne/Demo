@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
-import whiz.sspark.library.databinding.ViewJuniorActivityRecordStatusItemViewBinding
+import whiz.sspark.library.databinding.ViewActivityRecordStatusItemViewBinding
 import whiz.sspark.library.extension.show
 
 class JuniorActivityRecordStatusItemView: ConstraintLayout {
@@ -14,7 +14,7 @@ class JuniorActivityRecordStatusItemView: ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewJuniorActivityRecordStatusItemViewBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewActivityRecordStatusItemViewBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(status: Boolean,

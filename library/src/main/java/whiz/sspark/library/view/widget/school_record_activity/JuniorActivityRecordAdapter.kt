@@ -10,8 +10,7 @@ import whiz.sspark.library.data.entity.ActivityRecordItem
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
-class JuniorActivityRecordAdapter(private val context: Context,
-                                  private val items: List<JuniorActivityRecordAdapter.Item>): ListAdapter<JuniorActivityRecordAdapter.Item, RecyclerView.ViewHolder>(JuniorActivityRecordDiffCallback()) {
+class JuniorActivityRecordAdapter(private val context: Context): ListAdapter<JuniorActivityRecordAdapter.Item, RecyclerView.ViewHolder>(JuniorActivityRecordDiffCallback()) {
 
     companion object {
         private val TITLE_VIEW_TYPE = 1111
@@ -81,7 +80,7 @@ class JuniorActivityRecordAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = items[position]
+        val item = getItem(position)
         item?.let {
             val viewType = getItemViewType(position)
 

@@ -7,10 +7,10 @@
     android:layout_height="wrap_content">
 
     <whiz.sspark.library.view.general.SSparkTextView
-        android:layout_marginStart="6dp"
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +20,7 @@
         tools:text="กิจกรรมประจำชั้น" />
 
     <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

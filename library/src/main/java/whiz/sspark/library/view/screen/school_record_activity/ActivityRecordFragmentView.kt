@@ -4,18 +4,25 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.databinding.ViewJuniorActivityRecordFragmentBinding
+import whiz.sspark.library.databinding.ViewActivityRecordFragmentBinding
 
-class JuniorActivityRecordFragmentView: ConstraintLayout {
+class ActivityRecordFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewJuniorActivityRecordFragmentBinding.inflate(LayoutInflater.from(context), this, false)
+        ViewActivityRecordFragmentBinding.inflate(LayoutInflater.from(context), this, false)
     }
 
-    fun init() {
-        
+    fun init(onRefresh: () -> Unit) {
+
+        binding.srlLearningOutcome.setOnRefreshListener {
+            onRefresh()
+        }
+    }
+
+    fun updateItem() {
+
     }
 }
