@@ -8,7 +8,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.databinding.ViewActivityRecordStatusWithDescriptionItemViewBinding
 import whiz.sspark.library.extension.show
 
-class JuniorActivityRecordStatusWithDescriptionItemView: ConstraintLayout {
+class ActivityRecordStatusWithDescriptionItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

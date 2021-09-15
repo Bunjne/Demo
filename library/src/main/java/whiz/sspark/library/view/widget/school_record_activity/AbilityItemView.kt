@@ -4,20 +4,20 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.data.entity.ActivityRecordProgressItem
+import whiz.sspark.library.data.entity.AbilityItem
 import whiz.sspark.library.databinding.ViewAbilityItemBinding
 
-class SeniorActivityRecordItemView: ConstraintLayout {
+class AbilityItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewAbilityItemBinding.inflate(LayoutInflater.from(context), this, false)
+        ViewAbilityItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(activityRecordProgressItem: ActivityRecordProgressItem) {
-        with(activityRecordProgressItem) {
+    fun init(ability: AbilityItem) {
+        with(ability) {
             binding.tvTitle.text = title
             binding.vProgressBar.init(
                 currentProgress = value,

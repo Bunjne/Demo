@@ -7,7 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.databinding.ViewActivityRecordTitleWithDescriptionItemViewBinding
 
-class JuniorActivityRecordTitleWithDescriptionItemView: ConstraintLayout {
+class ActivityRecordTitleWithDescriptionItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

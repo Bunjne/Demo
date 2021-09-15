@@ -3,10 +3,13 @@ package whiz.sspark.library.view.screen.school_record_activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import whiz.sspark.library.data.entity.AbilityDTO
+import whiz.sspark.library.data.entity.AbilityItem
 import whiz.sspark.library.databinding.ViewAbilityFragmentBinding
-import whiz.sspark.library.view.widget.school_record_activity.SeniorActivityRecordAdapter
+import whiz.sspark.library.view.widget.school_record_activity.AbilityAdapter
 
 class AbilityFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -14,13 +17,13 @@ class AbilityFragmentView: ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewAbilityFragmentBinding.inflate(LayoutInflater.from(context), this, false)
+        ViewAbilityFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(onRefresh: () -> Unit) {
         with(binding.rvActivityRecord) {
             layoutManager = LinearLayoutManager(context)
-            adapter = SeniorActivityRecordAdapter()
+            adapter = AbilityAdapter()
         }
 
         binding.srlLearningOutcome.setOnRefreshListener {
@@ -29,13 +32,36 @@ class AbilityFragmentView: ConstraintLayout {
         }
     }
 
-    fun updateItem() {
-//        if (learningOutcomes.isNotEmpty()) { TODO uncomment when API spec available
-//            binding.tvNoRecord.visibility = View.GONE
-//            binding.rvActivityRecord.visibility = View.VISIBLE
-//        } else {
-//            binding.tvNoRecord.visibility = View.VISIBLE
-//            binding.rvActivityRecord.visibility = View.GONE
-//        }
+    fun setSwipeRefreshLoading(isLoading: Boolean?) {
+        binding.srlLearningOutcome.isRefreshing = isLoading == true
+    }
+
+    fun updateItem(abilities: List<AbilityDTO> = listOf(), indicators: List<String> = listOf()) {
+        val items: MutableList<AbilityAdapter.Item> = mutableListOf()
+
+        abilities.forEach {
+            items.add(AbilityAdapter.Item(title = it.name))
+
+            it.abilities.forEach {
+                val value = (it.value / it.fullValue) * indicators.size
+                val ability = AbilityItem(
+                    title = it.name,
+                    value = value,
+                    indicators = indicators
+                )
+
+                items.add(AbilityAdapter.Item(ability = ability))
+            }
+        }
+
+        (binding.rvActivityRecord.adapter as? AbilityAdapter)?.submitList(items)
+
+        if (abilities.isEmpty()) {
+            binding.tvNoRecord.visibility = View.VISIBLE
+            binding.rvActivityRecord.visibility = View.GONE
+        } else {
+            binding.tvNoRecord.visibility = View.GONE
+            binding.rvActivityRecord.visibility = View.VISIBLE
+        }
     }
 }

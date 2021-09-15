@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivStatus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginStart="6dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
@@ -21,7 +21,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
