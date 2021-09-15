@@ -73,7 +73,7 @@
         android:id="@+id/ivProfile"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:civ_border_color="@color/viewBaseThirdColor"
+        app:civ_border_color="@android:color/white"
         app:civ_border_width="1.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

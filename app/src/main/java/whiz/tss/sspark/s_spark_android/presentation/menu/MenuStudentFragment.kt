@@ -9,7 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.*
+import whiz.sspark.library.data.entity.MenuSegment
+import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.data.viewModel.MenuStudentViewModel
@@ -39,11 +40,7 @@ class MenuStudentFragment : BaseFragment() {
 
     private lateinit var student: Student
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,27 +65,11 @@ class MenuStudentFragment : BaseFragment() {
 
     override fun initView() {
         val segments = if (SSparkApp.role == RoleType.JUNIOR) {
-            listOf(
-                MenuSegment(
-                    resources.getString(R.string.menu_junior_segment_instructor_text),
-                    MenuSegmentType.INSTRUCTOR
-                ),
-                MenuSegment(
-                    resources.getString(R.string.menu_segment_guardian_text),
-                    MenuSegmentType.GUARDIAN
-                )
-            )
+            listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
+                MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         } else {
-            listOf(
-                MenuSegment(
-                    resources.getString(R.string.menu_senior_segment_instructor_text),
-                    MenuSegmentType.INSTRUCTOR
-                ),
-                MenuSegment(
-                    resources.getString(R.string.menu_segment_guardian_text),
-                    MenuSegmentType.GUARDIAN
-                )
-            )
+            listOf(MenuSegment(resources.getString(R.string.menu_senior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
+                MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         }
 
         binding.vMenu.init(
@@ -129,10 +110,7 @@ class MenuStudentFragment : BaseFragment() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(
-                    student.imageUrl,
-                    getGender(it.gender)?.type
-                )
+                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender)?.type)
             }
         }
 
