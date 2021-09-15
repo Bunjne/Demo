@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewBasePrimaryColor"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPostComment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="8dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        tools:listitem="@layout/view_class_post_comment" />
+
+    <TextView
+        android:id="@+id/tvMessageFieldDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lineBaseSecondaryColor"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMessageField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/viewBaseSecondaryColor">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="37dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/viewBaseThirdColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <whiz.sspark.library.view.general.SSparkEditText
+                android:id="@+id/etMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/ivSend"
+                android:hint="@string/class_post_comment_write_comment"
+                android:inputType="textMultiLine"
+                android:maxLines="6"
+                android:background="@color/viewBaseThirdColor"
+                android:overScrollMode="always"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textColorHint="@color/textBaseThirdColor"
+                app:ssparkFont="regular" />
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/ivSend"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/cvMessage"
+            app:layout_constraintStart_toEndOf="@id/cvMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cvMessage"
+            tools:srcCompat="@drawable/ic_send" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

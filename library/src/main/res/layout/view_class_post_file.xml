@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_class_post_file"
+    android:padding="12dp">
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvFileName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseSecondaryColor"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toTopOf="@id/tvFileType"
+        app:layout_constraintEnd_toStartOf="@id/ivArrowRight"
+        app:layout_constraintStart_toEndOf="@+id/ivFile"
+        app:layout_constraintTop_toTopOf="@id/ivFile"
+        app:ssparkFont="bold"
+        tools:text="Collaboration Model.pdf" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvFileType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAllCaps="true"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivFile"
+        app:layout_constraintEnd_toEndOf="@+id/tvFileName"
+        app:layout_constraintStart_toEndOf="@+id/ivFile"
+        app:layout_constraintTop_toBottomOf="@+id/tvFileName"
+        app:ssparkFont="bold"
+        tools:text="PDF" />
+
+    <ImageView
+        android:id="@+id/ivArrowRight"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:padding="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/ic_arrow_right"/>
+
+    <ImageView
+        android:id="@+id/ivFile"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_post_file" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

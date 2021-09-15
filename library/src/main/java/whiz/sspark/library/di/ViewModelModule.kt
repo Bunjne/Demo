@@ -2,16 +2,15 @@ package whiz.sspark.library.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import whiz.sspark.library.data.viewModel.ContactViewModel
-import whiz.sspark.library.data.viewModel.HappeningsViewModel
-import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
-import whiz.sspark.library.data.viewModel.MenuStudentViewModel
-import whiz.sspark.library.data.viewModel.TimelineViewModel
+import whiz.sspark.library.data.viewModel.*
 
 val viewModelModule = module {
+    viewModel { ClassPostCommentViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
+    viewModel { InstructorClassActivityViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { MenuStudentViewModel(get()) }
+    viewModel { StudentClassActivityViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
     viewModel { ContactViewModel(get()) }
 }

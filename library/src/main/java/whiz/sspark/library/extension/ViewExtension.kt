@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import android.view.*
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -130,8 +132,19 @@ fun View.setDarkModeBackground(isNextItemHeader: Boolean, isPreviousItemHeader: 
     }
 }
 
-fun Window.setGradientDrawable(drawable: Int) {
+fun Window.setGradientDrawable(resourceId: Int) {
     this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     this.statusBarColor = Color.TRANSPARENT
-    this.setBackgroundDrawable(ContextCompat.getDrawable(this.context, drawable))
+    this.setBackgroundDrawable(ContextCompat.getDrawable(this.context, resourceId))
+}
+
+fun Window.setGradientDrawable(drawable: Drawable) {
+    this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    this.statusBarColor = Color.TRANSPARENT
+    this.setBackgroundDrawable(drawable)
+}
+
+fun EditText.showKeyboard() {
+    this.requestFocus()
+    (this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }

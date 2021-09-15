@@ -12,6 +12,7 @@ import whiz.sspark.library.data.entity.AuthenticationInformation
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.general.loading_dialog.SSparkLoadingDialog
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
@@ -29,6 +30,10 @@ class LoginActivity : LocalizationActivity() {
 
     private val profileManager by lazy {
         ProfileManager(this)
+    }
+
+    private val loadingDialog by lazy {
+        SSparkLoadingDialog(this)
     }
 
     private val operatorName by lazy {
@@ -71,9 +76,9 @@ class LoginActivity : LocalizationActivity() {
     private fun observeView() {
         viewModel.viewLoading.observe(this) { isLoading ->
             if (isLoading) {
-
+                loadingDialog.show()
             } else {
-
+                loadingDialog.dismiss()
             }
         }
     }

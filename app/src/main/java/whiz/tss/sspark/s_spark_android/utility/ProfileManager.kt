@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import whiz.sspark.library.data.entity.Instructor
 import whiz.sspark.library.data.entity.Profile
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.entity.convertToProfile
@@ -29,11 +30,17 @@ class ProfileManager(private val context: Context) {
             preferences[STUDENT_KEY]?.toObject<Student>()
         }
 
+    val instructor: Flow<Instructor?> = context.dataStore.data
+        .map { preferences ->
+            preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()
+        }
+
     val profile: Flow<Profile?> = context.dataStore.data
         .map { preferences ->
             when (SSparkApp.role) {
                 RoleType.JUNIOR,
                 RoleType.SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.convertToProfile()
+                RoleType.INSTRUCTOR -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.convertToProfile()
                 else -> null
             }
         }
