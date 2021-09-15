@@ -42,6 +42,7 @@ class MenuStudentFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private lateinit var student: Student
+    private lateinit var termId: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -50,6 +51,14 @@ class MenuStudentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    termId = it.id
+                }
+            }
+        }
 
         lifecycleScope.launch {
             profileManager.student.collect {
@@ -122,7 +131,7 @@ class MenuStudentFragment : BaseFragment() {
         viewModel.menuResponse.observe(this) {
             it?.let {
                 binding.vMenu.updateMenu(it)
-                viewModel.fetchWidget(it)
+                viewModel.fetchWidget(it, termId)
             }
         }
 
