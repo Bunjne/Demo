@@ -56,4 +56,8 @@
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
+    
+    <!--information dialog-->
+    <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
+    <string name="information_dialog_expected_outcome_header">เกณฑ์การประเมิน</string>
 </resources>
