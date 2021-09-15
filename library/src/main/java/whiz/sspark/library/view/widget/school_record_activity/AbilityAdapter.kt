@@ -14,7 +14,7 @@ class AbilityAdapter: ListAdapter<AbilityAdapter.Item, RecyclerView.ViewHolder>(
 
     companion object {
         private val TITLE_VIEW_TYPE = 1111
-        private val PROGRESS_BAR_VIEW_TYPE = 2222
+        val PROGRESS_BAR_VIEW_TYPE = 2222
     }
 
     override fun getItemViewType(position: Int): Int {
