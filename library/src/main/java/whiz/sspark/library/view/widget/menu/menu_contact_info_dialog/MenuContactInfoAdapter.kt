@@ -28,12 +28,11 @@ class MenuContactInfoAdapter(private val context: Context,
                 init(
                     contactIconRes = it.contactIconRes,
                     contact = it.contact,
-                    contactDescription = it.contactDescription
+                    contactDescription = it.contactDescription,
+                    onContactClicked = {
+                        onContactClicked(it.contactDescription)
+                    }
                 )
-
-                setOnContactClickListener {
-                    onContactClicked(it.contactDescription)
-                }
             }
         }
     }

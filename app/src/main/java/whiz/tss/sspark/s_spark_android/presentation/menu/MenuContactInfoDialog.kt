@@ -10,7 +10,8 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import whiz.sspark.library.data.entity.MenuContactInfoItem
-import whiz.sspark.library.extension.setMatchParentWidth
+import whiz.sspark.library.extension.setWindowHorizontalPadding
+import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.databinding.DialogMenuContactInfoSheetBinding
@@ -61,12 +62,10 @@ class MenuContactInfoDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        _binding = DialogMenuContactInfoSheetBinding.inflate(LayoutInflater.from(context))
-
+        _binding = DialogMenuContactInfoSheetBinding.inflate(LayoutInflater.from(context), null, false)
         val dialog = AlertDialog.Builder(requireContext()).create().apply {
             setView(binding.root)
             setCancelable(false)
-            setCanceledOnTouchOutside(false)
             setDialogAnimation(window)
         }
         initViews()
@@ -76,31 +75,33 @@ class MenuContactInfoDialog : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        setMatchParentWidth(horizontalPadding = 0)
+        setWindowHorizontalPadding(horizontalPadding = 0)
     }
 
     private fun initViews() {
         menuContactItem?.let {
-            binding.vMenuContactInfo.init(it) { description ->
-                when (description) {
-                    requireContext().resources.getString(R.string.menu_contact_info_personal_phone_text) -> {
-                        startActivity(callPersonalPhoneIntent)
+            binding.vMenuContactInfo.init(
+                contactInfo = it,
+                onContactClicked = { description ->
+                    when (description) {
+                        requireContext().resources.getString(R.string.menu_contact_info_personal_phone_text) -> {
+                            startActivity(callPersonalPhoneIntent)
+                        }
+                        requireContext().resources.getString(R.string.menu_contact_info_office_phone_text) -> {
+                            startActivity(callOfficePhoneIntent)
+                        }
+                        requireContext().resources.getString(R.string.menu_contact_info_office_email_text) -> {
+                            startActivity(sendToOfficeEmailIntent)
+                        }
+                        requireContext().resources.getString(R.string.menu_contact_info_personal_email_text) -> {
+                            startActivity(sendToPersonalEmailIntent)
+                        }
                     }
-                    requireContext().resources.getString(R.string.menu_contact_info_office_phone_text) -> {
-                        startActivity(callOfficePhoneIntent)
-                    }
-                    requireContext().resources.getString(R.string.menu_contact_info_office_email_text) -> {
-                        startActivity(sendToOfficeEmailIntent)
-                    }
-                    requireContext().resources.getString(R.string.menu_contact_info_personal_email_text) -> {
-                        startActivity(sendToPersonalEmailIntent)
-                    }
+                },
+                onCloseClicked = {
+                    dialog?.dismiss()
                 }
-            }
-        }
-
-        binding.vMenuContactInfo.setOnCloseClickListener {
-            dialog?.dismiss()
+            )
         }
     }
 
@@ -109,7 +110,7 @@ class MenuContactInfoDialog : DialogFragment() {
             with(window) {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 setGravity(Gravity.BOTTOM)
-                attributes.y = 2
+                attributes.y = 4.toDP(context)
                 attributes.windowAnimations = R.style.MenuContactInfoDialogAnimationStyle
             }
         }

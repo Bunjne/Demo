@@ -19,19 +19,17 @@ class MenuContactInfoItemView: FrameLayout {
 
     fun init(contactIconRes: Int,
              contact: String,
-             contactDescription: String) {
+             contactDescription: String,
+             onContactClicked: () -> Unit) {
 
         with(binding) {
             tvContactInfoHeader.text = contact
             tvContactDescription.text = contactDescription
             ivContactIcon.show(contactIconRes)
             ivEndIcon.show(R.drawable.ic_arrow_right)
-        }
-    }
-
-    fun setOnContactClickListener(onContactClicked: () -> Unit) {
-        binding.root.setOnClickListener {
-            onContactClicked()
+            root.setOnClickListener {
+                onContactClicked()
+            }
         }
     }
 }

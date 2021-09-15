@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.MenuContactInfoItem
+import whiz.sspark.library.data.enum.Gender
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewMenuContactInfoDialogBinding
 import whiz.sspark.library.extension.getPercentage
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.showUserProfileCircle
+import whiz.sspark.library.utility.getAlphaPercentage
 
 class MenuContactInfoDialogView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -22,19 +26,17 @@ class MenuContactInfoDialogView: ConstraintLayout {
         ViewMenuContactInfoDialogBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    private val menuContactItems = mutableListOf<MenuContactInfoAdapter.MenuContactItem>()
-
     fun init(contactInfo: MenuContactInfoItem,
-             onContactClicked: (String) -> Unit) {
+             onContactClicked: (String) -> Unit,
+             onCloseClicked: () -> Unit) {
 
         with(binding) {
-
-            ivProfileImage.show(contactInfo.imageUrl)
+            ivProfileImage.showUserProfileCircle(contactInfo.imageUrl, getGender(contactInfo.gender).type)
             tvClose.text = resources.getString(R.string.menu_contact_info_close_text)
             tvName.text = contactInfo.name
             tvDescription.text = contactInfo.description
 
-            menuContactItems.addAll(transformToItems(contactInfo))
+            val menuContactItems = transformToItems(contactInfo)
             with(rvContacts) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = MenuContactInfoAdapter(
@@ -47,10 +49,14 @@ class MenuContactInfoDialogView: ConstraintLayout {
             val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             divider.setDrawable(
                 ContextCompat.getDrawable(context, R.drawable.divider_base_dialog_item)!!.apply {
-                    alpha = 255.getPercentage(80).toInt()
+                    alpha = getAlphaPercentage(80)
                 }
             )
             rvContacts.addItemDecoration(divider)
+
+            binding.tvClose.setOnClickListener {
+                onCloseClicked()
+            }
         }
     }
 
@@ -92,11 +98,5 @@ class MenuContactInfoDialogView: ConstraintLayout {
         }
 
         return items
-    }
-
-    fun setOnCloseClickListener(onCloseClicked: () -> Unit) {
-        binding.tvClose.setOnClickListener {
-            onCloseClicked()
-        }
     }
 }

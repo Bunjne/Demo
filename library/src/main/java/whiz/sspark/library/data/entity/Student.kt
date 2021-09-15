@@ -37,8 +37,6 @@ fun Student.convertToProfile(): Profile {
 fun Student.getGuardianMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {
     return with(guardians[position]) {
         MenuContactInfoItem(
-            menuSegmentType = MenuSegmentType.GUARDIAN,
-            index = position,
             imageUrl = imageUrl,
             gender = gender,
             description = context.resources.getString(R.string.general_relation, relation),
@@ -52,8 +50,6 @@ fun Student.getGuardianMemberContactInfo(context: Context, position: Int): MenuC
 fun Student.getAdvisorMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {
     return with(this.advisor[position]) {
         MenuContactInfoItem(
-            menuSegmentType = MenuSegmentType.INSTRUCTOR,
-            index = position,
             imageUrl = imageUrl,
             gender = gender,
             description = context.resources.getString(R.string.general_room, officeRoom),
