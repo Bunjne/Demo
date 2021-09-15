@@ -1,6 +1,5 @@
 package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,10 +33,6 @@ class StudentClassMemberFragment : BaseFragment() {
         arguments?.getString("classGroupId") ?: ""
     }
 
-    private val color by lazy {
-        arguments?.getInt("color", Color.BLACK) ?: Color.BLACK
-    }
-
     val items = mutableListOf<ClassMemberAdapter.Item>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,7 +54,7 @@ class StudentClassMemberFragment : BaseFragment() {
         val userId = retrieveUserID(requireContext())
         binding.vClassMember.init(
                 items = items,
-                userId = "8164831c-b0b5-41ef-9935-6c0b82293733",
+                userId = userId,
                 onRefresh = {
                     viewModel.getClassMember(classGroupId, true)
                 }
