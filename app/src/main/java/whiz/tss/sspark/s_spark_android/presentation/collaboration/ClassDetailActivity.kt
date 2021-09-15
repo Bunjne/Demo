@@ -15,6 +15,7 @@ import whiz.tss.sspark.s_spark_android.databinding.ActivityClassDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor.InstructorClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.interaction.LikeBySeenByDialogFragment
 
 class ClassDetailActivity : BaseActivity() {
 
@@ -51,7 +52,9 @@ class ClassDetailActivity : BaseActivity() {
         binding = ActivityClassDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initView()
+//        initView()
+
+        LikeBySeenByDialogFragment.newInstance("","",0, 0, 1).show(supportFragmentManager, "")
     }
 
     override fun initView() {

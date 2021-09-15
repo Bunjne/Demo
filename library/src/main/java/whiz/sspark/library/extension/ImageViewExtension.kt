@@ -12,6 +12,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.enum.Gender
 import whiz.sspark.library.view.widget.collaboration.class_member.ClassLargeMemberNameView
+import whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByClassMemberView
 import java.io.File
 
 fun ImageView.show(resId: Int) {
@@ -89,6 +90,27 @@ fun ImageView.showClassMemberProfileCircle(imageUrl: String, member: ClassMember
     val classMemberNameView = ClassLargeMemberNameView(context).apply {
         init(member.abbreviatedName)
         setNameColor(textColor)
+        setBackgroundColor(textBackgroundColor)
+    } as View
+
+    val defaultImage = classMemberNameView.toDrawable(context)
+    val requestOptions = RequestOptions
+        .diskCacheStrategyOf(DiskCacheStrategy.NONE)
+        .skipMemoryCache(true)
+        .placeholder(defaultImage)
+        .fitCenter()
+        .error(defaultImage)
+        .circleCrop()
+
+    Glide.with(this)
+        .load(imageUrl)
+        .apply(requestOptions)
+        .into(this)
+}
+
+fun ImageView.showClassMemberLikeBySeenByCircle(imageUrl: String, abbreviationName: String, textColor: Int = Color.WHITE, textBackgroundColor: Int = Color.TRANSPARENT) {
+    val classMemberNameView = LikeBySeenByClassMemberView(context).apply {
+        init(abbreviationName, textColor)
         setBackgroundColor(textBackgroundColor)
     } as View
 

@@ -2,6 +2,7 @@ package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
 import whiz.sspark.library.extension.toFirstCharacter
+import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 import java.util.*
 
@@ -27,7 +28,8 @@ data class ClassMember(
     @SerializedName("gender") val gender: String = "",
     @SerializedName("healthStatus") val healthStatus: String = "",
     @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date(),
-    @SerializedName("number") val number: String = ""
+    @SerializedName("number") val number: String = "",
+    @SerializedName("remark") val remark: String = ""
 ) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)
@@ -36,5 +38,6 @@ data class ClassMember(
     val facultyName: String get() = localize(_facultyNameEn, _facultyNameTh, _facultyNameEn, true)
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
     val abbreviatedName: String get() = firstName.toFirstCharacter() + lastName.toFirstCharacter()
+    val fullName: String get() = convertToFullName(firstName, middleName, lastName, position)
 
 }

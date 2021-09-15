@@ -1,6 +1,7 @@
 package whiz.sspark.library.extension
 
 import android.util.Patterns
+import whiz.sspark.library.SSparkUI
 import whiz.sspark.library.data.static.DateTimePattern.serviceDateFullFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,3 +32,5 @@ fun String?.convertToDate(pattern: String) = if (this.isNullOrBlank()) {
 } else {
     SimpleDateFormat(pattern, Locale.getDefault()).parse(this)
 }
+
+fun String.isDefaultValueContained(): Boolean = this in listOf(SSparkUI.defaultEmptyValueTh, SSparkUI.defaultEmptyValueEn, SSparkUI.defaultEmptyValueCn)
