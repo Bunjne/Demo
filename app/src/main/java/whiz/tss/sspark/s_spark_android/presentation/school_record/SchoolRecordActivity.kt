@@ -2,6 +2,9 @@ package whiz.tss.sspark.s_spark_android.presentation.school_record
 
 import android.os.Bundle
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.Term
@@ -44,8 +47,18 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
             initView()
+            val isSelectTermAble = terms.isNotEmpty()
+            binding.vSchoolRecord.setSelectTermAble(isSelectTermAble)
         } else {
-            viewModel.getTerms()
+            lifecycleScope.launch {
+                profileManager.term.collect {
+                    it?.let {
+                        currentTerm = it
+                        initView()
+                        viewModel.getTerms()
+                    }
+                }
+            }
         }
     }
 
@@ -94,9 +107,6 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
                 }
             )
 
-            val isSelectTermAble = terms.isNotEmpty()
-            setSelectTermAble(isSelectTermAble)
-
             if (lastedFragment != -1) {
                 setSelectedTab(lastedFragment)
             }
@@ -121,10 +131,8 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
                     addAll(it)
                 }
 
-                if (terms.isNotEmpty()) {
-                    currentTerm = terms.first()
-                    initView()
-                }
+                val isSelectTermAble = terms.isNotEmpty()
+                binding.vSchoolRecord.setSelectTermAble(isSelectTermAble)
             }
         }
     }
