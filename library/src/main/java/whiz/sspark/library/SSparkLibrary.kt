@@ -16,6 +16,7 @@ object SSparkLibrary {
     var apiKey = ""
     var baseUrl = ""
     var baseUrlV3 = ""
+    var collaborationSocketBaseURL = ""
 
     var isDarkModeEnabled = false
     var isAutoDarkModeEnabled = false

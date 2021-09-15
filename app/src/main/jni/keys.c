@@ -88,6 +88,20 @@ Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getApiBaseURLV3(JNIEnv *env, jo
 
     return (*env)->NewStringUTF(env, "");
 }
+
+JNIEXPORT jstring JNICALL
+Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getCollaborationSocketURL(JNIEnv *env,jobject thiz, jstring key) {
+    const char * keyCPPString = (*env)->GetStringUTFChars(env, key, NULL);
+
+    if (strcmp(debuggingKey, keyCPPString) == 0) {
+        return (*env)->NewStringUTF(env, "https://auusparkconnect-stg.azurewebsites.net/post"); //TODO change this url when there is confirmation from API Team
+    } else if (strcmp(releaseKey, keyCPPString) == 0) {
+        return (*env)->NewStringUTF(env, "https://auusparkconnect.azurewebsites.net/post");
+    }
+
+    return (*env)->NewStringUTF(env, "");
+}
+
 //
 ////jboolean
 ////Java_whiz_tss_sspark_s_1spark_1android_L(
