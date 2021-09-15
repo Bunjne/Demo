@@ -16,4 +16,9 @@
         <item name="android:ellipsize">end</item>
         <item name="ssparkFont">regular</item>
     </style>
+
+    <style name="DialogAnimationStyle">
+        <item name="android:windowEnterAnimation">@animator/slide_up</item>
+        <item name="android:windowExitAnimation">@animator/slide_down</item>
+    </style>
 </resources>

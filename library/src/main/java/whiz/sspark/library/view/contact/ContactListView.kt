@@ -24,7 +24,7 @@ class ContactListView : ConstraintLayout {
     fun init(onContactClicked: (Contact) -> Unit,
              onRefresh: () -> Unit) {
         binding.srlContact.setOnRefreshListener {
-         onRefresh()
+            onRefresh()
         }
 
         with(binding.rvContact) {
@@ -41,8 +41,6 @@ class ContactListView : ConstraintLayout {
     fun updateContactItems(contacts: List<Contact>) {
         with(contactsLocal) {
             clear()
-            addAll(contacts)
-            addAll(contacts)
             addAll(contacts)
         }
 

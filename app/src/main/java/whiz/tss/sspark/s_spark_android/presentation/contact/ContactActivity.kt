@@ -3,21 +3,17 @@ package whiz.tss.sspark.s_spark_android.presentation.contact
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.SSparkLibrary
-import whiz.sspark.library.data.entity.Contact
 import whiz.sspark.library.data.entity.ContactInfo
 import whiz.sspark.library.data.enum.ContactType
 import whiz.sspark.library.data.viewModel.ContactViewModel
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.utility.showAlertWithOkButton
-import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.ActivityContactBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
-class ContactActivity : BaseActivity(), ContactInfoBottomSheetDialog.DialogOnClickListener {
+class ContactActivity : BaseActivity(), ContactInfoDialogFragment.DialogOnClickListener {
 
     private val viewModel: ContactViewModel by viewModel()
 
@@ -39,7 +35,7 @@ class ContactActivity : BaseActivity(), ContactInfoBottomSheetDialog.DialogOnCli
     override fun initView() {
         binding.vContact.init(
             onContactClicked = { contact ->
-                ContactInfoBottomSheetDialog.newInstance(contact.toJson()).show(supportFragmentManager, "")
+                ContactInfoDialogFragment.newInstance(contact.toJson()).show(supportFragmentManager, "")
             },
             onRefresh = {
                 viewModel.getContacts(true)
