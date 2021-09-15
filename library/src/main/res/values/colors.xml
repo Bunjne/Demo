@@ -109,4 +109,7 @@
 
     <!-- Indicator -->
     <color name="indicatorBackground">#BCBCBC</color>
+
+    <!-- Contact -->
+    <color name="contactInfoCloseColor">#FF1903</color>
 </resources>

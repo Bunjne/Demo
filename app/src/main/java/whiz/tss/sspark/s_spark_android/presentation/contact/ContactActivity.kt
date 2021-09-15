@@ -1,15 +1,23 @@
 package whiz.tss.sspark.s_spark_android.presentation.contact
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.Contact
+import whiz.sspark.library.data.entity.ContactInfo
+import whiz.sspark.library.data.enum.ContactType
 import whiz.sspark.library.data.viewModel.ContactViewModel
+import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.utility.showAlertWithOkButton
+import whiz.sspark.library.utility.showApiResponseAlert
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.ActivityContactBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
-class ContactActivity : BaseActivity() {
+class ContactActivity : BaseActivity(), ContactInfoBottomSheetDialog.DialogOnClickListener {
 
     private val viewModel: ContactViewModel by viewModel()
 
@@ -31,18 +39,21 @@ class ContactActivity : BaseActivity() {
     override fun initView() {
         binding.vContact.init(
             onContactClicked = { contact ->
-
+                ContactInfoBottomSheetDialog.newInstance(contact.toJson()).show(supportFragmentManager, "")
             },
             onRefresh = {
                 viewModel.getContacts(true)
             }
         )
-        binding.vContact.updateContactItems(Contact.getContacts())
     }
 
     override fun observeView() {
         viewModel.contactsLoading.observe(this) { isLoading ->
             binding.vContact.setSwipeRefreshLoading(isLoading)
+        }
+
+        viewModel.viewRendering.observe(this) {
+            binding.vContact.setLatestUpdatedText(it)
         }
     }
 
@@ -57,7 +68,7 @@ class ContactActivity : BaseActivity() {
     override fun observeError() {
         viewModel.contactsErrorResponse.observe(this) {
             it?.let {
-                showApiResponseXAlert(this, it)
+                showApiResponseAlert(this, it)
             }
         }
 
@@ -66,5 +77,36 @@ class ContactActivity : BaseActivity() {
                 showAlertWithOkButton(it)
             }
         }
+    }
+
+    override fun onContactInfoSelected(contactInfo: ContactInfo) {
+        with (contactInfo) {
+            when (type) {
+                ContactType.WEB.type -> openUrl(contactInfo)
+                ContactType.TELEPHONE.type -> {
+                    val phoneNumber = value.filter { it != '-' }
+                    if (phoneNumber.length >= 10 && phoneNumber.take(2) != "02") {
+                        callPhone(phoneNumber.take(10))
+                    } else if (phoneNumber.take(2) == "02") {
+                        callPhone(phoneNumber.take(9))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun openUrl(contact: ContactInfo) {
+        val navigatedUrl = if (contact.value.contains("line.me")) {
+            contact.value.replaceAfter("p/", contact.displayTitle)
+        } else {
+            contact.value
+        }
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(navigatedUrl)))
+    }
+
+    private fun callPhone(phoneNumber: String) {
+        startActivity(Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        })
     }
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="4dp">
+
+    <LinearLayout
+        android:id="@+id/clTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.sinaseyfi.advancedcardview.AdvancedCardView
+                android:id="@+id/cvProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:background_Color="@color/viewBaseSecondaryColor"
+                app:cornerRadius="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shadow0_Outer_Alpha="1"
+                app:shadow0_Outer_Blur="30dp"
+                app:shadow0_Outer_Color="@color/shadowColor"
+                app:shadow_Outer_Area="4dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    tools:src="@tools:sample/avatars" />
+
+            </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvContactName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="17dp"
+                app:autoSizeMaxTextSize="17dp"
+                app:autoSizeMinTextSize="13dp"
+                app:autoSizeStepGranularity="1dp"
+                app:layout_constraintBottom_toBottomOf="@id/cvProfile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cvProfile"
+                app:layout_constraintTop_toTopOf="@id/cvProfile"
+                app:ssparkFont="regular"
+                tools:text="การติดต่อโรงเรียน" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/vLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/lineBasePrimaryColor" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/llContactInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/divider_list_base_no_layer"
+                android:orientation="vertical"
+                android:showDividers="middle" />
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <View
+            android:id="@+id/vLine2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lineBasePrimaryColor" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_contact_info_close"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/contact_info_close"
+            android:textColor="@color/contactInfoCloseColor"
+            android:textSize="18sp"
+            app:autoSizeMaxTextSize="18sp"
+            app:autoSizeMinTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
+            app:ssparkFont="bold" />
+
+    </LinearLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

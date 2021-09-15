@@ -59,4 +59,5 @@
 
     <!-- Contact -->
     <string name="contact_title">Contact</string>
+    <string name="contact_info_close">Close</string>
 </resources>

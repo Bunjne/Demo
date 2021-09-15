@@ -40,9 +40,10 @@ class OkHttpBuilder(private val context: Context) {
             val token = retrieveAuthenticationInformation(context)?.accessToken
 
             if (!token.isNullOrBlank()) {
-                request.addHeader("Authorization", "bearer $token")
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("x-api-key", apiKey)
+//                request.addHeader("Authorization", "bearer $token")
+//                    .addHeader("Content-Type", "application/json")
+//                    .addHeader("x-api-key", apiKey)
+                request.addHeader("Content-Type", "application/json")
             } else {
                 request
                     .addHeader("Content-Type", "application/json")

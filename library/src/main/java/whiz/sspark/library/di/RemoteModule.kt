@@ -14,5 +14,5 @@ val remoteModule = module {
     factory<LearningOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<MenuStudentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<TimelineService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
-    factory<ContactService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ContactService> { RetrofitBuilder(get(), get()).build("https://sqlvaahtki34pd6xlc.blob.core.windows.net/") }
 }

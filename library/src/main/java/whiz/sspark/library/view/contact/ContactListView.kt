@@ -42,6 +42,8 @@ class ContactListView : ConstraintLayout {
         with(contactsLocal) {
             clear()
             addAll(contacts)
+            addAll(contacts)
+            addAll(contacts)
         }
 
         binding.rvContact?.adapter?.notifyDataSetChanged()

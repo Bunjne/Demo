@@ -57,4 +57,5 @@
 
     <!-- Contact -->
     <string name="contact_title">ช่องทางการติดต่อ</string>
+    <string name="contact_info_close">ปืด</string>
 </resources>

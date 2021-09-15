@@ -10,10 +10,9 @@
         android:id="@+id/clTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/viewBaseSecondaryColor"
+        android:background="@drawable/bg_base_header"
         android:paddingHorizontal="12dp"
         android:paddingTop="14dp"
-        android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/screen_header_subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
@@ -44,7 +44,6 @@
         android:id="@+id/srlContact"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
         android:paddingHorizontal="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/clTitle"
@@ -55,9 +54,9 @@
             android:id="@+id/rvContact"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clipToPadding="true"
+            android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingVertical="12dp"
+            android:paddingTop="4dp"
             tools:listitem="@layout/view_contact_list_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

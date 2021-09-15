@@ -30,7 +30,7 @@ class ContactAdapter(private val context: Context,
             (holder.itemView as? ContactListItemView)?.apply {
                 init(contact, onContactClicked)
 
-                setPadding(0, 0, 0, 12.toDP(context))
+                setPadding(0, 0, 0, 8.toDP(context))
             }
         }
     }

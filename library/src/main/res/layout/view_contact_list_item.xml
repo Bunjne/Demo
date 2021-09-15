@@ -32,12 +32,11 @@
             app:shadow0_Outer_Color="@color/shadowColor"
             app:shadow_Outer_Area="4dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_gravity="center"
-                android:scaleType="fitCenter"
                 tools:src="@tools:sample/avatars" />
 
         </com.sinaseyfi.advancedcardview.AdvancedCardView>
@@ -50,9 +49,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/textBasePrimaryColor"
-            android:textSize="16sp"
-            app:autoSizeMaxTextSize="16dp"
-            app:autoSizeMinTextSize="12dp"
+            android:textSize="17dp"
+            app:autoSizeMaxTextSize="17dp"
+            app:autoSizeMinTextSize="13dp"
             app:autoSizeStepGranularity="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivMore"

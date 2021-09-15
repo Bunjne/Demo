@@ -1,4 +1,4 @@
-package whiz.sspark.library.data.dataSource.local
+package whiz.sspark.library.data.data_source.local
 
 import whiz.sspark.library.data.entity.Contact
 import java.util.*
