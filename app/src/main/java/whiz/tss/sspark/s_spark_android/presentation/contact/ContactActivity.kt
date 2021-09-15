@@ -19,6 +19,8 @@ class ContactActivity : BaseActivity(), ContactInfoDialogFragment.DialogOnClickL
 
     private lateinit var binding: ActivityContactBinding
 
+    private var alertDialog: ContactInfoDialogFragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityContactBinding.inflate(layoutInflater)
@@ -35,7 +37,12 @@ class ContactActivity : BaseActivity(), ContactInfoDialogFragment.DialogOnClickL
     override fun initView() {
         binding.vContact.init(
             onContactClicked = { contact ->
-                ContactInfoDialogFragment.newInstance(contact.toJson()).show(supportFragmentManager, "")
+                val isShowing = alertDialog?.isAdded ?: false
+
+                if (!isShowing) {
+                    alertDialog = ContactInfoDialogFragment.newInstance(contact.toJson())
+                    alertDialog?.show(supportFragmentManager, "")
+                }
             },
             onRefresh = {
                 viewModel.getContacts(true)
