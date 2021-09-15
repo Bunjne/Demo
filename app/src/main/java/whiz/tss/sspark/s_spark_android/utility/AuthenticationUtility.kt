@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.Intent
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import kotlinx.coroutines.runBlocking
+import org.koin.java.KoinJavaComponent.inject
 import whiz.sspark.library.data.entity.AuthenticationInformation
+import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
-import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
 import whiz.tss.sspark.s_spark_android.data.static.ConstantValue
-import java.lang.Exception
+import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
 import java.util.*
 
 fun retrieveAuthenticationInformation(context: Context): AuthenticationInformation? {
@@ -105,5 +108,30 @@ fun clearData(context: Context) {
             clear()
             apply()
         }
+    }
+}
+
+fun refreshToken(context: Context, onTokenRefreshed: () -> Unit) {
+    val refreshToken = retrieveAuthenticationInformation(context)?.refreshToken
+
+    if (!refreshToken.isNullOrBlank()) {
+        val remote: LoginService by inject(LoginService::class.java)
+        val uuid = retrieveDeviceID(context)
+        val userId = retrieveUserID(context)
+
+        runBlocking {
+            remote.refreshToken(RefreshTokenAPIBody(userId, uuid, refreshToken)).body()?.let {
+                val authenticationInformation = it.data.toObject<AuthenticationInformation>()
+
+                authenticationInformation?.let { authenticationInformation ->
+                    saveAuthenticationInformation(context, authenticationInformation)
+                    onTokenRefreshed()
+                } ?: {
+                    logout(context)
+                }
+            }
+        }
+    } else {
+        logout(context)
     }
 }

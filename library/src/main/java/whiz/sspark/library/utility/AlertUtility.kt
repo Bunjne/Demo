@@ -101,3 +101,15 @@ fun Context.showAlert(title: String,
 
     dialog.show()
 }
+
+fun Context.showAlertWithMultipleItems(titles: List<String>,
+                                       isCancelAble: Boolean = true,
+                                       onItemSelected: (Int) -> Unit) {
+    val dialog = AlertDialog.Builder(this)
+        .setItems(titles.toTypedArray()) { dialog, index ->
+            onItemSelected(index)
+        }
+
+    dialog.setCancelable(isCancelAble)
+    dialog.show()
+}
