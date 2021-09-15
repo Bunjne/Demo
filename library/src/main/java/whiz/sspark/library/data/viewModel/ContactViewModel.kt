@@ -9,16 +9,16 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import whiz.sspark.library.data.entity.ApiErrorResponse
+import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.Contact
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.repository.ContactRepositoryImpl
 
 class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl) : ViewModel() {
 
-    private val _contactsLoading = MutableLiveData<Boolean>()
-    val contactsLoading: LiveData<Boolean>
-        get() = _contactsLoading
+    private val _viewLoading = MutableLiveData<Boolean>()
+    val viewLoading: LiveData<Boolean>
+        get() = _viewLoading
 
     private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
@@ -28,8 +28,8 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
     val contactsResponse: LiveData<List<Contact>>
         get() = _contactsResponse
 
-    private val _contactsErrorResponse = MutableLiveData<ApiErrorResponse?>()
-    val contactsErrorResponse: LiveData<ApiErrorResponse?>
+    private val _contactsErrorResponse = MutableLiveData<ApiResponseX?>()
+    val contactsErrorResponse: LiveData<ApiResponseX?>
         get() = _contactsErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
@@ -41,16 +41,16 @@ class ContactViewModel(private val contactRepositoryImpl: ContactRepositoryImpl)
             contactRepositoryImpl.getContacts(isNetworkPreferred)
                 .onStart {
                     _viewRendering.value = null
-                    _contactsLoading.value = true
+                    _viewLoading.value = true
                 }
                 .onCompletion {
-                    _contactsLoading.value = false
+                    _viewLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
                 }
                 .collect {
-//                    _viewRendering.value = it //TODO apiResponseX
+                    _viewRendering.value = it
                     val data = it.data
 
                     data?.let {

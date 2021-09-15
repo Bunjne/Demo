@@ -7,27 +7,25 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
 import whiz.sspark.library.data.data_source.local.impl.ContactCacheImpl
-import whiz.sspark.library.data.dataSource.remote.service.ContactService
+import whiz.sspark.library.data.data_source.remote.service.ContactService
 import whiz.sspark.library.data.entity.Contact
-import whiz.sspark.library.data.entity.DataWrapper
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.utility.NetworkManager
-import whiz.sspark.library.utility.fetch
 import whiz.sspark.library.utility.fetchX
 
 interface ContactRepository {
-    suspend fun getContacts(isNetworkPreferred: Boolean): Flow<DataWrapper<List<Contact>>>
+    suspend fun getContacts(isNetworkPreferred: Boolean): Flow<DataWrapperX<List<Contact>>>
 }
 class ContactRepositoryImpl(private val context: Context,
                             private val local: ContactCacheImpl,
                             private val remote: ContactService): ContactRepository {
-    override suspend fun getContacts(isNetworkPreferred: Boolean): Flow<DataWrapper<List<Contact>>> {
+    override suspend fun getContacts(isNetworkPreferred: Boolean): Flow<DataWrapperX<List<Contact>>> {
         return flow {
             val localContacts = local.getContacts()
             if (localContacts != null && !isNetworkPreferred) {
                 emit(
-                    DataWrapper(
+                    DataWrapperX(
                     data = localContacts,
                     error = null,
                     statusCode = null,
@@ -41,7 +39,7 @@ class ContactRepositoryImpl(private val context: Context,
                 if (NetworkManager.isOnline(context)) {
                     try {
                         val response = remote.getContacts()
-                        fetch(response)
+                        fetchX(response, Array<Contact>::class.java)
                     } catch (e: Exception) {
                         throw e
                     }

@@ -48,7 +48,7 @@ class ContactActivity : BaseActivity(), ContactInfoBottomSheetDialog.DialogOnCli
     }
 
     override fun observeView() {
-        viewModel.contactsLoading.observe(this) { isLoading ->
+        viewModel.viewLoading.observe(this) { isLoading ->
             binding.vContact.setSwipeRefreshLoading(isLoading)
         }
 
@@ -68,7 +68,7 @@ class ContactActivity : BaseActivity(), ContactInfoBottomSheetDialog.DialogOnCli
     override fun observeError() {
         viewModel.contactsErrorResponse.observe(this) {
             it?.let {
-                showApiResponseAlert(this, it)
+                showApiResponseXAlert(this, it)
             }
         }
 
