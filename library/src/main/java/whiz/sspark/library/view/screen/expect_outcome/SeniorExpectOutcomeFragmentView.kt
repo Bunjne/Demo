@@ -77,7 +77,7 @@ class SeniorExpectOutcomeFragmentView: ConstraintLayout {
         }
 
         if (expectOutcome.isCompleted) {
-            val convertedOverAllValue = (expectOutcome.value ?: 0 / (expectOutcome.fullValue / indicators.size))
+            val convertedOverAllValue = (expectOutcome.value ?: 0 / expectOutcome.fullValue) * indicators.size
 
             val overAllItem = ExpectOutcomeOverallItem(
                 value = convertedOverAllValue,

@@ -76,7 +76,7 @@ class JuniorExpectOutcomeFragmentView: ConstraintLayout {
             items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_expect_text)))
 
             expectOutcome.outcomes.forEach {
-                val convertedValue = (it.value ?: 0 / (it.fullValue / indicators.size))
+                val convertedValue = (it.value ?: 0 / it.fullValue) * indicators.size
                 val courseItem = ExpectOutcomeCourseItem(
                     title = it.code,
                     description = it.description,
