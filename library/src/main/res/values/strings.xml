@@ -127,4 +127,8 @@
         <item>ยกเลิก</item>
     </string-array>
 
+    <!-- Class Group -->
+    <string name="class_group_other_instructor_count_place_holder">+%1d</string>
+    <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
+
 </resources>

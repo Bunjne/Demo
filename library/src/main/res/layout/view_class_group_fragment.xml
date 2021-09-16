@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvTodayDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="13dp"
+        app:layout_constraintEnd_toStartOf="@id/ivSchoolLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular"
+        tools:text="20 สิงหาคม 2564" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvClassLevel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="28dp"
+        app:autoSizeMaxTextSize="28dp"
+        app:autoSizeMinTextSize="20dp"
+        app:autoSizeStepGranularity="1dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@id/tvTodayDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTodayDate"
+        app:ssparkFont="bold"
+        tools:text="มัธยมศึกษาปีที่ 3/3" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivSchoolLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="12dp"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTodayDate"
+        tools:src="@tools:sample/avatars" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlClassGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="14dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvClassLevel">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvClassGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            tools:listitem="@layout/view_class_group_item" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvNoClassGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/class_group_no_class_group"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvClassLevel"
+        app:ssparkFont="regular"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

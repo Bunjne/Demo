@@ -14,4 +14,7 @@ object DateTimePattern {
 
     const val todayAbbreviatedDateFormatEn = "d MMMM yyyy"
     const val todayAbbreviatedDayMonthFormatTh = "d MMM "
+
+    //ClassGroup
+    const val classGroupDayMonthFormatTh = "d MMMM "
 }
