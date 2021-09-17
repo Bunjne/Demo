@@ -17,6 +17,6 @@ class LikeBySeenByTitleItemView : ConstraintLayout {
     }
 
     fun init(header: LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header) {
-        binding.tvTitle.text = resources.getString(R.string.like_by_seen_by_title, header.title, header.membersNumber)
+        binding.tvTitle.text = header.title
     }
 }

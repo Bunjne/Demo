@@ -12,4 +12,5 @@ val viewModelModule = module {
     viewModel { MenuStudentViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
+    viewModel { LikeBySeenByViewModel(get()) }
 }

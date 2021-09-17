@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByDialogFragmentView
+        android:id="@+id/vLikeBySeenBy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/vFooter"
+        android:layout_marginTop="21dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <whiz.tss.sspark.s_spark_android.widget.ScreenFooterView
+        android:id="@+id/vFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/viewBasePrimaryColor" />
+
+</RelativeLayout>

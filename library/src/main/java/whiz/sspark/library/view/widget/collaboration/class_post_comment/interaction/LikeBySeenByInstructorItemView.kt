@@ -25,7 +25,7 @@ class LikeBySeenByInstructorItemView : ConstraintLayout {
     }
 
     fun init(instructor: LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor) {
-        with(instructor.member) {
+        with(instructor.instructor) {
             binding.ivProfile.showClassMemberLikeBySeenByCircle(
                 imageUrl = profileImageUrl,
                 abbreviationName = abbreviatedName,

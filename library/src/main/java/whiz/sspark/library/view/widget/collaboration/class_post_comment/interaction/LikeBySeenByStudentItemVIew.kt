@@ -22,7 +22,7 @@ class LikeBySeenByStudentItemVIew : ConstraintLayout {
     }
 
     fun init(student: LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student) {
-        with(student.member) {
+        with(student.student) {
             binding.ivProfile.showClassMemberLikeBySeenByCircle(
                 imageUrl = profileImageUrl,
                 abbreviationName = abbreviatedName,
