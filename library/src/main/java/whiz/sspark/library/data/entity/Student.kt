@@ -39,7 +39,7 @@ fun Student.getGuardianMemberContactInfo(context: Context, position: Int): MenuC
         MenuContactInfoItem(
             imageUrl = imageUrl,
             gender = gender,
-            description = context.resources.getString(R.string.general_relation, relation),
+            description = relation,
             name = fullName,
             personalPhone = personalPhoneNumber,
             personalEmail = personalEmail
