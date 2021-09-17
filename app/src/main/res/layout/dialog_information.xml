@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <whiz.sspark.library.view.general.information_dialog.InformationDialogView
-        android:id="@+id/vCalendarDialogView"
+        android:id="@+id/vInformationDialogView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

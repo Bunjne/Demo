@@ -18,7 +18,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <whiz.sspark.library.view.general.SSparkTextView
             android:id="@+id/tvHeaderText"
@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
             android:textColor="@color/textBasePrimaryColor"
-            android:textSize="17sp"
+            android:textSize="17dp"
             app:layout_constraintEnd_toStartOf="@+id/ivCloseButton"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:ssparkFont="bold"
@@ -37,14 +37,14 @@
 
         <ImageView
             android:id="@+id/ivCloseButton"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="16.5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvHeaderText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvHeaderText"
             app:layout_constraintTop_toTopOf="@+id/tvHeaderText"
-            tools:src="@drawable/ic_close" />
+            tools:src="@drawable/ic_rounded_close_button" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCalendarInformations"
@@ -55,10 +55,8 @@
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_default="wrap"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHeaderText"
-            app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/view_calendar_color_information_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

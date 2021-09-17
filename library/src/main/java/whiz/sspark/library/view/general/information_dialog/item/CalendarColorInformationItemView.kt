@@ -12,11 +12,11 @@ class CalendarColorInformationItemView: FrameLayout {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    val binding: ViewCalendarColorInformationItemBinding by lazy {
+    private val binding: ViewCalendarColorInformationItemBinding by lazy {
         ViewCalendarColorInformationItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(@ColorInt color: Int,
+    fun init(color: Int,
              description: String) {
         binding.acvCircleStatus.background_Color = color
         binding.tvDescription.text = description

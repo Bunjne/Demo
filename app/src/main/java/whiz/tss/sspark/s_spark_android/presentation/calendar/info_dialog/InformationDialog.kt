@@ -48,24 +48,22 @@ class InformationDialog: DialogFragment() {
         _binding = DialogInformationBinding.inflate(LayoutInflater.from(context))
         val dialog = AlertDialog.Builder(requireContext()).create().apply {
             setView(binding.root)
-            setCanceledOnTouchOutside(false)
             setCancelable(false)
             setDialogBackground(window)
-            initView()
         }
-
-        binding.vCalendarDialogView.setOnCloseClickListener {
-            dialog.dismiss()
-        }
+        initView(dialog)
 
         return dialog
     }
 
-    private fun initView() {
+    private fun initView(dialog: AlertDialog) {
         informationItems?.let {
-            binding.vCalendarDialogView.init(
+            binding.vInformationDialogView.init(
                 headerText = headerText,
-                items = it
+                items = it,
+                onCloseClicked = {
+                    dialog.dismiss()
+                }
             )
         }
     }

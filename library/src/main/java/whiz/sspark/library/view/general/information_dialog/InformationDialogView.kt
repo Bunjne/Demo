@@ -14,14 +14,15 @@ class InformationDialogView: FrameLayout {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    val binding: ViewInformationDialogBinding by lazy {
+    private val binding: ViewInformationDialogBinding by lazy {
         ViewInformationDialogBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(headerText: String,
-             items: List<InformationDialogAdapter.Item>) {
+             items: List<InformationDialogAdapter.Item>,
+             onCloseClicked: () -> Unit) {
         binding.tvHeaderText.text = headerText
-        binding.ivCloseButton.show(R.drawable.ic_close)
+        binding.ivCloseButton.show(R.drawable.ic_rounded_close_button)
 
         with(binding.rvCalendarInformations) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -30,11 +31,9 @@ class InformationDialogView: FrameLayout {
                 items = items
             )
         }
-    }
 
-    fun setOnCloseClickListener(onClose: () -> Unit) {
         binding.ivCloseButton.setOnClickListener {
-            onClose()
+            onCloseClicked()
         }
     }
 }
