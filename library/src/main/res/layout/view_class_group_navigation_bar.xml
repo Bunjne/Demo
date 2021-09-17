@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:dividerPadding="8dp"
         android:showDividers="middle"
         android:paddingHorizontal="10dp"
         android:paddingVertical="12dp"/>

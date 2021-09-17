@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
 import whiz.sspark.library.data.enum.BottomNavigationType
-import whiz.sspark.library.extension.setGradientDrawable
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.databinding.ActivityMainBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_group.ClassGroupFragment
 import whiz.tss.sspark.s_spark_android.presentation.menu.MenuStudentFragment
 import whiz.tss.sspark.s_spark_android.presentation.today.TodayFragment
 
@@ -31,7 +31,6 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setGradientDrawable(R.drawable.bg_primary_gradient_0)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -46,9 +45,9 @@ class MainActivity : BaseActivity() {
         binding.vBottomNavigation.init(
             context = this,
             imageList = listOf(
-                BottomNavigationBarItem(id = BottomNavigationId.TODAY.id, title = resources.getString(R.string.tab_today), type = BottomNavigationType.ICON.id, imageResource = R.drawable.ic_female_circular),
-                BottomNavigationBarItem(id = BottomNavigationId.CLASS.id, title = resources.getString(R.string.tab_class), type = BottomNavigationType.ICON.id, imageResource = R.drawable.ic_female_circular),
-                BottomNavigationBarItem(id = BottomNavigationId.ID_CARD.id, title = resources.getString(R.string.tab_id_card), type = BottomNavigationType.ICON.id, imageResource = R.drawable.ic_female_circular),
+                BottomNavigationBarItem(id = BottomNavigationId.TODAY.id, title = resources.getString(R.string.tab_today), type = BottomNavigationType.ICON.id, imageResource = R.drawable.ic_today),
+                BottomNavigationBarItem(id = BottomNavigationId.CLASS.id, title = resources.getString(R.string.tab_class), type = BottomNavigationType.ICON.id, imageResource = R.drawable.ic_class_group),
+                BottomNavigationBarItem(id = BottomNavigationId.ID_CARD.id, title = resources.getString(R.string.tab_id_card), type = BottomNavigationType.ICON.id, imageResource = R.drawable.ic_student_card),
                 BottomNavigationBarItem(id = BottomNavigationId.MENU.id, title = profile?.firstName ?: "", type = BottomNavigationType.PROFILE.id, imageUrl = profile?.imageUrl ?: "")
             ),
             onSelected = {
@@ -59,9 +58,9 @@ class MainActivity : BaseActivity() {
                         }
                     }
                     BottomNavigationId.CLASS.id -> {
-//                    if (!isFragmentVisible(BottomNavigationId.CLASS.id)) { // TODO wait implementation
-//                        renderFragment(ClassListFragment.newInstance(), BottomNavigationId.CLASS.id)
-//                    }
+                    if (!isFragmentVisible(BottomNavigationId.CLASS.id)) {
+                        renderFragment(ClassGroupFragment.newInstance(), BottomNavigationId.CLASS.id)
+                    }
                     }
                     BottomNavigationId.ID_CARD.id -> {
 //                    binding.vBottomNavigation.setSelection(currentFragment) // TODO wait confirm UI

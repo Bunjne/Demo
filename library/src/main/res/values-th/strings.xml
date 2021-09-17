@@ -122,6 +122,11 @@
     </string-array>
 
     <!-- Class Group -->
+    <string name="class_group_navigation_item_advisory_title">Advisory</string>
+    <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
+    <string name="class_group_navigation_item_assignment_title">Assignment</string>
+    <string name="class_group_navigation_item_class_schedule_title">ตารางเรียน</string>
+    <string name="class_group_navigation_item_examination_title">ตารางสอบ</string>
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
     <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
 

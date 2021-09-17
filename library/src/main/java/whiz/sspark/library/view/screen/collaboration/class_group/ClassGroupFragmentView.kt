@@ -3,9 +3,9 @@ package whiz.sspark.library.view.screen.collaboration.class_group
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.data.entity.ClassGroupCourse
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewClassGroupFragmentBinding
@@ -24,9 +24,8 @@ class ClassGroupFragmentView : ConstraintLayout {
         ViewClassGroupFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    private val items = mutableListOf<ClassGroupAdapter.Item>()
-
-    fun init(todayDate: Date,
+    fun init(items: MutableList<ClassGroupAdapter.Item>,
+             todayDate: Date,
              classLevel: String,
              schoolLogoUrl: String,
              onClassGroupItemClicked: (ClassGroupCourse) -> Unit,
@@ -43,12 +42,12 @@ class ClassGroupFragmentView : ConstraintLayout {
         binding.ivSchoolLogo.show(schoolLogoUrl)
 
         binding.srlClassGroup.setOnRefreshListener {
-            clearData()
+            clearData(items)
             onRefresh()
         }
 
         with(binding.rvClassGroup) {
-            val gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+            val gridLayoutManager = GridLayoutManager(context, 2)
             gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return when(adapter?.getItemViewType(position)) {
@@ -72,12 +71,29 @@ class ClassGroupFragmentView : ConstraintLayout {
         binding.srlClassGroup.isRefreshing = isLoading == true
     }
 
-    fun renderData(newItems: List<ClassGroupAdapter.Item>) {
+    fun renderData(items: MutableList<ClassGroupAdapter.Item>, newItems: MutableList<ClassGroupAdapter.Item>) {
+        newItems.add(0, items.first())
+
         binding.rvClassGroup.adapter?.updateItem(items, newItems)
+
+        if (newItems.isEmpty()) {
+            setNoClassGroupVisibility(true)
+        } else {
+            setNoClassGroupVisibility(false)
+        }
     }
 
-    private fun clearData() {
-        items.clear()
+    fun setNoClassGroupVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            binding.tvNoClassGroup.visibility = View.VISIBLE
+        } else {
+            binding.tvNoClassGroup.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun clearData(items: MutableList<ClassGroupAdapter.Item>) {
+        items.removeAll { it.navigationBarItem == null }
+
         binding.rvClassGroup.adapter?.notifyDataSetChanged()
     }
 }

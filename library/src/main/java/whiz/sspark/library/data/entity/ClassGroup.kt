@@ -24,7 +24,6 @@ data class ClassGroupCourse(
         @SerializedName("nameEn") private val _courseNameEn: String = "",
         @SerializedName("nameTh") private val _courseNameTh: String = "",
         @SerializedName("studentCount") val studentCount: Int = 0,
-        @SerializedName("imageUrl") val imageUrl: String = "",
         @SerializedName("instructors") val instructors: List<ClassMember> = listOf(),
         @SerializedName("notiBadge") val notificationCount: Int = 0,
 ) {

@@ -59,14 +59,12 @@ class ClassGroupAdapter(private val context: Context,
 
         item?.let {
             when {
-                item.classGroup != null -> {
-                    (holder.itemView as? ClassGroupItemView)?.init(item.classGroup, onClassGroupItemClicked)
+                item.classGroupCourse != null -> {
+                    (holder.itemView as? ClassGroupItemView)?.init(item.classGroupCourse, onClassGroupItemClicked)
                 }
                 item.navigationBarItem != null -> {
                     (holder.itemView as? ClassGroupNavigationBarView)?.apply {
                         init(item.navigationBarItem, onNavigationBarItemClicked)
-
-                        setPadding(6.toDP(context), 0, 6.toDP(context), 0)
                     }
                 }
                 else -> {
@@ -78,12 +76,19 @@ class ClassGroupAdapter(private val context: Context,
                             endColor = item.headerBarEndColor ?: Color.BLACK
                         )
 
-                        setPadding(6.toDP(context), 10.toDP(context), 6.toDP(context), 10.toDP(context))
+                        setPadding(0, 10.toDP(context), 0, 10.toDP(context))
                     }
                 }
             }
+        }
+    }
 
-
+    override fun getItemViewType(position: Int): Int {
+        val item = items[position]
+        return when {
+            item.navigationBarItem != null -> ClassGroupItemType.NAVIGATION_BAR.type
+            item.classGroupCourse != null -> ClassGroupItemType.ITEM.type
+            else -> ClassGroupItemType.HEADER_BAR.type
         }
     }
 
@@ -95,6 +100,6 @@ class ClassGroupAdapter(private val context: Context,
         val headerBarIcon: String? = null,
         val headerBarStartColor: Int? = null,
         val headerBarEndColor: Int? = null,
-        val classGroup: ClassGroupCourse? = null,
+        val classGroupCourse: ClassGroupCourse? = null,
     )
 }

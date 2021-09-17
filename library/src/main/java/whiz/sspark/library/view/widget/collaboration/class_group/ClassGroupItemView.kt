@@ -1,6 +1,7 @@
 package whiz.sspark.library.view.widget.collaboration.class_group
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,8 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassGroupCourse
 import whiz.sspark.library.data.enum.Gender
-import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassGroupItemBinding
-import whiz.sspark.library.extension.show
-import whiz.sspark.library.extension.showUserProfileCircle
-import whiz.sspark.library.extension.withAlpha
+import whiz.sspark.library.extension.*
 
 class ClassGroupItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -32,16 +30,11 @@ class ClassGroupItemView : ConstraintLayout {
             } else {
                 binding.tvNotificationCount.text = classGroupCourse.notificationCount.toString()
                 binding.cvNotificationCount.visibility = View.VISIBLE
-                binding.cvNotificationCount.post {
-                    binding.cvNotificationCount.cornerRadius_ = (binding.cvNotificationCount.height / 2).toFloat()
-                    binding.cvNotificationCount.invalidate()
-                }
             }
-
 
             if (instructors.isNotEmpty()) {
                 val mainInstructor = instructors.first()
-                binding.civInstructorImage.showUserProfileCircle(mainInstructor.profileImageUrl, getGender(mainInstructor.gender).type)
+                binding.civInstructorImage.showClassMemberProfileCircle(mainInstructor.profileImageUrl, mainInstructor.abbreviatedName, Color.WHITE, mainInstructor.colorCode?.toColor() ?: Color.BLACK)
 
                 val otherInstructorCount = instructors.size - 1
                 if (otherInstructorCount == 0) {
@@ -59,7 +52,12 @@ class ClassGroupItemView : ConstraintLayout {
             binding.tvCourseName.text = courseName
 
             binding.cvMemberCount.setCardBackgroundColor(ContextCompat.getColor(context, R.color.textBaseThirdColor).withAlpha(34))
+            binding.ivMember.show(R.drawable.ic_user)
             binding.tvMemberCount.text = studentCount.toString()
+        }
+
+        setOnClickListener {
+            onClassGroupItemClicked(classGroupCourse)
         }
     }
 }

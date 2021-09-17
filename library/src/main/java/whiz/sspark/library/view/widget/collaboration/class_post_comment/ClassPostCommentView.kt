@@ -32,7 +32,7 @@ class ClassPostCommentView : ConstraintLayout {
                 author.colorCode.toColor()
             }
 
-            binding.cvProfile.showClassMemberProfileCircle(author.profileImageUrl, author, Color.WHITE, authorColor)
+            binding.cvProfile.showClassMemberProfileCircle(author.profileImageUrl, author.abbreviatedName, Color.WHITE, authorColor)
 
             val commentAuthorName = if (author.position.isNotBlank()) {
                 resources.getString(R.string.class_post_comment_author_name_place_holder, author.number, author.firstName)
