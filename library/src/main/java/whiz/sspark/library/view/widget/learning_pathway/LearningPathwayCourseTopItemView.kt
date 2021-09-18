@@ -5,8 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.Course
-import whiz.sspark.library.data.entity.LearningPathwayCourse
+import whiz.sspark.library.data.entity.LearningPathwayCourseItem
 import whiz.sspark.library.databinding.ViewLearningPathwayCourseTopItemBinding
 import whiz.sspark.library.extension.show
 
@@ -19,16 +18,16 @@ class LearningPathwayCourseTopItemView: ConstraintLayout {
         ViewLearningPathwayCourseTopItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(course: LearningPathwayCourse,
+    fun init(courseItem: LearningPathwayCourseItem,
              onDeleteClicked: (String, String) -> Unit) {
         with(binding.ivDelete) {
             show(R.drawable.ic_bin)
             setOnClickListener {
-                onDeleteClicked(course.term.id, course.course.id)
+                onDeleteClicked(courseItem.term.id, courseItem.course.id)
             }
         }
 
-        with(course.course) {
+        with(courseItem.course) {
             binding.tvCourseCode.text = code
             binding.tvCourseName.text = name
             binding.tvCredit.text = resources.getString(R.string.general_credit, credit.toString())

@@ -46,16 +46,16 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
             item?.requiredCourse != null -> {
                 REQUIRED_COURSE_VIEW_TYPE
             }
-            item?.course != null && previousItem?.course == null && nextItem?.course != null -> {
+            item?.courseItem != null && previousItem?.courseItem == null && nextItem?.courseItem != null -> {
                 COURSE_TOP_VIEW_TYPE
             }
-            item?.course != null && previousItem?.course != null && nextItem?.course != null -> {
+            item?.courseItem != null && previousItem?.courseItem != null && nextItem?.courseItem != null -> {
                 COURSE_MIDDLE_VIEW_TYPE
             }
-            item?.course != null && previousItem?.course != null && nextItem?.course == null -> {
+            item?.courseItem != null && previousItem?.courseItem != null && nextItem?.courseItem == null -> {
                 COURSE_BOTTOM_VIEW_TYPE
             }
-            item?.course != null && previousItem?.course == null && nextItem?.course == null -> {
+            item?.courseItem != null && previousItem?.courseItem == null && nextItem?.courseItem == null -> {
                 COURSE_SINGLE_VIEW_TYPE
             }
             else -> {
@@ -135,16 +135,16 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
 
         when(viewType) {
             COURSE_TOP_VIEW_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseTopItemView)?.init(item.course!!, onDeleteCourseClicked)
+                (holder.itemView as? LearningPathwayCourseTopItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
             }
             COURSE_MIDDLE_VIEW_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseMiddleItemView)?.init(item.course!!, onDeleteCourseClicked)
+                (holder.itemView as? LearningPathwayCourseMiddleItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
             }
             COURSE_BOTTOM_VIEW_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.course!!, onDeleteCourseClicked)
+                (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
             }
             COURSE_SINGLE_VIEW_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseSingleItemView)?.init(item.course!!, onDeleteCourseClicked)
+                (holder.itemView as? LearningPathwayCourseSingleItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
             }
             REQUIRED_COURSE_VIEW_TYPE -> {
                 (holder.itemView as? LearningPathwayRequiredCourseItemView)?.init(item.requiredCourse!!, onShowRequiredCourseClicked)
@@ -157,32 +157,32 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
 
     data class Item(
         val header: LearningPathwayHeaderItem? = null,
-        val course: LearningPathwayCourse? = null,
+        val courseItem: LearningPathwayCourseItem? = null,
         val requiredCourse: LearningPathwayRequiredCourse? = null
     )
-}
 
-private class LearningPathwayDiffCallback : DiffUtil.ItemCallback<LearningPathwayAdapter.Item>() {
-    override fun areItemsTheSame(oldItem: LearningPathwayAdapter.Item, newItem: LearningPathwayAdapter.Item): Boolean {
-        return oldItem == newItem
-    }
-    override fun areContentsTheSame(oldItem: LearningPathwayAdapter.Item, newItem: LearningPathwayAdapter.Item): Boolean {
-        val sameSelectedCourseIds = if (oldItem.header?.selectedCourseIds != null && newItem.header?.selectedCourseIds != null) {
-            oldItem.header.selectedCourseIds.containsAll(newItem.header.selectedCourseIds) && newItem.header.selectedCourseIds.containsAll(oldItem.header.selectedCourseIds)
-        } else {
-            !(oldItem.header?.selectedCourseIds != null || newItem.header?.selectedCourseIds != null)
+    private class LearningPathwayDiffCallback : DiffUtil.ItemCallback<Item>() {
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+            return oldItem == newItem
         }
+        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+            val sameSelectedCourseIds = if (oldItem.header?.selectedCourseIds != null && newItem.header?.selectedCourseIds != null) {
+                oldItem.header.selectedCourseIds.containsAll(newItem.header.selectedCourseIds) && newItem.header.selectedCourseIds.containsAll(oldItem.header.selectedCourseIds)
+            } else {
+                !(oldItem.header?.selectedCourseIds != null || newItem.header?.selectedCourseIds != null)
+            }
 
-        val sameRequiredCourses = if (oldItem.requiredCourse != null && newItem.requiredCourse != null) {
-            oldItem.requiredCourse.courses.containsAll(newItem.requiredCourse.courses) && newItem.requiredCourse.courses.containsAll(oldItem.requiredCourse.courses)
-        } else {
-            !(oldItem.requiredCourse != null || newItem.requiredCourse != null)
+            val sameRequiredCourses = if (oldItem.requiredCourse != null && newItem.requiredCourse != null) {
+                oldItem.requiredCourse.courses.containsAll(newItem.requiredCourse.courses) && newItem.requiredCourse.courses.containsAll(oldItem.requiredCourse.courses)
+            } else {
+                !(oldItem.requiredCourse != null || newItem.requiredCourse != null)
+            }
+
+            return oldItem.header == newItem.header &&
+                    oldItem.courseItem == newItem.courseItem &&
+                    oldItem.requiredCourse?.term == newItem.requiredCourse?.term &&
+                    sameRequiredCourses &&
+                    sameSelectedCourseIds
         }
-
-        return oldItem.header == newItem.header &&
-                oldItem.course == newItem.course &&
-                oldItem.requiredCourse?.term == newItem.requiredCourse?.term &&
-                sameRequiredCourses &&
-                sameSelectedCourseIds
     }
 }

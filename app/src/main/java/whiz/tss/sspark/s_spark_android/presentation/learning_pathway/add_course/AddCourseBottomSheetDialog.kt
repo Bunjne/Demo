@@ -15,13 +15,13 @@ import whiz.sspark.library.data.viewModel.AddCourseViewModel
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentAddCourseBinding
 
 class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
     companion object {
-
         fun newInstance(term: Term, currentCredit: Int, minCredit: Int, maxCredit: Int, selectedCourseIds: List<String>) = AddCourseBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())
@@ -145,6 +145,12 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
         viewModel.concentrateCourseErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(requireActivity(), it)
+            }
+        }
+
+        viewModel.errorMessage.observe(this) {
+            it?.let {
+                requireActivity().showAlertWithOkButton(it)
             }
         }
     }

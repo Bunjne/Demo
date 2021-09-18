@@ -9,6 +9,7 @@ import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLearningPathwayBinding
@@ -56,7 +57,12 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
     override fun initView() {
         binding.vLearningPathway.init(
             onAddCourseClicked = { term, currentCredit, minCredit, maxCredit, selectedCourseIds ->
+                if (viewModel.viewLoading.value == true) {
+                    return@init
+                }
+
                 val isShowing = supportFragmentManager.findFragmentByTag(ADD_COURSE_DIALOG) != null
+
                 if (!isShowing) {
                     AddCourseBottomSheetDialog.newInstance(
                         term = term,
@@ -68,10 +74,19 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 }
             },
             onDeleteCourseClicked = { termId, courseId ->
+                if (viewModel.viewLoading.value == true) {
+                    return@init
+                }
+
                 viewModel.deleteCourse(termId = termId, courseId = courseId)
             },
             onShowRequiredCourseClicked = { term, courses ->
+                if (viewModel.viewLoading.value == true) {
+                    return@init
+                }
+
                 val isShowing = supportFragmentManager.findFragmentByTag(REQUIRED_COURSE_DIALOG) != null
+
                 if (!isShowing) {
                     RequiredCourseBottomSheetDialog.newInstance(
                         term = term,
@@ -134,6 +149,12 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 it?.let {
                     showApiResponseXAlert(this, it)
                 }
+            }
+        }
+
+        viewModel.errorMessage.observe(this) {
+            it?.let {
+                showAlertWithOkButton(it)
             }
         }
     }

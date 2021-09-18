@@ -15,9 +15,6 @@
         android:theme="@style/Theme.Ssparkandroid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.learning_pathway.LearningPathwayActivity"
-            android:exported="true" />
-        <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -44,6 +41,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.collaboration.class_post_comment.student.StudentClassPostCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.learning_pathway.LearningPathwayActivity"
             android:screenOrientation="portrait" />
     </application>
 

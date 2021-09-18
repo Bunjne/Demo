@@ -12,7 +12,6 @@ import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.databinding.ViewLearningPathwayActivityBinding
 import whiz.sspark.library.extension.showViewStateX
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
-import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 import whiz.sspark.library.view.widget.learning_pathway.LearningPathwayAdapter
 
 class LearningPathwayActivityView: ConstraintLayout {
@@ -94,12 +93,12 @@ class LearningPathwayActivityView: ConstraintLayout {
                     name = it.name
                 )
 
-                val learningPathwayCourse = LearningPathwayCourse(
+                val learningPathwayCourse = LearningPathwayCourseItem(
                     term = learningPathway.term,
                     course = course
                 )
 
-                items.add(LearningPathwayAdapter.Item(course = learningPathwayCourse))
+                items.add(LearningPathwayAdapter.Item(courseItem = learningPathwayCourse))
             }
 
             val course = learningPathway.requiredCourses.map {
