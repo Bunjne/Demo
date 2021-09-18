@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapperX
+import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
-import whiz.sspark.library.extension.toJson
-import whiz.sspark.library.extension.toNullableJson
-import whiz.sspark.library.extension.toObject
-import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.JuniorExpectOutcomeBottomSheetDialog
@@ -62,7 +63,7 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
 
             if (dataWrapper != null) {
                 val outcomes = dataWrapper?.data?.toJson()?.toObjects(Array<LearningOutcomeDTO>::class.java) ?: listOf()
-                binding.vLearningOutcome.updateItem(outcomes)
+                updateAdapterItem(outcomes)
 
                 listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
@@ -107,7 +108,7 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
     override fun observeData() {
         viewModel.learningOutcomeResponse.observe(this) {
             it?.let {
-                binding.vLearningOutcome.updateItem(it)
+                updateAdapterItem(it)
             }
         }
     }
@@ -118,6 +119,35 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
                 showApiResponseXAlert(requireContext(), it)
             }
         }
+    }
+
+    private fun updateAdapterItem(learningOutcomes: List<LearningOutcomeDTO>) {
+        val items: MutableList<JuniorLearningOutcomeAdapter.Item> = mutableListOf()
+
+        learningOutcomes.forEach { learningOutcome ->
+            val titleItem = JuniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
+            items.add(titleItem)
+
+            learningOutcome.courses.forEach {
+                val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
+                val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
+
+                val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
+                    learningOutcome = LearningOutcome(
+                        courseId = it.id,
+                        startColor = startColor,
+                        endColor = endColor,
+                        credit = it.credits,
+                        percentPerformance = it.percentPerformance,
+                        courseCode = it.code,
+                        courseName = it.name)
+                )
+
+                items.add(learningOutcomeItem)
+            }
+        }
+
+        binding.vLearningOutcome.updateItem(items)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

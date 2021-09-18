@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.ExpectOutcomeCourseItem
+import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.expect_outcome.ExpectOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorExpectOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.info.JuniorExpectOutcomeInfoDialog
@@ -31,6 +36,7 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
             }
         }
     }
+
     private val viewModel: ExpectOutcomeViewModel by viewModel()
 
     private var _binding: FragmentJuniorExpectOutcomeBinding? = null
@@ -130,9 +136,42 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     private fun observeData() {
         viewModel.expectOutcomeResponse.observe(this) {
             it?.let {
-                binding.vExpectOutcome.updateItem(expectOutcome = it, indicators = indicators)
+                updateAdapterItem(it)
             }
         }
+    }
+
+    private fun updateAdapterItem(expectOutcome: ExpectOutcomeDTO) {
+        val items: MutableList<ExpectOutcomeAdapter.Item> = mutableListOf()
+
+        val startColor = expectOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
+        val endColor = expectOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
+
+        val instructorCommentItem = expectOutcome.instructorComment?.convertToAdapterItem()
+        instructorCommentItem?.let {
+            items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_instructor_comment_text)))
+            items.add(ExpectOutcomeAdapter.Item(commentItem = instructorCommentItem))
+        }
+
+        if (expectOutcome.outcomes.isNotEmpty()) {
+            items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_expect_text)))
+
+            expectOutcome.outcomes.forEach {
+                val convertedValue = (it.value ?: 0 / it.fullValue) * indicators.size
+                val courseItem = ExpectOutcomeCourseItem(
+                    title = it.code,
+                    description = it.description,
+                    value = convertedValue,
+                    startColor = startColor,
+                    endColor = endColor,
+                    indicators = indicators
+                )
+
+                items.add(ExpectOutcomeAdapter.Item(courseItem = courseItem))
+            }
+        }
+
+        binding.vExpectOutcome.updateItem(items)
     }
 
     private fun observeError() {

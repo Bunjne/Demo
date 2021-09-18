@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapperX
+import whiz.sspark.library.data.entity.GradeSummary
+import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
-import whiz.sspark.library.extension.toJson
-import whiz.sspark.library.extension.toNullableJson
-import whiz.sspark.library.extension.toObject
-import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.learning_outcome.SeniorLearningOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.SeniorExpectOutcomeBottomSheetDialog
@@ -62,7 +64,7 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
             if (dataWrapper != null) {
                 val outcomes = dataWrapper?.data?.toJson()?.toObjects(Array<LearningOutcomeDTO>::class.java) ?: listOf()
-                binding.vLearningOutcome.updateItem(outcomes)
+                updateAdapterItem(outcomes)
 
                 listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
@@ -107,7 +109,7 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
     override fun observeData() {
         viewModel.learningOutcomeResponse.observe(this) {
             it?.let {
-                binding.vLearningOutcome.updateItem(it)
+                updateAdapterItem(it)
             }
         }
     }
@@ -118,6 +120,61 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
                 showApiResponseXAlert(requireContext(), it)
             }
         }
+    }
+
+    private fun updateAdapterItem(learningOutcomes: List<LearningOutcomeDTO>) {
+        val filteredLearningOutcome = learningOutcomes.filter { it.value != null }
+
+        val items: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
+
+        val title = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
+        val fullValue = filteredLearningOutcome.maxOfOrNull { it.fullValue } ?: 0f
+        val gradeSummaries = filteredLearningOutcome.map {
+            GradeSummary(
+                name = it.name,
+                startColorCode = it.colorCode1,
+                endColorCode = it.colorCode2,
+                grade = it.value!!)
+        }
+
+        items.add(title)
+        items.add(
+            SeniorLearningOutcomeAdapter.Item(
+            gradeSummaries = gradeSummaries,
+            fullValue = fullValue
+        ))
+
+        filteredLearningOutcome.forEach { learningOutcome ->
+
+            val titleListItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
+            items.add(titleListItem)
+
+            learningOutcome.courses.forEach {
+                val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
+                val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
+
+                val percentPerformance = if (it.isCompleted) {
+                    it.percentPerformance ?: 0
+                } else {
+                    null
+                }
+
+                val learningOutcomeItem = SeniorLearningOutcomeAdapter.Item(
+                    learningOutcome = LearningOutcome(
+                        courseId = it.id,
+                        startColor = startColor,
+                        endColor = endColor,
+                        credit = it.credits,
+                        percentPerformance = percentPerformance,
+                        courseCode = it.code,
+                        courseName = it.name)
+                )
+
+                items.add(learningOutcomeItem)
+            }
+        }
+
+        binding.vLearningOutcome.updateItem(items)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
