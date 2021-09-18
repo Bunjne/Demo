@@ -25,10 +25,10 @@ class ClassAttendanceInfoSummaryView : ConstraintLayout {
             binding.vClassProportion.init(listOf())
         }
 
-        binding.tvPresentPercent.text = "0%"
-        binding.tvLatePercent.text = "0%"
-        binding.tvAbsentPercent.text = "0%"
-        binding.tvLeavePercent.text = "0%"
+        binding.tvPresentPercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, 0)
+        binding.tvLatePercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, 0)
+        binding.tvAbsentPercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, 0)
+        binding.tvLeavePercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, 0)
     }
 
     fun renderSummaryAttendance(attendance: Attendance) {
@@ -58,10 +58,10 @@ class ClassAttendanceInfoSummaryView : ConstraintLayout {
                 binding.vClassProportion.init(valueColorPairs)
             }
 
-            binding.tvPresentPercent.text = "${presentPercent.toInt()}%"
-            binding.tvLatePercent.text = "${latePercent.toInt()}%"
-            binding.tvAbsentPercent.text = "${absentPercent.toInt()}%"
-            binding.tvLeavePercent.text = "${leavePercent.toInt()}%"
+            binding.tvPresentPercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, presentPercent.toInt())
+            binding.tvLatePercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, latePercent.toInt())
+            binding.tvAbsentPercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, absentPercent.toInt())
+            binding.tvLeavePercent.text = resources.getString(R.string.class_attendance_percentage_place_holder, leavePercent.toInt())
         }
     }
 }

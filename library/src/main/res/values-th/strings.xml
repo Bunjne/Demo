@@ -129,6 +129,7 @@
     <!-- Class Attendance -->
     <string name="class_attendance_summary_info_from">จาก</string>
     <string name="class_attendance_valid_class_count">%1d คาบเรียน</string>
+    <string name="class_attendance_percentage_place_holder">%1d%%</string>
     <string name="class_attendance_checked_item_title_place_holder">เรียนครั้งที่ %1$s</string>
     <string name="class_attendance_present">มาเรียน</string>
     <string name="class_attendance_absent">ขาด</string>
