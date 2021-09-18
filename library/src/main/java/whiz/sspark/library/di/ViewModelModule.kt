@@ -5,6 +5,7 @@ import org.koin.dsl.module
 import whiz.sspark.library.data.viewModel.*
 
 val viewModelModule = module {
+    viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
     viewModel { ExpectOutcomeViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
@@ -13,5 +14,6 @@ val viewModelModule = module {
     viewModel { MenuStudentViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
+    viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }
