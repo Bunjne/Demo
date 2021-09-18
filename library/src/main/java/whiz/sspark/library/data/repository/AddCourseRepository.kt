@@ -21,7 +21,7 @@ class AddCourseRepositoryImpl(private val context: Context,
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getCourses()
+                    val response = remote.getConcentrateCourse()
                     fetchX(response, Array<ConcentrateCourseDTO>::class.java)
                 } catch (e: Exception) {
                     throw e

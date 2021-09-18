@@ -7,5 +7,5 @@ import whiz.sspark.library.data.entity.LearningPathwayAddCourseAPIBody
 
 interface AddCourseService {
     @GET("v1/student/me/concentrate_course") //TODO wait confirm path
-    suspend fun getCourses(): Response<ApiResponseX>
+    suspend fun getConcentrateCourse(): Response<ApiResponseX>
 }
