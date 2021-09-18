@@ -14,11 +14,13 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLearningPathwayBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.add_course.AddCourseBottomSheetDialog
+import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.required_course.RequiredCourseBottomSheetDialog
 
 class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnClickListener {
 
     companion object {
         private val ADD_COURSE_DIALOG = "AddCourseDialog"
+        private val REQUIRED_COURSE_DIALOG = "RequiredCourseDialog"
     }
 
     private val viewModel: LearningPathwayViewModel by viewModel()
@@ -69,7 +71,13 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 viewModel.deleteCourse(termId = termId, courseId = courseId)
             },
             onShowRequiredCourseClicked = { term, courses ->
-                //TODO wait implement screen
+                val isShowing = supportFragmentManager.findFragmentByTag(REQUIRED_COURSE_DIALOG) != null
+                if (!isShowing) {
+                    RequiredCourseBottomSheetDialog.newInstance(
+                        term = term,
+                        courses = courses
+                    ).show(supportFragmentManager, REQUIRED_COURSE_DIALOG)
+                }
             },
             onRefresh = {
                 viewModel.getLearningPathway()
