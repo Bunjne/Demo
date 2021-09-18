@@ -7,6 +7,7 @@ import whiz.sspark.library.data.data_source.remote.service.*
 
 val remoteModule = module {
     factory<AddCourseService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ClassMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<ClassPostCommentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<HappeningsService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<InstructorClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }

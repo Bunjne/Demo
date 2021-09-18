@@ -87,7 +87,13 @@ fun ImageView.showUserProfileCircle(profileImageURL: String, gender: Long) {
 
 fun ImageView.showClassMemberProfileCircle(imageUrl: String, member: ClassMember, textColor: Int = Color.WHITE, textBackgroundColor: Int = Color.TRANSPARENT) {
     val classMemberNameView = ClassLargeMemberNameView(context).apply {
-        init(member.abbreviatedName)
+        val abbreviateName = if (member.abbreviatedName.isNotBlank()) {
+            member.abbreviatedName
+        } else {
+            member.firstName.getFirstConsonant() + member.lastName.getFirstConsonant()
+        }
+
+        init(abbreviateName)
         setNameColor(textColor)
         setBackgroundColor(textBackgroundColor)
     } as View

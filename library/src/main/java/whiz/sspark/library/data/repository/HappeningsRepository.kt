@@ -10,6 +10,7 @@ import whiz.sspark.library.data.data_source.local.impl.HappeningsCacheImpl
 import whiz.sspark.library.data.data_source.remote.service.HappeningsService
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.DataSource
+import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
@@ -53,6 +54,12 @@ class HappeningsRepositoryImpl(private val context: Context,
                 if (NetworkManager.isOnline(context)) {
                     try {
                         val response = remote.getEvents(type)
+                        val events = response.body()?.data?.toObjects(Array<Event>::class.java)
+
+                        events?.let {
+                            local.saveEvents(events)
+                        }
+
                         fetchX(response, Array<Event>::class.java)
                     } catch (e: Exception) {
                         throw e

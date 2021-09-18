@@ -6,6 +6,7 @@ import whiz.sspark.library.data.repository.*
 
 val repositoryModule = module {
     factory { AddCourseRepositoryImpl(androidContext(), get()) }
+    factory { ClassMemberRepositoryImpl(androidContext(), get(), get()) }
     factory { ClassPostCommentRepositoryImpl(androidContext(), get(), get()) }
     factory { HappeningsRepositoryImpl(androidContext(), get(), get()) }
     factory { InstructorClassActivityRepositoryImpl(androidContext(), get()) }

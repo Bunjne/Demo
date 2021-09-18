@@ -128,6 +128,11 @@
         <item>ยกเลิก</item>
     </string-array>
 
+    <!-- Class Member -->
+    <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="class_member_student_title">นักเรียน (%1$d)</string>
+    <string name="class_member_number_place_holder">#%1$d %2$s</string>
+
     <!--Learning pathway-->
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
     <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
