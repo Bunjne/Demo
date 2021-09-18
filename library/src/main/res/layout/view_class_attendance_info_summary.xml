@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/class_attendance_summary_info_from"
+            android:textAllCaps="true"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="18dp"
+            app:autoSizeMaxTextSize="18dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeStepGranularity="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="bold" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvAllClassCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="18dp"
+            app:autoSizeMaxTextSize="18dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeStepGranularity="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvFrom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvFrom"
+            app:layout_constraintTop_toTopOf="@+id/tvFrom"
+            app:ssparkFont="bold"
+            tools:text="19 CLASSES" />
+
+        <whiz.sspark.library.view.general.horizontal_proportion.HorizontalProportionView
+            android:id="@+id/vClassProportion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvFrom" />
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vClassProportion">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvPresent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/class_attendance_present"
+                    android:textColor="@color/accentGreenV500"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvPresentPercent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvPresentPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvInterpunctDivider1"
+                    app:layout_constraintStart_toEndOf="@+id/tvPresent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular"
+                    tools:text="68%" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvInterpunctDivider1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/general_interpunct"
+                    android:textColor="@color/viewBaseFourthColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvLeave"
+                    app:layout_constraintStart_toEndOf="@id/tvPresentPercent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvLeave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/class_attendance_leave"
+                    android:textColor="@color/accentYellowV500"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvLeavePercent"
+                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider1"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvLeavePercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvInterpunctDivider2"
+                    app:layout_constraintStart_toEndOf="@+id/tvLeave"
+                    app:layout_constraintTop_toTopOf="@+id/tvAbsent"
+                    app:ssparkFont="regular"
+                    tools:text="10%" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvInterpunctDivider2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/general_interpunct"
+                    android:textColor="@color/viewBaseFourthColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvLate"
+                    app:layout_constraintStart_toEndOf="@id/tvLeavePercent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvLate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/class_attendance_late"
+                    android:textColor="@color/accentOrangeV500"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvLatePercent"
+                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider2"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvLatePercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvInterpunctDivider3"
+                    app:layout_constraintStart_toEndOf="@+id/tvLate"
+                    app:layout_constraintTop_toTopOf="@+id/tvLate"
+                    app:ssparkFont="regular"
+                    tools:text="22%" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvInterpunctDivider3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/general_interpunct"
+                    android:textColor="@color/viewBaseFourthColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvAbsent"
+                    app:layout_constraintStart_toEndOf="@id/tvLatePercent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvAbsent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/class_attendance_absent"
+                    android:textColor="@color/accentRedV500"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvAbsentPercent"
+                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider3"
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvAbsentPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvAbsent"
+                    app:layout_constraintTop_toTopOf="@+id/tvAbsent"
+                    app:ssparkFont="regular"
+                    tools:text="10%" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvClassItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="17dp"
+            app:autoSizeMaxTextSize="17dp"
+            app:autoSizeMinTextSize="13dp"
+            app:autoSizeStepGranularity="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvCheckDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="regular"
+            tools:text="เรียนครั้งที่ 1" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="bold"
+            tools:text="PRESENT" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvStatus"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="@color/accentGreenV500"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp"
+            app:contentPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
+            app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+            app:layout_constraintTop_toTopOf="@+id/tvStatus">
+
+        </androidx.cardview.widget.CardView>
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvCheckDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="13dp"
+            android:layout_marginStart="17dp"
+            app:autoSizeMaxTextSize="13dp"
+            app:autoSizeMinTextSize="10dp"
+            app:autoSizeStepGranularity="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+            app:ssparkFont="regular"
+            tools:text="AUG 20, 2019 (09:10)" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>
