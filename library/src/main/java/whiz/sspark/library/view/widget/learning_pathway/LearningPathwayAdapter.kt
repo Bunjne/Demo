@@ -43,7 +43,7 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
         }
 
         return when {
-            item?.requiredCourse != null -> {
+            item?.requiredCourseItem != null -> {
                 REQUIRED_COURSE_VIEW_TYPE
             }
             item?.courseItem != null && previousItem?.courseItem == null && nextItem?.courseItem != null -> {
@@ -147,7 +147,7 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
                 (holder.itemView as? LearningPathwayCourseSingleItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
             }
             REQUIRED_COURSE_VIEW_TYPE -> {
-                (holder.itemView as? LearningPathwayRequiredCourseItemView)?.init(item.requiredCourse!!, onShowRequiredCourseClicked)
+                (holder.itemView as? LearningPathwayRequiredCourseItemView)?.init(item.requiredCourseItem!!, onShowRequiredCourseClicked)
             }
             else -> {
                 (holder.itemView as? LearningPathwayHeaderItemView)?.init(item.header!!, onAddCourseClicked)
@@ -158,7 +158,7 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
     data class Item(
         val header: LearningPathwayHeaderItem? = null,
         val courseItem: LearningPathwayCourseItem? = null,
-        val requiredCourse: LearningPathwayRequiredCourse? = null
+        val requiredCourseItem: LearningPathwayRequiredCourseItem? = null
     )
 
     private class LearningPathwayDiffCallback : DiffUtil.ItemCallback<Item>() {
@@ -172,15 +172,15 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
                 !(oldItem.header?.selectedCourseIds != null || newItem.header?.selectedCourseIds != null)
             }
 
-            val sameRequiredCourses = if (oldItem.requiredCourse != null && newItem.requiredCourse != null) {
-                oldItem.requiredCourse.courses.containsAll(newItem.requiredCourse.courses) && newItem.requiredCourse.courses.containsAll(oldItem.requiredCourse.courses)
+            val sameRequiredCourses = if (oldItem.requiredCourseItem != null && newItem.requiredCourseItem != null) {
+                oldItem.requiredCourseItem.courses.containsAll(newItem.requiredCourseItem.courses) && newItem.requiredCourseItem.courses.containsAll(oldItem.requiredCourseItem.courses)
             } else {
-                !(oldItem.requiredCourse != null || newItem.requiredCourse != null)
+                !(oldItem.requiredCourseItem != null || newItem.requiredCourseItem != null)
             }
 
             return oldItem.header == newItem.header &&
                     oldItem.courseItem == newItem.courseItem &&
-                    oldItem.requiredCourse?.term == newItem.requiredCourse?.term &&
+                    oldItem.requiredCourseItem?.term == newItem.requiredCourseItem?.term &&
                     sameRequiredCourses &&
                     sameSelectedCourseIds
         }

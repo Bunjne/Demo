@@ -110,12 +110,12 @@ class LearningPathwayActivityView: ConstraintLayout {
                 )
             }
 
-            val requiredCourse = LearningPathwayRequiredCourse(
+            val requiredCourse = LearningPathwayRequiredCourseItem(
                 term = learningPathway.term,
                 courses = course
             )
 
-            items.add(LearningPathwayAdapter.Item(requiredCourse = requiredCourse))
+            items.add(LearningPathwayAdapter.Item(requiredCourseItem = requiredCourse))
         }
 
         (binding.rvCourse.adapter as? LearningPathwayAdapter)?.submitList(items)
