@@ -76,7 +76,7 @@
     <string name="class_detail_tab_attendance">การเข้าเรียน</string>
     <string name="class_detail_tab_student">นักเรียน</string>
     <string name="class_detail_tab_homework">ASSIGNMENT</string>
-    <string name="class_detail_study_plan_title">แผนการเรียน</string>
+    <string name="class_detail_study_plan_title">แผนการสอน</string>
 
     <!-- Class Activity -->
     <string name="class_post_create_post_title">สร้างโพสต์ใหม่</string>
@@ -126,6 +126,19 @@
     <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
     <string name="class_member_student_title">นักเรียน (%1$d)</string>
     <string name="class_member_number_place_holder">#%1$d %2$s</string>
+
+    <!-- Class Attendance -->
+    <string name="class_attendance_summary_info_from">จาก</string>
+    <string name="class_attendance_valid_class_count">%1d คาบเรียน</string>
+    <string name="class_attendance_percentage_place_holder">%1d%%</string>
+    <string name="class_attendance_checked_item_title_place_holder">เรียนครั้งที่ %1$s</string>
+    <string name="class_attendance_present">มาเรียน</string>
+    <string name="class_attendance_absent">ขาด</string>
+    <string name="class_attendance_leave">ลา</string>
+    <string name="class_attendance_late">เข้าร่วมช้า</string>
+    <string name="class_attendance_item_late">มาสาย</string>
+    <string name="class_attendance_no_record">ไม่มีบันทึก</string>
+    <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
 
     <!--Learning pathway-->
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>

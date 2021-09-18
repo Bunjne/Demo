@@ -28,7 +28,7 @@ class ClassMemberInstructorView : ConstraintLayout {
                 colorCode.toColorInt()
             }
 
-            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, this, Color.WHITE, color)
+            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
 
             binding.tvName.text = convertToFullName(firstName, middleName, lastName, position)
             binding.tvDetail.text = remark

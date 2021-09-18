@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.screen.collaboration.post_comment.instructor
+package whiz.sspark.library.view.screen.collaboration.class_post_comment.student
 
 import android.content.Context
 import android.os.Handler
@@ -17,9 +17,9 @@ import whiz.sspark.library.databinding.ViewClassPostCommentActivityBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showKeyboard
 import whiz.sspark.library.utility.openFile
-import whiz.sspark.library.view.widget.collaboration.class_post_comment.instructor.InstructorClassPostCommentAdapter
+import whiz.sspark.library.view.widget.collaboration.class_post_comment.student.StudentClassPostCommentAdapter
 
-class InstructorClassPostCommentActivityView : ConstraintLayout {
+class StudentClassPostCommentActivityView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
@@ -29,11 +29,9 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
     }
 
     fun init(color: Int,
-             postCommentItems: List<InstructorClassPostCommentAdapter.PostCommentItem>,
+             postCommentItems: List<StudentClassPostCommentAdapter.PostCommentItem>,
              allMemberCount: Int,
              onImageClicked: (ImageView, String) -> Unit,
-             onEditPostClicked: (Post) -> Unit = {},
-             onDeletePostClicked: (Post) -> Unit = {},
              onCommentItemClicked: (Post) -> Unit,
              onPostLiked: (Post) -> Unit,
              onCommentSent: (String) -> Unit,
@@ -47,17 +45,11 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
                 setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_comment)!!)
             })
 
-            adapter = InstructorClassPostCommentAdapter(
+            adapter = StudentClassPostCommentAdapter(
                     context = context,
                     color = color,
                     items = postCommentItems,
                     allMemberCount = allMemberCount,
-                    onEditPostClicked = { post ->
-                        onEditPostClicked(post)
-                    },
-                    onDeletePostClicked = { post ->
-                        onDeletePostClicked(post)
-                    },
                     onImageClicked = { imageView, attachment -> onImageClicked(imageView, attachment.url) },
                     onFileClicked = { attachment -> openFile(context, attachment) },
                     onCommentClicked = {

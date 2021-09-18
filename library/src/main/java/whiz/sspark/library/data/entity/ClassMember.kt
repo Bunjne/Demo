@@ -38,5 +38,13 @@ data class ClassMember(
     val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, true)
     val facultyName: String get() = localize(_facultyNameEn, _facultyNameTh, _facultyNameEn, true)
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
-    val abbreviatedName: String get() = localize(abbreviateNameEn, abbreviateNameTh, abbreviateNameEn, false)
+    val abbreviatedName: String get() {
+        val localizedAbbreviatedName = localize(abbreviateNameEn, abbreviateNameTh, abbreviateNameEn, false)
+
+        return if (localizedAbbreviatedName.isNotBlank()) {
+            localizedAbbreviatedName
+        } else {
+            firstName.getFirstConsonant() + lastName.getFirstConsonant()
+        }
+    }
 }
