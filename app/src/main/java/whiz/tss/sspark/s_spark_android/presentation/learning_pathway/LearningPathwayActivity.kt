@@ -2,8 +2,7 @@ package whiz.tss.sspark.s_spark_android.presentation.learning_pathway
 
 import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.LearningPathwayDTO
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.LearningPathwayViewModel
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
@@ -11,6 +10,7 @@ import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.learning_pathway.LearningPathwayAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLearningPathwayBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
@@ -45,7 +45,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 val learningPathwaysDTO = dataWrapper?.data?.toJson()?.toObjects(Array<LearningPathwayDTO>::class.java) ?: listOf()
 
                 binding.vLearningPathway.setLatestUpdatedText(dataWrapper)
-                binding.vLearningPathway.updateItem(learningPathwaysDTO)
+                updateAdapterItem(learningPathwaysDTO)
             } else {
                 viewModel.getLearningPathway()
             }
@@ -122,7 +122,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
     override fun observeData() {
         viewModel.learningPathwayResponse.observe(this) {
             it?.let {
-                binding.vLearningPathway.updateItem(it)
+                updateAdapterItem(it)
             }
         }
 
@@ -157,6 +157,67 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 showAlertWithOkButton(it)
             }
         }
+    }
+
+    private fun updateAdapterItem(learningPathways: List<LearningPathwayDTO>) {
+        val items: MutableList<LearningPathwayAdapter.Item> = mutableListOf()
+
+        learningPathways.forEach { learningPathway ->
+            val summaryCourseCredit = learningPathway.course.sumOf { it.credit }
+            val summaryRequiredCourseCredit = learningPathway.requiredCourses.sumOf { it.credit }
+            val credit = summaryCourseCredit + summaryRequiredCourseCredit
+
+            val courseIds = learningPathway.course.map { it.id }
+            val requiredCourseIds = learningPathway.requiredCourses.map { it.id }
+
+            val selectedCourseIds = mutableListOf<String>()
+            selectedCourseIds.addAll(courseIds)
+            selectedCourseIds.addAll(requiredCourseIds)
+
+            val header = LearningPathwayHeaderItem(
+                term = learningPathway.term,
+                currentCredit = credit,
+                maxCredit = learningPathway.maxCredit,
+                minCredit = learningPathway.minCredit,
+                selectedCourseIds = selectedCourseIds
+            )
+
+            items.add(LearningPathwayAdapter.Item(header = header))
+
+            learningPathway.course.forEach {
+                val course = Course(
+                    id = it.id,
+                    code = it.code,
+                    credit = it.credit,
+                    name = it.name
+                )
+
+                val learningPathwayCourse = LearningPathwayCourseItem(
+                    term = learningPathway.term,
+                    course = course
+                )
+
+                items.add(LearningPathwayAdapter.Item(courseItem = learningPathwayCourse))
+            }
+
+            val course = learningPathway.requiredCourses.map {
+                Course(
+                    id = it.id,
+                    code = it.code,
+                    credit = it.credit,
+                    name = it.name
+                )
+            }
+
+            val requiredCourse = LearningPathwayRequiredCourseItem(
+                term = learningPathway.term,
+                courses = course
+            )
+
+            items.add(LearningPathwayAdapter.Item(requiredCourseItem = requiredCourse))
+        }
+
+        binding.vLearningPathway.updateItem(items)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

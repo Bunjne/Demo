@@ -28,19 +28,13 @@ class AddCourseFragmentView: ConstraintLayout {
         ViewAddCourseFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    private var concentrateCourses: List<ConcentrateCourseDTO> = listOf()
-    private var selectedCourseIds: List<String> = listOf()
-    private var currentSearchText = ""
-
     fun init(term: Term,
-             selectedCourseIds: List<String>,
              currentCredit: Int,
              minCredit: Int,
              maxCredit: Int,
              onAddClicked: (String) -> Unit,
+             onSearch: (String) -> Unit,
              onRefresh: () -> Unit) {
-        this.selectedCourseIds = selectedCourseIds
-
         binding.ivClose.show(R.drawable.ic_close_bottom_sheet_dialog)
         binding.ivSearch.show(R.drawable.ic_search)
 
@@ -71,8 +65,7 @@ class AddCourseFragmentView: ConstraintLayout {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                currentSearchText = s.toString()
-                updateAdapterIem()
+                onSearch(s.toString())
             }
         })
 
@@ -85,42 +78,7 @@ class AddCourseFragmentView: ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun updateConcentrateCourses(concentrateCourses: List<ConcentrateCourseDTO>) {
-        this.concentrateCourses = concentrateCourses
-        updateAdapterIem()
-    }
-
-    private fun updateAdapterIem() {
-        val filteredConcentrateCourses = concentrateCourses.filter {
-            it.courses.any {
-                it.nameEn.contains(currentSearchText, true) ||
-                it.nameTh.contains(currentSearchText, true) ||
-                it.code.contains(currentSearchText, true)
-            }
-        }
-        val item: MutableList<AddCourseAdapter.Item> = mutableListOf()
-
-        filteredConcentrateCourses.forEach {
-            item.add(AddCourseAdapter.Item(title = it.name))
-
-            it.courses.filter {
-                it.nameEn.contains(currentSearchText, true) ||
-                it.nameTh.contains(currentSearchText, true) ||
-                it.code.contains(currentSearchText, true)
-            }.forEach {
-                val course = Course(
-                    id = it.id,
-                    code = it.code,
-                    credit = it.credit,
-                    name = it.name
-                )
-
-                val isSelectable = !selectedCourseIds.contains(course.id)
-
-                item.add(AddCourseAdapter.Item(course = course, isSelectable = isSelectable))
-            }
-        }
-
+    fun updateAdapterItem(item: List<AddCourseAdapter.Item>) {
         (binding.rvCourse.adapter as? AddCourseAdapter)?.submitList(item)
     }
 }

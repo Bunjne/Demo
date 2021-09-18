@@ -60,64 +60,7 @@ class LearningPathwayActivityView: ConstraintLayout {
         binding.tvLatestUpdated.showViewStateX(data)
     }
 
-    fun updateItem(learningPathwaysDTO: List<LearningPathwayDTO> = listOf()) {
-        val items: MutableList<LearningPathwayAdapter.Item> = mutableListOf()
-
-        learningPathwaysDTO.forEach { learningPathway ->
-            val summaryCourseCredit = learningPathway.course.sumOf { it.credit }
-            val summaryRequiredCourseCredit = learningPathway.requiredCourses.sumOf { it.credit }
-            val credit = summaryCourseCredit + summaryRequiredCourseCredit
-
-            val courseIds = learningPathway.course.map { it.id }
-            val requiredCourseIds = learningPathway.requiredCourses.map { it.id }
-
-            val selectedCourseIds = mutableListOf<String>()
-            selectedCourseIds.addAll(courseIds)
-            selectedCourseIds.addAll(requiredCourseIds)
-
-            val header = LearningPathwayHeaderItem(
-                term = learningPathway.term,
-                currentCredit = credit,
-                maxCredit = learningPathway.maxCredit,
-                minCredit = learningPathway.minCredit,
-                selectedCourseIds = selectedCourseIds
-            )
-
-            items.add(LearningPathwayAdapter.Item(header = header))
-
-            learningPathway.course.forEach {
-                val course = Course(
-                    id = it.id,
-                    code = it.code,
-                    credit = it.credit,
-                    name = it.name
-                )
-
-                val learningPathwayCourse = LearningPathwayCourseItem(
-                    term = learningPathway.term,
-                    course = course
-                )
-
-                items.add(LearningPathwayAdapter.Item(courseItem = learningPathwayCourse))
-            }
-
-            val course = learningPathway.requiredCourses.map {
-                Course(
-                    id = it.id,
-                    code = it.code,
-                    credit = it.credit,
-                    name = it.name
-                )
-            }
-
-            val requiredCourse = LearningPathwayRequiredCourseItem(
-                term = learningPathway.term,
-                courses = course
-            )
-
-            items.add(LearningPathwayAdapter.Item(requiredCourseItem = requiredCourse))
-        }
-
+    fun updateItem(items: List<LearningPathwayAdapter.Item> = listOf()) {
         (binding.rvCourse.adapter as? LearningPathwayAdapter)?.submitList(items)
 
         if (items.isNotEmpty()) {
