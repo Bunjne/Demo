@@ -18,7 +18,6 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
-import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.LearningPathwayActivity
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
 import whiz.tss.sspark.s_spark_android.utility.*
 
@@ -59,16 +58,14 @@ class LoginActivity : LocalizationActivity() {
     }
 
     private fun autoLogin() {
-        SSparkApp.setSeniorApp()
-        viewModel.getStudentProfile()
-//        val authenticationInformation = retrieveAuthenticationInformation(this)
-//        if (authenticationInformation != null) {
-//            verifyAuthenticationInformation(authenticationInformation)
-//        } else {
-//            //TODO remove mock data when screen confirmed
-//            val deviceID = retrieveDeviceID(this)
-//            viewModel.login("test2", "123456", deviceID, operatorName)
-//        }
+        val authenticationInformation = retrieveAuthenticationInformation(this)
+        if (authenticationInformation != null) {
+            verifyAuthenticationInformation(authenticationInformation)
+        } else {
+            //TODO remove mock data when screen confirmed
+            val deviceID = retrieveDeviceID(this)
+            viewModel.login("test2", "123456", deviceID, operatorName)
+        }
     }
 
     private fun initView() {
@@ -99,7 +96,7 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, LearningPathwayActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }
