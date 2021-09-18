@@ -8,11 +8,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ActivityDTO
-import whiz.sspark.library.data.entity.ActivityRecordItem
 import whiz.sspark.library.databinding.ViewActivityRecordFragmentBinding
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
-import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
 import whiz.sspark.library.view.widget.school_record_activity.ActivityRecordAdapter
 
 class ActivityRecordFragmentView: ConstraintLayout {
@@ -53,26 +50,10 @@ class ActivityRecordFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(activities: List<ActivityDTO> = listOf()) {
-        val items: MutableList<ActivityRecordAdapter.Item> = mutableListOf()
-
-        activities.forEach {
-            items.add(ActivityRecordAdapter.Item(title = it.name))
-
-            it.activities.forEach {
-                val activity = ActivityRecordItem(
-                    title = it.name,
-                    status = it.isCompleted,
-                    description = it.comment
-                )
-
-                items.add(ActivityRecordAdapter.Item(activity = activity))
-            }
-        }
-
+    fun updateItem(items: List<ActivityRecordAdapter.Item> = listOf()) {
         (binding.rvActivityRecord.adapter as? ActivityRecordAdapter)?.submitList(items)
 
-        if (activities.isEmpty()) {
+        if (items.isEmpty()) {
             binding.tvNoRecord.visibility = View.VISIBLE
             binding.rvActivityRecord.visibility = View.GONE
         } else {

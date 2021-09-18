@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.AbilityDTO
+import whiz.sspark.library.data.entity.AbilityItem
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.viewModel.AbilityViewModel
 import whiz.sspark.library.extension.toJson
@@ -13,6 +14,7 @@ import whiz.sspark.library.extension.toNullableJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.school_record_activity.AbilityAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentAbilityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
@@ -63,7 +65,7 @@ class AbilityFragment: BaseFragment() {
 
             if (dataWrapper != null) {
                 val abilities = dataWrapper?.data?.toJson()?.toObjects(Array<AbilityDTO>::class.java) ?: listOf()
-                binding.vAbility.updateItem(abilities)
+                updateAdapterItem(abilities)
 
                 listener?.onRefresh(dataWrapper)
             } else {
@@ -94,7 +96,7 @@ class AbilityFragment: BaseFragment() {
     override fun observeData() {
         viewModel.abilityResponse.observe(this) {
             it?.let {
-                binding.vAbility.updateItem(it, indicators)
+                updateAdapterItem(it)
             }
         }
     }
@@ -105,6 +107,26 @@ class AbilityFragment: BaseFragment() {
                 showApiResponseXAlert(requireContext(), it)
             }
         }
+    }
+
+    private fun updateAdapterItem(abilities: List<AbilityDTO>) {
+        val items: MutableList<AbilityAdapter.Item> = mutableListOf()
+
+        abilities.forEach {
+            items.add(AbilityAdapter.Item(title = it.name))
+
+            it.abilities.forEach {
+                val value = (it.value / it.fullValue) * indicators.size
+                val ability = AbilityItem(
+                    title = it.name,
+                    value = value,
+                    indicators = indicators
+                )
+
+                items.add(AbilityAdapter.Item(ability = ability))
+            }
+        }
+        binding.vAbility.updateItem(items)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
