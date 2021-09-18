@@ -127,6 +127,11 @@
         <item>ยกเลิก</item>
     </string-array>
 
+    <!-- Class Member -->
+    <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="class_member_student_title">นักเรียน (%1$d)</string>
+    <string name="class_member_number_place_holder">#%1$d %2$s</string>
+
     <!-- Class Group -->
     <string name="class_group_navigation_item_advisory_title">Advisory</string>
     <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
