@@ -16,6 +16,7 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor.InstructorClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
 
 class ClassDetailActivity : BaseActivity() {
 
@@ -104,7 +105,7 @@ class ClassDetailActivity : BaseActivity() {
                                 }
                             }
                             BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
-//                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(classGroupId), supportFragmentManager)
+                            BottomNavigationId.STUDENT.id -> renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
                         }
                     }
                 },

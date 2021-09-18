@@ -127,6 +127,11 @@
         <item>ยกเลิก</item>
     </string-array>
 
+    <!-- Class Member -->
+    <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="class_member_student_title">นักเรียน (%1$d)</string>
+    <string name="class_member_number_place_holder">#%1$d %2$s</string>
+
     <!-- Class Attendance -->
     <string name="class_attendance_summary_info_from">จาก</string>
     <string name="class_attendance_valid_class_count">%1d คาบเรียน</string>
