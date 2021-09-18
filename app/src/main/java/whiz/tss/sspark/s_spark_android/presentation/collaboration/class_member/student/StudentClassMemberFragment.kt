@@ -56,10 +56,10 @@ class StudentClassMemberFragment : BaseFragment() {
 
     override fun initView() {
         binding.vClassMember.init(
-                items = items,
-                onRefresh = {
-                    viewModel.getClassMember(classGroupId, true)
-                }
+            items = items,
+            onRefresh = {
+                viewModel.getClassMember(classGroupId, true)
+            }
         )
     }
 
