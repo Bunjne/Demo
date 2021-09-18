@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
     android:gravity="center">
 
     <whiz.sspark.library.view.general.SSparkTextView
@@ -15,12 +15,12 @@
         android:maxLines="1"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="18dp"
-        app:autoSizeMaxTextSize="24dp"
-        app:autoSizeMinTextSize="8sp"
+        android:textSize="17dp"
+        app:autoSizeMaxTextSize="17dp"
+        app:autoSizeMinTextSize="8dp"
         app:autoSizeStepGranularity="1dp"
         app:autoSizeTextType="uniform"
-        app:ssparkFont="bold"
+        app:ssparkFont="regular"
         tools:text="PN" />
 
 </LinearLayout>
