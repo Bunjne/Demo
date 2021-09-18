@@ -37,7 +37,7 @@ class ClassAttendanceItemView : ConstraintLayout {
                 }
                 ClassAttendanceStatus.LATE.status -> {
                     binding.cvStatus.setCardBackgroundColor(ContextCompat.getColor(context, R.color.accentOrangeV500))
-                    binding.tvStatus.text = resources.getString(R.string.class_attendance_late)
+                    binding.tvStatus.text = resources.getString(R.string.class_attendance_item_late)
                 }
                 else -> {
                     binding.cvStatus.setCardBackgroundColor(ContextCompat.getColor(context, R.color.accentRedV500))

@@ -21,8 +21,8 @@ class ClassDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityClassDetailBinding
 
-    private val id by lazy {
-        intent?.getStringExtra("id") ?: ""
+    private val classGroupId by lazy {
+        intent?.getStringExtra("classGroupId") ?: ""
     }
 
     private val startColor by lazy {
@@ -98,13 +98,13 @@ class ClassDetailActivity : BaseActivity() {
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
                                 if (SSparkApp.role != RoleType.INSTRUCTOR) {
-                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(StudentClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 } else {
-                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(InstructorClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 }
                             }
-                            BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(this@ClassDetailActivity.id), supportFragmentManager, currentFragment)
-//                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id), supportFragmentManager)
+                            BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+//                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(classGroupId), supportFragmentManager)
                         }
                     }
                 },

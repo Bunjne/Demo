@@ -23,10 +23,12 @@ class StudentClassAttendanceFragmentView : ConstraintLayout {
         binding.srlContainer.setOnRefreshListener {
             onRefresh()
         }
+
+        binding.vSummary.init()
     }
 
     fun renderAttendance(attendance: Attendance) {
-        binding.vSummary.init(attendance)
+        binding.vSummary.renderSummaryAttendance(attendance)
 
         with (binding.rvAttendance) {
             layoutManager = LinearLayoutManager(context)

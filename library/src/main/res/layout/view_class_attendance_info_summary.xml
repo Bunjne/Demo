@@ -8,10 +8,10 @@
     android:layout_height="wrap_content"
     app:background_Color="@color/viewBaseSecondaryColor"
     app:cornerRadius="12dp"
-    app:shadow_Outer_Area="6dp"
-    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow0_Outer_Alpha="1"
     app:shadow0_Outer_Blur="30dp"
-    app:shadow0_Outer_Alpha="1">
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
         <whiz.sspark.library.view.general.SSparkTextView
             android:id="@+id/tvFrom"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/class_attendance_summary_info_from"
             android:textAllCaps="true"
@@ -61,14 +61,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:scrollbars="none"
             android:overScrollMode="never"
+            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vClassProportion">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <whiz.sspark.library.view.general.SSparkTextView
@@ -78,11 +78,11 @@
                     android:text="@string/class_attendance_present"
                     android:textColor="@color/accentGreenV500"
                     android:textSize="12dp"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvPresentPercent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:ssparkFont="regular" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
@@ -92,25 +92,24 @@
                     android:layout_marginStart="8dp"
                     android:textColor="@color/textBasePrimaryColor"
                     android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvPresent"
-                    app:layout_constraintStart_toEndOf="@+id/tvPresent"
                     app:layout_constraintEnd_toStartOf="@id/tvInterpunctDivider1"
+                    app:layout_constraintStart_toEndOf="@+id/tvPresent"
                     app:layout_constraintTop_toTopOf="@+id/tvPresent"
                     app:ssparkFont="regular"
                     tools:text="68%" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
                     android:id="@+id/tvInterpunctDivider1"
-                    android:layout_marginStart="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="@string/general_interpunct"
                     android:textColor="@color/viewBaseFourthColor"
                     android:textSize="12dp"
-                    app:ssparkFont="regular"
                     app:layout_constraintEnd_toStartOf="@id/tvLeave"
                     app:layout_constraintStart_toEndOf="@id/tvPresentPercent"
-                    app:layout_constraintTop_toTopOf="@+id/tvPresent" />
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
                     android:id="@+id/tvLeave"
@@ -120,8 +119,8 @@
                     android:text="@string/class_attendance_leave"
                     android:textColor="@color/accentYellowV500"
                     android:textSize="12dp"
-                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider1"
                     app:layout_constraintEnd_toStartOf="@id/tvLeavePercent"
+                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider1"
                     app:layout_constraintTop_toTopOf="@+id/tvPresent"
                     app:ssparkFont="regular" />
 
@@ -132,9 +131,8 @@
                     android:layout_marginStart="8dp"
                     android:textColor="@color/textBasePrimaryColor"
                     android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvAbsent"
-                    app:layout_constraintStart_toEndOf="@+id/tvLeave"
                     app:layout_constraintEnd_toStartOf="@id/tvInterpunctDivider2"
+                    app:layout_constraintStart_toEndOf="@+id/tvLeave"
                     app:layout_constraintTop_toTopOf="@+id/tvAbsent"
                     app:ssparkFont="regular"
                     tools:text="10%" />
@@ -147,10 +145,10 @@
                     android:text="@string/general_interpunct"
                     android:textColor="@color/viewBaseFourthColor"
                     android:textSize="12dp"
-                    app:ssparkFont="regular"
                     app:layout_constraintEnd_toStartOf="@id/tvLate"
                     app:layout_constraintStart_toEndOf="@id/tvLeavePercent"
-                    app:layout_constraintTop_toTopOf="@+id/tvPresent" />
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
                     android:id="@+id/tvLate"
@@ -160,8 +158,8 @@
                     android:text="@string/class_attendance_late"
                     android:textColor="@color/accentOrangeV500"
                     android:textSize="12dp"
-                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider2"
                     app:layout_constraintEnd_toStartOf="@id/tvLatePercent"
+                    app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider2"
                     app:layout_constraintTop_toTopOf="@+id/tvPresent"
                     app:ssparkFont="regular" />
 
@@ -172,9 +170,8 @@
                     android:layout_marginStart="8dp"
                     android:textColor="@color/textBasePrimaryColor"
                     android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvLate"
-                    app:layout_constraintStart_toEndOf="@+id/tvLate"
                     app:layout_constraintEnd_toStartOf="@id/tvInterpunctDivider3"
+                    app:layout_constraintStart_toEndOf="@+id/tvLate"
                     app:layout_constraintTop_toTopOf="@+id/tvLate"
                     app:ssparkFont="regular"
                     tools:text="22%" />
@@ -187,10 +184,10 @@
                     android:text="@string/general_interpunct"
                     android:textColor="@color/viewBaseFourthColor"
                     android:textSize="12dp"
-                    app:ssparkFont="regular"
                     app:layout_constraintEnd_toStartOf="@id/tvAbsent"
                     app:layout_constraintStart_toEndOf="@id/tvLatePercent"
-                    app:layout_constraintTop_toTopOf="@+id/tvPresent" />
+                    app:layout_constraintTop_toTopOf="@+id/tvPresent"
+                    app:ssparkFont="regular" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
                     android:id="@+id/tvAbsent"
@@ -200,9 +197,9 @@
                     android:text="@string/class_attendance_absent"
                     android:textColor="@color/accentRedV500"
                     android:textSize="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/tvAbsentPercent"
                     app:layout_constraintStart_toEndOf="@+id/tvInterpunctDivider3"
                     app:layout_constraintTop_toTopOf="@+id/tvPresent"
-                    app:layout_constraintEnd_toStartOf="@id/tvAbsentPercent"
                     app:ssparkFont="regular" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
@@ -212,9 +209,8 @@
                     android:layout_marginStart="8dp"
                     android:textColor="@color/textBasePrimaryColor"
                     android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvAbsent"
-                    app:layout_constraintStart_toEndOf="@+id/tvAbsent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvAbsent"
                     app:layout_constraintTop_toTopOf="@+id/tvAbsent"
                     app:ssparkFont="regular"
                     tools:text="10%" />

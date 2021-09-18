@@ -27,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="10dp"
             android:background="@color/lineBasePrimaryColor"
             app:layout_constraintBottom_toTopOf="@+id/rvAttendance"
             app:layout_constraintTop_toBottomOf="@+id/vSummary" />
@@ -38,6 +37,8 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="6dp"
             android:overScrollMode="never"
+            android:paddingTop="10dp"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

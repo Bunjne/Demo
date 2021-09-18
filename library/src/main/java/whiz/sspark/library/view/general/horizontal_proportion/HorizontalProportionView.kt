@@ -20,10 +20,6 @@ class HorizontalProportionView : View {
     private val valueColorPairs = mutableListOf<Pair<Double, Int>>()
     private val proportionBitmaps = mutableListOf<Bitmap>()
 
-    private val margin by lazy {
-        16f.toDP(context)
-    }
-
     private val lineHeight by lazy {
         10f.toDP(context)
     }
@@ -37,11 +33,6 @@ class HorizontalProportionView : View {
     }
 
     private var proportionStep = 0f
-
-    init {
-        screenWidth = context.resources.displayMetrics.widthPixels.toFloat() - (margin * 2) - (proportionMargin * valueColorPairs.size)
-        proportionStep = screenWidth / 100f
-    }
 
     fun init(valueColorPairs: List<Pair<Double, Int>>) {
         val proportionSize = valueColorPairs.size

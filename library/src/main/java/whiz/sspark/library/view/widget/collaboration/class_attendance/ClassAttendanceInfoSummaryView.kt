@@ -18,10 +18,22 @@ class ClassAttendanceInfoSummaryView : ConstraintLayout {
         ViewClassAttendanceInfoSummaryBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(attendance: Attendance) {
-        val valueColorPairs = mutableListOf<Pair<Double, Int>>()
+    fun init() {
+        binding.tvAllClassCount.text = resources.getString(R.string.class_attendance_valid_class_count, 0)
 
+        binding.vClassProportion.post {
+            binding.vClassProportion.init(listOf())
+        }
+
+        binding.tvPresentPercent.text = "0%"
+        binding.tvLatePercent.text = "0%"
+        binding.tvAbsentPercent.text = "0%"
+        binding.tvLeavePercent.text = "0%"
+    }
+
+    fun renderSummaryAttendance(attendance: Attendance) {
         with(attendance) {
+            val valueColorPairs = mutableListOf<Pair<Double, Int>>()
 
             if (presentPercent > 0) {
                 valueColorPairs.add(presentPercent to ContextCompat.getColor(context, R.color.accentGreenV500))

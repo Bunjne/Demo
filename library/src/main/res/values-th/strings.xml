@@ -129,6 +129,7 @@
     <string name="class_attendance_absent">ขาด</string>
     <string name="class_attendance_leave">ลา</string>
     <string name="class_attendance_late">เข้าร่วมช้า</string>
+    <string name="class_attendance_item_late">มาสาย</string>
     <string name="class_attendance_no_record">ไม่มีบันทึก</string>
     <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
 </resources>

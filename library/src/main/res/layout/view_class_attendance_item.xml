@@ -50,11 +50,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvStatus"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginEnd="8dp"
             app:cardBackgroundColor="@color/accentGreenV500"
-            app:cardCornerRadius="6dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="0dp"
             app:contentPadding="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
