@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.toColorInt
+import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.databinding.ViewClassMemberInstructorBinding
 import whiz.sspark.library.extension.showClassMemberProfileCircle
 import whiz.sspark.library.utility.convertToFullName
@@ -19,19 +20,18 @@ class ClassMemberInstructorView : ConstraintLayout {
         ViewClassMemberInstructorBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(item: ClassMemberAdapter.Item) {
-        val member = item.instructor ?: item.student
-        member?.let { member ->
-            val color = if (member.colorCode.isNullOrBlank()) {
+    fun init(member: ClassMember) {
+        with (member) {
+            val color = if (colorCode.isNullOrBlank()) {
                 Color.BLACK
             } else {
-                member.colorCode.toColorInt()
+                colorCode.toColorInt()
             }
 
-            binding.cvProfileImage.showClassMemberProfileCircle(member.profileImageUrl, member, Color.WHITE, color)
+            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, this, Color.WHITE, color)
 
-            binding.tvName.text = convertToFullName(member.firstName, member.middleName, member.lastName, member.position)
-            binding.tvDetail.text = member.remark
+            binding.tvName.text = convertToFullName(firstName, middleName, lastName, position)
+            binding.tvDetail.text = remark
         }
     }
 }

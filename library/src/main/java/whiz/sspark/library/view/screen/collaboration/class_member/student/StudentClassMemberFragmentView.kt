@@ -22,7 +22,6 @@ class StudentClassMemberFragmentView : ConstraintLayout {
     }
 
     fun init(items: List<ClassMemberAdapter.Item>,
-             userId: String,
              onRefresh: () -> Unit) {
 
         binding.srlMember.setOnRefreshListener {
@@ -40,19 +39,13 @@ class StudentClassMemberFragmentView : ConstraintLayout {
 
             adapter = ClassMemberAdapter(
                 context = context,
-                items = items,
-                userId = userId
+                items = items
             )
         }
     }
 
     fun updateRecyclerViewItems(currentItems: MutableList<ClassMemberAdapter.Item>, newItems: List<ClassMemberAdapter.Item>) {
-        val instructorCount = newItems.filter { it.instructor != null }.size
-
-        with (binding.rvMember) {
-            (adapter as? ClassMemberAdapter)?.setInstructorCount(instructorCount)
-            adapter?.updateItem(currentItems, newItems)
-        }
+        binding.rvMember.adapter?.updateItem(currentItems, newItems)
     }
 
     fun setSwipeRefreshLayout(isLoading: Boolean) {

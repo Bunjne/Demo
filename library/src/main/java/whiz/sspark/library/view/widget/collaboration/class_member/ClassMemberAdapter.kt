@@ -6,23 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.extension.setDarkModeBackground
-import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
 class ClassMemberAdapter(private val context: Context,
-                         private val userId: String,
                          private val items: List<Item>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class ClassMemberAdapterViewType(val type: Int) {
         TITLE(0),
         INSTRUCTOR_MEMBER(1),
         STUDENT_MEMBER(2),
-    }
-
-    private var instructorCount = 0
-
-    fun setInstructorCount(instructorCount: Int) {
-        this.instructorCount = instructorCount
     }
 
     class ItemListTitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
@@ -65,40 +57,20 @@ class ClassMemberAdapter(private val context: Context,
             when {
                 item.instructor != null -> {
                     (holder.itemView as? ClassMemberInstructorView)?.apply {
-                        init(item)
-
-                        if (isPreviousItemTitle) {
-                            setPadding(0, (-2).toDP(context), 0, 0)
-                        } else {
-                            setPadding(0, 0, 0, 0)
-                        }
+                        init(item.instructor)
 
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
                 item.student != null -> {
                     (holder.itemView as? ClassMemberStudentView)?.apply {
-                        val isSelf = item.student.userId == userId
-
-                        val studentIndex = (position - instructorCount) - 1
-
-                        init(item, studentIndex, isSelf)
-
-                        when {
-                            position == items.lastIndex -> setPadding(0, 0, 0, 16.toDP(context))
-                            isPreviousItemTitle -> setPadding(0, (-2).toDP(context), 0, 0)
-                            else -> setPadding(0, 0, 0, 0)
-                        }
+                        init(item.student, item.studentNumber, item.isSelf)
 
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
                 else -> {
-                    (holder.itemView as? ItemListTitleView)?.apply {
-                        init(item.title ?: "")
-
-                        setPadding(0, 8.toDP(context), 0, (-2).toDP(context))
-                    }
+                    (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
                 }
             }
         }
@@ -119,5 +91,7 @@ class ClassMemberAdapter(private val context: Context,
         val title: String? = null,
         val instructor: ClassMember? = null,
         val student: ClassMember? = null,
+        val isSelf: Boolean = false,
+        val studentNumber: Int = 0,
     )
 }

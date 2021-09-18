@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.databinding.ViewClassMemberStudentBinding
 import whiz.sspark.library.extension.getFirstConsonant
 import whiz.sspark.library.extension.showClassMemberProfileCircle
@@ -21,22 +22,21 @@ class ClassMemberStudentView : ConstraintLayout {
         ViewClassMemberStudentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(item: ClassMemberAdapter.Item, position: Int, isSelf: Boolean) {
-        val member = item.instructor ?: item.student
-        member?.let { member ->
-            val color = if (member.colorCode.isNullOrBlank()) {
+    fun init(member: ClassMember, position: Int, isSelf: Boolean) {
+        with (member) {
+            val color = if (colorCode.isNullOrBlank()) {
                 Color.BLACK
             } else {
-                member.colorCode.toColorInt()
+                colorCode.toColorInt()
             }
 
-            binding.cvProfileImage.showClassMemberProfileCircle(member.profileImageUrl, member, Color.WHITE, color)
+            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, this, Color.WHITE, color)
 
-            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, position, member.nickname)
+            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, position, nickname)
             binding.tvName.text = if (isSelf) {
-                convertToFullName(member.firstName, member.middleName, member.lastName)
+                convertToFullName(firstName, middleName, lastName)
             } else {
-                convertToFullName(member.firstName, member.middleName, "${member.lastName.getFirstConsonant()}.")
+                convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
             }
         }
     }

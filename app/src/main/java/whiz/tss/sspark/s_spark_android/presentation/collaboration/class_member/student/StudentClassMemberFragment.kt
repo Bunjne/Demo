@@ -33,6 +33,10 @@ class StudentClassMemberFragment : BaseFragment() {
         arguments?.getString("classGroupId") ?: ""
     }
 
+    private val userId by lazy {
+        retrieveUserID(requireContext())
+    }
+
     val items = mutableListOf<ClassMemberAdapter.Item>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,10 +55,8 @@ class StudentClassMemberFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val userId = retrieveUserID(requireContext())
         binding.vClassMember.init(
                 items = items,
-                userId = userId,
                 onRefresh = {
                     viewModel.getClassMember(classGroupId, true)
                 }
@@ -82,7 +84,12 @@ class StudentClassMemberFragment : BaseFragment() {
 
                     if (member.students.isNotEmpty()) {
                         add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_student_title, studentCounts), student = null, instructor = null))
-                        addAll(member.students.map { student -> ClassMemberAdapter.Item(title = null, student = student, instructor = null) })
+                        addAll(member.students.mapIndexed { index, student ->
+                            val isSelf = userId == student.userId
+                            val studentNumber = index + 1
+
+                            ClassMemberAdapter.Item(title = null, student = student, instructor = null, isSelf = isSelf, studentNumber = studentNumber)
+                        })
                     }
                 }
 

@@ -21,8 +21,8 @@ fun String.convertToTime(): String {
 
 fun String.getFirstConsonant(): String {
     return if (isThaiLanguage()) {
+        val pattern = Pattern.compile("[ก-ฮ]")
         for (i in this) {
-            val pattern = Pattern.compile("[ก-ฮ]")
             if (pattern.matcher(i.toString()).matches()){
                 return i.toString()
             }
