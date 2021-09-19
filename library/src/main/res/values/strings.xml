@@ -4,6 +4,7 @@
     <string name="general_text_retry">Retry</string>
     <string name="general_text_cancel">Cancel</string>
     <string name="general_text_discard">Discard</string>
+    <string name="general_text_close">Close</string>
     <string name="general_interpunct">●</string>
 
     <!--General alert message-->
