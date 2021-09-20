@@ -8,24 +8,25 @@ import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
 import whiz.sspark.library.data.data_source.remote.service.CourseSyllabusDetailService
 import whiz.sspark.library.data.data_source.remote.service.ExpectOutcomeService
+import whiz.sspark.library.data.entity.CourseSyllabusDTO
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface CourseSyllabusDetailRepository {
-    suspend fun getCourseDetail(classGroupId: String): Flow<DataWrapperX<ExpectOutcomeDTO>>
+    suspend fun getCourseDetail(classGroupId: String, termId: String): Flow<DataWrapperX<CourseSyllabusDTO>>
 }
 
 class CourseSyllabusDetailRepositoryImpl(private val context: Context,
                                          private val remote: CourseSyllabusDetailService): CourseSyllabusDetailRepository {
 
-    override suspend fun getCourseDetail(classGroupId: String): Flow<DataWrapperX<ExpectOutcomeDTO>> {
+    override suspend fun getCourseDetail(classGroupId: String, termId: String): Flow<DataWrapperX<CourseSyllabusDTO>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getCourseDetail(classGroupId)
-                    fetchX<ExpectOutcomeDTO>(response)
+                    val response = remote.getCourseDetail(classGroupId, termId)
+                    fetchX<CourseSyllabusDTO>(response)
                 } catch (e: Exception) {
                     throw e
                 }

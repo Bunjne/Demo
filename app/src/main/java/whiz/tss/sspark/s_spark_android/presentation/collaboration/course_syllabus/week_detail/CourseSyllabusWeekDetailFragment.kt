@@ -5,18 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.CourseSyllabusDTO
 import whiz.sspark.library.data.viewModel.CourseSyllabusWeekDetailViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.collaboration.course_syllabus.detail.CourseSyllabusAdapter
+import whiz.sspark.library.view.widget.collaboration.course_syllabus.week.CourseSyllabusWeekAdapter
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentCourseSyllabusWeekDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
 class CourseSyllabusWeekDetailFragment: BaseFragment() {
 
     companion object {
-        fun newInstance(classGroupId: String) = CourseSyllabusWeekDetailFragment().apply {
+        fun newInstance(classGroupId: String, termId: String) = CourseSyllabusWeekDetailFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
+                putString("termId", termId)
             }
         }
     }
@@ -28,6 +33,10 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
 
     private val classGroupId by lazy {
         arguments?.getString("classGroupId") ?: ""
+    }
+
+    private val termId by lazy {
+        arguments?.getString("termId") ?: ""
     }
 
     private var listener: OnCloseListener? = null
@@ -48,12 +57,12 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
 
         initView()
 
-        viewModel.getCourseWeekDetail(classGroupId)
+        viewModel.getCourseWeekDetail(classGroupId, termId)
     }
 
     override fun initView() {
         binding.vWeekDetail.init {
-            viewModel.getCourseWeekDetail(classGroupId)
+            viewModel.getCourseWeekDetail(classGroupId, termId)
         }
     }
 
@@ -66,7 +75,7 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
     override fun observeData() {
         viewModel.courseWeekDetailResponse.observe(this) {
             it?.let {
-//                binding.vDetail.updateItem() TODO wait confirm object from API
+                updateAdapterItem(it)
             }
         }
     }
@@ -87,6 +96,24 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun updateAdapterItem(courseSyllabusDTO: CourseSyllabusDTO) {
+        val items = mutableListOf<CourseSyllabusWeekAdapter.Item>()
+
+        courseSyllabusDTO.syllabus.forEach {
+            val week = resources.getString(R.string.course_syllabus_week, it.week.toString())
+            items.add(CourseSyllabusWeekAdapter.Item(title = week))
+
+            it.topics.forEach {
+                items.add(CourseSyllabusWeekAdapter.Item(courseDetail = it))
+            }
+
+            val instructors = it.instructors.map { it.firstNameWithPosition }
+            items.add(CourseSyllabusWeekAdapter.Item(instructors = instructors))
+        }
+
+        binding.vWeekDetail.updateItem()
     }
 
     override fun onDestroyView() {

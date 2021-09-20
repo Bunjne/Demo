@@ -32,7 +32,7 @@ class CourseSyllabusDetailFragmentView: ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun updateItem(item: List<CourseSyllabusAdapter.Item>) {
+    fun updateItem(item: List<CourseSyllabusAdapter.Item> = listOf()) {
         (binding.rvPlan.adapter as? CourseSyllabusAdapter)?.submitList(item)
     }
 }

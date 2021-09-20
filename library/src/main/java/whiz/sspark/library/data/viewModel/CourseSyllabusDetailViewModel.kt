@@ -9,10 +9,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import whiz.sspark.library.data.entity.ApiResponseX
-import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.ExpectOutcomeDTO
-import whiz.sspark.library.data.entity.LearningOutcomeDTO
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.repository.CourseSyllabusDetailRepository
 import whiz.sspark.library.data.repository.CourseSyllabusDetailRepositoryImpl
 import whiz.sspark.library.data.repository.ExpectOutcomeRepositoryImpl
@@ -24,12 +21,8 @@ class CourseSyllabusDetailViewModel(private val courseSyllabusDetailViewModel: C
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
-    val viewRendering: LiveData<DataWrapperX<Any>>
-        get() = _viewRendering
-
-    private val _courseDetailResponse = MutableLiveData<ExpectOutcomeDTO>()
-    val courseDetailResponse: LiveData<ExpectOutcomeDTO>
+    private val _courseDetailResponse = MutableLiveData<CourseSyllabusDTO>()
+    val courseDetailResponse: LiveData<CourseSyllabusDTO>
         get() = _courseDetailResponse
 
     private val _courseDetailErrorResponse = MutableLiveData<ApiResponseX?>()
@@ -40,11 +33,10 @@ class CourseSyllabusDetailViewModel(private val courseSyllabusDetailViewModel: C
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getCourseDetail(classGroupId: String) {
+    fun getCourseDetail(classGroupId: String, termId: String) {
         viewModelScope.launch {
-            courseSyllabusDetailViewModel.getCourseDetail(classGroupId)
+            courseSyllabusDetailViewModel.getCourseDetail(classGroupId, termId)
                 .onStart {
-                    _viewRendering.value = null
                     _viewLoading.value = true
                 }
                 .onCompletion {
@@ -54,7 +46,6 @@ class CourseSyllabusDetailViewModel(private val courseSyllabusDetailViewModel: C
                     _errorMessage.value = it.localizedMessage
                 }
                 .collect {
-                    _viewRendering.value = it
                     val data = it.data
 
                     data?.let {
