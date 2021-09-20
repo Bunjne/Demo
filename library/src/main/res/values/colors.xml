@@ -18,6 +18,7 @@
     <color name="iconBaseColor">#5B5B5B</color>
     <color name="transparentColor">#00000000</color>
     <color name="shadowColor">#04000000</color>
+    <color name="shadowWithoutAlphaColor">#000000</color>
     <color name="segmentBaseBackgroundColor">#1f767680</color>
     <color name="segmentBaseDividerColor">#4d8e8e93</color>
 
