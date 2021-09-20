@@ -17,8 +17,13 @@ import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus.CourseSyllabusFragment
 
 class ClassDetailActivity : BaseActivity() {
+
+    companion object {
+        private const val COURSE_SYLLABUS = "CourseSyllabus"
+    }
 
     private lateinit var binding: ActivityClassDetailBinding
 
@@ -110,7 +115,10 @@ class ClassDetailActivity : BaseActivity() {
                     }
                 },
                 onStudyPlanClicked = {
-                    // TODO wait for activity navigation
+                    val isShowing = supportFragmentManager.findFragmentByTag(COURSE_SYLLABUS) != null
+                    if (!isShowing) {
+                        CourseSyllabusFragment.newInstance(classGroupId, startColor, endColor).show(supportFragmentManager, COURSE_SYLLABUS)
+                    }
                 }
             )
         }

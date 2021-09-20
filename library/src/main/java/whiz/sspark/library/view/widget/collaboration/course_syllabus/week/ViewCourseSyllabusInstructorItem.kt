@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.course_syllabus.week
+package whiz.sspark.library.view.widget.collaboration.course_syllabus.week
 
 import android.content.Context
 import android.util.AttributeSet

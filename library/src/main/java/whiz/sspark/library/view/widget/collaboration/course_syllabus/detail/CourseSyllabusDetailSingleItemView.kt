@@ -1,13 +1,11 @@
-package whiz.sspark.library.view.widget.course_syllabus.detail
+package whiz.sspark.library.view.widget.collaboration.course_syllabus.detail
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.databinding.ViewCourseSyllabusDetailBottomBinding
 import whiz.sspark.library.databinding.ViewCourseSyllabusDetailSingleBinding
-import whiz.sspark.library.databinding.ViewCourseSyllabusDetailTopBinding
 
 class CourseSyllabusDetailSingleItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
