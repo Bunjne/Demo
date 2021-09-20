@@ -12,7 +12,7 @@ import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
 import whiz.tss.sspark.s_spark_android.data.static.ConstantValue
-import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.presentation.login.LoginActivity
 import java.util.*
 
 fun retrieveAuthenticationInformation(context: Context): AuthenticationInformation? {
@@ -91,8 +91,11 @@ fun retrieveUserID(context: Context): String {
 
 fun logout(context: Context) {
     clearData(context)
+    runBlocking {
+        ProfileManager(context).clearData()
+    }
 
-    val intent = Intent(context, MainActivity::class.java)
+    val intent = Intent(context, LoginActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
 }

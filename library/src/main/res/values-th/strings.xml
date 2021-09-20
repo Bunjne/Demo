@@ -33,6 +33,8 @@
     <string name="update_failed">อัปเดตข้อมูลผิดพลาด กรุณาลองอีกครั้ง</string>
     <string name="update_new_data">รอสักครู่...</string>
     <string name="update_just_now">สักครู่นี้</string>
+    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
+    <string name="date_time_post_at">เวลา</string>
 
     <plurals name="date_time_hour_ago">
         <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
@@ -44,9 +46,7 @@
         <item quantity="other">%1$d นาทีที่แล้ว</item>
     </plurals>
 
-    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
 
-    <string name="date_time_post_at">เวลา</string>
 
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
@@ -69,6 +69,14 @@
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
+    <string name="school_record_in_progress">In Progress</string>
+    <string name="school_record_complete">Completed</string>
+    <string name="school_record_grade_summary_text">ภาพรวมพัฒนาการ</string>
+    <string name="school_record_evaluation_title">เกณฑ์การประเมิน</string>
+    <string name="school_record_overall_text">Overall</string>
+    <string name="school_record_progress_text">ความก้าวหน้าตามจุดประสงค์การเรียนรู้</string>
+    <string name="school_record_instructor_comment_text">ความคิดเห็นอาจารย์ประจำวิชา</string>
+    <string name="school_record_expect_text">ผลการเรียนรู้ที่คาดหวัง</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>

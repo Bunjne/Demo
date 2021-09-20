@@ -1,7 +1,6 @@
 package whiz.sspark.library.view.screen.learning_outcome
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.LearningOutcome
-import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.databinding.ViewJuniorLearningOutcomeFragmentBinding
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.learning_outcome.JuniorLearningOutcomeAdapter
@@ -25,7 +23,7 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
     }
 
     fun init(onRefresh: () -> Unit,
-             onItemClicked: () -> Unit) {
+             onItemClicked: (LearningOutcome) -> Unit) {
         binding.srlLearningOutcome.setOnRefreshListener {
             updateItem()
             onRefresh()
@@ -49,47 +47,10 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(learningOutcomes: List<LearningOutcomeDTO> = listOf()) {
-        val item: MutableList<JuniorLearningOutcomeAdapter.Item> = mutableListOf()
+    fun updateItem(items: List<JuniorLearningOutcomeAdapter.Item> = listOf()) {
+        (binding.rvLearningOutcome.adapter as? JuniorLearningOutcomeAdapter)?.submitList(items)
 
-        learningOutcomes.forEach { learningOutcome ->
-            val titleItem = JuniorLearningOutcomeAdapter.Item(title = learningOutcome.header)
-            item.add(titleItem)
-
-            learningOutcome.courses.forEach {
-                val startColor = if (learningOutcome.gradientColor1.isNotBlank()) {
-                    Color.parseColor(learningOutcome.gradientColor1)
-                } else {
-                    ContextCompat.getColor(context, R.color.primaryStartColor)
-                }
-
-                val endColor = if (learningOutcome.gradientColor1.isNotBlank() && learningOutcome.gradientColor2.isNotBlank()) {
-                    Color.parseColor(learningOutcome.gradientColor2)
-                } else {
-                    if (learningOutcome.gradientColor1.isNotBlank()) {
-                        Color.parseColor(learningOutcome.gradientColor1)
-                    } else {
-                        ContextCompat.getColor(context, R.color.primaryEndColor)
-                    }
-                }
-
-                val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
-                    learningOutcome = LearningOutcome(
-                        startColor = startColor,
-                        endColor = endColor,
-                        credit = it.credits,
-                        percentPerformance = it.percentPerformance,
-                        courseCode = it.nameEn,
-                        courseName = it.nameTh)
-                )
-
-                item.add(learningOutcomeItem)
-            }
-        }
-
-        (binding.rvLearningOutcome.adapter as? JuniorLearningOutcomeAdapter)?.submitList(item)
-
-        if (learningOutcomes.isNotEmpty()) {
+        if (items.isNotEmpty()) {
             binding.tvNoRecord.visibility = View.GONE
             binding.rvLearningOutcome.visibility = View.VISIBLE
         } else {

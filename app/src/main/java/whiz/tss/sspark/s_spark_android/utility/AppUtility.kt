@@ -50,3 +50,11 @@ fun bytesToHex(bytes: ByteArray): String {
     }
     return String(hexChars)
 }
+
+fun isPrimaryHighSchool(academicGrade: Int): Boolean {
+    return academicGrade in 7..9
+}
+
+fun getHighSchoolLevel(academicGrade: Int): Int {
+    return academicGrade - 6
+}

@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.showUserProfileCircle
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ViewProfileHeaderBinding
 import whiz.tss.sspark.s_spark_android.utility.ProfileManager
@@ -39,7 +41,7 @@ class ProfileHeader : ConstraintLayout, CoroutineScope {
         launch {
             profileManager.profile.collect {
                 it?.let {
-                    binding.ivProfile.show(it.imageUrl ?: "")
+                    binding.ivProfile.showUserProfileCircle(it.imageUrl ?: "", getGender(it.gender).type)
                     binding.tvName.text = it.firstName
                     binding.tvCode.text = it.code
                 }
