@@ -16,7 +16,7 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
 
     companion object {
         const val TITLE_TYPE = 1111
-        const val COURSE_TYPE = 2222
+        const val LEARNING_OUTCOME_TYPE = 2222
         const val GRADE_SUMMARY_TYPE = 3333
     }
 
@@ -29,7 +29,7 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
 
         return when {
             item.learningOutcome != null -> {
-                COURSE_TYPE
+                LEARNING_OUTCOME_TYPE
             }
             item.gradeSummaries != null -> {
                 GRADE_SUMMARY_TYPE
@@ -42,14 +42,14 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
 
     class TitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class CourseViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    class LearningOutcomeViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     class GradeSummaryViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            COURSE_TYPE -> {
-                CourseViewHolder(LearningOutcomeView(context).apply {
+            LEARNING_OUTCOME_TYPE -> {
+                LearningOutcomeViewHolder(LearningOutcomeItemView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -82,8 +82,8 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
         val isPreviousItemHeader = getItemViewType(position - 1) == TITLE_TYPE
 
         when(viewType) {
-            COURSE_TYPE -> {
-                (holder.itemView as? LearningOutcomeView)?.apply {
+            LEARNING_OUTCOME_TYPE -> {
+                (holder.itemView as? LearningOutcomeItemView)?.apply {
                     init(item.learningOutcome!!)
                     setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
 

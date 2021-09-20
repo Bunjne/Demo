@@ -34,7 +34,7 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
                 addItemDecoration(
                     CustomDividerItemDecoration(
                         divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                        dividerViewType = SeniorLearningOutcomeAdapter.COURSE_TYPE
+                        dividerViewType = SeniorLearningOutcomeAdapter.LEARNING_OUTCOME_TYPE
                     )
                 )
             }

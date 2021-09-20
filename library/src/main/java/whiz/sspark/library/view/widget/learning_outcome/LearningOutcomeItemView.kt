@@ -7,10 +7,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.databinding.ViewLearningOutcomeItemBinding
-import whiz.sspark.library.databinding.ViewLearningOutcomeUnderEvaluationItemBinding
 import whiz.sspark.library.extension.show
 
-class LearningOutcomeView: ConstraintLayout {
+class LearningOutcomeItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
