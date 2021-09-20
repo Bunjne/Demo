@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/transparentColor">
+    android:layout_height="wrap_content">
 
     <whiz.sspark.library.view.widget.menu.menu_contact_info_dialog.MenuContactInfoDialogView
         android:id="@+id/vMenuContactInfo"

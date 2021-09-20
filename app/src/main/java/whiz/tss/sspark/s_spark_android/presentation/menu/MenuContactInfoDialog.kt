@@ -10,7 +10,7 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import whiz.sspark.library.data.entity.MenuContactInfoItem
-import whiz.sspark.library.extension.setWindowHorizontalPadding
+import whiz.sspark.library.extension.setFullscreenWidth
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
@@ -75,7 +75,7 @@ class MenuContactInfoDialog : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        setWindowHorizontalPadding(horizontalPadding = 0)
+        setFullscreenWidth()
     }
 
     private fun initViews() {
@@ -111,7 +111,7 @@ class MenuContactInfoDialog : DialogFragment() {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 setGravity(Gravity.BOTTOM)
                 attributes.y = 4.toDP(context)
-                attributes.windowAnimations = R.style.MenuContactInfoDialogAnimationStyle
+                attributes.windowAnimations = R.style.VerticalSlidesAnimationStyle
             }
         }
     }
