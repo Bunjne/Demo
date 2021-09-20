@@ -96,9 +96,7 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
                 (holder.itemView as? LearningOutcomeGradeSummaryItemView)?.init(item.gradeSummaries!!)
             }
             else -> {
-                (holder.itemView as? ItemListTitleView)?.apply {
-                    init(item.title!!)
-                }
+                (holder.itemView as? ItemListTitleView)?.init(item.title!!)
             }
         }
     }
@@ -107,7 +105,6 @@ class SeniorLearningOutcomeAdapter(private val context: Context,
         val title: String? = null,
         val learningOutcome: LearningOutcome? = null,
         val gradeSummaries: List<GradeSummary>? = null,
-        val fullValue: Float? = null
     )
 }
 

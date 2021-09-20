@@ -1,6 +1,6 @@
 package whiz.sspark.library.data.entity
 
-data class ExpectOutcomeCourseItem(
+data class ExpectOutcomeCourse(
     val title: String,
     val description: String,
     val value: Float,

@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.ExpectOutcomeCourseItem
+import whiz.sspark.library.data.entity.ExpectOutcomeCourse
 import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
 import whiz.sspark.library.extension.toColor
@@ -150,15 +150,16 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         val instructorCommentItem = expectOutcome.instructorComment?.convertToAdapterItem()
         instructorCommentItem?.let {
             items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_instructor_comment_text)))
-            items.add(ExpectOutcomeAdapter.Item(commentItem = instructorCommentItem))
+            items.add(ExpectOutcomeAdapter.Item(comment = instructorCommentItem))
         }
 
         if (expectOutcome.outcomes.isNotEmpty()) {
             items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_expect_text)))
 
             expectOutcome.outcomes.forEach {
-                val convertedValue = (it.value ?: 0 / it.fullValue) * indicators.size
-                val courseItem = ExpectOutcomeCourseItem(
+                val convertedValue = (it.value?.div(it.fullValue))?.times(indicators.size) ?: 0f
+
+                val courseItem = ExpectOutcomeCourse(
                     title = it.code,
                     description = it.description,
                     value = convertedValue,
@@ -167,7 +168,7 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                     indicators = indicators
                 )
 
-                items.add(ExpectOutcomeAdapter.Item(courseItem = courseItem))
+                items.add(ExpectOutcomeAdapter.Item(course = courseItem))
             }
         }
 

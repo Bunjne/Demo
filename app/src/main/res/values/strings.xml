@@ -55,12 +55,14 @@
     <string name="school_record_three_score_description_text">อยู่ในระดับที่ทำได้</string>
     <string name="school_record_four_score_description_text">อยู่ในระดับที่ทำได้ดี</string>
     <string name="school_record_five_score_description_text">อยู่ในระดับที่ทำได้ดีมาก</string>
+
     <string-array name="school_record_senior_indicator">
         <item>Beginning</item>
         <item>Developing</item>
         <item>Proficient</item>
         <item>Advanced</item>
     </string-array>
+
     <string-array name="school_record_junior_indicator">
         <item>0</item>
         <item>1</item>

@@ -100,9 +100,7 @@ class JuniorLearningOutcomeAdapter(private val context: Context,
                 }
             }
             else -> {
-                (holder.itemView as? ItemListTitleView)?.apply {
-                    init(item.title!!)
-                }
+                (holder.itemView as? ItemListTitleView)?.init(item.title!!)
             }
         }
 

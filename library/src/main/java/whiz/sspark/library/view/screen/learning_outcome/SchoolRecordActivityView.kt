@@ -53,8 +53,8 @@ class SchoolRecordActivityView: ConstraintLayout {
         binding.vSegment.updateSegmentTitle(segmentTitles, currentSegment)
     }
 
-    fun setSelectTermAble(isSelectAble: Boolean) {
-        if (isSelectAble) {
+    fun setIsTermSelectable(isTermSelectable: Boolean) {
+        if (isTermSelectable) {
             binding.ivDropdown.visibility = View.VISIBLE
         } else {
             binding.ivDropdown.visibility = View.GONE

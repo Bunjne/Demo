@@ -45,8 +45,8 @@ data class InstructorCommentDTO(
 
     val fullName get() = convertToFullName(firstName, middleName, lastName, position)
 
-    fun convertToAdapterItem(): InstructorCommentItem {
-        return InstructorCommentItem(
+    fun convertToAdapterItem(): InstructorComment {
+        return InstructorComment(
             name = fullName,
             createdAt = dateTime,
             comment = comment,

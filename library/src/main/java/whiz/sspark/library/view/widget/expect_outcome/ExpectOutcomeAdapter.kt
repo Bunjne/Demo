@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.InstructorCommentItem
-import whiz.sspark.library.data.entity.ExpectOutcomeCourseItem
-import whiz.sspark.library.data.entity.ExpectOutcomeOverallItem
+import whiz.sspark.library.data.entity.InstructorComment
+import whiz.sspark.library.data.entity.ExpectOutcomeCourse
+import whiz.sspark.library.data.entity.ExpectOutcomeOverall
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.InstructorCommentView
 import whiz.sspark.library.view.widget.base.ItemListTitleView
@@ -31,9 +31,9 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
         }
 
         return when {
-            item.courseItem != null -> COURSE_TYPE
-            item.commentItem != null -> COMMENT_TYPE
-            item.overAllItem != null -> OVERALL_TYPE
+            item.course != null -> COURSE_TYPE
+            item.comment != null -> COMMENT_TYPE
+            item.overall != null -> OVERALL_TYPE
             else -> TITLE_TYPE
         }
     }
@@ -91,16 +91,16 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
 
         when (viewType) {
             COMMENT_TYPE -> {
-                (holder.itemView as? InstructorCommentView)?.init(item.commentItem!!)
+                (holder.itemView as? InstructorCommentView)?.init(item.comment!!)
             }
             COURSE_TYPE -> {
                 (holder.itemView as? ExpectOutcomeItemView)?.apply {
-                    init(item.courseItem!!)
+                    init(item.course!!)
                     setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
                 }
             }
             OVERALL_TYPE -> {
-                (holder.itemView as? ExpectOutcomeOverAllItemView)?.init(item.overAllItem!!)
+                (holder.itemView as? ExpectOutcomeOverAllItemView)?.init(item.overall!!)
             }
             TITLE_TYPE -> {
                 (holder.itemView as? ItemListTitleView)?.init(item.title!!)
@@ -110,9 +110,9 @@ class ExpectOutcomeAdapter(private val context: Context): ListAdapter<ExpectOutc
 
     data class Item(
         val title: String? = null,
-        val commentItem: InstructorCommentItem? = null,
-        val overAllItem: ExpectOutcomeOverallItem? = null,
-        val courseItem: ExpectOutcomeCourseItem? = null
+        val comment: InstructorComment? = null,
+        val overall: ExpectOutcomeOverall? = null,
+        val course: ExpectOutcomeCourse? = null
     )
 }
 

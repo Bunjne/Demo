@@ -1,6 +1,6 @@
 package whiz.sspark.library.data.entity
 
-data class ExpectOutcomeOverallItem(
+data class ExpectOutcomeOverall(
     val value: Float,
     val startColor: Int,
     val endColor: Int,

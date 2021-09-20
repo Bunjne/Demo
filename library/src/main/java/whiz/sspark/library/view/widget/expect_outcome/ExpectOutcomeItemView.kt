@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.data.entity.ExpectOutcomeCourseItem
+import whiz.sspark.library.data.entity.ExpectOutcomeCourse
 import whiz.sspark.library.databinding.ViewExpectOutcomeCourseItemBinding
 
 class ExpectOutcomeItemView: ConstraintLayout {
@@ -16,8 +16,8 @@ class ExpectOutcomeItemView: ConstraintLayout {
         ViewExpectOutcomeCourseItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(expectOutcomeCourseItem: ExpectOutcomeCourseItem) {
-        with(expectOutcomeCourseItem) {
+    fun init(expectOutcomeCourse: ExpectOutcomeCourse) {
+        with(expectOutcomeCourse) {
             binding.tvTitle.text = title
             binding.tvDescription.text = description
             binding.vProgressBar.initGradientColor(startColor, endColor)

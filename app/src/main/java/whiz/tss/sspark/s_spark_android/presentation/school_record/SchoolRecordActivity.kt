@@ -33,7 +33,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
     private lateinit var binding: ActivitySchoolRecordBinding
 
     private var currentSegment = -1
-    private var lastedFragment = -1
+    private var savedFragment = -1
 
     private lateinit var currentTerm: Term
     private var terms: MutableList<Term> = mutableListOf()
@@ -47,8 +47,9 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
             initView()
-            val isSelectTermAble = terms.isNotEmpty()
-            binding.vSchoolRecord.setSelectTermAble(isSelectTermAble)
+
+            val isTermSelectable = terms.size > 1
+            binding.vSchoolRecord.setIsTermSelectable(isTermSelectable)
         } else {
             lifecycleScope.launch {
                 profileManager.term.collect {
@@ -107,8 +108,8 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
                 }
             )
 
-            if (lastedFragment != -1) {
-                setSelectedTab(lastedFragment)
+            if (savedFragment != -1) {
+                setSelectedTab(savedFragment)
             }
         }
     }
@@ -131,8 +132,8 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
                     addAll(it)
                 }
 
-                val isSelectTermAble = terms.isNotEmpty()
-                binding.vSchoolRecord.setSelectTermAble(isSelectTermAble)
+                val isTermSelectable = terms.size > 1
+                binding.vSchoolRecord.setIsTermSelectable(isTermSelectable)
             }
         }
     }
@@ -194,7 +195,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        lastedFragment = savedInstanceState.getInt("lastedFragment", -1)
+        savedFragment = savedInstanceState.getInt("savedFragment", -1)
         currentTerm = savedInstanceState.getString("currentTerm")?.toObject<Term>()!!
         val restoredTerms = savedInstanceState.getString("terms")?.toObjects(Array<Term>::class.java)!!
 
@@ -206,7 +207,7 @@ class SchoolRecordActivity : BaseActivity(), JuniorLearningOutcomeFragment.OnRef
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("lastedFragment", currentSegment)
+        outState.putInt("savedFragment", currentSegment)
         outState.putString("terms", terms.toJson())
         outState.putString("currentTerm", currentTerm.toJson())
         viewModelStore.clear()

@@ -128,10 +128,10 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
             val titleItem = JuniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
             items.add(titleItem)
 
-            learningOutcome.courses.forEach {
-                val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
-                val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
+            val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
+            val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
 
+            learningOutcome.courses.forEach {
                 val learningOutcomeItem = JuniorLearningOutcomeAdapter.Item(
                     learningOutcome = LearningOutcome(
                         courseId = it.id,
@@ -140,7 +140,8 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
                         credit = it.credits,
                         percentPerformance = it.percentPerformance,
                         courseCode = it.code,
-                        courseName = it.name)
+                        courseName = it.name
+                    )
                 )
 
                 items.add(learningOutcomeItem)

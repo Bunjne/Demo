@@ -123,13 +123,17 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
     }
 
     private fun updateAdapterItem(learningOutcomes: List<LearningOutcomeDTO>) {
-        val filteredLearningOutcome = learningOutcomes.filter { it.value != null }
+        val filteredLearningOutcomes = learningOutcomes.filter { it.value != null }
+
+        if (filteredLearningOutcomes.isEmpty()) {
+            binding.vLearningOutcome.updateItem()
+            return
+        }
 
         val items: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
 
         val title = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
-        val fullValue = filteredLearningOutcome.maxOfOrNull { it.fullValue } ?: 0f
-        val gradeSummaries = filteredLearningOutcome.map {
+        val gradeSummaries = filteredLearningOutcomes.map {
             GradeSummary(
                 name = it.name,
                 startColorCode = it.colorCode1,
@@ -140,19 +144,19 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
         items.add(title)
         items.add(
             SeniorLearningOutcomeAdapter.Item(
-            gradeSummaries = gradeSummaries,
-            fullValue = fullValue
+            gradeSummaries = gradeSummaries
         ))
 
-        filteredLearningOutcome.forEach { learningOutcome ->
+
+        filteredLearningOutcomes.forEach { learningOutcome ->
 
             val titleListItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
             items.add(titleListItem)
 
-            learningOutcome.courses.forEach {
-                val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
-                val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
+            val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
+            val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
 
+            learningOutcome.courses.forEach {
                 val percentPerformance = if (it.isCompleted) {
                     it.percentPerformance ?: 0
                 } else {
@@ -167,7 +171,8 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
                         credit = it.credits,
                         percentPerformance = percentPerformance,
                         courseCode = it.code,
-                        courseName = it.name)
+                        courseName = it.name
+                    )
                 )
 
                 items.add(learningOutcomeItem)

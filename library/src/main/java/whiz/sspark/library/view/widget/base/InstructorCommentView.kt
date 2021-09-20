@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.data.entity.InstructorCommentItem
+import whiz.sspark.library.data.entity.InstructorComment
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewBaseInstructorCommentBinding
 import whiz.sspark.library.extension.showUserProfileCircle
@@ -19,8 +19,8 @@ class InstructorCommentView: ConstraintLayout {
         ViewBaseInstructorCommentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(instructorCommentItem: InstructorCommentItem) {
-        with(instructorCommentItem) {
+    fun init(instructorComment: InstructorComment) {
+        with(instructorComment) {
             binding.ivProfile.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvName.text = name
             binding.tvComment.text = comment

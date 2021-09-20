@@ -2,7 +2,7 @@ package whiz.sspark.library.data.entity
 
 import java.util.*
 
-data class InstructorCommentItem(
+data class InstructorComment(
     val name: String,
     val createdAt: Date,
     val comment: String,

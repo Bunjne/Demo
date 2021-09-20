@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import whiz.sspark.library.data.entity.ExpectOutcomeOverallItem
+import whiz.sspark.library.data.entity.ExpectOutcomeOverall
 import whiz.sspark.library.databinding.ViewExpectOutcomeOverAllItemViewBinding
 
 class ExpectOutcomeOverAllItemView: ConstraintLayout {
@@ -17,15 +17,17 @@ class ExpectOutcomeOverAllItemView: ConstraintLayout {
         ViewExpectOutcomeOverAllItemViewBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(overallItem: ExpectOutcomeOverallItem) {
-        with(overallItem) {
+    fun init(overall: ExpectOutcomeOverall) {
+        with(overall) {
             binding.vProgressBar.initGradientColor(startColor, endColor)
             binding.vProgressBar.init(value, indicators)
-            binding.tvGrade.text = value.toString()
+            binding.tvGPA.text = value.toString()
 
-            binding.vProgressBar.setOnLongClickListener {
-                binding.cvGrade.visibility = View.VISIBLE
-                false
+            binding.clContainer.setOnClickListener {
+                binding.cvGPA.visibility = View.VISIBLE
+                binding.cvGPA.postDelayed({
+                    binding.cvGPA.visibility = View.GONE
+                }, 4000)
             }
         }
     }

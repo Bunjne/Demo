@@ -5,7 +5,6 @@
     <string name="general_text_retry">ลองอีกครั้ง</string>
     <string name="general_text_cancel">ยกเลิก</string>
     <string name="general_text_discard">ละทิ้ง</string>
-    <string name="general_text_at">เวลา</string>
 
     <!--General alert message-->
     <string name="general_alertmessage_no_internet_connection">ไม่มีอินเทอร์เน็ต</string>

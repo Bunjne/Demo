@@ -11,9 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.ExpectOutcomeCourseItem
+import whiz.sspark.library.data.entity.ExpectOutcomeCourse
 import whiz.sspark.library.data.entity.ExpectOutcomeDTO
-import whiz.sspark.library.data.entity.ExpectOutcomeOverallItem
+import whiz.sspark.library.data.entity.ExpectOutcomeOverall
 import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
 import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -161,7 +161,7 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         val instructorCommentItem = expectOutcome.instructorComment?.convertToAdapterItem()
         instructorCommentItem?.let {
             items.add(ExpectOutcomeAdapter.Item(title = resources.getString(R.string.school_record_instructor_comment_text)))
-            items.add(ExpectOutcomeAdapter.Item(commentItem = instructorCommentItem))
+            items.add(ExpectOutcomeAdapter.Item(comment = instructorCommentItem))
         }
 
         if (expectOutcome.isCompleted || expectOutcome.outcomes.isNotEmpty()) {
@@ -169,22 +169,22 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         }
 
         if (expectOutcome.isCompleted) {
-            val convertedOverAllValue = (expectOutcome.value ?: 0 / expectOutcome.fullValue) * indicators.size
+            val convertedOverallValue = (expectOutcome.value?.div(expectOutcome.fullValue))?.times(indicators.size) ?: 0f
 
-            val overAllItem = ExpectOutcomeOverallItem(
-                value = convertedOverAllValue,
+            val overall = ExpectOutcomeOverall(
+                value = convertedOverallValue,
                 startColor = startColor,
                 endColor = endColor,
                 indicators = indicators
             )
 
-            items.add(ExpectOutcomeAdapter.Item(overAllItem = overAllItem))
+            items.add(ExpectOutcomeAdapter.Item(overall = overall))
         }
 
         expectOutcome.outcomes.forEach {
             val convertedValue = (it.value ?: 0 / (it.fullValue / indicators.size))
 
-            val courseItem = ExpectOutcomeCourseItem(
+            val courseItem = ExpectOutcomeCourse(
                 title = it.code,
                 description = it.description,
                 value = convertedValue,
@@ -193,7 +193,7 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                 indicators = indicators
             )
 
-            items.add(ExpectOutcomeAdapter.Item(courseItem = courseItem))
+            items.add(ExpectOutcomeAdapter.Item(course = courseItem))
         }
 
         binding.vExpectOutcome.updateItem(items)
