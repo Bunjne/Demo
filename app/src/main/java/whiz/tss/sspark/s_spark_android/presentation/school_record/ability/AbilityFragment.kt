@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.AbilityDTO
-import whiz.sspark.library.data.entity.AbilityItem
+import whiz.sspark.library.data.entity.Ability
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.viewModel.AbilityViewModel
 import whiz.sspark.library.extension.toJson
@@ -14,7 +14,7 @@ import whiz.sspark.library.extension.toNullableJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.school_record_activity.AbilityAdapter
+import whiz.sspark.library.view.widget.school_record.ability.AbilityAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentAbilityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
@@ -117,7 +117,7 @@ class AbilityFragment: BaseFragment() {
 
             it.abilities.forEach {
                 val value = (it.value / it.fullValue) * indicators.size
-                val ability = AbilityItem(
+                val ability = Ability(
                     title = it.name,
                     value = value,
                     indicators = indicators
@@ -142,7 +142,6 @@ class AbilityFragment: BaseFragment() {
         super.onSaveInstanceState(outState)
         outState.putString("dataWrapper", dataWrapper?.toNullableJson())
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

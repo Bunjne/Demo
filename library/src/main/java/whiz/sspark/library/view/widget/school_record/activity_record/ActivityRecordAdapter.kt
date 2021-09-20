@@ -1,16 +1,18 @@
-package whiz.sspark.library.view.widget.school_record_activity
+package whiz.sspark.library.view.widget.school_record.activity_record
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.ActivityRecordItem
+import whiz.sspark.library.data.entity.ActivityRecord
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
-class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerView.ViewHolder>(ActivityRecordDiffCallback()) {
+class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerView.ViewHolder>(
+    ActivityRecordDiffCallback()
+) {
 
     companion object {
         private val TITLE_VIEW_TYPE = 1111
@@ -27,8 +29,8 @@ class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerVie
         }
 
         return when {
-            item.activity?.status != null && !item.activity.description.isNullOrBlank() -> STATUS_WITH_DESCRIPTON_VIEW_TYPE
-            item.activity?.status != null -> STATUS_VIEW_TYPE
+            item.activity?.isCompleted != null && !item.activity.description.isNullOrBlank() -> STATUS_WITH_DESCRIPTON_VIEW_TYPE
+            item.activity?.isCompleted != null -> STATUS_VIEW_TYPE
             !item.activity?.description.isNullOrBlank() -> TITLE_WITH_DESCRIPTION_VIEW_TYPE
             else -> TITLE_VIEW_TYPE
         }
@@ -89,7 +91,7 @@ class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerVie
             STATUS_WITH_DESCRIPTON_VIEW_TYPE -> {
                 (holder.itemView as? ActivityRecordStatusWithDescriptionItemView)?.apply {
                     init(
-                        status = item.activity?.status ?: false,
+                        isCompleted = item.activity?.isCompleted ?: false,
                         title = item.activity?.title ?: "",
                         description = item.activity?.description ?: ""
                     )
@@ -100,7 +102,7 @@ class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerVie
             STATUS_VIEW_TYPE -> {
                 (holder.itemView as? ActivityRecordStatusItemView)?.apply {
                     init(
-                        status = item.activity?.status ?: false,
+                        isCompleted = item.activity?.isCompleted ?: false,
                         title = item.activity?.title ?: ""
                     )
 
@@ -118,28 +120,26 @@ class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerVie
                 }
             }
             else -> {
-                (holder.itemView as? ItemListTitleView)?.apply {
-                    init(item.title ?: "")
-                }
+                (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }
 
     data class Item(
         val title: String? = null,
-        val activity: ActivityRecordItem? = null
+        val activity: ActivityRecord? = null
     )
-
 }
 
 private class ActivityRecordDiffCallback : DiffUtil.ItemCallback<ActivityRecordAdapter.Item>() {
     override fun areItemsTheSame(oldItem: ActivityRecordAdapter.Item, newItem: ActivityRecordAdapter.Item): Boolean {
         return oldItem == newItem
     }
+
     override fun areContentsTheSame(oldItem: ActivityRecordAdapter.Item, newItem: ActivityRecordAdapter.Item): Boolean {
         return oldItem.title == newItem.title &&
                 oldItem.activity?.description == newItem.activity?.description &&
-                oldItem.activity?.status == newItem.activity?.status &&
+                oldItem.activity?.isCompleted == newItem.activity?.isCompleted &&
                 oldItem.activity?.title == newItem.activity?.title
     }
 }

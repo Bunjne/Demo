@@ -73,6 +73,7 @@
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
     <string name="school_record_no_activity">ไม่มีผลประเมินกิจกรรม</string>
+    <string name="school_record_no_ability">ไม่มีผลประเมินสมรรถนะ</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>

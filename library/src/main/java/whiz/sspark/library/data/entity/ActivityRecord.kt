@@ -1,7 +1,7 @@
 package whiz.sspark.library.data.entity
 
-data class ActivityRecordItem(
+data class ActivityRecord(
     val title: String = "",
-    val status: Boolean? = null,
+    val isCompleted: Boolean? = null,
     val description: String? = null
 )

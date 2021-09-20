@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.school_record_activity
+package whiz.sspark.library.view.widget.school_record.activity_record
 
 import android.content.Context
 import android.util.AttributeSet
@@ -24,7 +24,6 @@ class ActivityRecordTitleWithDescriptionItemView: ConstraintLayout {
             binding.tvDescription.text = description
             binding.cvDescription.visibility = View.VISIBLE
         } else {
-            binding.tvDescription.text = description
             binding.cvDescription.visibility = View.GONE
         }
     }

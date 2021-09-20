@@ -1,11 +1,11 @@
-package whiz.sspark.library.view.widget.school_record_activity
+package whiz.sspark.library.view.widget.school_record.ability
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.AbilityItem
+import whiz.sspark.library.data.entity.Ability
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
@@ -69,16 +69,14 @@ class AbilityAdapter: ListAdapter<AbilityAdapter.Item, RecyclerView.ViewHolder>(
                 }
             }
             else -> {
-                (holder.itemView as? ItemListTitleView)?.apply {
-                    init(item.title ?: "")
-                }
+                (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }
 
     data class Item(
         val title: String? = null,
-        val ability: AbilityItem? = null
+        val ability: Ability? = null
     )
 }
 
@@ -86,8 +84,8 @@ private class AbilityDiffCallback : DiffUtil.ItemCallback<AbilityAdapter.Item>()
     override fun areItemsTheSame(oldItem: AbilityAdapter.Item, newItem: AbilityAdapter.Item): Boolean {
         return oldItem == newItem
     }
+
     override fun areContentsTheSame(oldItem: AbilityAdapter.Item, newItem: AbilityAdapter.Item): Boolean {
         return oldItem.title == newItem.title && oldItem.ability == newItem.ability
-
     }
 }

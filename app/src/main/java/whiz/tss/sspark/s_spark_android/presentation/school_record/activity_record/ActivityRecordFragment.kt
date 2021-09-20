@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.ActivityDTO
-import whiz.sspark.library.data.entity.ActivityRecordItem
+import whiz.sspark.library.data.entity.ActivityRecord
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.viewModel.ActivityRecordViewModel
 import whiz.sspark.library.extension.toJson
@@ -14,7 +14,7 @@ import whiz.sspark.library.extension.toNullableJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.school_record_activity.ActivityRecordAdapter
+import whiz.sspark.library.view.widget.school_record.activity_record.ActivityRecordAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentActivityRecordBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
@@ -112,9 +112,9 @@ class ActivityRecordFragment: BaseFragment() {
             items.add(ActivityRecordAdapter.Item(title = it.name))
 
             it.activities.forEach {
-                val activity = ActivityRecordItem(
+                val activity = ActivityRecord(
                     title = it.name,
-                    status = it.isCompleted,
+                    isCompleted = it.isCompleted,
                     description = it.comment
                 )
 
@@ -138,7 +138,6 @@ class ActivityRecordFragment: BaseFragment() {
         super.onSaveInstanceState(outState)
         outState.putString("dataWrapper", dataWrapper?.toNullableJson())
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
