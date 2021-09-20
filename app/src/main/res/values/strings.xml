@@ -33,4 +33,46 @@
 
     <!-- Image -->
     <string name="image_transition_name" translatable="false">image_transition</string>
+
+    <!--Expect outcome info-->
+    <string name="school_record_beginning_text">Beginning</string>
+    <string name="school_record_developing_text">Developing</string>
+    <string name="school_record_proficient_text">Proficient</string>
+    <string name="school_record_advance_text">Advanced</string>
+    <string name="school_record_beginning_description_text">เริ่มต้น</string>
+    <string name="school_record_developing_description_text">กำลังพัฒนา</string>
+    <string name="school_record_proficient_description_text">อยู่ในระดับที่ทำได้ดี</string>
+    <string name="school_record_advance_description_text">อยู่ในระดับที่ทำได้ดีมาก</string>
+    <string name="school_record_zero_score_text">0</string>
+    <string name="school_record_one_score_text">1</string>
+    <string name="school_record_two_score_text">2</string>
+    <string name="school_record_three_score_text">3</string>
+    <string name="school_record_four_score_text">4</string>
+    <string name="school_record_five_score_text">5</string>
+    <string name="school_record_zero_score_description_text">ไม่สามารถประเมินได้</string>
+    <string name="school_record_one_score_description_text">จำเป็นต้องได้รับการพัฒนาอย่างยิ่ง</string>
+    <string name="school_record_two_score_description_text">กำลังพัฒนา</string>
+    <string name="school_record_three_score_description_text">อยู่ในระดับที่ทำได้</string>
+    <string name="school_record_four_score_description_text">อยู่ในระดับที่ทำได้ดี</string>
+    <string name="school_record_five_score_description_text">อยู่ในระดับที่ทำได้ดีมาก</string>
+
+    <string-array name="school_record_senior_indicator">
+        <item>Beginning</item>
+        <item>Developing</item>
+        <item>Proficient</item>
+        <item>Advanced</item>
+    </string-array>
+
+    <string-array name="school_record_junior_indicator">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <!--School record-->
+    <string name="school_record_title">ผลการเรียน ม.%1$s</string>
+    <string name="school_record_term">%1$s/%2$s</string>
 </resources>
