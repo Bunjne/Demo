@@ -31,6 +31,7 @@ class ScaleIndicator : View {
             textSize = resources.getDimension(R.dimen.ScaleIndicatorTextSize)
             typeface = SSparkLibrary.boldTypeface
             textAlign = Paint.Align.CENTER
+            isAntiAlias = true
         }
     }
 
@@ -313,7 +314,7 @@ class ScaleIndicator : View {
                 val maxTextBoxWidth = columnWidth.toFloat() - 4.toDP(context)
                 val textHeight = textPaint.descent() - textPaint.ascent()
 
-                val ellipsizedText = TextUtils.ellipsize(s, textPaint, maxTextBoxWidth, TextUtils.TruncateAt.END).toString()
+                val ellipsizedText = TextUtils.ellipsize(s, textPaint, maxTextBoxWidth, TextUtils.TruncateAt.END).toString().uppercase()
 
                 val startPositionX = progressPadding + (columnWidth / 2) + (columnWidth * index)
                 val startPositionY = progressHeight + textMarginTop + ((textBoxHeight / 2) + (textPaint.ascent().absoluteValue - (textHeight / 2)))

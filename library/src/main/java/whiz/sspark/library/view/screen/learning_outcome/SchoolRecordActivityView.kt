@@ -3,6 +3,7 @@ package whiz.sspark.library.view.screen.learning_outcome
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -22,18 +23,20 @@ class SchoolRecordActivityView: ConstraintLayout {
     }
 
     fun init(title: String,
-             selectedTerm: String,
+             term: String,
              segmentTitles: List<String>,
-             onSelectTerm: () -> Unit,
+             onSelectTerm: (View) -> Unit,
              onSegmentClicked: (Int) -> Unit) {
         binding.ivDropdown.show(R.drawable.ic_dropdown)
 
         binding.tvTitle.text = title
-        binding.tvTerm.text = selectedTerm
+        binding.tvTerm.text = term
         binding.vSegment.init(segmentTitles, onSegmentClicked)
 
         binding.cvTerm.setOnClickListener {
-            onSelectTerm()
+            if (binding.ivDropdown.visibility == View.VISIBLE) {
+                onSelectTerm(binding.cvTerm)
+            }
         }
     }
 
@@ -42,9 +45,24 @@ class SchoolRecordActivityView: ConstraintLayout {
     }
 
     fun changeTerm(title: String,
-                   selectedTerm: String) {
+                   selectedTerm: String,
+                   segmentTitles: List<String>,
+                   currentSegment: Int) {
         binding.tvTitle.text = title
         binding.tvTerm.text = selectedTerm
+        binding.vSegment.updateSegmentTitle(segmentTitles, currentSegment)
+    }
+
+    fun setIsTermSelectable(isTermSelectable: Boolean) {
+        if (isTermSelectable) {
+            binding.ivDropdown.visibility = View.VISIBLE
+        } else {
+            binding.ivDropdown.visibility = View.GONE
+        }
+    }
+
+    fun setSelectedTab(tab: Int) {
+        binding.vSegment.selectTab(tab)
     }
 
     fun renderFragment(supportFragmentManager: FragmentManager,

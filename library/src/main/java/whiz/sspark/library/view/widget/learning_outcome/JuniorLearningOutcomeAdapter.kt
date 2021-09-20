@@ -11,7 +11,7 @@ import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
 class JuniorLearningOutcomeAdapter(private val context: Context,
-                                   private val onItemClicked: () -> Unit): ListAdapter<JuniorLearningOutcomeAdapter.Item, RecyclerView.ViewHolder>(JuniorLearningOutcomeDiffCallback()) {
+                                   private val onItemClicked: (LearningOutcome) -> Unit): ListAdapter<JuniorLearningOutcomeAdapter.Item, RecyclerView.ViewHolder>(JuniorLearningOutcomeDiffCallback()) {
 
     companion object {
         const val TITLE_TYPE = 1111
@@ -74,37 +74,33 @@ class JuniorLearningOutcomeAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        item?.let {
-            val viewType = getItemViewType(position)
-            val isNextItemHeader = getItemViewType(position + 1) == TITLE_TYPE
-            val isPreviousItemHeader = getItemViewType(position - 1) == TITLE_TYPE
+        val viewType = getItemViewType(position)
+        val isNextItemHeader = getItemViewType(position + 1) == TITLE_TYPE
+        val isPreviousItemHeader = getItemViewType(position - 1) == TITLE_TYPE
 
-            when(viewType) {
-                PROGRESS_BAR_TYPE -> {
-                    (holder.itemView as? LearningOutcomeProgressBarItemView)?.apply {
-                        init(it.learningOutcome!!)
-                        setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
+        when(viewType) {
+            PROGRESS_BAR_TYPE -> {
+                (holder.itemView as? LearningOutcomeProgressBarItemView)?.apply {
+                    init(item.learningOutcome!!)
+                    setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
 
-                        setOnClickListener {
-                            onItemClicked()
-                        }
+                    setOnClickListener {
+                        onItemClicked(item.learningOutcome)
                     }
                 }
-                UNDER_EVALUATION_TYPE -> {
-                    (holder.itemView as? LearningOutcomeUnderEvaluationView)?.apply {
-                        init(it.learningOutcome!!)
-                        setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
+            }
+            UNDER_EVALUATION_TYPE -> {
+                (holder.itemView as? LearningOutcomeUnderEvaluationView)?.apply {
+                    init(item.learningOutcome!!)
+                    setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
 
-                        setOnClickListener {
-                            onItemClicked()
-                        }
+                    setOnClickListener {
+                        onItemClicked(item.learningOutcome)
                     }
                 }
-                else -> {
-                    (holder.itemView as? ItemListTitleView)?.apply {
-                        init(it.title!!)
-                    }
-                }
+            }
+            else -> {
+                (holder.itemView as? ItemListTitleView)?.init(item.title!!)
             }
         }
     }
