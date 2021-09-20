@@ -69,4 +69,13 @@
     <!--School record-->
     <string name="school_record_title">ผลการเรียน ม.%1$s</string>
     <string name="school_record_term">%1$s/%2$s</string>
+
+    <!--Course syllabus-->
+    <string name="course_syllabus_description_text">คำอธิบายรายวิชา</string>
+    <string name="course_syllabus_expect_outcome_text">ผลการเรียนรู้ที่คาดหวัง</string>
+    <string name="course_syllabus_week">สัปดาห์ที่ %1$s</string>
+    <string-array name="course_syllabus_segment">
+        <item>รายละเอียดวิชา</item>
+        <item>กำหนดการ</item>
+    </string-array>
 </resources>

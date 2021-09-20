@@ -20,9 +20,11 @@ class CourseSyllabusFragment: DialogFragment(),
     companion object {
         const val COURSE_DETAIL = 0
         const val COURSE_WEEK_DETAIL = 1
-        fun newInstance(classGroupId: String, startColor: Int, endColor: Int) = CourseSyllabusFragment().apply {
+
+        fun newInstance(classGroupId: String, termId: String, startColor: Int, endColor: Int) = CourseSyllabusFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
+                putString("termId", termId)
                 putInt("startColor", startColor)
                 putInt("endColor", endColor)
             }
@@ -34,6 +36,10 @@ class CourseSyllabusFragment: DialogFragment(),
 
     private val classGroupId by lazy {
         arguments?.getString("classGroupId") ?: ""
+    }
+
+    private val termId by lazy {
+        arguments?.getString("termId") ?: ""
     }
 
     private val startColor by lazy {
@@ -82,8 +88,8 @@ class CourseSyllabusFragment: DialogFragment(),
             endColor = endColor,
             onTabClicked = {
                 when (it) {
-                    COURSE_DETAIL -> binding.vCourseSyllabus.renderFragment(CourseSyllabusDetailFragment.newInstance(classGroupId), childFragmentManager, COURSE_DETAIL)
-                    COURSE_WEEK_DETAIL -> binding.vCourseSyllabus.renderFragment(CourseSyllabusWeekDetailFragment.newInstance(classGroupId), childFragmentManager, COURSE_WEEK_DETAIL)
+                    COURSE_DETAIL -> binding.vCourseSyllabus.renderFragment(CourseSyllabusDetailFragment.newInstance(classGroupId, termId), childFragmentManager, COURSE_DETAIL)
+                    COURSE_WEEK_DETAIL -> binding.vCourseSyllabus.renderFragment(CourseSyllabusWeekDetailFragment.newInstance(classGroupId, termId), childFragmentManager, COURSE_WEEK_DETAIL)
                 }
             },
             onCloseClicked = {

@@ -96,17 +96,17 @@ class CourseSyllabusAdapter: ListAdapter<CourseSyllabusAdapter.Item, RecyclerVie
         val viewType = getItemViewType(position)
 
         when(viewType) {
-            COURSE_DETAIL_TOP_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailTopItemView).init(item.position, item.courseDetail!!)
-            COURSE_DETAIL_MIDDLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailMiddleItemView).init(item.position, item.courseDetail!!)
-            COURSE_DETAIL_BOTTOM_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailBottomItemView).init(item.position, item.courseDetail!!)
-            COURSE_DETAIL_SINGLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailSingleItemView).init(item.position, item.courseDetail!!)
+            COURSE_DETAIL_TOP_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailTopItemView).init(item.code, item.courseDetail!!)
+            COURSE_DETAIL_MIDDLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailMiddleItemView).init(item.code, item.courseDetail!!)
+            COURSE_DETAIL_BOTTOM_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailBottomItemView).init(item.code, item.courseDetail!!)
+            COURSE_DETAIL_SINGLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailSingleItemView).init(item.code, item.courseDetail!!)
             TITLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusTitleItemView).init(item.title!!)
         }
     }
 
     data class Item(
         val title: String? = null,
-        val position: Int? = null,
+        val code: String? = null,
         val courseDetail: String? = null,
     )
 

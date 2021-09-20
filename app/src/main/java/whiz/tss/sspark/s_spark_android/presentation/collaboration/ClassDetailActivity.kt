@@ -3,8 +3,12 @@ package whiz.tss.sspark.s_spark_android.presentation.collaboration
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
+import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.enum.BottomNavigationType
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.tss.sspark.s_spark_android.R
@@ -52,13 +56,21 @@ class ClassDetailActivity : BaseActivity() {
     }
 
     private var currentFragment: Int = BottomNavigationId.NONE_SELECTED.id
+    private lateinit var currentTerm: Term
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityClassDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initView()
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    currentTerm = it
+                    initView()
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -117,7 +129,7 @@ class ClassDetailActivity : BaseActivity() {
                 onStudyPlanClicked = {
                     val isShowing = supportFragmentManager.findFragmentByTag(COURSE_SYLLABUS) != null
                     if (!isShowing) {
-                        CourseSyllabusFragment.newInstance(classGroupId, startColor, endColor).show(supportFragmentManager, COURSE_SYLLABUS)
+                        CourseSyllabusFragment.newInstance(classGroupId, currentTerm.id ,startColor, endColor).show(supportFragmentManager, COURSE_SYLLABUS)
                     }
                 }
             )

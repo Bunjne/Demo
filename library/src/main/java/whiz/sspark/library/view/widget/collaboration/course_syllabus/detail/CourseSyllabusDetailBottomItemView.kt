@@ -16,7 +16,7 @@ class CourseSyllabusDetailBottomItemView: ConstraintLayout {
         ViewCourseSyllabusDetailBottomBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(position: Int?,
+    fun init(position: String?,
              detail: String) {
         if (position != null) {
             binding.tvPosition.visibility = View.VISIBLE
