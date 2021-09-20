@@ -19,8 +19,8 @@ class CourseSyllabusDetailTopItemView: ConstraintLayout {
     fun init(position: String?,
              detail: String) {
         if (position != null) {
-            binding.tvPosition.visibility = View.VISIBLE
             binding.tvPosition.text = position.toString()
+            binding.tvPosition.visibility = View.VISIBLE
         } else {
             binding.tvPosition.visibility = View.GONE
         }
