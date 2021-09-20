@@ -9,10 +9,12 @@ val viewModelModule = module {
     viewModel { ActivityRecordViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
+    viewModel { ExpectOutcomeViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { MenuStudentViewModel(get()) }
+    viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { TimelineViewModel(get()) }

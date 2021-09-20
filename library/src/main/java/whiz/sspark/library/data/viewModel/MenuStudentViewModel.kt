@@ -159,9 +159,9 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
         }
     }
 
-    private fun getGradeSummary() {
+    private fun getGradeSummary(termId: String) {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getGradeSummary()
+            menuStudentRepositoryImpl.getGradeSummary(termId)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -183,14 +183,14 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
         }
     }
 
-    fun fetchWidget(menusDTO: List<MenuDTO>) {
+    fun fetchWidget(menusDTO: List<MenuDTO>, termId: String) {
         menusDTO.forEach {
             it.items.forEach {
                 when (it.type) {
                     MenuItemType.ADVISING_WIDGET.type -> getAdvising()
                     MenuItemType.NOTIFICATION_WIDGET.type -> getNotificationInbox()
                     MenuItemType.CALENDAR_WIDGET.type -> getCalendar()
-                    MenuItemType.GRADE_SUMMARY.type -> getGradeSummary()
+                    MenuItemType.GRADE_SUMMARY.type -> getGradeSummary(termId)
                 }
             }
         }
