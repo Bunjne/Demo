@@ -28,7 +28,7 @@ class ClassGroupItemView : ConstraintLayout {
             if (notificationCount == 0) {
                 binding.cvNotificationCount.visibility = View.INVISIBLE
             } else {
-                binding.tvNotificationCount.text = classGroupCourse.notificationCount.toString()
+                binding.tvNotificationCount.text = notificationCount.toString()
                 binding.cvNotificationCount.visibility = View.VISIBLE
             }
 

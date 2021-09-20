@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
+import whiz.sspark.library.data.entity.ClassGroup
 import whiz.sspark.library.data.viewModel.ClassGroupViewModel
 import whiz.sspark.library.extension.toColor
+import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_group.ClassGroupAdapter
@@ -20,6 +22,8 @@ import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.util.*
 
 class ClassGroupFragment : BaseFragment() {
@@ -46,7 +50,7 @@ class ClassGroupFragment : BaseFragment() {
         activity?.let {
             initView()
 
-            viewModel.getClassGroups(false)
+            viewModel.getClassGroups()
         }
     }
 
@@ -93,7 +97,7 @@ class ClassGroupFragment : BaseFragment() {
             init(
                 items = items,
                 todayDate = Date(),
-                classLevel = "", //TODO change this value after discuss about source of class level
+                classLevel = "มัธยมศึกษาปีที่ 3", //TODO change this value after discuss about source of class level
                 schoolLogoUrl = "", //TODO change this value after discuss about source of schoolLogoUrl
                 onClassGroupItemClicked = { classGroupCourse ->
                     val intent = Intent(requireContext(), ClassDetailActivity::class.java).apply {
@@ -127,10 +131,33 @@ class ClassGroupFragment : BaseFragment() {
                     }
                 },
                 onRefresh = {
-                    viewModel.getClassGroups(true)
+                    viewModel.getClassGroups()
                 }
             )
         }
+
+        val reader = BufferedReader(InputStreamReader(requireContext().resources.assets.open("classgroup.json")))
+        val objects = reader.readText().toObjects(Array<ClassGroup>::class.java)
+
+        val classGroupItems = mutableListOf<ClassGroupAdapter.Item>()
+        with (classGroupItems) {
+            objects.forEach {
+                add(ClassGroupAdapter.Item(
+                    headerBarTitle = it.classGroupName,
+                    headerBarIcon = it.iconImageUrl,
+                    headerBarStartColor = it.colorCode1.toColor(),
+                    headerBarEndColor = it.colorCode2.toColor()
+                ))
+
+                addAll(it.courses.map { classGroupCourse ->
+                    ClassGroupAdapter.Item(
+                        classGroupCourse = classGroupCourse
+                    )
+                })
+            }
+        }
+
+        binding.vClassGroup.renderData(items, classGroupItems)
     }
 
     override fun observeView() {

@@ -76,7 +76,7 @@ class ClassGroupAdapter(private val context: Context,
                             endColor = item.headerBarEndColor ?: Color.BLACK
                         )
 
-                        setPadding(0, 10.toDP(context), 0, 10.toDP(context))
+                        setPadding(6.toDP(context), 16.toDP(context), 6.toDP(context), 16.toDP(context))
                     }
                 }
             }

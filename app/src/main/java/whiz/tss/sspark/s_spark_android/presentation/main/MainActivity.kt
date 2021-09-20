@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
 import whiz.sspark.library.data.enum.BottomNavigationType
+import whiz.sspark.library.extension.setGradientDrawable
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.databinding.ActivityMainBinding
@@ -31,6 +32,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setGradientDrawable(R.drawable.bg_primary_gradient_0)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

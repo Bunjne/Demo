@@ -31,9 +31,9 @@ class ClassGroupViewModel(private val classGroupRepository: ClassGroupRepository
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getClassGroups(isNetworkPreferred: Boolean) {
+    fun getClassGroups() {
         viewModelScope.launch {
-            classGroupRepository.getClassGroup(isNetworkPreferred)
+            classGroupRepository.getClassGroup()
                 .onStart {
                     _viewLoading.value = true
                 }
