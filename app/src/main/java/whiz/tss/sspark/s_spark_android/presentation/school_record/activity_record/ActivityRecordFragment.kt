@@ -63,7 +63,7 @@ class ActivityRecordFragment: BaseFragment() {
                 val activities = dataWrapper?.data?.toJson()?.toObjects(Array<ActivityDTO>::class.java) ?: listOf()
                 updateAdapterItem(activities)
 
-                listener?.onRefresh(dataWrapper)
+                listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
                 viewModel.getActivityRecord(termId)
             }
@@ -85,7 +85,7 @@ class ActivityRecordFragment: BaseFragment() {
 
         viewModel.viewRendering.observe(this) {
             dataWrapper = it
-            listener?.onRefresh(dataWrapper)
+            listener?.onSetLatestUpdatedText(dataWrapper)
         }
     }
 
@@ -129,7 +129,7 @@ class ActivityRecordFragment: BaseFragment() {
         super.onHiddenChanged(hidden)
         if (!hidden) {
             dataWrapper?.let {
-                listener?.onRefresh(it)
+                listener?.onSetLatestUpdatedText(it)
             }
         }
     }
@@ -145,6 +145,6 @@ class ActivityRecordFragment: BaseFragment() {
     }
 
     interface OnRefresh {
-        fun onRefresh(data: DataWrapperX<Any>?)
+        fun onSetLatestUpdatedText(data: DataWrapperX<Any>?)
     }
 }

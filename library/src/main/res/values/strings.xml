@@ -78,10 +78,6 @@
     <string name="school_record_progress_text">ความก้าวหน้าตามจุดประสงค์การเรียนรู้</string>
     <string name="school_record_instructor_comment_text">ความคิดเห็นอาจารย์ประจำวิชา</string>
     <string name="school_record_expect_text">ผลการเรียนรู้ที่คาดหวัง</string>
-
-    <!--school record-->
-    <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
-    <string name="school_record_no_record">ไม่มีการเรียน</string>
     <string name="school_record_no_activity">ไม่มีผลประเมินกิจกรรม</string>
     <string name="school_record_no_ability">ไม่มีผลประเมินสมรรถนะ</string>
 

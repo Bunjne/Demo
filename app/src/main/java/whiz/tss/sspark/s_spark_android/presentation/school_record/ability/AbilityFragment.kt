@@ -67,7 +67,7 @@ class AbilityFragment: BaseFragment() {
                 val abilities = dataWrapper?.data?.toJson()?.toObjects(Array<AbilityDTO>::class.java) ?: listOf()
                 updateAdapterItem(abilities)
 
-                listener?.onRefresh(dataWrapper)
+                listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
                 viewModel.getAbility(termId)
             }
@@ -89,7 +89,7 @@ class AbilityFragment: BaseFragment() {
 
         viewModel.viewRendering.observe(this) {
             dataWrapper = it
-            listener?.onRefresh(dataWrapper)
+            listener?.onSetLatestUpdatedText(dataWrapper)
         }
     }
 
@@ -133,7 +133,7 @@ class AbilityFragment: BaseFragment() {
         super.onHiddenChanged(hidden)
         if (!hidden) {
             dataWrapper?.let {
-                listener?.onRefresh(it)
+                listener?.onSetLatestUpdatedText(it)
             }
         }
     }
@@ -149,6 +149,6 @@ class AbilityFragment: BaseFragment() {
     }
 
     interface OnRefresh {
-        fun onRefresh(data: DataWrapperX<Any>?)
+        fun onSetLatestUpdatedText(data: DataWrapperX<Any>?)
     }
 }

@@ -46,8 +46,6 @@
         <item quantity="other">%1$d นาทีที่แล้ว</item>
     </plurals>
 
-
-
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
     <string name="today_happenings_announcement">ประกาศ</string>

@@ -14,7 +14,7 @@ import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
 import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.learning_outcome.SeniorLearningOutcomeAdapter
+import whiz.sspark.library.view.widget.school_record.learning_outcome.SeniorLearningOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorLearningOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.SeniorExpectOutcomeBottomSheetDialog
