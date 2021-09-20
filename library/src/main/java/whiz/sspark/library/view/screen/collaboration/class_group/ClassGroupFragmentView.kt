@@ -92,7 +92,7 @@ class ClassGroupFragmentView : ConstraintLayout {
     }
 
     private fun clearData(items: MutableList<ClassGroupAdapter.Item>) {
-        items.removeAll { it.navigationBarItem == null }
+        items.removeAll { it.navigationBarItems == null }
 
         binding.rvClassGroup.adapter?.notifyDataSetChanged()
     }

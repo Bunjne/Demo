@@ -24,9 +24,9 @@ class ClassGroupHeaderBarView : ConstraintLayout {
         binding.tvClassGroupTitle.text = title
 
         if (iconUrl.isBlank()) {
-            binding.cvIcon.visibility = View.GONE
+            binding.ivClassGroupIcon.visibility = View.GONE
         } else {
-            binding.cvIcon.visibility = View.VISIBLE
+            binding.ivClassGroupIcon.visibility = View.VISIBLE
             binding.ivClassGroupIcon.show(iconUrl)
         }
 

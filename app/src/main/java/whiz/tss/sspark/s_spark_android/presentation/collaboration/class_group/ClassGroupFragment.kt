@@ -82,7 +82,7 @@ class ClassGroupFragment : BaseFragment() {
         with (items) {
             add(
                 ClassGroupAdapter.Item(
-                    navigationBarItem = listOf(
+                    navigationBarItems = listOf(
                         firstNavigationItem,
                         BottomNavigationBarItem(
                             id = BottomNavigationId.ASSIGNMENT.id,
@@ -117,7 +117,7 @@ class ClassGroupFragment : BaseFragment() {
                 schoolLogoUrl = "", //TODO change this value after discuss about source of schoolLogoUrl
                 onClassGroupItemClicked = { classGroupCourse ->
                     val intent = Intent(requireContext(), ClassDetailActivity::class.java).apply {
-                      putExtra("id", classGroupCourse.classGroupId)
+                      putExtra("classGroupId", classGroupCourse.classGroupId)
                       putExtra("startColor", classGroupCourse.colorCode1.toColor())
                       putExtra("endColor", classGroupCourse.colorCode2.toColor())
                       putExtra("allMemberCount", classGroupCourse.studentCount)
@@ -196,11 +196,11 @@ class ClassGroupFragment : BaseFragment() {
                     headerBarEndColor = it.colorCode2.toColor()
                 ))
 
-                addAll(it.courses.map { classGroupCourse ->
-                    ClassGroupAdapter.Item(
-                        classGroupCourse = classGroupCourse
-                    )
-                })
+                val classGroupCourseItems = it.courses.map { classGroupCourse ->
+                    ClassGroupAdapter.Item(classGroupCourse = classGroupCourse)
+                }
+
+                addAll(classGroupCourseItems)
             }
         }
 

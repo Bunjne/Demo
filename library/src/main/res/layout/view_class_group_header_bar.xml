@@ -8,9 +8,9 @@
     android:layout_height="wrap_content"
     app:background_ColorType="gradient_linear"
     app:background_Gradient_Angle="270"
-    app:background_Type="fill"
     app:background_Gradient_Color0="@color/primaryStartColor"
     app:background_Gradient_ColorEnd="@color/primaryEndColor"
+    app:background_Type="fill"
     app:cornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,22 +19,14 @@
         android:paddingHorizontal="10dp"
         android:paddingVertical="8dp">
 
-        <com.sinaseyfi.advancedcardview.AdvancedCardView
-            android:id="@+id/cvIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cornerRadius="15dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivClassGroupIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivClassGroupIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/avatars" />
-
-        </com.sinaseyfi.advancedcardview.AdvancedCardView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
         <whiz.sspark.library.view.general.SSparkTextView
             android:id="@+id/tvClassGroupTitle"
@@ -48,11 +40,11 @@
             app:autoSizeMinTextSize="12dp"
             app:autoSizeStepGranularity="1dp"
             app:autoSizeTextType="uniform"
-            app:layout_goneMarginStart="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cvIcon"
+            app:layout_constraintStart_toEndOf="@id/ivClassGroupIcon"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="0dp"
             app:ssparkFont="regular"
             tools:text="กลุ่มวิทยาศาสตร์และคณิตศาสตร์" />
 

@@ -60,9 +60,9 @@ class MainActivity : BaseActivity() {
                         }
                     }
                     BottomNavigationId.CLASS.id -> {
-                    if (!isFragmentVisible(BottomNavigationId.CLASS.id)) {
-                        renderFragment(ClassGroupFragment.newInstance(), BottomNavigationId.CLASS.id)
-                    }
+                        if (!isFragmentVisible(BottomNavigationId.CLASS.id)) {
+                            renderFragment(ClassGroupFragment.newInstance(), BottomNavigationId.CLASS.id)
+                        }
                     }
                     BottomNavigationId.ID_CARD.id -> {
 //                    binding.vBottomNavigation.setSelection(currentFragment) // TODO wait confirm UI

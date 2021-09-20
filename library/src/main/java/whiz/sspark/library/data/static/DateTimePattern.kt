@@ -25,5 +25,5 @@ object DateTimePattern {
     const val attendanceClassTimeFormat = "HH:mm"
 
     //ClassGroup
-    const val classGroupDayMonthFormatTh = "d MMMM "
+    val classGroupDayMonthFormatTh get() = dayFullMonthFormatTh
 }
