@@ -147,7 +147,6 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
             gradeSummaries = gradeSummaries
         ))
 
-
         filteredLearningOutcomes.forEach { learningOutcome ->
 
             val titleListItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)

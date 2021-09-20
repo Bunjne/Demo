@@ -184,7 +184,7 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         expectOutcome.outcomes.forEach {
             val convertedValue = (it.value ?: 0 / (it.fullValue / indicators.size))
 
-            val courseItem = ExpectOutcomeCourse(
+            val course = ExpectOutcomeCourse(
                 title = it.code,
                 description = it.description,
                 value = convertedValue,
@@ -193,7 +193,7 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                 indicators = indicators
             )
 
-            items.add(ExpectOutcomeAdapter.Item(course = courseItem))
+            items.add(ExpectOutcomeAdapter.Item(course = course))
         }
 
         binding.vExpectOutcome.updateItem(items)
