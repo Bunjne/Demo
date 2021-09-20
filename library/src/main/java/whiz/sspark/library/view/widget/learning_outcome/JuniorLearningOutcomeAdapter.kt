@@ -103,7 +103,6 @@ class JuniorLearningOutcomeAdapter(private val context: Context,
                 (holder.itemView as? ItemListTitleView)?.init(item.title!!)
             }
         }
-
     }
 
     data class Item(
