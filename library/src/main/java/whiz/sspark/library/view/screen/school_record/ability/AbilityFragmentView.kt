@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.screen.learning_outcome
+package whiz.sspark.library.view.screen.school_record.ability
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,39 +8,37 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.LearningOutcome
-import whiz.sspark.library.databinding.ViewSeniorLearningOutcomeFragmentBinding
+import whiz.sspark.library.databinding.ViewAbilityFragmentBinding
 import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
-import whiz.sspark.library.view.widget.learning_outcome.SeniorLearningOutcomeAdapter
+import whiz.sspark.library.view.widget.school_record.ability.AbilityAdapter
 
-class SeniorLearningOutcomeFragmentView: ConstraintLayout {
+class AbilityFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewSeniorLearningOutcomeFragmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewAbilityFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(onRefresh: () -> Unit,
-             onItemClicked: (LearningOutcome) -> Unit) {
-        binding.srlLearningOutcome.setOnRefreshListener {
-            updateItem()
-            onRefresh()
-        }
-
-        with(binding.rvLearningOutcome) {
+    fun init(onRefresh: () -> Unit) {
+        with(binding.rvActivityRecord) {
             if (itemDecorationCount == 0) {
                 addItemDecoration(
                     CustomDividerItemDecoration(
                         divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                        dividerViewType = SeniorLearningOutcomeAdapter.LEARNING_OUTCOME_TYPE
+                        dividerViewType = AbilityAdapter.PROGRESS_BAR_VIEW_TYPE
                     )
                 )
             }
 
             layoutManager = LinearLayoutManager(context)
-            adapter = SeniorLearningOutcomeAdapter(context, onItemClicked)
+            adapter = AbilityAdapter()
+        }
+
+        binding.srlLearningOutcome.setOnRefreshListener {
+            updateItem()
+            onRefresh()
         }
     }
 
@@ -48,16 +46,15 @@ class SeniorLearningOutcomeFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(items: List<SeniorLearningOutcomeAdapter.Item> = listOf()) {
-        (binding.rvLearningOutcome.adapter as? SeniorLearningOutcomeAdapter)?.submitList(items)
+    fun updateItem(items: List<AbilityAdapter.Item> = listOf()) {
+        (binding.rvActivityRecord.adapter as? AbilityAdapter)?.submitList(items)
 
         if (items.isEmpty()) {
             binding.tvNoRecord.visibility = View.VISIBLE
-            binding.rvLearningOutcome.visibility = View.GONE
-            return
+            binding.rvActivityRecord.visibility = View.GONE
         } else {
             binding.tvNoRecord.visibility = View.GONE
-            binding.rvLearningOutcome.visibility = View.VISIBLE
+            binding.rvActivityRecord.visibility = View.VISIBLE
         }
     }
 }

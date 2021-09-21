@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.expect_outcome
+package whiz.sspark.library.view.widget.school_record.expect_outcome
 
 import android.content.Context
 import android.util.AttributeSet
