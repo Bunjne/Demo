@@ -45,7 +45,7 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent@+id/ivStatus"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:ssparkFont="regular"
                 tools:text="Club PA : การประเมินร่วมกับการเรียนรู้ของกลุ่มประสบการณ์ การเรียนรู้สุขภาพและสุขภาวะ เน้นด้านพลศึกษา (PE)" />
@@ -60,7 +60,7 @@
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent@+id/ivStatus"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:ssparkFont="regular" />
 
