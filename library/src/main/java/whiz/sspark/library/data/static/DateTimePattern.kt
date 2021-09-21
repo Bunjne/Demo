@@ -15,6 +15,9 @@ object DateTimePattern {
 
     const val serviceDateFormat = "dd/MM/yyyy"
 
+    const val dayShortMonthFormatEn = "d MM yyyy"
+    const val dayShortMonthFormatTh = "d MM"
+
     const val todayAbbreviatedDateFormatEn = "d MMMM yyyy"
     const val todayAbbreviatedDayMonthFormatTh = "d MMM "
 

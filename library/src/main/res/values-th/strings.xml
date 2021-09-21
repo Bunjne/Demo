@@ -5,6 +5,7 @@
     <string name="general_text_retry">ลองอีกครั้ง</string>
     <string name="general_text_cancel">ยกเลิก</string>
     <string name="general_text_discard">ละทิ้ง</string>
+    <string name="general_text_today">วันนี้</string>
 
     <!--General alert message-->
     <string name="general_alertmessage_no_internet_connection">ไม่มีอินเทอร์เน็ต</string>
@@ -158,4 +159,8 @@
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
     <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
 
+
+    <!-- Notification Inbox -->
+    <string name="notification_inbox_created_at">%1$s น.</string>
+    <string name="notification_inbox_text">กล่องข้อความ</string>
 </resources>
