@@ -156,16 +156,12 @@
 
     <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:id="@+id/cvNotificationCount"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         app:background_Color="@color/accentRedV500"
-        app:cornerRadius="11dp"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shadow0_Outer_Alpha="1"
-        app:shadow0_Outer_Blur="30dp"
-        app:shadow0_Outer_Color="@color/shadowColor"
-        app:shadow_Outer_Area="4dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <whiz.sspark.library.view.general.SSparkTextView
             android:id="@+id/tvNotificationCount"

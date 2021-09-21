@@ -19,7 +19,7 @@
         android:paddingHorizontal="10dp"
         android:paddingVertical="8dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/ivClassGroupIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
