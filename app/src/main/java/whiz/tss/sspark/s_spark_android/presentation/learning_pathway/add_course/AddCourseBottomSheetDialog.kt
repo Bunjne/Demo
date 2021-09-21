@@ -112,7 +112,7 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
                 })
             }
 
-            bottomSheet.parent.parent.requestLayout()
+            view?.requestLayout()
         }
     }
 

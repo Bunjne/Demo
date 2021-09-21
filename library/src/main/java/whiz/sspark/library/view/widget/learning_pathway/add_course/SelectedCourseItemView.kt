@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Course
-import whiz.sspark.library.databinding.ViewCourseBinding
 import whiz.sspark.library.databinding.ViewSelectedCorseBinding
-import whiz.sspark.library.extension.show
 
 class SelectedCourseItemView: ConstraintLayout {
     constructor(context: Context) : super(context)

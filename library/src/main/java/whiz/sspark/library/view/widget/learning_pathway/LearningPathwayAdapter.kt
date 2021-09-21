@@ -22,7 +22,6 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
         val courseViewTypes = listOf(COURSE_TOP_VIEW_TYPE, COURSE_MIDDLE_VIEW_TYPE, COURSE_BOTTOM_VIEW_TYPE, COURSE_SINGLE_VIEW_TYPE)
     }
 
-
     override fun getItemViewType(position: Int): Int {
         val item = try {
             getItem(position)
@@ -165,14 +164,15 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
         override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem == newItem
         }
+
         override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            val sameSelectedCourseIds = if (oldItem.header?.selectedCourseIds != null && newItem.header?.selectedCourseIds != null) {
+            val isSameSelectedCourseIds = if (oldItem.header?.selectedCourseIds != null && newItem.header?.selectedCourseIds != null) {
                 oldItem.header.selectedCourseIds.containsAll(newItem.header.selectedCourseIds) && newItem.header.selectedCourseIds.containsAll(oldItem.header.selectedCourseIds)
             } else {
                 !(oldItem.header?.selectedCourseIds != null || newItem.header?.selectedCourseIds != null)
             }
 
-            val sameRequiredCourses = if (oldItem.requiredCourseItem != null && newItem.requiredCourseItem != null) {
+            val isSameRequiredCourses = if (oldItem.requiredCourseItem != null && newItem.requiredCourseItem != null) {
                 oldItem.requiredCourseItem.courses.containsAll(newItem.requiredCourseItem.courses) && newItem.requiredCourseItem.courses.containsAll(oldItem.requiredCourseItem.courses)
             } else {
                 !(oldItem.requiredCourseItem != null || newItem.requiredCourseItem != null)
@@ -181,8 +181,8 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
             return oldItem.header == newItem.header &&
                     oldItem.courseItem == newItem.courseItem &&
                     oldItem.requiredCourseItem?.term == newItem.requiredCourseItem?.term &&
-                    sameRequiredCourses &&
-                    sameSelectedCourseIds
+                    isSameRequiredCourses &&
+                    isSameSelectedCourseIds
         }
     }
 }

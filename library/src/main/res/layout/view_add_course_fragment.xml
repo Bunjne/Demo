@@ -8,15 +8,15 @@
 
     <View
         android:id="@+id/vTranslationTopLeft"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent" />
 
     <View
         android:id="@+id/vTranslationTopRight"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintStart_toEndOf="parent" />
 
@@ -25,21 +25,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:background_Color="@color/viewBaseSecondaryColor"
-        app:cornerRadius_TopLeft="12dp"
-        app:cornerRadius_TopRight="12dp"
+        app:cornerRadius_TopLeft="14dp"
+        app:cornerRadius_TopRight="14dp"
         app:layout_constraintEnd_toEndOf="@+id/vTranslationTopRight"
         app:layout_constraintStart_toStartOf="@+id/vTranslationTopLeft"
         app:layout_constraintTop_toTopOf="@+id/vTranslationTopRight"
         app:shadow0_Outer_Alpha="0.04"
         app:shadow0_Outer_Blur="30dp"
         app:shadow0_Outer_Color="@color/shadowWithoutAlphaColor"
-        app:shadow_Outer_Area="12dp">
+        app:shadow_Outer_Area="30dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
-            android:paddingBottom="12dp">
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/ivClose"
@@ -123,7 +123,7 @@
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="6dp"
                         android:textColor="@color/textBasePrimaryColor"
-                        android:textSize="13dp"
+                        android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ivSearch"
@@ -140,8 +140,8 @@
 
     <View
         android:id="@+id/vTranslationShadow"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvHeader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -163,7 +163,7 @@
             android:clipToPadding="false"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
-            android:paddingTop="12dp" />
+            android:paddingTop="8dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

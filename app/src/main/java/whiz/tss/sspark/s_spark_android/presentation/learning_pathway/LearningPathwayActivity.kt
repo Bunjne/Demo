@@ -8,6 +8,7 @@ import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.utility.showAlert
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.learning_pathway.LearningPathwayAdapter
@@ -78,7 +79,14 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                     return@init
                 }
 
-                viewModel.deleteCourse(termId = termId, courseId = courseId)
+                showAlert(
+                    title = resources.getString(R.string.general_confirm_to_delete_text),
+                    positiveTitle = resources.getString(R.string.general_delete_text),
+                    onPositiveClicked = {
+                        viewModel.deleteCourse(termId = termId, courseId = courseId)
+                    },
+                    negativeTitle = resources.getString(R.string.general_text_cancel)
+                )
             },
             onShowRequiredCourseClicked = { term, courses ->
                 if (viewModel.viewLoading.value == true) {
@@ -200,7 +208,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 items.add(LearningPathwayAdapter.Item(courseItem = learningPathwayCourse))
             }
 
-            val course = learningPathway.requiredCourses.map {
+            val courses = learningPathway.requiredCourses.map {
                 Course(
                     id = it.id,
                     code = it.code,
@@ -211,7 +219,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
 
             val requiredCourse = LearningPathwayRequiredCourseItem(
                 term = learningPathway.term,
-                courses = course
+                courses = courses
             )
 
             items.add(LearningPathwayAdapter.Item(requiredCourseItem = requiredCourse))

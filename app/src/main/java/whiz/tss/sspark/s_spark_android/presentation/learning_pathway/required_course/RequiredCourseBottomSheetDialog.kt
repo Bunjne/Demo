@@ -19,7 +19,6 @@ import whiz.tss.sspark.s_spark_android.databinding.FragmentRequiredCourseBinding
 
 class RequiredCourseBottomSheetDialog: BottomSheetDialogFragment() {
     companion object {
-
         fun newInstance(term: Term, courses: List<Course>) = RequiredCourseBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())

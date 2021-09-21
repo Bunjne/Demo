@@ -17,7 +17,6 @@ class AddCourseAdapter(private val onAddCourseClicked: (String) -> Unit): ListAd
         const val UN_SELECTABLE_COURSE_VIEW_TYPE = 3333
     }
 
-
     override fun getItemViewType(position: Int): Int {
         val item = try {
             getItem(position)

@@ -48,8 +48,6 @@ class LearningPathwayActivityView: ConstraintLayout {
         binding.srlContainer.setOnRefreshListener {
             onRefresh()
         }
-
-        updateItem()
     }
 
     fun setSwipeRefreshLoading(isLoading: Boolean?) {

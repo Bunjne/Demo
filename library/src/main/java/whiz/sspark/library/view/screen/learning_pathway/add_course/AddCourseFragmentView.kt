@@ -9,8 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ConcentrateCourseDTO
-import whiz.sspark.library.data.entity.Course
 import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.databinding.ViewAddCourseFragmentBinding
 import whiz.sspark.library.extension.show
