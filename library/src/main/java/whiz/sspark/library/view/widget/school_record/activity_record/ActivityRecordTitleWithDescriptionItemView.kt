@@ -22,9 +22,11 @@ class ActivityRecordTitleWithDescriptionItemView: ConstraintLayout {
 
         if (description.isNotBlank()) {
             binding.tvDescription.text = description
-            binding.cvDescription.visibility = View.VISIBLE
+            binding.tvDescription.visibility = View.VISIBLE
+            binding.tvNoRecord.visibility = View.GONE
         } else {
-            binding.cvDescription.visibility = View.GONE
+            binding.tvDescription.visibility = View.GONE
+            binding.tvNoRecord.visibility = View.VISIBLE
         }
     }
 }

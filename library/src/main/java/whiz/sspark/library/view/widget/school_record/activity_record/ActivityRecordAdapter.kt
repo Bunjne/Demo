@@ -10,9 +10,7 @@ import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
-class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerView.ViewHolder>(
-    ActivityRecordDiffCallback()
-) {
+class ActivityRecordAdapter: ListAdapter<ActivityRecordAdapter.Item, RecyclerView.ViewHolder>(ActivityRecordDiffCallback()) {
 
     companion object {
         private val TITLE_VIEW_TYPE = 1111

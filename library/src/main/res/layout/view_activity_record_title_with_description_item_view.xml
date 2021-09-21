@@ -31,18 +31,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
-        <whiz.sspark.library.view.general.SSparkTextView
-            android:id="@+id/tvDescription"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@color/textBaseSecondaryColor"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivStatus"
-            app:layout_constraintTop_toTopOf="parent"
-            app:ssparkFont="regular"
-            tools:text="Club PA : การประเมินร่วมกับการเรียนรู้ของกลุ่มประสบการณ์ การเรียนรู้สุขภาพและสุขภาวะ เน้นด้านพลศึกษา (PE)" />
+            android:padding="10dp">
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textBaseSecondaryColor"
+                android:textSize="14dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent@+id/ivStatus"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="regular"
+                tools:text="Club PA : การประเมินร่วมกับการเรียนรู้ของกลุ่มประสบการณ์ การเรียนรู้สุขภาพและสุขภาวะ เน้นด้านพลศึกษา (PE)" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvNoRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/school_record_no_evaluation_record"
+                android:textAlignment="center"
+                android:textColor="@color/textBaseThirdColor"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent@+id/ivStatus"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="regular" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
