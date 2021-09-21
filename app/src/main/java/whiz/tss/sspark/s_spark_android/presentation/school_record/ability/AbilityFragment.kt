@@ -15,6 +15,7 @@ import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.school_record.ability.AbilityAdapter
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentAbilityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
@@ -35,7 +36,7 @@ class AbilityFragment: BaseFragment() {
     }
 
     private val indicators by lazy {
-        listOf("beginning", "Developing", "Proficient", "Advanced") //TODO change to string resource when learning outcome available
+        resources.getStringArray(R.array.school_record_senior_indicator)
     }
 
     private var _binding: FragmentAbilityBinding? = null
