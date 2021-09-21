@@ -8,22 +8,21 @@ import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
 import whiz.sspark.library.data.data_source.remote.service.LearningOutcomeService
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.LearningOutcomeAPIBody
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface LearningOutcomeRepository {
-    suspend fun getLearningOutcome(currentSemesterId: Int): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
+    suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
 }
 
 class LearningOutcomeRepositoryImpl(private val context: Context,
                                     private val remote: LearningOutcomeService): LearningOutcomeRepository {
-    override suspend fun getLearningOutcome(currentSemesterId: Int): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
+    override suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getLearningOutcome(LearningOutcomeAPIBody(currentSemesterId))
+                    val response = remote.getLearningOutcome(termId)
                     fetchX(response, Array<LearningOutcomeDTO>::class.java)
                 } catch (e: Exception) {
                     throw e
