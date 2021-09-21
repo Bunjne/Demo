@@ -28,6 +28,16 @@
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_alertmessage_loading_title">รอสักครู่...</string>
 
+    <string-array name="full_day_name">
+        <item>อาทิตย์</item>
+        <item>จันทร์</item>
+        <item>อังคาร</item>
+        <item>พุธ</item>
+        <item>พฤหัส</item>
+        <item>ศุกร์</item>
+        <item>เสาร์</item>
+    </string-array>
+
     <!--Datetime-->
     <string name="screen_header_subtitle">อัปเดตล่าสุดเมื่อ %1$s น.</string>
     <string name="update_failed">อัปเดตข้อมูลผิดพลาด กรุณาลองอีกครั้ง</string>
@@ -158,5 +168,8 @@
     <string name="class_group_navigation_item_examination_title">ตารางสอบ</string>
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
     <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
+
+    <!--Class Schedule-->
+    <string name="class_schedule_day_with_short_date_title">%1$s\n%2$s</string>
 
 </resources>

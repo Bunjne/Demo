@@ -18,9 +18,12 @@ object DateTimePattern {
     const val todayAbbreviatedDateFormatEn = "d MMMM yyyy"
     const val todayAbbreviatedDayMonthFormatTh = "d MMM "
 
+    const val shortDayAndMonthFormatEn = "d/M/yy"
+    const val shortDayAndMonthFormatTh = "d/M/"
+
     //Class Attendance
     const val attendanceClassDateFormatEn = "MMMM d, yyyy"
-    const val attendanceClassDayMonthFormatTh = "d/M/"
+    val attendanceClassDayMonthFormatTh get() = shortDayAndMonthFormatTh
     val attendanceClassYearFormatTh get() = twoPositionYear
     const val attendanceClassTimeFormat = "HH:mm"
 
