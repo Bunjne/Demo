@@ -12,11 +12,12 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.ClassScheduleDTO
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.Term
-import whiz.sspark.library.data.repository.ClassScheduleRepository
-import whiz.sspark.library.data.repository.SchoolRecordRepositoryImpl
+import whiz.sspark.library.data.repository.ClassScheduleRepositoryImpl
+import whiz.sspark.library.data.static.DateTimePattern
+import whiz.sspark.library.extension.convertToDateString
+import java.util.*
 
-class ClassScheduleViewModel(private val classScheduleRepository: ClassScheduleRepository): ViewModel() {
+class ClassScheduleViewModel(private val classScheduleRepository: ClassScheduleRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -38,10 +39,14 @@ class ClassScheduleViewModel(private val classScheduleRepository: ClassScheduleR
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getClassSchedule(termId: String, fromDate: String, toDate: String) {
+    fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
+        val convertedFromDate = fromDate.convertToDateString(DateTimePattern.apiBodyFormat)
+        val convertedToDate = toDate.convertToDateString(DateTimePattern.apiBodyFormat)
+
         viewModelScope.launch {
-            classScheduleRepository.getClassSchedule(termId, fromDate, toDate)
+            classScheduleRepository.getClassSchedule(termId, convertedFromDate, convertedToDate)
                 .onStart {
+                    _viewRendering.value = null
                     _viewLoading.value = true
                 }
                 .onCompletion {
@@ -51,6 +56,7 @@ class ClassScheduleViewModel(private val classScheduleRepository: ClassScheduleR
                     _errorMessage.value = it.localizedMessage
                 }
                 .collect {
+                    _viewRendering.value = it
                     val data = it.data
 
                     data?.let {

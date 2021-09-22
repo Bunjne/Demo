@@ -8,6 +8,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassScheduleCourse
 import whiz.sspark.library.databinding.ViewClassScheduleCourseItemBinding
 import whiz.sspark.library.extension.convertToTime
+import whiz.sspark.library.extension.toColor
 
 class ClassScheduleCourseItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -20,11 +21,11 @@ class ClassScheduleCourseItemView: ConstraintLayout {
 
     fun init(classScheduleCourse: ClassScheduleCourse) {
         with(classScheduleCourse) {
-            val convertedInstructorName = classScheduleCourse.instructorNames.joinToString(" ") { it }
+            val convertedInstructorName = instructorNames.joinToString(" ") { it }
 
-            binding.cvVerticalBar.setCardBackgroundColor(color)
+            binding.cvVerticalBar.setCardBackgroundColor(color.toColor())
             binding.tvTimeRange.text = resources.getString(R.string.class_schedule_range, startTime.convertToTime(), endTime.convertToTime())
-            binding.tvTimeRange.text = resources.getString(R.string.class_schedule_course_code_and_name, code, name)
+            binding.tvCourse.text = resources.getString(R.string.class_schedule_course_code_and_name, code, name)
             binding.tvInstrucAndRoom.text = resources.getString(R.string.class_schedule_instructor_and_room, convertedInstructorName, room)
         }
     }

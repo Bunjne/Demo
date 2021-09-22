@@ -5,7 +5,7 @@ data class ClassScheduleCourse(
         val endTime: String,
         val code: String,
         val name: String,
-        val color: Int,
+        val color: String,
         val room: String,
         val instructorNames: List<String>,
 )

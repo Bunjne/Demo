@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.screen.school_record.learning_outcome
+package whiz.sspark.library.view.screen.school_record
 
 import android.content.Context
 import android.util.AttributeSet

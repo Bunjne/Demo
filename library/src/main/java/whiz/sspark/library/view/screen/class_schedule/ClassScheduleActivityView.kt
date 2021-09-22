@@ -28,9 +28,11 @@ class ClassScheduleActivityView: ConstraintLayout {
     private var weekSelectionAdapter: WeekSelectionAdapter? = null
     private var classScheduleAdapter: ClassScheduleAdapter? = null
 
-    fun init(onPreviousWeekClick: () -> Unit,
+    fun init(term: String,
+             onPreviousWeekClick: () -> Unit,
              onNextWeekClick: () -> Unit,
              onRefresh: () -> Unit) {
+        binding.tvTerm.text = term
 
         val config = ConcatAdapter.Config.Builder().apply {
             setIsolateViewTypes(false)
@@ -68,8 +70,8 @@ class ClassScheduleActivityView: ConstraintLayout {
         binding.tvLatestUpdated.showViewStateX(data)
     }
 
-    fun updateSelectedWeek(weeks: List<WeekSelection>) {
-        weekSelectionAdapter?.submitList(weeks)
+    fun updateSelectedWeek(weeks: WeekSelection) {
+        weekSelectionAdapter?.submitList(listOf(weeks))
     }
 
     fun updateSchedule(item: List<ClassScheduleAdapter.Item>) {

@@ -14,8 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <whiz.sspark.library.view.screen.school_record.SchoolRecordActivityView
-        android:id="@+id/vSchoolRecord"
+    <whiz.sspark.library.view.screen.class_schedule.ClassScheduleActivityView
+        android:id="@+id/vClassSchedule"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/vFooter"

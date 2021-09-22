@@ -36,7 +36,7 @@ class AbilityFragment: BaseFragment() {
     }
 
     private val indicators by lazy {
-        resources.getStringArray(R.array.school_record_senior_indicator)
+        resources.getStringArray(R.array.school_record_senior_indicator).toList()
     }
 
     private var _binding: FragmentAbilityBinding? = null

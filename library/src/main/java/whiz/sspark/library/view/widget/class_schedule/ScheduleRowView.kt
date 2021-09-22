@@ -3,6 +3,8 @@ package whiz.sspark.library.view.widget.class_schedule
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
+import android.text.TextPaint
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.View
@@ -53,14 +55,20 @@ class ScheduleRowView : View {
         }
     }
 
+    private val courseNamePaint by lazy {
+        TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = ContextCompat.getColor(context, R.color.naturalV100)
+            typeface = SSparkLibrary.boldTypeface
+            textAlign = Paint.Align.CENTER
+        }
+    }
+
     private val slotPaints = arrayListOf<Paint>()
 
     private var metrics = DisplayMetrics()
     private var rowWidth = 0.0f
-    private var rowHeight = 0.0f
+    private val rowHeight = 30f.toDP(context)
     private var columnWidth = 0.0f
-
-    private val multiTextLineSpace = 10.toDP(context)
 
     private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     private var oneMilliSecondWidth = 0f
@@ -72,6 +80,7 @@ class ScheduleRowView : View {
     private var isColumnTitleShown = false
     private var isRowTitleShown = false
     private var isUnderlineShown = false
+    private var bounds = Rect()
 
     init {
         try {
@@ -79,9 +88,6 @@ class ScheduleRowView : View {
         } catch (exception: Exception) {
             metrics = Resources.getSystem().displayMetrics
         }
-
-        rowWidth = metrics.widthPixels.toFloat()
-        rowHeight = textPaint.descent() - textPaint.ascent() + multiTextLineSpace
     }
 
     fun init(rowTitle: String,
@@ -96,16 +102,12 @@ class ScheduleRowView : View {
         this.isColumnTitleShown = isColumnTitleShown
         this.isRowTitleShown = isRowTitleShown
         this.isUnderlineShown = isUnderlineShown
-
-        rowHeight = ((textPaint.descent() - textPaint.ascent()) * 2) + multiTextLineSpace
-
-        measure(rowWidth.toInt(), rowHeight.toInt())
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        rowWidth = (parent as View).width.toFloat()
+        rowWidth = width.toFloat()
         columnWidth = rowWidth / (scheduleTimes.size + 1)
         scheduleStartTime = timeFormatter.parse(scheduleTimes[0]).time
         oneMilliSecondWidth = columnWidth / (timeFormatter.parse(scheduleTimes[1]).time - scheduleStartTime)
@@ -173,13 +175,30 @@ class ScheduleRowView : View {
 
                 val differenceMillisecond = endTime.time - startTime.time
                 val startingDrawingX = startingFirstSlotX + (startTime.time - scheduleStartTime) * oneMilliSecondWidth
+                val endingDrawingX = (startingDrawingX + (differenceMillisecond * oneMilliSecondWidth))
 
-                val rectF = RectF(startingDrawingX,
-                        startingPositionY + (rowHeight / 3f),
-                        startingDrawingX + (differenceMillisecond * oneMilliSecondWidth),
-                        startingPositionY + (rowHeight / 1.5f))
+                val rectF = RectF(startingDrawingX + 0.5f.toDP(context),
+                    7f.toDP(context),
+                    endingDrawingX - 0.5f.toDP(context),
+                    rowHeight - 5f.toDP(context))
 
-                canvas.drawRoundRect(rectF, 15f, 15f, slotPaints.getOrElse(index, { defaultSlotPaint }))
+                canvas.drawRoundRect(rectF, 6f.toDP(context), 6f.toDP(context), slotPaints.getOrElse(index, { defaultSlotPaint }))
+
+                val slotWidth = rectF.width() - 4.toDP(context)
+
+                for (textSize in 12 downTo 7) {
+                    courseNamePaint.textSize = textSize.toDP(context).toFloat()
+                    courseNamePaint.getTextBounds(duration.courseCode, 0, duration.courseCode.length, bounds)
+
+                    if (slotWidth > bounds.width()) {
+                        break
+                    }
+                }
+
+                var baselineCourseCode = (rowHeight / 2) + courseNamePaint.descent()
+
+                val ellipsizedText = TextUtils.ellipsize(duration.courseCode, courseNamePaint, slotWidth, TextUtils.TruncateAt.END).toString().uppercase()
+                canvas.drawText(ellipsizedText, rectF.centerX(), baselineCourseCode, courseNamePaint)
             }
         }
     }
