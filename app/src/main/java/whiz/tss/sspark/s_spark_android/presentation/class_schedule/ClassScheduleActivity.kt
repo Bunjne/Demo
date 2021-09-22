@@ -221,8 +221,8 @@ class ClassScheduleActivity : BaseActivity() {
     }
 
     private fun getWeeksOfYear(): List<WeekOfYear> {
-        val startedWeekOfYear = currentTerm.startDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
-        val endedWeekOfYear = currentTerm.fromDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val startedWeekOfYear = currentTerm.startDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val endedWeekOfYear = currentTerm.fromDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val weeksOfYear: MutableList<WeekOfYear> = mutableListOf()
         for (week in startedWeekOfYear..endedWeekOfYear) {

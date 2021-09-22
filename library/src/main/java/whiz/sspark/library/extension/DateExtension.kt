@@ -20,7 +20,6 @@ fun Date?.toLocalDate(): Date? {
 
 fun Date.toCalendar() = Calendar.getInstance().apply {
     time = this@toCalendar
-}.apply {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)
