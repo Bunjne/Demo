@@ -14,6 +14,7 @@ import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.enum.PostInteraction
 import whiz.sspark.library.databinding.ViewLikeBySeenByBinding
 import whiz.sspark.library.extension.toDP
+import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 
@@ -61,7 +62,7 @@ class LikeBySeenByDialogFragmentView : ConstraintLayout {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(CustomDividerMultiItemDecoration(
                 divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                dividerViewType = listOf(R.layout.view_like_by_seen_by_student_item, R.layout.view_like_by_seen_by_instructor_item))
+                dividerViewType = listOf(LikeBySeenByItemAdapter.INSTRUCTOR_TYPE, LikeBySeenByItemAdapter.STUDENT_TYPE))
             )
 
             adapter = LikeBySeenByItemAdapter(
@@ -71,46 +72,8 @@ class LikeBySeenByDialogFragmentView : ConstraintLayout {
         }
     }
 
-    fun renderMembers(member: Member, interactedMemberIds: List<String>) {
-        val instructors = member.instructors.filter { interactedMemberIds.contains(it.userId) }
-        val students = member.students.filter { interactedMemberIds.contains(it.userId) }
-
-        with(items) {
-            clear()
-
-            if (instructors.isNotEmpty()) {
-                add(
-                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
-                    title = resources.getString(R.string.like_by_seen_by_instructor_title, instructors.size)
-                    )
-                )
-
-                addAll(
-                    instructors.map { instructor ->
-                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor(
-                        instructor = instructor)
-                    }
-                )
-            }
-
-            if (students.isNotEmpty()) {
-                add(
-                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
-                    title = resources.getString(R.string.like_by_seen_by_student_title, students.size)
-                    )
-                )
-
-                addAll(
-                    students.mapIndexed { index, student ->
-                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
-                            student = student,
-                            rank = index)
-                    }
-                )
-            }
-        }
-
-        binding.rvMemberLikedOrSeen.adapter?.notifyDataSetChanged()
+    fun renderMembers(members: List<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>) {
+        binding.rvMemberLikedOrSeen.adapter?.updateItem(this.items, members)
     }
 
     fun setSwipeRefreshLoading(isLoading: Boolean) {

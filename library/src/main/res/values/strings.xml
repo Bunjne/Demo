@@ -131,8 +131,6 @@
     <!-- Post Like By Seen By -->
     <string name="like_by_seen_by_liked_title">Liked by</string>
     <string name="like_by_seen_by_seen_title">Seen by</string>
-    <string name="like_by_seen_by_instructor_name_with_position">%1$s.%2$s </string>
-    <string name="like_by_seen_by_name">%1$s %2$s</string>
     <string name="like_by_seen_by_name_with_rank">#%1$d %2$s</string>
     <string name="like_by_seen_by_instructor_title">INSTRUCTOR (%1$d)</string>
     <string name="like_by_seen_by_student_title">STUDENT (%1$d)</string>

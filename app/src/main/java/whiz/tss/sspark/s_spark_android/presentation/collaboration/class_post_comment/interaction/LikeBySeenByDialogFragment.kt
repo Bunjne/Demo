@@ -18,9 +18,9 @@ import whiz.tss.sspark.s_spark_android.databinding.DialogLikeBySeenByBinding
 class LikeBySeenByDialogFragment : DialogFragment() {
 
     companion object {
-        fun newInstance(classId: String, postId: String, startColor: Int, endColor: Int, postInteractionType: Int) = LikeBySeenByDialogFragment().apply {
+        fun newInstance(classGroupId: String, postId: String, startColor: Int, endColor: Int, postInteractionType: Int) = LikeBySeenByDialogFragment().apply {
             arguments = Bundle().apply {
-                putString("classId", classId)
+                putString("classGroupId", classGroupId)
                 putString("postId", postId)
                 putInt("startColor", startColor)
                 putInt("endColor", endColor)
@@ -34,8 +34,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
     private var _binding: DialogLikeBySeenByBinding? = null
     private val binding get() = _binding!!
 
-    private val classId by lazy {
-        arguments?.getString("classId") ?: ""
+    private val classGroupId by lazy {
+        arguments?.getString("classGroupId") ?: ""
     }
 
     private val postId by lazy {
@@ -67,7 +67,6 @@ class LikeBySeenByDialogFragment : DialogFragment() {
 
         val alertDialog = AlertDialog.Builder(requireContext()).create().apply {
             setView(binding.root)
-            setCanceledOnTouchOutside(false)
             setCancelable(false)
             setDialogAnimation(window)
         }
@@ -127,14 +126,17 @@ class LikeBySeenByDialogFragment : DialogFragment() {
 
     private fun observeData() {
         viewModel.userIdsResponse.observe(this) {
-              viewModel.getMember(classId)
+              viewModel.getMember(classGroupId)
         }
 
         viewModel.memberResponses.observe(this) { member ->
             viewModel.userIdsResponse.value?.let { userIds ->
                 binding.vLikeBySeenBy.renderMembers(
-                    member = member,
-                    interactedMemberIds = userIds
+                    members = viewModel.filterMember(
+                        context = requireContext(),
+                        member = member,
+                        interactedMemberIds = userIds
+                    )
                 )
             }
         }

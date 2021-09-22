@@ -3,31 +3,33 @@ package whiz.sspark.library.view.widget.collaboration.class_post_comment.interac
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginTop
-import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.extension.setDarkModeBackground
-import whiz.sspark.library.extension.toDP
-import whiz.sspark.library.utility.getItemPositionType
+import whiz.sspark.library.view.widget.base.ItemListTitleView
 
 class LikeBySeenByItemAdapter(private val context: Context,
                               private val items: List<LikeBySeenByAdapterViewType>): RecyclerView.Adapter<LikeBySeenByItemAdapter.ViewHolder>() {
 
+    companion object {
+        const val TITLE_TYPE = 1
+        const val STUDENT_TYPE = 2
+        const val INSTRUCTOR_TYPE = 3
+    }
+
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(aparent: ViewGroup, viewType: Int): ViewHolder {
         val layoutParams = RecyclerView.LayoutParams(
             RecyclerView.LayoutParams.MATCH_PARENT,
             RecyclerView.LayoutParams.WRAP_CONTENT
         )
 
         return when (viewType) {
-            R.layout.view_like_by_seen_by_title_item -> ViewHolder(LikeBySeenByTitleItemView(context).apply {
+            TITLE_TYPE -> ViewHolder(ItemListTitleView(context).apply {
                 this.layoutParams = layoutParams
             })
-            R.layout.view_like_by_seen_by_student_item -> ViewHolder(LikeBySeenByStudentItemVIew(context).apply {
+            STUDENT_TYPE -> ViewHolder(LikeBySeenByStudentItemView(context).apply {
                 this.layoutParams = layoutParams
             })
             else -> ViewHolder(LikeBySeenByInstructorItemView(context).apply {
@@ -38,17 +40,17 @@ class LikeBySeenByItemAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items.getOrNull(position)
-        val isNextItemTitle = getItemViewType(position + 1) == R.layout.view_like_by_seen_by_title_item
-        val isPreviousItemTitle = getItemViewType(position - 1) == R.layout.view_like_by_seen_by_title_item
+        val isNextItemTitle = getItemViewType(position + 1) == TITLE_TYPE
+        val isPreviousItemTitle = getItemViewType(position - 1) == TITLE_TYPE
 
         item?.let {
             with (holder.itemView) {
                 when {
-                    this is LikeBySeenByTitleItemView && item is LikeBySeenByAdapterViewType.Header -> {
-                        init(item)
+                    this is ItemListTitleView && item is LikeBySeenByAdapterViewType.Header -> {
+                        init(item.title)
                     }
-                    this is LikeBySeenByStudentItemVIew && item is LikeBySeenByAdapterViewType.Student -> {
-                        init(item)
+                    this is LikeBySeenByStudentItemView && item is LikeBySeenByAdapterViewType.Student -> {
+                        init(item.student, item.rank)
 
                         setDarkModeBackground(
                             isNextItemHeader = isNextItemTitle,
@@ -56,7 +58,7 @@ class LikeBySeenByItemAdapter(private val context: Context,
                         )
                     }
                     this is LikeBySeenByInstructorItemView && item is LikeBySeenByAdapterViewType.Instructor -> {
-                        init(item)
+                        init(item.instructor)
                         setDarkModeBackground(
                             isNextItemHeader = isNextItemTitle,
                             isPreviousItemHeader = isPreviousItemTitle
@@ -72,16 +74,16 @@ class LikeBySeenByItemAdapter(private val context: Context,
 
     override fun getItemViewType(position: Int): Int {
         return when (items.getOrNull(position)) {
-            is LikeBySeenByAdapterViewType.Header -> R.layout.view_like_by_seen_by_title_item
-            is LikeBySeenByAdapterViewType.Student -> R.layout.view_like_by_seen_by_student_item
-            is LikeBySeenByAdapterViewType.Instructor -> R.layout.view_like_by_seen_by_instructor_item
-            else -> R.layout.view_like_by_seen_by_title_item
+            is LikeBySeenByAdapterViewType.Header -> TITLE_TYPE
+            is LikeBySeenByAdapterViewType.Student -> STUDENT_TYPE
+            is LikeBySeenByAdapterViewType.Instructor -> INSTRUCTOR_TYPE
+            else -> TITLE_TYPE
         }
     }
 
     sealed class LikeBySeenByAdapterViewType {
-        class Header(val title: String): LikeBySeenByAdapterViewType()
-        class Student(val student: ClassMember, val rank: Int): LikeBySeenByAdapterViewType()
-        class Instructor(val instructor: ClassMember): LikeBySeenByAdapterViewType()
+        data class Header(val title: String): LikeBySeenByAdapterViewType()
+        data class Student(val student: ClassMember, val rank: Int): LikeBySeenByAdapterViewType()
+        data class Instructor(val instructor: ClassMember): LikeBySeenByAdapterViewType()
     }
 }

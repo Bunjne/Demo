@@ -10,8 +10,8 @@ val remoteModule = module {
     factory<HappeningsService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<InstructorClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<LearningOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<LikeBySeenByService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<MenuStudentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<TimelineService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
-    factory<LikeBySeenByService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
 }

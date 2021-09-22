@@ -6,8 +6,8 @@ import retrofit2.http.Path
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface LikeBySeenByService {
-    @GET("v3/classgroups/{classId}/members")
-    suspend fun listClassMembers(@Path("classId") classId: String): Response<ApiResponseX>
+    @GET("v3/classgroups/{classGroupId}/members")
+    suspend fun listClassMembers(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
 
     @GET("/v3/posts/{postId}/liked_by")
     suspend fun getUserIdsByPostLiked(@Path("postId") postId: String): Response<ApiResponseX>

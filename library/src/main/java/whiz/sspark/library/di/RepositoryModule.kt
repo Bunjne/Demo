@@ -9,8 +9,8 @@ val repositoryModule = module {
     factory { HappeningsRepositoryImpl(androidContext(), get(), get()) }
     factory { InstructorClassActivityRepositoryImpl(androidContext(), get()) }
     factory { LearningOutcomeRepositoryImpl(androidContext(), get()) }
+    factory { LikeBySeenByRepositoryImpl(androidContext(), get()) }
     factory { MenuStudentRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
     factory { TimelineRepositoryImpl(androidContext(), get(), get()) }
-    factory { LikeBySeenByRepositoryImpl(androidContext(), get()) }
 }

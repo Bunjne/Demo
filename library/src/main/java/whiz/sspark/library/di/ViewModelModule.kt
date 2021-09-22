@@ -9,8 +9,8 @@ val viewModelModule = module {
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
+    viewModel { LikeBySeenByViewModel(get()) }
     viewModel { MenuStudentViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
-    viewModel { LikeBySeenByViewModel(get()) }
 }

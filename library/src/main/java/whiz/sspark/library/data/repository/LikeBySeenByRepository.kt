@@ -22,11 +22,11 @@ interface LikeBySeenByRepository {
 
 class LikeBySeenByRepositoryImpl(private val context: Context,
                                  private val remote: LikeBySeenByService): LikeBySeenByRepository {
-    override suspend fun listClassMembers(classId: String): Flow<DataWrapperX<Member>> {
+    override suspend fun listClassMembers(classGroupId: String): Flow<DataWrapperX<Member>> {
         return flow {
                 if (NetworkManager.isOnline(context)) {
                     try {
-                        val response = remote.listClassMembers(classId)
+                        val response = remote.listClassMembers(classGroupId)
                         fetchX<Member>(response)
                     } catch (e: Exception) {
                         throw e

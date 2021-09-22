@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
-import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.databinding.ViewLikeBySeenByInstructorItemBinding
-import whiz.sspark.library.extension.isDefaultValueContained
 import whiz.sspark.library.extension.showClassMemberLikeBySeenByCircle
 import whiz.sspark.library.extension.toColor
-import whiz.sspark.library.utility.convertToFullName
 
 class LikeBySeenByInstructorItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -24,8 +21,8 @@ class LikeBySeenByInstructorItemView : ConstraintLayout {
         ViewLikeBySeenByInstructorItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(instructor: LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor) {
-        with(instructor.instructor) {
+    fun init(instructor: ClassMember) {
+        with(instructor) {
             binding.ivProfile.showClassMemberLikeBySeenByCircle(
                 imageUrl = profileImageUrl,
                 abbreviationName = abbreviatedName,
