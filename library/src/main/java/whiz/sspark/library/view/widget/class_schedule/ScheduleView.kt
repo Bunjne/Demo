@@ -30,7 +30,7 @@ class ScheduleView : LinearLayout {
             init(
                 rowTitle = " ",
                 scheduleTimes = scheduleTimes,
-                durations = arrayOf(),
+                durations = listOf(),
                 isColumnTitleShown = true,
                 isUnderlineShown = false
             )
@@ -41,8 +41,7 @@ class ScheduleView : LinearLayout {
         val scheduleDays = context.resources.getStringArray(R.array.full_day_name)
         scheduleDays.forEachIndexed { index, day ->
             val dayKey = index + 1
-            val times = dayGroup.getOrElse(dayKey) { listOf() }
-            val durations = times.map { Triple(it.startTime, it.endTime, it.color) }.toTypedArray()
+            val scheduleSlots = dayGroup.getOrElse(dayKey) { listOf() }
 
             val dayTitle = resources.getString(R.string.class_schedule_day_with_short_date_title, day, dates.getOrNull(index)?.convertToDateString(DateTimePattern.shortDayAndMonthFormatEn) ?: "")
 
@@ -51,7 +50,7 @@ class ScheduleView : LinearLayout {
                     init(
                         rowTitle = dayTitle,
                         scheduleTimes = scheduleTimes,
-                        durations = durations,
+                        durations = scheduleSlots,
                         isColumnTitleShown = false,
                         isUnderlineShown = false
                     )
@@ -59,7 +58,7 @@ class ScheduleView : LinearLayout {
                     init(
                         rowTitle = dayTitle,
                         scheduleTimes = scheduleTimes,
-                        durations = durations,
+                        durations = scheduleSlots,
                         isColumnTitleShown = false,
                         isUnderlineShown = true
                     )

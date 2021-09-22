@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
+import whiz.sspark.library.data.entity.ScheduleSlot
 import whiz.sspark.library.extension.toDP
 import java.text.SimpleDateFormat
 import java.util.*
@@ -67,7 +68,7 @@ class ScheduleRowView : View {
 
     private var verticalLineCount = 0
     private var title = ""
-    private var desiredDurations = arrayOf<Triple<String, String, String>>()
+    private var desiredDurations = listOf<ScheduleSlot>()
     private var isColumnTitleShown = false
     private var isRowTitleShown = false
     private var isUnderlineShown = false
@@ -85,7 +86,7 @@ class ScheduleRowView : View {
 
     fun init(rowTitle: String,
              scheduleTimes: List<String>,
-             durations: Array<Triple<String, String, String>>,
+             durations: List<ScheduleSlot>,
              isColumnTitleShown: Boolean,
              isRowTitleShown: Boolean = true,
              isUnderlineShown: Boolean) {
@@ -117,7 +118,7 @@ class ScheduleRowView : View {
         }
 
         desiredDurations.forEach { duration ->
-            val slotColor = duration.third
+            val slotColor = duration.color
 
             slotPaints.add(Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 style = Paint.Style.FILL
@@ -167,8 +168,8 @@ class ScheduleRowView : View {
 
             val startingFirstSlotX = if (isRowTitleShown) columnWidth else 0f
             desiredDurations.forEachIndexed { index, duration ->
-                val startTime = timeFormatter.parse(duration.first)
-                val endTime = timeFormatter.parse(duration.second)
+                val startTime = timeFormatter.parse(duration.startTime)
+                val endTime = timeFormatter.parse(duration.endTime)
 
                 val differenceMillisecond = endTime.time - startTime.time
                 val startingDrawingX = startingFirstSlotX + (startTime.time - scheduleStartTime) * oneMilliSecondWidth
