@@ -67,7 +67,7 @@ fun TextView.showViewStateX(dataWrapper: DataWrapperX<Any>?) {
                 if (data != null || statusCode == "204") {
                     this@showViewStateX.showLatestUpdated(Date())
                 } else {
-                    if (isCacheExisted == false) {
+                    if (!isCacheExisted) {
                         this@showViewStateX.showUpdateFailed()
                     } else {
                         this@showViewStateX.showLatestUpdated(latestDateTime ?: Date())

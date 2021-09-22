@@ -22,7 +22,7 @@ class CustomDividerMultiItemDecoration(private val divider: Drawable,
                 val nextView = parent.getChildAt(nextPosition)
                 val nextType = parent.getChildViewHolder(nextView).itemViewType
 
-                if (dividerViewType.indexOf(viewType) != -1 && dividerViewType.indexOf(nextType) != -1) {
+                if (dividerViewType.contains(viewType) && dividerViewType.contains(nextType)) {
                     val params = view.layoutParams as RecyclerView.LayoutParams
                     val dividerTop = view.bottom + params.bottomMargin
                     val dividerBottom = dividerTop + divider.intrinsicHeight
@@ -39,8 +39,11 @@ class CustomDividerMultiItemDecoration(private val divider: Drawable,
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val viewType = parent.getChildViewHolder(view).itemViewType
-        if (dividerViewType.indexOf(viewType) != -1) {
-            outRect.top = divider.intrinsicHeight
+        val nextPosition = parent.getChildAdapterPosition(view) + 1
+        val nextViewType = parent.adapter?.getItemViewType(nextPosition)
+
+        if (dividerViewType.contains(viewType) && dividerViewType.contains(nextViewType)) {
+            outRect.bottom = divider.intrinsicHeight
         }
     }
 }

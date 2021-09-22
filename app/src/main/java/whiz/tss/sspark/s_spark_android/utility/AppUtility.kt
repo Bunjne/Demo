@@ -51,10 +51,12 @@ fun bytesToHex(bytes: ByteArray): String {
     return String(hexChars)
 }
 
+@Deprecated("use from lib instead")
 fun isPrimaryHighSchool(academicGrade: Int): Boolean {
     return academicGrade in 7..9
 }
 
+@Deprecated("use from lib instead")
 fun getHighSchoolLevel(academicGrade: Int): Int {
     return academicGrade - 6
 }
