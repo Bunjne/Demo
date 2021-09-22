@@ -20,6 +20,7 @@ object DateTimePattern {
 
     const val shortDayAndMonthFormatEn = "d/M/yy"
     const val shortDayAndMonthFormatTh = "d/M/"
+    const val shortDayAndMonthNoYearFormatTh = "d/M"
 
     //Class Attendance
     const val attendanceClassDateFormatEn = "MMMM d, yyyy"

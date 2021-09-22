@@ -4,4 +4,6 @@
     android:id="@+id/llScheduleRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" />
+    android:background="@drawable/bg_base_item_list_single"
+    android:orientation="vertical"
+    android:translationY="-3dp" />

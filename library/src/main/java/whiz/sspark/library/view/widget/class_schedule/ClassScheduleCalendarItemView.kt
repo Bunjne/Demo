@@ -5,51 +5,47 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import whiz.sspark.library.R
-import whiz.sspark.library.SSparkUI
-import whiz.sspark.library.data.entity.ScheduleSlot
+import whiz.sspark.library.data.entity.ClassScheduleCalendar
 import whiz.sspark.library.data.static.DateTimePattern
-import whiz.sspark.library.databinding.ViewScheduleBinding
+import whiz.sspark.library.databinding.ViewClassScheduleCalendarItemBinding
 import whiz.sspark.library.extension.convertToDateString
-import java.util.*
 
-class ScheduleView : LinearLayout {
+class ClassScheduleCalendarItemView: LinearLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewScheduleBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewClassScheduleCalendarItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(slots: List<ScheduleSlot>,
-             dates: List<Date>) {
-        val scheduleTimes = SSparkUI.scheduleTimeNormal.toList()
-
+    fun init(classScheduleCalendar: ClassScheduleCalendar) {
         binding.llScheduleRow.removeAllViews()
         binding.llScheduleRow.addView(ScheduleRowView(context).apply {
             init(
                 rowTitle = " ",
-                scheduleTimes = scheduleTimes,
+                scheduleTimes = classScheduleCalendar.scheduleTimes,
                 durations = listOf(),
                 isColumnTitleShown = true,
                 isUnderlineShown = false
             )
         })
 
-        val dayGroup = slots.groupBy { it.dayNumber }
+        val dayGroup = classScheduleCalendar.slots.groupBy { it.dayNumber }
 
         val scheduleDays = context.resources.getStringArray(R.array.full_day_name)
         scheduleDays.forEachIndexed { index, day ->
             val dayKey = index + 1
             val scheduleSlots = dayGroup.getOrElse(dayKey) { listOf() }
 
-            val dayTitle = resources.getString(R.string.class_schedule_day_with_short_date_title, day, dates.getOrNull(index)?.convertToDateString(DateTimePattern.shortDayAndMonthFormatEn) ?: "")
+            val convertedDate = classScheduleCalendar.dates.getOrNull(index)?.convertToDateString(DateTimePattern.shortDayAndMonthNoYearFormatTh) ?: ""
+            val dayTitle = resources.getString(R.string.class_schedule_day_with_short_date_title, day, convertedDate)
 
             binding.llScheduleRow.addView(ScheduleRowView(context).apply {
                 if (index < scheduleDays.size - 1) {
                     init(
                         rowTitle = dayTitle,
-                        scheduleTimes = scheduleTimes,
+                        scheduleTimes = classScheduleCalendar.scheduleTimes,
                         durations = scheduleSlots,
                         isColumnTitleShown = false,
                         isUnderlineShown = false
@@ -57,7 +53,7 @@ class ScheduleView : LinearLayout {
                 } else {
                     init(
                         rowTitle = dayTitle,
-                        scheduleTimes = scheduleTimes,
+                        scheduleTimes = classScheduleCalendar.scheduleTimes,
                         durations = scheduleSlots,
                         isColumnTitleShown = false,
                         isUnderlineShown = true
