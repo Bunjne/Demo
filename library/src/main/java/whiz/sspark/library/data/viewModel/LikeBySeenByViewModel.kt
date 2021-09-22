@@ -112,45 +112,4 @@ class LikeBySeenByViewModel(private val likeBySeenByRepositoryImpl: LikeBySeenBy
                 }
         }
     }
-
-    fun filterMember(context: Context, member: Member, interactedMemberIds: List<String>): MutableList<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType> {
-        val instructors = member.instructors.filter { interactedMemberIds.contains(it.userId) }
-        val students = member.students.filter { interactedMemberIds.contains(it.userId) }
-        val filteredMember = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
-
-        with(filteredMember) {
-            if (instructors.isNotEmpty()) {
-                add(
-                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
-                        title = context.resources.getString(R.string.like_by_seen_by_instructor_title, instructors.size)
-                    )
-                )
-
-                addAll(
-                    instructors.map { instructor ->
-                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor(
-                            instructor = instructor)
-                    }
-                )
-            }
-
-            if (students.isNotEmpty()) {
-                add(
-                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
-                        title = context.resources.getString(R.string.like_by_seen_by_student_title, students.size)
-                    )
-                )
-
-                addAll(
-                    students.mapIndexed { index, student ->
-                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
-                            student = student,
-                            rank = index + 1)
-                    }
-                )
-            }
-        }
-
-        return filteredMember
-    }
 }

@@ -8,10 +8,12 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.enum.PostInteraction
 import whiz.sspark.library.data.viewModel.LikeBySeenByViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByItemAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.DialogLikeBySeenByBinding
 
@@ -132,9 +134,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         viewModel.memberResponses.observe(this) { member ->
             viewModel.userIdsResponse.value?.let { userIds ->
                 binding.vLikeBySeenBy.renderMembers(
-                    members = viewModel.filterMember(
-                        context = requireContext(),
-                        member = member,
+                    matchedMembers = filterMember(
+                        allMembers = member,
                         interactedMemberIds = userIds
                     )
                 )
@@ -163,5 +164,46 @@ class LikeBySeenByDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun filterMember(allMembers: Member, interactedMemberIds: List<String>): MutableList<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType> {
+        val instructors = allMembers.instructors.filter { interactedMemberIds.contains(it.userId) }
+        val students = allMembers.students.filter { interactedMemberIds.contains(it.userId) }
+        val filteredMember = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
+
+        with(filteredMember) {
+            if (instructors.isNotEmpty()) {
+                add(
+                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
+                        title = requireContext().resources.getString(whiz.sspark.library.R.string.like_by_seen_by_instructor_title, instructors.size)
+                    )
+                )
+
+                addAll(
+                    instructors.map { instructor ->
+                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor(
+                            instructor = instructor)
+                    }
+                )
+            }
+
+            if (students.isNotEmpty()) {
+                add(
+                    LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
+                        title = requireContext().resources.getString(whiz.sspark.library.R.string.like_by_seen_by_student_title, students.size)
+                    )
+                )
+
+                addAll(
+                    students.mapIndexed { index, student ->
+                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
+                            student = student,
+                            rank = index + 1)
+                    }
+                )
+            }
+        }
+
+        return filteredMember
     }
 }

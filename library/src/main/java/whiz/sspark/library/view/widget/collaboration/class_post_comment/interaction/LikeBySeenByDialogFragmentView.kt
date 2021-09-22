@@ -7,15 +7,11 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ClassMember
-import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.enum.PostInteraction
-import whiz.sspark.library.databinding.ViewLikeBySeenByBinding
+import whiz.sspark.library.databinding.ViewLikeBySeenByDialogFragmentBinding
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.utility.updateItem
-import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 
 class LikeBySeenByDialogFragmentView : ConstraintLayout {
@@ -24,7 +20,7 @@ class LikeBySeenByDialogFragmentView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewLikeBySeenByBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewLikeBySeenByDialogFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     private val items = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
@@ -72,8 +68,8 @@ class LikeBySeenByDialogFragmentView : ConstraintLayout {
         }
     }
 
-    fun renderMembers(members: List<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>) {
-        binding.rvMemberLikedOrSeen.adapter?.updateItem(this.items, members)
+    fun renderMembers(matchedMembers: List<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>) {
+        binding.rvMemberLikedOrSeen.adapter?.updateItem(this.items, matchedMembers)
     }
 
     fun setSwipeRefreshLoading(isLoading: Boolean) {

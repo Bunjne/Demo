@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.databinding.ViewLikeBySeenByStudentItemBinding
-import whiz.sspark.library.extension.showClassMemberLikeBySeenByCircle
+import whiz.sspark.library.extension.showClassMemberProfileCircle
 import whiz.sspark.library.extension.toColor
 
 class LikeBySeenByStudentItemView : ConstraintLayout {
@@ -23,9 +23,9 @@ class LikeBySeenByStudentItemView : ConstraintLayout {
 
     fun init(student: ClassMember, rank: Int) {
         with(student) {
-            binding.ivProfile.showClassMemberLikeBySeenByCircle(
+            binding.ivProfile.showClassMemberProfileCircle(
                 imageUrl = profileImageUrl,
-                abbreviationName = abbreviatedName,
+                abbreviatedName = abbreviatedName,
                 textColor = ContextCompat.getColor(context, R.color.naturalV100),
                 textBackgroundColor = colorCode?.toColor() ?: Color.TRANSPARENT
             )
