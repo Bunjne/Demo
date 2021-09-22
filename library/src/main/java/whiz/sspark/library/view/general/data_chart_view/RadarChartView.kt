@@ -414,7 +414,11 @@ class RadarChartView: View {
             radarPath.close()
 
             val lightPrimaryColor = ColorUtils.blendARGB(radarColor, Color.WHITE, 0.4f)
-            radarPaint.shader = LinearGradient(0f, 0f, width.toFloat(), 0f, lightPrimaryColor, radarColor, Shader.TileMode.CLAMP)
+            val gradientStartPositionX = x - radius
+            val gradientStartPositionY = 0f
+            val gradientEndPositionX = x + radius
+            val gradientEndPositionY = 0f
+            radarPaint.shader = LinearGradient(gradientStartPositionX, gradientStartPositionY, gradientEndPositionX, gradientEndPositionY, lightPrimaryColor, radarColor, Shader.TileMode.CLAMP)
             canvas.drawPath(radarPath, radarPaint)
         }
     }

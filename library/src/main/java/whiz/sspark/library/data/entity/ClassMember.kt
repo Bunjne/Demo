@@ -1,7 +1,7 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
-import whiz.sspark.library.extension.toFirstCharacter
+import whiz.sspark.library.extension.getFirstConsonant
 import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 import java.util.*
@@ -28,8 +28,10 @@ data class ClassMember(
     @SerializedName("gender") val gender: String = "",
     @SerializedName("healthStatus") val healthStatus: String = "",
     @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date(),
+    @SerializedName("abbreviateNameEn") val abbreviateNameEn: String = "",
+    @SerializedName("abbreviateNameTh") val abbreviateNameTh: String = "",
     @SerializedName("number") val number: String = "",
-    @SerializedName("remark") val remark: String = ""
+    @SerializedName("remark") val remark: String = "" //TODO this will be talked with API or Design later, when ClassMember topic is raised to discuss.
 ) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)
@@ -37,7 +39,14 @@ data class ClassMember(
     val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, true)
     val facultyName: String get() = localize(_facultyNameEn, _facultyNameTh, _facultyNameEn, true)
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
-    val abbreviatedName: String get() = firstName.toFirstCharacter() + lastName.toFirstCharacter()
-    val fullName: String get() = convertToFullName(firstName, middleName, lastName, position)
+    val abbreviatedName: String get() {
+        val localizedAbbreviatedName = localize(abbreviateNameEn, abbreviateNameTh, abbreviateNameEn, false)
 
+        return if (localizedAbbreviatedName.isNotBlank()) {
+            localizedAbbreviatedName
+        } else {
+            firstName.getFirstConsonant() + lastName.getFirstConsonant()
+        }
+    }
+    val fullName: String get() = convertToFullName(firstName, middleName, lastName, position)
 }

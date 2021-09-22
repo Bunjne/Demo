@@ -1,10 +1,10 @@
 package whiz.sspark.library.extension
 
 import android.util.Patterns
-import whiz.sspark.library.SSparkUI
-import whiz.sspark.library.data.static.DateTimePattern.serviceDateFullFormat
+import whiz.sspark.library.utility.isThaiLanguage
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 fun String.convertToTime(): String {
     return if (this.isBlank()) {
@@ -19,10 +19,18 @@ fun String.convertToTime(): String {
     }
 }
 
-fun String.toFirstCharacter() = if (this.isBlank()) {
-    ""
-} else {
-    this.trimStart().firstOrNull()?.toString() ?: ""
+fun String.getFirstConsonant(): String {
+    return if (isThaiLanguage()) {
+        val pattern = Pattern.compile("[ก-ฮ]")
+        for (i in this) {
+            if (pattern.matcher(i.toString()).matches()){
+                return i.toString()
+            }
+        }
+         ""
+    } else {
+        this.trimStart().firstOrNull()?.toString() ?: ""
+    }
 }
 
 fun String.isUrlValid() = Patterns.WEB_URL.matcher(this).matches()
@@ -32,5 +40,3 @@ fun String?.convertToDate(pattern: String) = if (this.isNullOrBlank()) {
 } else {
     SimpleDateFormat(pattern, Locale.getDefault()).parse(this)
 }
-
-fun String.isDefaultValueContained(): Boolean = this in listOf(SSparkUI.defaultEmptyValueTh, SSparkUI.defaultEmptyValueEn, SSparkUI.defaultEmptyValueCn)
