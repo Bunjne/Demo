@@ -24,6 +24,7 @@ class NotificationInboxActivity : BaseActivity() {
     private var pageSize = 10
     private var dataWrapper: DataWrapperX<Any>? = null
     private var inboxes: MutableList<InboxDTO> = mutableListOf()
+    private var isLoadMoreData = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,11 @@ class NotificationInboxActivity : BaseActivity() {
                 viewModel.getNewNotification(currentPage, pageSize)
             },
             onLoadMore = {
+                if (isLoadMoreData) {
+                    return@init
+                }
+
+                isLoadMoreData = true
                 currentPage += 1
                 viewModel.getNotifications(currentPage, pageSize)
             }
@@ -81,6 +87,7 @@ class NotificationInboxActivity : BaseActivity() {
                 }
 
                 updateAdapterItem()
+                isLoadMoreData = false
             }
         }
 
@@ -102,6 +109,7 @@ class NotificationInboxActivity : BaseActivity() {
         viewModel.notificationErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(this, it)
+                isLoadMoreData = false
             }
         }
     }

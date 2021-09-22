@@ -11,7 +11,7 @@ import whiz.sspark.library.extension.showViewStateX
 import whiz.sspark.library.utility.PaginationScrollListener
 import whiz.sspark.library.view.widget.notification_inbox.NotificationInboxAdapter
 
-class NotificationInboxActivity : ConstraintLayout {
+class NotificationInboxActivityView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
