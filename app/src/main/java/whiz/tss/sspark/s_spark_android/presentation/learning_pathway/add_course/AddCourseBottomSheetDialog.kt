@@ -170,42 +170,40 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private fun updateAdapterItem() {
-        val filteredConcentrateCourses = if (currentSearchText.isNotBlank()) {
-            concentrateCourses.filter {
-                it.courses.any {
+        val items: MutableList<AddCourseAdapter.Item> = mutableListOf()
+
+        concentrateCourses.forEach {
+            val matchedCourses = if (currentSearchText.isNotBlank()) {
+                it.courses.filter {
                     it.nameEn.contains(currentSearchText, true) ||
                     it.nameTh.contains(currentSearchText, true) ||
                     it.code.contains(currentSearchText, true)
                 }
+            } else {
+                it.courses
             }
-        } else {
-            concentrateCourses
-        }
 
-        val item: MutableList<AddCourseAdapter.Item> = mutableListOf()
+            if (matchedCourses.any()) {
+                items.add(AddCourseAdapter.Item(title = it.name))
 
-        filteredConcentrateCourses.forEach {
-            item.add(AddCourseAdapter.Item(title = it.name))
+                val courses = matchedCourses.map {
+                    val course = Course(
+                        id = it.id,
+                        code = it.code,
+                        credit = it.credit,
+                        name = it.name
+                    )
 
-            it.courses.filter {
-                it.nameEn.contains(currentSearchText, true) ||
-                it.nameTh.contains(currentSearchText, true) ||
-                it.code.contains(currentSearchText, true)
-            }.forEach {
-                val course = Course(
-                    id = it.id,
-                    code = it.code,
-                    credit = it.credit,
-                    name = it.name
-                )
+                    val isSelectable = !selectedCourseIds.contains(course.id)
 
-                val isSelectable = !selectedCourseIds.contains(course.id)
+                    AddCourseAdapter.Item(course = course, isSelectable = isSelectable)
+                }
 
-                item.add(AddCourseAdapter.Item(course = course, isSelectable = isSelectable))
+                items.addAll(courses)
             }
         }
 
-        binding.vAddCourse.updateAdapterItem(item)
+        binding.vAddCourse.updateAdapterItem(items)
     }
 
     override fun onDestroyView() {

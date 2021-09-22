@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Course
-import whiz.sspark.library.databinding.ViewSelectedCorseBinding
+import whiz.sspark.library.databinding.ViewSelectedCourseItemBinding
 
 class SelectedCourseItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -14,7 +14,7 @@ class SelectedCourseItemView: ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewSelectedCorseBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewSelectedCourseItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(course: Course) {

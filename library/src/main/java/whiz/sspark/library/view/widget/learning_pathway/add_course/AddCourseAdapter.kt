@@ -107,8 +107,7 @@ class AddCourseAdapter(private val onAddCourseClicked: (String) -> Unit): ListAd
             return oldItem == newItem
         }
         override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem.title == newItem.title &&
-                    oldItem.course == newItem.course
+            return false
         }
     }
 }
