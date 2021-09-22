@@ -7,6 +7,7 @@ import whiz.sspark.library.data.viewModel.*
 val viewModelModule = module {
     viewModel { AbilityViewModel(get()) }
     viewModel { ActivityRecordViewModel(get()) }
+    viewModel { AddCourseViewModel(get()) }
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
@@ -15,6 +16,7 @@ val viewModelModule = module {
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
+    viewModel { LearningPathwayViewModel(get()) }
     viewModel { MenuStudentViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }

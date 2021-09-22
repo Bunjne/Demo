@@ -121,7 +121,7 @@ class AbilityFragment: BaseFragment() {
                 val ability = Ability(
                     title = it.name,
                     value = value,
-                    indicators = indicators
+                    indicators = indicators.toList()
                 )
 
                 items.add(AbilityAdapter.Item(ability = ability))

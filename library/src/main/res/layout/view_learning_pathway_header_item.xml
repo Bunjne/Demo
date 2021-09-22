@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:background="@drawable/bg_base_item_list_top">
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvTerm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cvCredit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="bold"
+        tools:text="ม.4 (2/2564)" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        app:cardBackgroundColor="@color/viewBaseThirdColor"
+        app:cardCornerRadius="13dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivAdd"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvCredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="13dp"
+            app:ssparkFont="bold"
+            tools:text="29 หน่วยกิต" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/ivAdd"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_add" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

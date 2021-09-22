@@ -43,6 +43,9 @@
             android:name=".presentation.collaboration.class_post_comment.student.StudentClassPostCommentActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presentation.learning_pathway.LearningPathwayActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.class_schedule.ClassScheduleActivity"
             android:screenOrientation="portrait" />
     </application>
