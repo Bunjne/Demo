@@ -19,6 +19,7 @@
     <string name="general_alertmessage_serviceerror_503_title">เกิดข้อผิดพลาดภายในระบบหลัก (503)</string>
     <string name="general_alertmessage_error_code">(รหัสข้อผิดพลาด: %1$s)</string>
     <string name="general_alertmessage_cannot_specify_role">ไม่สามารถระบุประเภทของผู้ใช้งานได้</string>
+    <string name="general_alertmessage_loading_title">รอสักครู่...</string>
 
     <!--general-->
     <string name="general_room">ห้องพัก %1$s</string>
@@ -26,7 +27,7 @@
     <string name="general_credit">%1$s หน่วยกิต</string>
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
-    <string name="general_alertmessage_loading_title">รอสักครู่...</string>
+    <string name="general_add_text">เพิ่ม</string>
 
     <!--Datetime-->
     <string name="screen_header_subtitle">อัปเดตล่าสุดเมื่อ %1$s น.</string>
@@ -159,4 +160,13 @@
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
     <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
 
+
+    <!--Learning pathway-->
+    <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
+    <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
+    <string name="learning_pathway_required_course_count">+ %1$s วิชาบังคับ</string>
+    <string name="learning_pathway_no_course_text">ไม่มีแผนการเรียน</string>
+    <string name="learning_pathway_required_course_text">วิชาบังคับ</string>
+    <string name="learning_pathway_add_course_text">เพิ่มวิชา</string>
+    <string name="learning_pathway_add_course_preview_credit">%1$s หน่วยกิต (ต่ำสุด = %2$s, สูงสุด = %3$s)</string>
 </resources>

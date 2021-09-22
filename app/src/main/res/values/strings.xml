@@ -17,6 +17,8 @@
 
     <!--general-->
     <string name="general_back_text">ย้อนกลับ</string>
+    <string name="general_confirm_to_delete_text">ยืนยันการลบ</string>
+    <string name="general_delete_text">ลบ</string>
 
     <!--Learning outcome-->
     <string-array name="junior_school_record_segment">
