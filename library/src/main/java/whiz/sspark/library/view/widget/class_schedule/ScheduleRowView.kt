@@ -64,6 +64,8 @@ class ScheduleRowView : View {
     }
 
     private val slotPaints = arrayListOf<Paint>()
+    private val maxCourseNameTextSize = 10
+    private val minCourseNameTextSize = 8
 
     private var metrics = DisplayMetrics()
     private var rowWidth = 0.0f
@@ -150,10 +152,12 @@ class ScheduleRowView : View {
                 }
             }
         } else {
-            var baselinePosition = rowHeight / 2 - textPaint.descent()
-            for (text in title.split("\n")) {
-                canvas.drawText(text, columnWidth / 2, baselinePosition, textPaint)
-                baselinePosition += textPaint.descent() - textPaint.ascent()
+            if (isRowTitleShown) {
+                var baselinePosition = rowHeight / 2 - textPaint.descent()
+                for (text in title.split("\n")) {
+                    canvas.drawText(text, columnWidth / 2, baselinePosition, textPaint)
+                    baselinePosition += textPaint.descent() - textPaint.ascent()
+                }
             }
 
             canvas.drawLine(0f, startingPositionY, rowWidth, startingPositionY, horizontalLinePaint)
@@ -186,7 +190,7 @@ class ScheduleRowView : View {
 
                 val slotWidth = rectF.width() - 4.toDP(context)
 
-                for (textSize in 12 downTo 7) {
+                for (textSize in maxCourseNameTextSize downTo minCourseNameTextSize) {
                     courseNamePaint.textSize = textSize.toDP(context).toFloat()
                     courseNamePaint.getTextBounds(duration.courseCode, 0, duration.courseCode.length, bounds)
 

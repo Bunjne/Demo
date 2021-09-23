@@ -18,7 +18,7 @@ class WeekSelectionAdapter(private val onPreviousWeekClick: () -> Unit,
         return WEEK_SELECTION_VIEW_TYPE
     }
 
-    class WeekSelectionViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class WeekSelectionViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WeekSelectionViewHolder(ClassScheduleWeekSelectionItemView(parent.context).apply {
@@ -43,6 +43,7 @@ class WeekSelectionAdapter(private val onPreviousWeekClick: () -> Unit,
         override fun areItemsTheSame(oldItem: WeekSelection, newItem: WeekSelection): Boolean {
             return oldItem == newItem
         }
+
         override fun areContentsTheSame(oldItem: WeekSelection, newItem: WeekSelection): Boolean {
             return oldItem == newItem
         }

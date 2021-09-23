@@ -37,13 +37,13 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
         }
     }
 
-    class CalendarViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class CalendarViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    class TitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class TitleViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    class CourseViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class CourseViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    class NoClassViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class NoClassViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         recyclerViewHeight = parent.height
@@ -94,6 +94,7 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
             }
             NO_CLASS_VIEW_TYPE -> (holder.itemView as? CenterTextItemView)?.apply {
                 init(item.noClassTitle!!)
+
                 post {
                     val lastItemBottom = holder.itemView.bottom
                     val lastItemHeight = holder.itemView.height
@@ -119,6 +120,7 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
         override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem == newItem
         }
+
         override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem == newItem
         }

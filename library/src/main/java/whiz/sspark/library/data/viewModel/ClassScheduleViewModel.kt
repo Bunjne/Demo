@@ -40,8 +40,8 @@ class ClassScheduleViewModel(private val classScheduleRepository: ClassScheduleR
         get() = _errorMessage
 
     fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
-        val convertedFromDate = fromDate.convertToDateString(DateTimePattern.apiBodyFormat)
-        val convertedToDate = toDate.convertToDateString(DateTimePattern.apiBodyFormat)
+        val convertedFromDate = fromDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
+        val convertedToDate = toDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
 
         viewModelScope.launch {
             classScheduleRepository.getClassSchedule(termId, convertedFromDate, convertedToDate)
