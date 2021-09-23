@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface ClassScheduleService {
+interface StudentClassScheduleService {
     @GET("v1/students/me/schedules")
     suspend fun getClassSchedule(@Query("termId") termId: String,
                                  @Query("fromDate") fromDate: String,

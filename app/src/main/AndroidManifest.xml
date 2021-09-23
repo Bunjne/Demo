@@ -46,7 +46,7 @@
             android:name=".presentation.learning_pathway.LearningPathwayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.class_schedule.ClassScheduleActivity"
+            android:name=".presentation.class_schedule.StudentClassScheduleActivity"
             android:screenOrientation="portrait" />
     </application>
 

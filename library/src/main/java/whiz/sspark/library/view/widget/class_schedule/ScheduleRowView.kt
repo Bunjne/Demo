@@ -46,7 +46,7 @@ class ScheduleRowView : View {
         }
     }
 
-    private val textPaint by lazy {
+    private val titleTextPaint by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = ContextCompat.getColor(context, R.color.textBasePrimaryColor)
             textSize = 9.toDP(context).toFloat()
@@ -140,23 +140,23 @@ class ScheduleRowView : View {
             if(title.isEmpty()) {
                 var startingColumnTitleX = 0f
                 scheduleTimes.forEach { time ->
-                    canvas.drawText(time, startingColumnTitleX + (columnWidth / 2), rowHeight / 1.5f, textPaint)
+                    canvas.drawText(time, startingColumnTitleX + (columnWidth / 2), rowHeight / 1.5f, titleTextPaint)
                     startingColumnTitleX += columnWidth
                 }
             } else {
-                canvas.drawText(title, columnWidth / 2, startingPositionY * 1.5f, textPaint)
+                canvas.drawText(title, columnWidth / 2, startingPositionY * 1.5f, titleTextPaint)
                 var startingColumnTitleX = columnWidth
                 scheduleTimes.forEach { time ->
-                    canvas.drawText(time, startingColumnTitleX + (columnWidth / 2), rowHeight / 1.5f, textPaint)
+                    canvas.drawText(time, startingColumnTitleX + (columnWidth / 2), rowHeight / 1.5f, titleTextPaint)
                     startingColumnTitleX += columnWidth
                 }
             }
         } else {
             if (isRowTitleShown) {
-                var baselinePosition = rowHeight / 2 - textPaint.descent()
+                var baselinePosition = rowHeight / 2 - titleTextPaint.descent()
                 for (text in title.split("\n")) {
-                    canvas.drawText(text, columnWidth / 2, baselinePosition, textPaint)
-                    baselinePosition += textPaint.descent() - textPaint.ascent()
+                    canvas.drawText(text, columnWidth / 2, baselinePosition, titleTextPaint)
+                    baselinePosition += titleTextPaint.descent() - titleTextPaint.ascent()
                 }
             }
 

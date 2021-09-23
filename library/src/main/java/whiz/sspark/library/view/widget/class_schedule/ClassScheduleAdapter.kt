@@ -29,6 +29,7 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
         } catch (e: IndexOutOfBoundsException) {
             return TITLE_VIEW_TYPE
         }
+
         return when {
             item?.classScheduleCalendar != null -> CALENDAR_VIEW_TYPE
             item?.classScheduleCourse != null -> COURSE_VIEW_TYPE

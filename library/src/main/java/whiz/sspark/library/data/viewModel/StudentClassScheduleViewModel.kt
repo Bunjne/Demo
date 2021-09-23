@@ -12,12 +12,12 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.ClassScheduleDTO
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.repository.ClassScheduleRepositoryImpl
+import whiz.sspark.library.data.repository.StudentClassScheduleRepositoryImpl
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.extension.convertToDateString
 import java.util.*
 
-class ClassScheduleViewModel(private val classScheduleRepository: ClassScheduleRepositoryImpl): ViewModel() {
+class StudentClassScheduleViewModel(private val classScheduleRepository: StudentClassScheduleRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>

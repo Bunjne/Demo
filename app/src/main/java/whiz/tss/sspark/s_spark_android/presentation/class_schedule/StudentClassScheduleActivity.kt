@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.static.DateTimePattern
-import whiz.sspark.library.data.viewModel.ClassScheduleViewModel
+import whiz.sspark.library.data.viewModel.StudentClassScheduleViewModel
 import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -18,9 +18,9 @@ import whiz.tss.sspark.s_spark_android.databinding.ActivityClassScheduleBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import java.util.*
 
-class ClassScheduleActivity : BaseActivity() {
+class StudentClassScheduleActivity : BaseActivity() {
 
-    private val viewModel: ClassScheduleViewModel by viewModel()
+    private val viewModel: StudentClassScheduleViewModel by viewModel()
 
     private lateinit var binding: ActivityClassScheduleBinding
     private lateinit var currentTerm: Term
@@ -116,14 +116,12 @@ class ClassScheduleActivity : BaseActivity() {
         viewModel.classScheduleErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(this, it)
-                updateAdapterItem(listOf())
             }
         }
 
         viewModel.errorMessage.observe(this) {
             it?.let {
                 showAlertWithOkButton(it)
-                updateAdapterItem(listOf())
             }
         }
     }

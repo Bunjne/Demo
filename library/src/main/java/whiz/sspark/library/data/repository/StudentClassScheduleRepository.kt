@@ -6,18 +6,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.data_source.remote.service.ClassScheduleService
+import whiz.sspark.library.data.data_source.remote.service.StudentClassScheduleService
 import whiz.sspark.library.data.entity.ClassScheduleDTO
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
-interface ClassScheduleRepository {
+interface StudentClassScheduleRepository {
     fun getClassSchedule(termId: String, fromDate: String, toDate: String): Flow<DataWrapperX<List<ClassScheduleDTO>>>
 }
 
-class ClassScheduleRepositoryImpl(private val context: Context,
-                                  private val remote: ClassScheduleService): ClassScheduleRepository {
+class StudentClassScheduleRepositoryImpl(private val context: Context,
+                                         private val remote: StudentClassScheduleService): StudentClassScheduleRepository {
     override fun getClassSchedule(termId: String, fromDate: String, toDate: String): Flow<DataWrapperX<List<ClassScheduleDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

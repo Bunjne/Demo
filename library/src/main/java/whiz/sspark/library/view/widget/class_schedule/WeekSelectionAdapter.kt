@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.WeekSelection
 
-class WeekSelectionAdapter(private val onPreviousWeekClick: () -> Unit,
-                           private val onNextWeekClick: () -> Unit): ListAdapter<WeekSelection, RecyclerView.ViewHolder>(DiffCallback()) {
+class WeekSelectionAdapter(private val onPreviousWeekClicked: () -> Unit,
+                           private val onNextWeekClicked: () -> Unit): ListAdapter<WeekSelection, RecyclerView.ViewHolder>(DiffCallback()) {
 
     companion object {
         const val WEEK_SELECTION_VIEW_TYPE = 1111
@@ -34,8 +34,8 @@ class WeekSelectionAdapter(private val onPreviousWeekClick: () -> Unit,
 
         (holder.itemView as? ClassScheduleWeekSelectionItemView)?.init(
             weekSelection = item,
-            onPreviousWeekClick = onPreviousWeekClick,
-            onNextWeekClick = onNextWeekClick
+            onPreviousWeekClicked = onPreviousWeekClicked,
+            onNextWeekClicked = onNextWeekClicked
         )
     }
 

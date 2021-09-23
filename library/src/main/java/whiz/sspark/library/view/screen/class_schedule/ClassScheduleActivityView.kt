@@ -29,8 +29,8 @@ class ClassScheduleActivityView: ConstraintLayout {
     private var classScheduleAdapter: ClassScheduleAdapter? = null
 
     fun init(term: String,
-             onPreviousWeekClick: () -> Unit,
-             onNextWeekClick: () -> Unit,
+             onPreviousWeekClicked: () -> Unit,
+             onNextWeekClicked: () -> Unit,
              onRefresh: () -> Unit) {
         binding.tvTerm.text = term
 
@@ -39,8 +39,8 @@ class ClassScheduleActivityView: ConstraintLayout {
         }.build()
 
         weekSelectionAdapter = WeekSelectionAdapter(
-            onPreviousWeekClick = onPreviousWeekClick,
-            onNextWeekClick = onNextWeekClick
+            onPreviousWeekClicked = onPreviousWeekClicked,
+            onNextWeekClicked = onNextWeekClicked
         )
 
         classScheduleAdapter = ClassScheduleAdapter()

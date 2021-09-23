@@ -41,7 +41,7 @@ class ClassScheduleCalendarItemView: LinearLayout {
             val dayTitle = resources.getString(R.string.class_schedule_day_with_short_date_title, day, convertedDate)
 
             binding.llScheduleRow.addView(ScheduleRowView(context).apply {
-                if (index < scheduleDays.size - 1) {
+                if (index < scheduleDays.lastIndex) {
                     init(
                         rowTitle = dayTitle,
                         scheduleTimes = classScheduleCalendar.scheduleTimes,

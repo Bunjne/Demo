@@ -22,8 +22,8 @@ class ClassScheduleWeekSelectionItemView : ConstraintLayout {
     }
 
     fun init(weekSelection: WeekSelection,
-             onPreviousWeekClick: () -> Unit,
-             onNextWeekClick: () -> Unit) {
+             onPreviousWeekClicked: () -> Unit,
+             onNextWeekClicked: () -> Unit) {
         binding.ivPreviousPage.show(R.drawable.ic_previous_page)
         binding.ivNextPage.show(R.drawable.ic_next_page)
 
@@ -44,7 +44,7 @@ class ClassScheduleWeekSelectionItemView : ConstraintLayout {
         if (weekSelection.isShowNextPageButton) {
             binding.ivNextPage.visibility = View.VISIBLE
             binding.ivNextPage.setOnClickListener {
-                onNextWeekClick()
+                onNextWeekClicked()
             }
         } else {
             binding.ivNextPage.visibility = View.INVISIBLE
@@ -53,7 +53,7 @@ class ClassScheduleWeekSelectionItemView : ConstraintLayout {
         if (weekSelection.isShowPreviousPageButton) {
             binding.ivPreviousPage.visibility = View.VISIBLE
             binding.ivPreviousPage.setOnClickListener {
-                onPreviousWeekClick()
+                onPreviousWeekClicked()
             }
         } else {
             binding.ivPreviousPage.visibility = View.INVISIBLE
