@@ -11,7 +11,6 @@ val viewModelModule = module {
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
-    viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { ExpectOutcomeViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
@@ -21,5 +20,6 @@ val viewModelModule = module {
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
+    viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }
