@@ -6,7 +6,6 @@ object DateTimePattern {
     const val twoPositionYear = "yy"
     const val generalTime = "HH:mm"
     const val serviceDateFullFormat = "yyyy-MM-dd'T'HH:mm:ss"
-    const val apiBodyFormat = "yyyy-MM-dd"
     const val serviceDateFormat = "dd/MM/yyyy"
 
     const val dayNameThreePositionFormat = "EEE"
@@ -32,4 +31,7 @@ object DateTimePattern {
 
     //ClassGroup
     val classGroupDayMonthFormatTh get() = dayFullMonthFormatTh
+
+    //Class schedule
+    const val classScheduleServiceDateFormat = "yyyy-MM-dd"
 }

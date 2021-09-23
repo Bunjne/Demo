@@ -50,12 +50,10 @@ class ClassScheduleActivity : BaseActivity() {
                 profileManager.term.collect {
                     it?.let {
                         currentTerm = it
-
                         weeks = getWeeksOfYear()
                         selectedWeekId = getInitialWeek()
 
                         initView()
-
                         getClassSchedule()
                     }
                 }
@@ -67,31 +65,28 @@ class ClassScheduleActivity : BaseActivity() {
         binding.vClassSchedule.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString()),
             onPreviousWeekClick = {
-                if (viewModel.viewLoading.value == true) {
-                    return@init
-                }
+                if (viewModel.viewLoading.value == false) {
+                    selectedWeekId -= 1
 
-                selectedWeekId -= 1
-                getClassSchedule()
-                updateSelectedWeek()
+                    getClassSchedule()
+                    updateSelectedWeek()
+                }
             },
             onNextWeekClick = {
-                if (viewModel.viewLoading.value == true) {
-                    return@init
-                }
+                if (viewModel.viewLoading.value == false) {
+                    selectedWeekId += 1
 
-                selectedWeekId += 1
-                getClassSchedule()
-                updateSelectedWeek()
+                    getClassSchedule()
+                    updateSelectedWeek()
+                }
             },
             onRefresh = {
-                if (viewModel.viewLoading.value == true) {
-                    return@init
-                }
+                if (viewModel.viewLoading.value == false) {
+                    selectedWeekId = getInitialWeek()
 
-                selectedWeekId = getInitialWeek()
-                getClassSchedule()
-                updateSelectedWeek()
+                    getClassSchedule()
+                    updateSelectedWeek()
+                }
             },
         )
 
@@ -233,20 +228,20 @@ class ClassScheduleActivity : BaseActivity() {
         val endedWeekOfYear = currentTerm.endDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val weeksOfYear: MutableList<WeekOfYear> = mutableListOf()
-        for (week in startedWeekOfYear..endedWeekOfYear) {
+
+        for (weekOfYear in startedWeekOfYear..endedWeekOfYear) {
             val dateInWeek: MutableList<Date> = mutableListOf()
+
             for (index in 1..7) {
                 val date = Calendar.getInstance().apply {
-                    set(Calendar.WEEK_OF_YEAR, week)
+                    set(Calendar.WEEK_OF_YEAR, weekOfYear)
                     set(Calendar.DAY_OF_WEEK, index)
                 }.time
 
                 dateInWeek.add(date)
             }
 
-            with(weeksOfYear) {
-                add(WeekOfYear(id = week, dates = dateInWeek.toList()))
-            }
+            weeksOfYear.add(WeekOfYear(id = weekOfYear, dates = dateInWeek.toList()))
         }
 
         return weeksOfYear

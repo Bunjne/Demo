@@ -40,10 +40,7 @@ class SSparkApp: Application() {
         }
 
         private var instance: SSparkApp? = null
-        var scheduleTime = listOf("07:30", "08:30", "09:30", "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", )
-
         private var _role: RoleType? = null
-        val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
 
         fun setJuniorApp() {
             _role = RoleType.JUNIOR
@@ -60,6 +57,9 @@ class SSparkApp: Application() {
         fun setGuardianApp() {
             _role = RoleType.GUARDIAN
         }
+
+        val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
+        var scheduleTime = listOf("07:30", "08:30", "09:30", "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", )
     }
 
     private val localizationDelegate = LocalizationApplicationDelegate()
