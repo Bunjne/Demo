@@ -41,9 +41,11 @@ class ProfileHeader : ConstraintLayout, CoroutineScope {
         launch {
             profileManager.profile.collect {
                 it?.let {
-                    binding.ivProfile.showUserProfileCircle(it.imageUrl ?: "", getGender(it.gender).type)
                     binding.tvName.text = it.firstName
                     binding.tvCode.text = it.code
+                    binding.ivProfile.post {
+                        binding.ivProfile.showUserProfileCircle(it.imageUrl ?: "", getGender(it.gender).type)
+                    }
                 }
             }
         }
