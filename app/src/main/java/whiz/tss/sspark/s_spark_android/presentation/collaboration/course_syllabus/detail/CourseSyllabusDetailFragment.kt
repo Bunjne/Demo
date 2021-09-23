@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.CourseSyllabusDTO
-import whiz.sspark.library.data.viewModel.CourseSyllabusDetailViewModel
+import whiz.sspark.library.data.viewModel.CourseSyllabusViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.course_syllabus.detail.CourseSyllabusAdapter
@@ -25,7 +25,7 @@ class CourseSyllabusDetailFragment: BaseFragment() {
         }
     }
 
-    private val viewModel: CourseSyllabusDetailViewModel by viewModel()
+    private val viewModel: CourseSyllabusViewModel by viewModel()
 
     private var _binding: FragmentCourseSyllabusDetailBinding? = null
     private val binding get() = _binding!!

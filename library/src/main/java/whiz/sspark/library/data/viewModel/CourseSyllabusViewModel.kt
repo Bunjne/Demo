@@ -10,12 +10,9 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
-import whiz.sspark.library.data.repository.CourseSyllabusDetailRepository
-import whiz.sspark.library.data.repository.CourseSyllabusDetailRepositoryImpl
-import whiz.sspark.library.data.repository.ExpectOutcomeRepositoryImpl
-import whiz.sspark.library.data.repository.LearningOutcomeRepositoryImpl
+import whiz.sspark.library.data.repository.CourseSyllabusRepositoryImpl
 
-class CourseSyllabusDetailViewModel(private val courseSyllabusDetailViewModel: CourseSyllabusDetailRepositoryImpl): ViewModel() {
+class CourseSyllabusViewModel(private val courseSyllabusViewModel: CourseSyllabusRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -35,7 +32,7 @@ class CourseSyllabusDetailViewModel(private val courseSyllabusDetailViewModel: C
 
     fun getCourseDetail(classGroupId: String, termId: String) {
         viewModelScope.launch {
-            courseSyllabusDetailViewModel.getCourseDetail(classGroupId, termId)
+            courseSyllabusViewModel.getCourseDetail(classGroupId, termId)
                 .onStart {
                     _viewLoading.value = true
                 }

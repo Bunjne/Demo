@@ -5,8 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface CourseSyllabusWeekDetailService {
+interface CourseSyllabusService {
     @GET("v1/course") //TODO wait confirm path
-    suspend fun getCourseWeekDetail(@Path("courseId") classGroupId: String,
-                                    @Path("termId") termId: String): Response<ApiResponseX>
+    suspend fun getCourseDetail(@Path("courseId") classGroupId: String,
+                                @Path("termId") termId: String): Response<ApiResponseX>
 }

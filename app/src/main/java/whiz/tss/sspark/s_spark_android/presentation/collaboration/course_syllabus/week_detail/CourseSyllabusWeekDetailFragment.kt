@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.CourseSyllabusDTO
-import whiz.sspark.library.data.viewModel.CourseSyllabusWeekDetailViewModel
+import whiz.sspark.library.data.viewModel.CourseSyllabusViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.collaboration.course_syllabus.detail.CourseSyllabusAdapter
 import whiz.sspark.library.view.widget.collaboration.course_syllabus.week.CourseSyllabusWeekAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentCourseSyllabusWeekDetailBinding
@@ -26,7 +25,7 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
         }
     }
 
-    private val viewModel: CourseSyllabusWeekDetailViewModel by viewModel()
+    private val viewModel: CourseSyllabusViewModel by viewModel()
 
     private var _binding: FragmentCourseSyllabusWeekDetailBinding? = null
     private val binding get() = _binding!!
@@ -57,12 +56,12 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
 
         initView()
 
-        viewModel.getCourseWeekDetail(classGroupId, termId)
+        viewModel.getCourseDetail(classGroupId, termId)
     }
 
     override fun initView() {
         binding.vWeekDetail.init {
-            viewModel.getCourseWeekDetail(classGroupId, termId)
+            viewModel.getCourseDetail(classGroupId, termId)
         }
     }
 
@@ -73,7 +72,7 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
     }
 
     override fun observeData() {
-        viewModel.courseWeekDetailResponse.observe(this) {
+        viewModel.courseDetailResponse.observe(this) {
             it?.let {
                 updateAdapterItem(it)
             }
@@ -81,7 +80,7 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
     }
 
     override fun observeError() {
-        viewModel.courseWeekDetailErrorResponse.observe(this) {
+        viewModel.courseDetailErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(requireActivity(), it) {
                     listener?.onClose()
