@@ -32,12 +32,11 @@ class ClassScheduleCalendarItemView: LinearLayout {
         })
 
         val dayGroup = classScheduleCalendar.slots.groupBy { it.dayNumber }
-
         val scheduleDays = context.resources.getStringArray(R.array.full_day_name)
+
         scheduleDays.forEachIndexed { index, day ->
             val dayKey = index + 1
             val scheduleSlots = dayGroup.getOrElse(dayKey) { listOf() }
-
             val convertedDate = classScheduleCalendar.dates.getOrNull(index)?.convertToDateString(DateTimePattern.shortDayAndMonthNoYearFormatTh) ?: ""
             val dayTitle = resources.getString(R.string.class_schedule_day_with_short_date_title, day, convertedDate)
 

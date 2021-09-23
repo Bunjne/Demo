@@ -24,6 +24,23 @@ class ClassScheduleWeekSelectionItemView : ConstraintLayout {
     fun init(weekSelection: WeekSelection,
              onPreviousWeekClick: () -> Unit,
              onNextWeekClick: () -> Unit) {
+        binding.ivPreviousPage.show(R.drawable.ic_previous_page)
+        binding.ivNextPage.show(R.drawable.ic_next_page)
+
+        val convertedStartDate = weekSelection.startDate.convertToDateString(
+            defaultPattern = DateTimePattern.shortDayAndMonthFormatEn,
+            dayMonthThPattern = DateTimePattern.shortDayAndMonthFormatTh,
+            yearThPattern = DateTimePattern.twoPositionYear
+        )
+
+        val convertedEndDate = weekSelection.endDate.convertToDateString(
+            defaultPattern = DateTimePattern.shortDayAndMonthFormatEn,
+            dayMonthThPattern = DateTimePattern.shortDayAndMonthFormatTh,
+            yearThPattern = DateTimePattern.twoPositionYear
+        )
+
+        binding.tvWeekRange.text = resources.getString(R.string.class_schedule_range, convertedStartDate, convertedEndDate)
+
         if (weekSelection.isShowNextPageButton) {
             binding.ivNextPage.visibility = View.VISIBLE
             binding.ivNextPage.setOnClickListener {
@@ -41,22 +58,5 @@ class ClassScheduleWeekSelectionItemView : ConstraintLayout {
         } else {
             binding.ivPreviousPage.visibility = View.INVISIBLE
         }
-
-        binding.ivPreviousPage.show(R.drawable.ic_previous_page)
-        binding.ivNextPage.show(R.drawable.ic_next_page)
-
-        val convertedStartDate = weekSelection.startDate.convertToDateString(
-            defaultPattern = DateTimePattern.shortDayAndMonthFormatEn,
-            dayMonthThPattern = DateTimePattern.shortDayAndMonthFormatTh,
-            yearThPattern = DateTimePattern.twoPositionYear
-        )
-
-        val convertedEndDate = weekSelection.endDate.convertToDateString(
-            defaultPattern = DateTimePattern.shortDayAndMonthFormatEn,
-            dayMonthThPattern = DateTimePattern.shortDayAndMonthFormatTh,
-            yearThPattern = DateTimePattern.twoPositionYear
-        )
-
-        binding.tvWeekRange.text = resources.getString(R.string.class_schedule_range, convertedStartDate, convertedEndDate)
     }
 }
