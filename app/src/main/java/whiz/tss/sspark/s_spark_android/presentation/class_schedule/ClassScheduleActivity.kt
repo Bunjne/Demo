@@ -139,7 +139,7 @@ class ClassScheduleActivity : BaseActivity() {
             slots = classSchedulesDTO.map {
                 ScheduleSlot(
                     courseCode = it.code,
-                    dayNumber = it.day.toInt(),
+                    dayNumber = it.day,
                     startTime = it.startTime,
                     endTime = it.endTime,
                     color = it.colorCode1
@@ -151,31 +151,37 @@ class ClassScheduleActivity : BaseActivity() {
 
         items.add(ClassScheduleAdapter.Item(classScheduleCalendar = classScheduleCalendar))
 
-        dates.forEachIndexed { index, date ->
-            val day = index + 1
-            val courses = classSchedulesDTO.filter { it.day.toInt() == day }
+        if (classSchedulesDTO.isEmpty()) {
+            items.add(ClassScheduleAdapter.Item(noClassTitle = resources.getString(R.string.class_schedule_no_class)))
+            binding.vClassSchedule.updateSchedule(items)
+        } else {
+            dates.forEachIndexed { index, date ->
+                val day = index + 1
+                val courses = classSchedulesDTO.filter { it.day == day }
 
-            if (courses.isNotEmpty()) {
-                val title = date.convertToDateString(DateTimePattern.fullDayNameWithDayFormat)
-                items.add(ClassScheduleAdapter.Item(title = title))
+                if (courses.isNotEmpty()) {
+                    val title = date.convertToDateString(DateTimePattern.fullDayNameWithDayFormat)
+                    items.add(ClassScheduleAdapter.Item(title = title))
 
-                courses.forEach {
-                    val instructorNames = it.instructors.map { it.fullName }
-                    val classScheduleCourse = ClassScheduleCourse(
-                        startTime = it.startTime,
-                        endTime = it.endTime,
-                        code = it.code,
-                        name = it.name,
-                        color = it.colorCode1,
-                        room = it.room,
-                        instructorNames = instructorNames
-                    )
-                    items.add(ClassScheduleAdapter.Item(classScheduleCourse = classScheduleCourse))
+                    courses.forEach {
+                        val instructorNames = it.instructors.map { it.fullName }
+                        val classScheduleCourse = ClassScheduleCourse(
+                            startTime = it.startTime,
+                            endTime = it.endTime,
+                            code = it.code,
+                            name = it.name,
+                            color = it.colorCode1,
+                            room = it.room,
+                            instructorNames = instructorNames
+                        )
+
+                        items.add(ClassScheduleAdapter.Item(classScheduleCourse = classScheduleCourse))
+                    }
                 }
             }
-        }
 
-        binding.vClassSchedule.updateSchedule(items)
+            binding.vClassSchedule.updateSchedule(items)
+        }
     }
 
     private fun getClassSchedule() {
@@ -205,7 +211,7 @@ class ClassScheduleActivity : BaseActivity() {
 
     private fun getInitialWeek(): Int {
         val startedWeekOfYear = currentTerm.startDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
-        val endedWeekOfYear = currentTerm.fromDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val endedWeekOfYear = currentTerm.endDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val currentWeekOfYear = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)
 
@@ -222,7 +228,7 @@ class ClassScheduleActivity : BaseActivity() {
 
     private fun getWeeksOfYear(): List<WeekOfYear> {
         val startedWeekOfYear = currentTerm.startDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
-        val endedWeekOfYear = currentTerm.fromDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val endedWeekOfYear = currentTerm.endDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val weeksOfYear: MutableList<WeekOfYear> = mutableListOf()
         for (week in startedWeekOfYear..endedWeekOfYear) {

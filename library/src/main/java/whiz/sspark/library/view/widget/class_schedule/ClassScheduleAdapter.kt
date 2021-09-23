@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.ClassScheduleCalendar
 import whiz.sspark.library.data.entity.ClassScheduleCourse
-import whiz.sspark.library.data.entity.ScheduleSlot
 import whiz.sspark.library.extension.setDarkModeBackground
+import whiz.sspark.library.view.widget.base.CenterTextItemView
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
@@ -18,7 +18,10 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
         const val TITLE_VIEW_TYPE = 2222
         const val CALENDAR_VIEW_TYPE = 3333
         const val COURSE_VIEW_TYPE = 4444
+        const val NO_CLASS_VIEW_TYPE = 5555
     }
+
+    private var recyclerViewHeight = 0
 
     override fun getItemViewType(position: Int): Int {
         val item = try {
@@ -29,6 +32,7 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
         return when {
             item?.classScheduleCalendar != null -> CALENDAR_VIEW_TYPE
             item?.classScheduleCourse != null -> COURSE_VIEW_TYPE
+            item?.noClassTitle != null -> NO_CLASS_VIEW_TYPE
             else -> TITLE_VIEW_TYPE
         }
     }
@@ -39,7 +43,11 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
 
     class CourseViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
+    class NoClassViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        recyclerViewHeight = parent.height
+
         return when(viewType) {
             CALENDAR_VIEW_TYPE -> CalendarViewHolder(ClassScheduleCalendarItemView(parent.context).apply {
                 layoutParams = RecyclerView.LayoutParams(
@@ -48,6 +56,12 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
                 )
             })
             COURSE_VIEW_TYPE -> CourseViewHolder(ClassScheduleCourseItemView(parent.context).apply {
+                layoutParams = RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            })
+            NO_CLASS_VIEW_TYPE -> NoClassViewHolder(CenterTextItemView(parent.context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -78,12 +92,25 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
                     isPreviousItemHeader = isPreviousItemHeader
                 )
             }
+            NO_CLASS_VIEW_TYPE -> (holder.itemView as? CenterTextItemView)?.apply {
+                init(item.noClassTitle!!)
+                post {
+                    val lastItemBottom = holder.itemView.bottom
+                    val lastItemHeight = holder.itemView.height
+                    val heightDifference = recyclerViewHeight - lastItemBottom
+
+                    holder.itemView.layoutParams.height = lastItemHeight + heightDifference
+
+                    notifyItemChanged(position)
+                }
+            }
             TITLE_VIEW_TYPE -> (holder.itemView as? ItemListTitleView)?.init(item.title!!)
         }
     }
 
     data class Item(
         val title: String? = null,
+        val noClassTitle: String? = null,
         val classScheduleCalendar: ClassScheduleCalendar? = null,
         val classScheduleCourse: ClassScheduleCourse? = null
     )

@@ -9,6 +9,6 @@ data class Term(
         @SerializedName("term") val term: Long = 0,
         @SerializedName("year") val year: Long = 0,
         @SerializedName("startDate") val startDate: Date = Date(),
-        @SerializedName("fromDate") val fromDate: Date = Date(),
+        @SerializedName("endDate") val endDate: Date = Date(),
         @SerializedName("academicGrade") val academicGrade: Int? = null
 )
