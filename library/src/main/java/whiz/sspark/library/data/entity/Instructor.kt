@@ -57,6 +57,7 @@ fun Instructor.convertToProfile(): Profile {
                 gender = gender,
                 code = code,
                 fullName = fullName,
+                position = position,
                 firstName = firstName,
                 middleName = middleName,
                 lastName = lastName

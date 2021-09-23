@@ -5,6 +5,7 @@ data class Profile(
     val fullName: String?,
     val gender: String?,
     val code: String?,
+    val position: String? = null,
     val firstName: String?,
     val middleName: String?,
     val lastName: String?
