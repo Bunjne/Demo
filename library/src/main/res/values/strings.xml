@@ -29,6 +29,16 @@
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_add_text">เพิ่ม</string>
 
+    <string-array name="full_day_name">
+        <item>อาทิตย์</item>
+        <item>จันทร์</item>
+        <item>อังคาร</item>
+        <item>พุธ</item>
+        <item>พฤหัส</item>
+        <item>ศุกร์</item>
+        <item>เสาร์</item>
+    </string-array>
+
     <!--Datetime-->
     <string name="screen_header_subtitle">LAST UPDATED AT %1$s HRS.</string>
     <string name="update_failed">UPDATE FAILED</string>
@@ -174,4 +184,11 @@
     <string name="learning_pathway_required_course_text">วิชาบังคับ</string>
     <string name="learning_pathway_add_course_text">เพิ่มวิชา</string>
     <string name="learning_pathway_add_course_preview_credit">%1$s หน่วยกิต (ต่ำสุด = %2$s, สูงสุด = %3$s)</string>
+
+    <!--Class Schedule-->
+    <string name="class_schedule_title">ตารางเรียน</string>
+    <string name="class_schedule_day_with_short_date_title">%1$s\n%2$s</string>
+    <string name="class_schedule_range">%1$s - %2$s</string>
+    <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
+    <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
 </resources>

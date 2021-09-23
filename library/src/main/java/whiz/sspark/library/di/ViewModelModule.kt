@@ -20,5 +20,6 @@ val viewModelModule = module {
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
+    viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }

@@ -77,4 +77,7 @@
     <!--School record-->
     <string name="school_record_title">ผลการเรียน ม.%1$s</string>
     <string name="school_record_term">%1$s/%2$s</string>
+
+    <!--Class Schedule-->
+    <string name="class_schedule_no_class">ไม่มีวิชาเรียน</string>
 </resources>
