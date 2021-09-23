@@ -121,12 +121,14 @@ class ClassScheduleActivity : BaseActivity() {
         viewModel.classScheduleErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(this, it)
+                updateAdapterItem(listOf())
             }
         }
 
         viewModel.errorMessage.observe(this) {
             it?.let {
                 showAlertWithOkButton(it)
+                updateAdapterItem(listOf())
             }
         }
     }
