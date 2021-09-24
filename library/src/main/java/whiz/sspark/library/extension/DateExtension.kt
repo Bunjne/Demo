@@ -18,6 +18,14 @@ fun Date?.toLocalDate(): Date? {
     return newFormatter.parse(convertedDateString)
 }
 
+fun Date.toCalendar() = Calendar.getInstance().apply {
+    time = this@toCalendar
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+    set(Calendar.MILLISECOND, 0)
+}
+
 fun Date.toPostTime(context: Context): String {
     val timeDifferences = Calendar.getInstance().time.time - this.toLocalDate()!!.time
     val timeDifferencesInMinutes = (timeDifferences / (1000 * 60))

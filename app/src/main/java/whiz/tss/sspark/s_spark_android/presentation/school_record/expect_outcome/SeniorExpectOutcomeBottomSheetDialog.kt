@@ -17,7 +17,7 @@ import whiz.sspark.library.data.entity.ExpectOutcomeOverall
 import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
 import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.expect_outcome.ExpectOutcomeAdapter
+import whiz.sspark.library.view.widget.school_record.expect_outcome.ExpectOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorExpectOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.calendar.info_dialog.InformationDialog
