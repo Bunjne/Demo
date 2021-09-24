@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.entity.LikeBySeenByMember
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
@@ -50,7 +50,7 @@ class LikeBySeenByItemAdapter(private val context: Context,
                         init(item.title)
                     }
                     this is LikeBySeenByStudentItemView && item is LikeBySeenByAdapterViewType.Student -> {
-                        init(item.student, item.rank)
+                        init(item.student)
 
                         setDarkModeBackground(
                             isNextItemHeader = isNextItemTitle,
@@ -64,7 +64,6 @@ class LikeBySeenByItemAdapter(private val context: Context,
                             isPreviousItemHeader = isPreviousItemTitle
                         )
                     }
-                    else -> {}
                 }
             }
         }
@@ -83,7 +82,7 @@ class LikeBySeenByItemAdapter(private val context: Context,
 
     sealed class LikeBySeenByAdapterViewType {
         data class Header(val title: String): LikeBySeenByAdapterViewType()
-        data class Student(val student: ClassMember, val rank: Int): LikeBySeenByAdapterViewType()
-        data class Instructor(val instructor: ClassMember): LikeBySeenByAdapterViewType()
+        data class Student(val student: LikeBySeenByMember): LikeBySeenByAdapterViewType()
+        data class Instructor(val instructor: LikeBySeenByMember): LikeBySeenByAdapterViewType()
     }
 }

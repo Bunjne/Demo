@@ -1,16 +1,14 @@
 package whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.entity.LikeBySeenByMember
 import whiz.sspark.library.databinding.ViewLikeBySeenByStudentItemBinding
 import whiz.sspark.library.extension.showClassMemberProfileCircle
-import whiz.sspark.library.extension.toColor
 
 class LikeBySeenByStudentItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -21,16 +19,16 @@ class LikeBySeenByStudentItemView : ConstraintLayout {
         ViewLikeBySeenByStudentItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(student: ClassMember, rank: Int) {
+    fun init(student: LikeBySeenByMember) {
         with(student) {
             binding.ivProfile.showClassMemberProfileCircle(
                 imageUrl = profileImageUrl,
                 abbreviatedName = abbreviatedName,
                 textColor = ContextCompat.getColor(context, R.color.naturalV100),
-                textBackgroundColor = colorCode?.toColor() ?: Color.TRANSPARENT
+                textBackgroundColor = color
             )
 
-            binding.tvNickName.text = resources.getString(R.string.like_by_seen_by_name_with_rank, rank, nickname)
+            binding.tvNickName.text = title
             binding.tvFullName.text = fullName
         }
     }

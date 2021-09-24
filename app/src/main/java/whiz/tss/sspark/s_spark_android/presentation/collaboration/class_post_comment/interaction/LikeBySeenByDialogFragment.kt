@@ -8,13 +8,17 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.LikeBySeenByMember
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.enum.PostInteraction
 import whiz.sspark.library.data.viewModel.LikeBySeenByViewModel
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByItemAdapter
 import whiz.tss.sspark.s_spark_android.R
+import whiz.tss.sspark.s_spark_android.SSparkApp
+import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.DialogLikeBySeenByBinding
 
 class LikeBySeenByDialogFragment : DialogFragment() {
@@ -56,6 +60,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         arguments?.getInt("postInteractionType", PostInteraction.LIKE.type) ?: PostInteraction.LIKE.type
     }
 
+    private val items = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
+
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
@@ -74,6 +80,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         }
 
         binding.vLikeBySeenBy.init(
+            matchedMembers = items,
             startColor = startColor,
             endColor = endColor,
             postInteractionType = postInteractionType,
@@ -82,8 +89,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
             },
             onRefresh = {
                 when (postInteractionType) {
-                    PostInteraction.LIKE.type -> viewModel.getUserIdsByPostLiked(postId)
-                    PostInteraction.SEEN.type -> viewModel.getUserIdsByPostSeen(postId)
+                    PostInteraction.LIKE.type -> viewModel.getMembersByPostLiked(postId)
+                    PostInteraction.SEEN.type -> viewModel.getMembersByPostSeen(postId)
                 }
             }
         )
@@ -105,8 +112,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         }
 
         when (postInteractionType) {
-            PostInteraction.LIKE.type -> viewModel.getUserIdsByPostLiked(postId)
-            PostInteraction.SEEN.type -> viewModel.getUserIdsByPostSeen(postId)
+            PostInteraction.LIKE.type -> viewModel.getMembersByPostLiked(postId)
+            PostInteraction.SEEN.type -> viewModel.getMembersByPostSeen(postId)
         }
     }
 
@@ -127,33 +134,21 @@ class LikeBySeenByDialogFragment : DialogFragment() {
     }
 
     private fun observeData() {
-        viewModel.userIdsResponse.observe(this) {
-              viewModel.getMember(classGroupId)
-        }
-
-        viewModel.memberResponses.observe(this) { member ->
-            viewModel.userIdsResponse.value?.let { userIds ->
-                binding.vLikeBySeenBy.renderMembers(
-                    matchedMembers = filterMember(
-                        allMembers = member,
-                        interactedMemberIds = userIds
-                    )
-                )
-            }
+        viewModel.membersResponse.observe(this) { member ->
+            val matchedMembers = filterMembers(member)
+            binding.vLikeBySeenBy.renderMembers(items, matchedMembers)
         }
     }
 
     private fun observeError() {
         with(viewModel) {
-            listOf(userIdsErrorResponse, memberErrorResponse).forEach {
-                it.observe(this@LikeBySeenByDialogFragment) {
-                    it?.let {
-                        showApiResponseXAlert(activity, it)
-                    }
+            viewModel.memberErrorResponse.observe(this@LikeBySeenByDialogFragment) {
+                it?.let {
+                    showApiResponseXAlert(activity, it)
                 }
             }
 
-            errorMessage.observe(this@LikeBySeenByDialogFragment) {
+            viewModel.errorMessage.observe(this@LikeBySeenByDialogFragment) {
                 it?.let {
                     requireContext().showAlertWithOkButton(it)
                 }
@@ -166,23 +161,32 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         _binding = null
     }
 
-    private fun filterMember(allMembers: Member, interactedMemberIds: List<String>): MutableList<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType> {
-        val instructors = allMembers.instructors.filter { interactedMemberIds.contains(it.userId) }
-        val students = allMembers.students.filter { interactedMemberIds.contains(it.userId) }
-        val filteredMember = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
+    private fun filterMembers(allMembers: Member): MutableList<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType> {
+        val instructors = allMembers.instructors
+        val students = allMembers.students
+        val filteredMembers = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
 
-        with(filteredMember) {
+        with(filteredMembers) {
             if (instructors.isNotEmpty()) {
                 add(
                     LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
-                        title = requireContext().resources.getString(whiz.sspark.library.R.string.like_by_seen_by_instructor_title, instructors.size)
+                        title = requireContext().resources.getString(R.string.like_by_seen_by_instructor_title, instructors.size)
                     )
                 )
 
                 addAll(
                     instructors.map { instructor ->
-                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor(
-                            instructor = instructor)
+                        with(instructor) {
+                            LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor(
+                                instructor = LikeBySeenByMember(
+                                    profileImageUrl = profileImageUrl,
+                                    abbreviatedName = abbreviatedName,
+                                    color = colorCode?.toColor() ?: Color.BLACK,
+                                    fullName = fullName,
+                                    jobDescription = jobDescription
+                                )
+                            )
+                        }
                     }
                 )
             }
@@ -190,20 +194,34 @@ class LikeBySeenByDialogFragment : DialogFragment() {
             if (students.isNotEmpty()) {
                 add(
                     LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Header(
-                        title = requireContext().resources.getString(whiz.sspark.library.R.string.like_by_seen_by_student_title, students.size)
+                        title = requireContext().resources.getString(R.string.like_by_seen_by_student_title, students.size)
                     )
                 )
 
                 addAll(
-                    students.mapIndexed { index, student ->
-                        LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
-                            student = student,
-                            rank = index + 1)
+                    students.map { student ->
+                        with(student) {
+                            val title = if (SSparkApp.role.type == RoleType.SENIOR.type) {
+                                resources.getString(R.string.like_by_seen_by_name_with_rank, number, code)
+                            } else {
+                                resources.getString(R.string.like_by_seen_by_name_with_rank, number, nickname)
+                            }
+
+                            LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
+                                student = LikeBySeenByMember(
+                                    title = title,
+                                    profileImageUrl = profileImageUrl,
+                                    abbreviatedName = abbreviatedName,
+                                    color = colorCode?.toColor() ?: Color.BLACK,
+                                    fullName = fullName
+                                )
+                            )
+                        }
                     }
                 )
             }
         }
 
-        return filteredMember
+        return filteredMembers
     }
 }

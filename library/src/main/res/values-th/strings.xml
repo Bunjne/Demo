@@ -163,7 +163,7 @@
     <!-- Post Like By Seen By -->
     <string name="like_by_seen_by_liked_title">ถูกใจโดย</string>
     <string name="like_by_seen_by_seen_title">เห็นโดย</string>
-    <string name="like_by_seen_by_name_with_rank">#%1$d %2$s</string>
+    <string name="like_by_seen_by_name_with_rank">#%1$s %2$s</string>
     <string name="like_by_seen_by_instructor_title">อาจารย์ (%1$d)</string>
     <string name="like_by_seen_by_student_title">นักเรียน (%1$d)</string>
 </resources>

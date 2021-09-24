@@ -16,34 +16,26 @@ import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.repository.LikeBySeenByRepositoryImpl
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByItemAdapter
 
-class LikeBySeenByViewModel(private val likeBySeenByRepositoryImpl: LikeBySeenByRepositoryImpl) : ViewModel() {
+class LikeBySeenByViewModel(private val likeBySeenByRepository: LikeBySeenByRepositoryImpl) : ViewModel() {
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _memberResponses = MutableLiveData<Member>()
-    val memberResponses: LiveData<Member>
-        get() = _memberResponses
+    private val _membersResponse = MutableLiveData<Member>()
+    val membersResponse: LiveData<Member>
+        get() = _membersResponse
 
     private val _memberErrorResponse = MutableLiveData<ApiResponseX>()
     val memberErrorResponse: LiveData<ApiResponseX>
         get() = _memberErrorResponse
 
-    private val _userIdsResponse = MutableLiveData<List<String>>()
-    val userIdsResponse: LiveData<List<String>>
-        get() = _userIdsResponse
-
-    private val _userIdsErrorResponse = MutableLiveData<ApiResponseX>()
-    val userIdsErrorResponse: LiveData<ApiResponseX>
-        get() = _userIdsErrorResponse
-
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getMember(classGroupId: String) {
+    fun getMembersByPostLiked(postId: String) {
         viewModelScope.launch {
-            likeBySeenByRepositoryImpl.listClassMembers(classGroupId)
+            likeBySeenByRepository.getMembersByPostLiked(postId)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -57,7 +49,7 @@ class LikeBySeenByViewModel(private val likeBySeenByRepositoryImpl: LikeBySeenBy
                     val data = it.data
 
                     data?.let {
-                        _memberResponses.value = it
+                        _membersResponse.value = it
                     } ?: run {
                         _memberErrorResponse.value = it.error
                     }
@@ -65,9 +57,9 @@ class LikeBySeenByViewModel(private val likeBySeenByRepositoryImpl: LikeBySeenBy
         }
     }
 
-    fun getUserIdsByPostLiked(postId: String) {
+    fun getMembersByPostSeen(postId: String) {
         viewModelScope.launch {
-            likeBySeenByRepositoryImpl.getUserIdsByPostLiked(postId)
+            likeBySeenByRepository.getMembersByPostSeen(postId)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -81,33 +73,9 @@ class LikeBySeenByViewModel(private val likeBySeenByRepositoryImpl: LikeBySeenBy
                     val data = it.data
 
                     data?.let {
-                        _userIdsResponse.value = it
+                        _membersResponse.value = it
                     } ?: run {
-                        _userIdsErrorResponse.value = it.error
-                    }
-                }
-        }
-    }
-
-    fun getUserIdsByPostSeen(postId: String) {
-        viewModelScope.launch {
-            likeBySeenByRepositoryImpl.getUserIdsByPostSeen(postId)
-                .onStart {
-                    _viewLoading.value = true
-                }
-                .onCompletion {
-                    _viewLoading.value = false
-                }
-                .catch {
-                    _errorMessage.value = it.localizedMessage
-                }
-                .collect {
-                    val data = it.data
-
-                    data?.let {
-                        _userIdsResponse.value = it
-                    } ?: run {
-                        _userIdsErrorResponse.value = it.error
+                        _memberErrorResponse.value = it.error
                     }
                 }
         }

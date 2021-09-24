@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction
+package whiz.sspark.library.view.screen.collaboration.class_post_comment.interaction
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -13,6 +13,7 @@ import whiz.sspark.library.databinding.ViewLikeBySeenByDialogFragmentBinding
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByItemAdapter
 
 class LikeBySeenByDialogFragmentView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -23,9 +24,8 @@ class LikeBySeenByDialogFragmentView : ConstraintLayout {
         ViewLikeBySeenByDialogFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    private val items = mutableListOf<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>()
-
-    fun init(startColor: Int,
+    fun init(matchedMembers: MutableList<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>,
+             startColor: Int,
              endColor: Int,
              postInteractionType: Int,
              onCloseClicked: () -> Unit,
@@ -58,18 +58,21 @@ class LikeBySeenByDialogFragmentView : ConstraintLayout {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(CustomDividerMultiItemDecoration(
                 divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
-                dividerViewType = listOf(LikeBySeenByItemAdapter.INSTRUCTOR_TYPE, LikeBySeenByItemAdapter.STUDENT_TYPE))
+                dividerViewType = listOf(
+                    LikeBySeenByItemAdapter.INSTRUCTOR_TYPE,
+                    LikeBySeenByItemAdapter.STUDENT_TYPE
+                ))
             )
 
             adapter = LikeBySeenByItemAdapter(
                 context = context,
-                items = items
+                items = matchedMembers
             )
         }
     }
 
-    fun renderMembers(matchedMembers: List<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>) {
-        binding.rvMemberLikedOrSeen.adapter?.updateItem(this.items, matchedMembers)
+    fun renderMembers(members: MutableList<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>, updatedMembers: List<LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType>) {
+        binding.rvMemberLikedOrSeen.adapter?.updateItem(members, updatedMembers)
     }
 
     fun setSwipeRefreshLoading(isLoading: Boolean) {

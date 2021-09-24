@@ -15,34 +15,19 @@ import whiz.sspark.library.utility.fetchX
 import java.lang.Exception
 
 interface LikeBySeenByRepository {
-    suspend fun getUserIdsByPostLiked(postId: String): Flow<DataWrapperX<List<String>>>
-    suspend fun listClassMembers(classId: String): Flow<DataWrapperX<Member>>
-    suspend fun getUserIdsByPostSeen(postId: String): Flow<DataWrapperX<List<String>>>
+    suspend fun getMembersByPostLiked(postId: String): Flow<DataWrapperX<Member>>
+    suspend fun getMembersByPostSeen(postId: String): Flow<DataWrapperX<Member>>
 }
 
 class LikeBySeenByRepositoryImpl(private val context: Context,
                                  private val remote: LikeBySeenByService): LikeBySeenByRepository {
-    override suspend fun listClassMembers(classGroupId: String): Flow<DataWrapperX<Member>> {
-        return flow {
-                if (NetworkManager.isOnline(context)) {
-                    try {
-                        val response = remote.listClassMembers(classGroupId)
-                        fetchX<Member>(response)
-                    } catch (e: Exception) {
-                        throw e
-                    }
-                } else {
-                    throw Exception(context.resources.getString(R.string.general_alertmessage_no_internet_connection))
-                }
-        }.flowOn(Dispatchers.IO)
-    }
 
-    override suspend fun getUserIdsByPostLiked(postId: String): Flow<DataWrapperX<List<String>>> {
+    override suspend fun getMembersByPostLiked(postId: String): Flow<DataWrapperX<Member>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getUserIdsByPostLiked(postId)
-                    fetchX(response, Array<String>::class.java)
+                    val response = remote.getMembersByPostLiked(postId)
+                    fetchX<Member>(response)
                 } catch (e: Exception) {
                     throw e
                 }
@@ -52,12 +37,12 @@ class LikeBySeenByRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getUserIdsByPostSeen(postId: String): Flow<DataWrapperX<List<String>>> {
+    override suspend fun getMembersByPostSeen(postId: String): Flow<DataWrapperX<Member>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getUserIdsByPostSeen(postId)
-                    fetchX(response, Array<String>::class.java)
+                    val response = remote.getMembersByPostSeen(postId)
+                    fetchX<Member>(response)
                 } catch (e: Exception) {
                     throw e
                 }
