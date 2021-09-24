@@ -186,4 +186,8 @@
     <string name="class_schedule_range">%1$s - %2$s</string>
     <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
     <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
+
+    <!--Exam Schedule-->
+    <string name="exam_schedule_title">ตารางสอบ</string>
+    <string name="exam_schedule_room">ห้องสอบ %1$s</string>
 </resources>

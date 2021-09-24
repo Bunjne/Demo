@@ -63,7 +63,7 @@ class StudentClassScheduleActivity : BaseActivity() {
 
     override fun initView() {
         binding.vClassSchedule.init(
-            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString()),
+            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toInt().toLocalizedYear().toString()),
             onPreviousWeekClicked = {
                 if (viewModel.viewLoading.value == false) {
                     selectedWeekId -= 1
