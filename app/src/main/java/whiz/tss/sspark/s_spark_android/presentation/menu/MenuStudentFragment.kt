@@ -10,8 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.MenuSegment
-import whiz.sspark.library.data.entity.Student
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
@@ -23,10 +22,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.presentation.calendar.info_dialog.InformationDialog
 import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
-import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.JuniorExpectOutcomeBottomSheetDialog
-import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.SeniorExpectOutcomeBottomSheetDialog
 import whiz.tss.sspark.s_spark_android.utility.logout
 
 class MenuStudentFragment : BaseFragment() {

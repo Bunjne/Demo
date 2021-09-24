@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import androidx.annotation.ColorInt
 import whiz.sspark.library.databinding.ViewCalendarColorInformationItemBinding
 
 class CalendarColorInformationItemView: FrameLayout {
@@ -19,6 +18,7 @@ class CalendarColorInformationItemView: FrameLayout {
     fun init(color: Int,
              description: String) {
         binding.acvCircleStatus.background_Color = color
+        binding.acvCircleStatus.invalidate()
         binding.tvDescription.text = description
     }
 }
