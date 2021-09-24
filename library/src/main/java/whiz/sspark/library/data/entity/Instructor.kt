@@ -1,6 +1,7 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
+import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 import java.util.*
 
@@ -10,6 +11,8 @@ data class Instructor(
         @SerializedName("code") val code: String = "",
         @SerializedName("firstNameEn") val firstNameEn: String = "",
         @SerializedName("firstNameTh") val firstNameTh: String = "",
+        @SerializedName("middleNameEn") val middleNameEn: String = "",
+        @SerializedName("middleNameTh") val middleNameTh: String = "",
         @SerializedName("lastNameEn") val lastNameEn: String = "",
         @SerializedName("lastNameTh") val lastNameTh: String = "",
         @SerializedName("facultyImageUrl") val facultyImageUrl: String = "",
@@ -37,13 +40,26 @@ data class Instructor(
         @SerializedName("instructorEmail") val instructorEmail: String = "",
         @SerializedName("personalEmail") var personalEmail: String = "",
         @SerializedName("personalPhone") var personalPhone: String = "",
+        @SerializedName("term") var term: Term = Term(),
         @SerializedName("today") var today: Date = Date()
 ) {
         val firstName: String get() = localize(firstNameEn, firstNameTh, firstNameEn, false)
+        val middleName: String get() = localize(middleNameEn, middleNameTh, middleNameEn, false)
         val lastName: String get() = localize(lastNameEn, lastNameTh, lastNameEn, false)
         val position: String get() = localize(positionEn, positionTh, positionEn, false)
+
+        val fullName get() = convertToFullName(firstName, middleName, lastName, position)
 }
 
 fun Instructor.convertToProfile(): Profile {
-        return Profile(this.profileImageUrl, this.gender, this.code, this.firstName, this.lastName)
+        return Profile(
+                imageUrl = profileImageUrl,
+                gender = gender,
+                code = code,
+                fullName = fullName,
+                position = position,
+                firstName = firstName,
+                middleName = middleName,
+                lastName = lastName
+        )
 }

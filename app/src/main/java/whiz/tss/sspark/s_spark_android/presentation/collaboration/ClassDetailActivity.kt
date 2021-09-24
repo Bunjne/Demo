@@ -15,13 +15,15 @@ import whiz.tss.sspark.s_spark_android.databinding.ActivityClassDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor.InstructorClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
 
 class ClassDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityClassDetailBinding
 
-    private val id by lazy {
-        intent?.getStringExtra("id") ?: ""
+    private val classGroupId by lazy {
+        intent?.getStringExtra("classGroupId") ?: ""
     }
 
     private val startColor by lazy {
@@ -81,7 +83,7 @@ class ClassDetailActivity : BaseActivity() {
             BottomNavigationBarItem(id = BottomNavigationId.ACTIVITY.id, title = resources.getString(R.string.class_detail_tab_activity), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_activity, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.ATTENDANCE.id, title = resources.getString(R.string.class_detail_tab_attendance), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_attendance, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.STUDENT.id, title = resources.getString(R.string.class_detail_tab_student), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_member, colors = colors.toList()),
-            BottomNavigationBarItem(id = BottomNavigationId.HOMEWORK.id, title = resources.getString(R.string.class_detail_tab_homework), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_homework, colors = colors.toList())
+            BottomNavigationBarItem(id = BottomNavigationId.ASSIGNMENT.id, title = resources.getString(R.string.class_detail_tab_homework), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_homework, colors = colors.toList())
         )
 
         with (binding.vClassDetail) {
@@ -97,13 +99,13 @@ class ClassDetailActivity : BaseActivity() {
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
                                 if (SSparkApp.role != RoleType.INSTRUCTOR) {
-                                    renderFragment(StudentClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(StudentClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 } else {
-                                    renderFragment(InstructorClassActivityFragment.newInstance(this@ClassDetailActivity.id, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    renderFragment(InstructorClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
                                 }
                             }
-//                            BottomNavigationId.ATTENDANCE.id -> renderFragment(AttendanceClassFragment.newInstance(this@ClassDetailActivity.id, color, courseCode, sectionNumber), supportFragmentManager)
-//                            BottomNavigationId.MEMBER.id -> renderFragment(ClassMemberFragment.newInstance(this@ClassDetailActivity.id), supportFragmentManager)
+                            BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+                            BottomNavigationId.STUDENT.id -> renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
                         }
                     }
                 },

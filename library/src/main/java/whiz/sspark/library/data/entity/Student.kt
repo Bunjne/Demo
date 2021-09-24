@@ -19,6 +19,7 @@ data class Student(
     @SerializedName("guardians") private val _guardians: List<StudentGuardianDTO>? = null,
     @SerializedName("lastNameEn") val _lastNameEn: String = "",
     @SerializedName("lastNameTh") val _lastNameTh: String = "",
+    @SerializedName("term") val term: Term = Term(),
     @SerializedName("userId") val userId: String = ""
 ) {
     val firstName get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, false)
@@ -31,7 +32,15 @@ data class Student(
 }
 
 fun Student.convertToProfile(): Profile {
-    return Profile(this.profileImageUrl, this.gender, this.code, this.firstName, this.lastName)
+    return Profile(
+        imageUrl = profileImageUrl,
+        gender = gender,
+        code = code,
+        fullName = fullName,
+        firstName = firstName,
+        middleName = middleName,
+        lastName = lastName
+    )
 }
 
 fun Student.getGuardianMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {

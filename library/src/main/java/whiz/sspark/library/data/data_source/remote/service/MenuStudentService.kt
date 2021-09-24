@@ -2,14 +2,15 @@ package whiz.sspark.library.data.data_source.remote.service
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface MenuStudentService {
-    @GET("v1/menus") //TODO wait confirm path
+    @GET("v1/menus")
     suspend fun getMenu(): Response<ApiResponseX>
 
-    @GET("v1/menu/grade_summary") //TODO wait confirm path
-    suspend fun getGradeSummary(): Response<ApiResponseX>
+    @GET("v1/students/me/grades")
+    suspend fun getGradeSummary(@Query("termId") termId: String): Response<ApiResponseX>
 
     @GET("v1/menu/calendar") //TODO wait confirm path
     suspend fun getCalendar(): Response<ApiResponseX>

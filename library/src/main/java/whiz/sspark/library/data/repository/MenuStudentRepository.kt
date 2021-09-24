@@ -13,7 +13,7 @@ import whiz.sspark.library.utility.fetchX
 
 interface MenuStudentRepository {
     suspend fun getMenu(): Flow<DataWrapperX<List<MenuDTO>>>
-    suspend fun getGradeSummary(): Flow<DataWrapperX<List<MenuGradeSummaryDTO>>>
+    suspend fun getGradeSummary(termId: String): Flow<DataWrapperX<List<MenuGradeSummaryDTO>>>
     suspend fun getCalendar(): Flow<DataWrapperX<MenuCalendarDTO>>
     suspend fun getNotificationInbox(): Flow<DataWrapperX<MenuNotificationInboxDTO>>
     suspend fun getAdvisingNote(): Flow<DataWrapperX<MenuAdvisingNoteDTO>>
@@ -37,11 +37,11 @@ class MenuStudentRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getGradeSummary(): Flow<DataWrapperX<List<MenuGradeSummaryDTO>>> {
+    override suspend fun getGradeSummary(termId: String): Flow<DataWrapperX<List<MenuGradeSummaryDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getGradeSummary()
+                    val response = remote.getGradeSummary(termId)
                     fetchX(response, Array<MenuGradeSummaryDTO>::class.java)
                 } catch (e: Exception) {
                     throw e

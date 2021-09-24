@@ -1,5 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.menu
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import whiz.sspark.library.data.entity.MenuSegment
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.entity.getAdvisorMemberContactInfo
 import whiz.sspark.library.data.entity.getGuardianMemberContactInfo
+import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.data.viewModel.MenuStudentViewModel
@@ -23,6 +25,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
 
 class MenuStudentFragment : BaseFragment() {
@@ -41,6 +44,7 @@ class MenuStudentFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private lateinit var student: Student
+    private lateinit var termId: String
     private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,6 +54,14 @@ class MenuStudentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    termId = it.id
+                }
+            }
+        }
 
         lifecycleScope.launch {
             profileManager.student.collect {
@@ -102,8 +114,14 @@ class MenuStudentFragment : BaseFragment() {
                     }
                 }
             },
-            onMenuClicked = {
-                //TODO wait implement contact info
+            onMenuClicked = { code ->
+                when(code) {
+                    MenuCode.GRADE_SUMMARY.code -> {
+                        val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
+                        startActivity(intent)
+                    }
+                    //TODO wait implement other screen
+                }
             },
             onRefresh = {
                 viewModel.getMenu()
@@ -128,7 +146,7 @@ class MenuStudentFragment : BaseFragment() {
         viewModel.menuResponse.observe(this) {
             it?.let {
                 binding.vMenu.updateMenu(it)
-                viewModel.fetchWidget(it)
+                viewModel.fetchWidget(it, termId)
             }
         }
 
