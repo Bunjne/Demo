@@ -11,6 +11,7 @@
     <color name="viewBaseFourthColor">#EAEAEA</color>
     <color name="lineBasePrimaryColor">#D7D5DB</color>
     <color name="lineBaseSecondaryColor">#EBE9F1</color>
+    <color name="lineBaseSecondaryWithAlphaColor">#CCEBE9F1</color>
     <color name="microsoftTeamBaseColor">#5059C9</color>
     <color name="textBasePrimaryColor">#383738</color>
     <color name="textBaseSecondaryColor">#3E3E3E</color>
@@ -18,6 +19,7 @@
     <color name="iconBaseColor">#5B5B5B</color>
     <color name="transparentColor">#00000000</color>
     <color name="shadowColor">#04000000</color>
+    <color name="shadowWithoutAlphaColor">#000000</color>
     <color name="segmentBaseBackgroundColor">#1f767680</color>
     <color name="segmentBaseDividerColor">#4d8e8e93</color>
 
@@ -109,4 +111,9 @@
 
     <!-- Indicator -->
     <color name="indicatorBackground">#BCBCBC</color>
+
+    <!-- Online Class -->
+    <color name="onlineClassStrokeColor">#F0F0F0</color>
+    <color name="onlineClassMoodleColor">#F48020</color>
+    <color name="onlineClassNormalColor">#787878</color>
 </resources>

@@ -40,6 +40,7 @@ fun showApiResponseXAlert(context: Context?, errorResponse: ApiResponseX, okClic
         context?.let { context ->
             AlertDialog.Builder(context)
                 .setTitle(context.resources.getString(R.string.general_alertmessage_title))
+                .setCancelable(false)
                 .setMessage("${errorResponse.toAlertMessage(context)}\n${context.resources.getString(R.string.general_alertmessage_error_code, errorResponse.code)}")
                 .setPositiveButton(R.string.general_text_ok) { _,_ -> okClicked() }
                 .show()
@@ -99,5 +100,17 @@ fun Context.showAlert(title: String,
         }
     }
 
+    dialog.show()
+}
+
+fun Context.showAlertWithMultipleItems(titles: List<String>,
+                                       isCancelAble: Boolean = true,
+                                       onItemSelected: (Int) -> Unit) {
+    val dialog = AlertDialog.Builder(this)
+        .setItems(titles.toTypedArray()) { dialog, index ->
+            onItemSelected(index)
+        }
+
+    dialog.setCancelable(isCancelAble)
     dialog.show()
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cvProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="17dp"
+        app:autoSizeMaxTextSize="17dp"
+        app:autoSizeMinTextSize="12dp"
+        app:autoSizeStepGranularity="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvProfile"
+        app:layout_constraintTop_toTopOf="@+id/cvProfile"
+        app:ssparkFont="bold"
+        tools:text="IKOMA RINA" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="13dp"
+        app:autoSizeMaxTextSize="13dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="1dp"
+        app:layout_goneMarginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvNew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvNew"
+        app:layout_constraintTop_toTopOf="@+id/cvNew"
+        app:ssparkFont="regular"
+        tools:text="20/12/2018" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        app:cardBackgroundColor="@color/primaryColor"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvProfile"
+        app:layout_constraintEnd_toStartOf="@+id/tvDate"
+        app:layout_constraintStart_toEndOf="@+id/cvProfile"
+        app:layout_constraintTop_toBottomOf="@+id/tvName">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvNew"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:text="@string/class_post_author_header_new"
+            android:textColor="@color/naturalV100"
+            android:textSize="9dp"
+            app:ssparkFont="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

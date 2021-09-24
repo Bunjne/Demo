@@ -8,9 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import whiz.sspark.library.data.entity.Profile
-import whiz.sspark.library.data.entity.Student
-import whiz.sspark.library.data.entity.convertToProfile
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.SSparkApp
@@ -29,11 +27,27 @@ class ProfileManager(private val context: Context) {
             preferences[STUDENT_KEY]?.toObject<Student>()
         }
 
+    val instructor: Flow<Instructor?> = context.dataStore.data
+        .map { preferences ->
+            preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()
+        }
+
     val profile: Flow<Profile?> = context.dataStore.data
         .map { preferences ->
             when (SSparkApp.role) {
                 RoleType.JUNIOR,
                 RoleType.SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.convertToProfile()
+                RoleType.INSTRUCTOR -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.convertToProfile()
+                else -> null
+            }
+        }
+
+    val term: Flow<Term?> = context.dataStore.data
+        .map { preferences ->
+            when (SSparkApp.role) {
+                RoleType.JUNIOR,
+                RoleType.SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.term
+                RoleType.INSTRUCTOR -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.term
                 else -> null
             }
         }
@@ -44,9 +58,9 @@ class ProfileManager(private val context: Context) {
         }
     }
 
-    suspend fun clearStudent() {
+    suspend fun clearData() {
         context.dataStore.edit {
-            it.remove(STUDENT_KEY)
+            it.clear()
         }
     }
 }

@@ -9,7 +9,7 @@ import whiz.sspark.library.utility.localize
 
 data class Student(
     @SerializedName("advisors") private val _advisors: List<StudentInstructorDTO>? = null,
-    @SerializedName("imageUrl") var imageUrl: String = "",
+    @SerializedName("profileImageUrl") var profileImageUrl: String = "",
     @SerializedName("code") val code: String = "",
     @SerializedName("middleNameEn") val _middleNameEn: String = "",
     @SerializedName("middleNameTh") val _middleNameTh: String = "",
@@ -19,6 +19,7 @@ data class Student(
     @SerializedName("guardians") private val _guardians: List<StudentGuardianDTO>? = null,
     @SerializedName("lastNameEn") val _lastNameEn: String = "",
     @SerializedName("lastNameTh") val _lastNameTh: String = "",
+    @SerializedName("term") val term: Term = Term(),
     @SerializedName("userId") val userId: String = ""
 ) {
     val firstName get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, false)
@@ -31,7 +32,15 @@ data class Student(
 }
 
 fun Student.convertToProfile(): Profile {
-    return Profile(this.imageUrl, this.gender, this.code, this.firstName, this.lastName)
+    return Profile(
+        imageUrl = profileImageUrl,
+        gender = gender,
+        code = code,
+        fullName = fullName,
+        firstName = firstName,
+        middleName = middleName,
+        lastName = lastName
+    )
 }
 
 fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
