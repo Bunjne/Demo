@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.MenuContactInfoItem
-import whiz.sspark.library.data.entity.toMenuContactInfoItems
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewMenuContactInfoDialogBinding
 import whiz.sspark.library.extension.showUserProfileCircle
@@ -30,27 +29,25 @@ class MenuContactInfoDialogView: ConstraintLayout {
 
         with(binding) {
             ivProfileImage.showUserProfileCircle(contactInfo.imageUrl, getGender(contactInfo.gender).type)
-            tvClose.text = resources.getString(R.string.menu_contact_info_close_text)
             tvName.text = contactInfo.name
             tvDescription.text = contactInfo.description
 
-            val menuContactItems = contactInfo.toMenuContactInfoItems(context)
             with(rvContacts) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = MenuContactInfoAdapter(
                     context = context,
-                    menuContactItems = menuContactItems,
+                    menuContactItems = contactInfo.contactInfoItems,
                     onContactClicked = onContactClicked
                 )
-            }
 
-            val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-            divider.setDrawable(
-                ContextCompat.getDrawable(context, R.drawable.divider_base_dialog_item)!!.apply {
-                    alpha = getAlphaPercentage(80)
-                }
-            )
-            rvContacts.addItemDecoration(divider)
+                val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+                divider.setDrawable(
+                    ContextCompat.getDrawable(context, R.drawable.divider_base_dialog_item)!!.apply {
+                        alpha = getAlphaPercentage(80)
+                    }
+                )
+                addItemDecoration(divider)
+            }
 
             tvClose.setOnClickListener {
                 onCloseClicked()

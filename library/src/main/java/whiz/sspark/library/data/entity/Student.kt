@@ -6,6 +6,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
+import whiz.sspark.library.view.widget.menu.menu_contact_info_dialog.MenuContactInfoAdapter
 
 data class Student(
     @SerializedName("advisors") private val _advisors: List<StudentInstructorDTO>? = null,
@@ -43,29 +44,82 @@ fun Student.convertToProfile(): Profile {
     )
 }
 
-fun Student.getGuardianMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {
-    return with(guardians[position]) {
-        MenuContactInfoItem(
+fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInfoItem {
+
+    with(this) {
+        val contactInfoItems = mutableListOf<MenuContactInfoAdapter.MenuContactItem>()
+
+        if (personalPhoneNumber.isNotEmpty()) {
+            val personalPhone = MenuContactInfoAdapter.MenuContactItem(
+                contactIconRes = R.drawable.ic_phone,
+                contact = personalPhoneNumber,
+                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
+            )
+            contactInfoItems.add(personalPhone)
+        }
+
+        if (personalEmail.isNotEmpty()) {
+            val personalEmail = MenuContactInfoAdapter.MenuContactItem(
+                contactIconRes = R.drawable.ic_at_sign,
+                contact = personalEmail,
+                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_email_text)
+            )
+            contactInfoItems.add(personalEmail)
+        }
+
+        return MenuContactInfoItem(
             imageUrl = imageUrl,
             gender = gender,
             description = relation,
             name = fullName,
             personalPhone = personalPhoneNumber,
-            personalEmail = personalEmail
+            personalEmail = personalEmail,
+            contactInfoItems = contactInfoItems
         )
     }
 }
 
-fun Student.getAdvisorMemberContactInfo(context: Context, position: Int): MenuContactInfoItem {
-    return with(this.advisor[position]) {
-        MenuContactInfoItem(
+fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactInfoItem {
+
+    with(this) {
+        val contactInfoItems = mutableListOf<MenuContactInfoAdapter.MenuContactItem>()
+
+        if (personalPhoneNumber.isNotEmpty()) {
+            val personalPhone = MenuContactInfoAdapter.MenuContactItem(
+                contactIconRes = R.drawable.ic_phone,
+                contact = personalPhoneNumber,
+                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
+            )
+            contactInfoItems.add(personalPhone)
+        }
+
+        if (officePhoneNumber.isNotEmpty()) {
+            val officePhone = MenuContactInfoAdapter.MenuContactItem(
+                contactIconRes = R.drawable.ic_phone,
+                contact = officePhoneNumber,
+                contactDescription = context.resources.getString(R.string.menu_contact_info_office_phone_text)
+            )
+            contactInfoItems.add(officePhone)
+        }
+
+        if (officeEmail.isNotEmpty()) {
+            val officeEmail = MenuContactInfoAdapter.MenuContactItem(
+                contactIconRes = R.drawable.ic_at_sign,
+                contact = officeEmail,
+                contactDescription = context.resources.getString(R.string.menu_contact_info_office_email_text)
+            )
+            contactInfoItems.add(officeEmail)
+        }
+
+        return MenuContactInfoItem(
             imageUrl = imageUrl,
             gender = gender,
             description = context.resources.getString(R.string.general_room, officeRoom),
             name = fullName,
-            personalPhone = personalPhoneNumber,
             officePhone = officePhoneNumber,
-            officeEmail = officeEmail
+            personalPhone = personalPhoneNumber,
+            officeEmail = officeEmail,
+            contactInfoItems = contactInfoItems
         )
     }
 }
