@@ -24,7 +24,7 @@ class MenuContactInfoDialogView: ConstraintLayout {
     }
 
     fun init(contactInfo: MenuContactInfoItem,
-             onContactClicked: (String) -> Unit,
+             onContactClicked: (String, String) -> Unit,
              onCloseClicked: () -> Unit) {
 
         with(binding) {

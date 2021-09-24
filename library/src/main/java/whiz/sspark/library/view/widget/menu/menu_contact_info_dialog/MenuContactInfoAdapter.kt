@@ -4,10 +4,11 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import whiz.sspark.library.data.entity.MenuContactItem
 
 class MenuContactInfoAdapter(private val context: Context,
                              private val menuContactItems: List<MenuContactItem>,
-                             private val onContactClicked: (description: String) -> Unit): RecyclerView.Adapter<MenuContactInfoAdapter.ViewHolder>() {
+                             private val onContactClicked: (description: String, contact: String) -> Unit): RecyclerView.Adapter<MenuContactInfoAdapter.ViewHolder>() {
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +31,7 @@ class MenuContactInfoAdapter(private val context: Context,
                     contact = it.contact,
                     contactDescription = it.contactDescription,
                     onContactClicked = {
-                        onContactClicked(it.contactDescription)
+                        onContactClicked(it.contactDescription, it.contact)
                     }
                 )
             }
@@ -38,10 +39,4 @@ class MenuContactInfoAdapter(private val context: Context,
     }
 
     override fun getItemCount(): Int = menuContactItems.size
-
-    data class MenuContactItem(
-        val contactIconRes: Int,
-        val contact: String,
-        val contactDescription: String
-    )
 }

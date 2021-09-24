@@ -34,32 +34,6 @@ class MenuContactInfoDialog : DialogFragment() {
         arguments?.getString("menuContactItem")?.toObject<MenuContactInfoItem>()
     }
 
-    private val callPersonalPhoneIntent: Intent by lazy {
-        Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:${menuContactItem?.personalPhone}")
-        }
-    }
-
-    private val callOfficePhoneIntent: Intent by lazy {
-        Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:${menuContactItem?.officePhone}")
-        }
-    }
-
-    private val sendToOfficeEmailIntent: Intent by lazy {
-        Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, menuContactItem?.officeEmail)
-        }
-    }
-
-    private val sendToPersonalEmailIntent: Intent by lazy {
-        Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, menuContactItem?.personalEmail)
-        }
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
         _binding = DialogMenuContactInfoSheetBinding.inflate(LayoutInflater.from(context), null, false)
@@ -82,18 +56,32 @@ class MenuContactInfoDialog : DialogFragment() {
         menuContactItem?.let {
             binding.vMenuContactInfo.init(
                 contactInfo = it,
-                onContactClicked = { description ->
+                onContactClicked = { description, contact ->
                     when (description) {
                         requireContext().resources.getString(R.string.menu_contact_info_personal_phone_text) -> {
+                            val callPersonalPhoneIntent = Intent(Intent.ACTION_DIAL).apply {
+                                data = Uri.parse("tel:${contact}")
+                            }
                             startActivity(callPersonalPhoneIntent)
                         }
                         requireContext().resources.getString(R.string.menu_contact_info_office_phone_text) -> {
+                            val callOfficePhoneIntent = Intent(Intent.ACTION_DIAL).apply {
+                                data = Uri.parse("tel:${contact}")
+                            }
                             startActivity(callOfficePhoneIntent)
                         }
                         requireContext().resources.getString(R.string.menu_contact_info_office_email_text) -> {
+                            val sendToOfficeEmailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                                data = Uri.parse("mailto:")
+                                putExtra(Intent.EXTRA_EMAIL, contact)
+                            }
                             startActivity(sendToOfficeEmailIntent)
                         }
                         requireContext().resources.getString(R.string.menu_contact_info_personal_email_text) -> {
+                            val sendToPersonalEmailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                                data = Uri.parse("mailto:")
+                                putExtra(Intent.EXTRA_EMAIL, contact)
+                            }
                             startActivity(sendToPersonalEmailIntent)
                         }
                     }

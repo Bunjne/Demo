@@ -47,10 +47,10 @@ fun Student.convertToProfile(): Profile {
 fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInfoItem {
 
     with(this) {
-        val contactInfoItems = mutableListOf<MenuContactInfoAdapter.MenuContactItem>()
+        val contactInfoItems = mutableListOf<MenuContactItem>()
 
         if (personalPhoneNumber.isNotEmpty()) {
-            val personalPhone = MenuContactInfoAdapter.MenuContactItem(
+            val personalPhone = MenuContactItem(
                 contactIconRes = R.drawable.ic_phone,
                 contact = personalPhoneNumber,
                 contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
@@ -59,7 +59,7 @@ fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInf
         }
 
         if (personalEmail.isNotEmpty()) {
-            val personalEmail = MenuContactInfoAdapter.MenuContactItem(
+            val personalEmail = MenuContactItem(
                 contactIconRes = R.drawable.ic_at_sign,
                 contact = personalEmail,
                 contactDescription = context.resources.getString(R.string.menu_contact_info_personal_email_text)
@@ -82,10 +82,10 @@ fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInf
 fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactInfoItem {
 
     with(this) {
-        val contactInfoItems = mutableListOf<MenuContactInfoAdapter.MenuContactItem>()
+        val contactInfoItems = mutableListOf<MenuContactItem>()
 
         if (personalPhoneNumber.isNotEmpty()) {
-            val personalPhone = MenuContactInfoAdapter.MenuContactItem(
+            val personalPhone = MenuContactItem(
                 contactIconRes = R.drawable.ic_phone,
                 contact = personalPhoneNumber,
                 contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
@@ -94,7 +94,7 @@ fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactIn
         }
 
         if (officePhoneNumber.isNotEmpty()) {
-            val officePhone = MenuContactInfoAdapter.MenuContactItem(
+            val officePhone = MenuContactItem(
                 contactIconRes = R.drawable.ic_phone,
                 contact = officePhoneNumber,
                 contactDescription = context.resources.getString(R.string.menu_contact_info_office_phone_text)
@@ -103,7 +103,7 @@ fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactIn
         }
 
         if (officeEmail.isNotEmpty()) {
-            val officeEmail = MenuContactInfoAdapter.MenuContactItem(
+            val officeEmail = MenuContactItem(
                 contactIconRes = R.drawable.ic_at_sign,
                 contact = officeEmail,
                 contactDescription = context.resources.getString(R.string.menu_contact_info_office_email_text)

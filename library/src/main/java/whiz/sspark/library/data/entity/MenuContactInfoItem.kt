@@ -1,7 +1,5 @@
 package whiz.sspark.library.data.entity
 
-import whiz.sspark.library.view.widget.menu.menu_contact_info_dialog.MenuContactInfoAdapter
-
 data class MenuContactInfoItem(
     val imageUrl: String,
     val gender: String,
@@ -11,5 +9,5 @@ data class MenuContactInfoItem(
     val personalPhone: String = "",
     val officeEmail: String = "",
     val personalEmail: String = "",
-    val contactInfoItems: List<MenuContactInfoAdapter.MenuContactItem> = listOf()
+    val contactInfoItems: List<MenuContactItem> = listOf()
 )
