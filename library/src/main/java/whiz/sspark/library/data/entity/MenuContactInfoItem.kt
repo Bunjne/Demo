@@ -5,9 +5,5 @@ data class MenuContactInfoItem(
     val gender: String,
     val name: String,
     val description: String,
-    val officePhone: String = "",
-    val personalPhone: String = "",
-    val officeEmail: String = "",
-    val personalEmail: String = "",
     val contactInfoItems: List<MenuContactItem> = listOf()
 )

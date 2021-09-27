@@ -59,30 +59,16 @@ class MenuContactInfoDialog : DialogFragment() {
                 onContactClicked = { description, contact ->
                     when (description) {
                         requireContext().resources.getString(R.string.menu_contact_info_personal_phone_text) -> {
-                            val callPersonalPhoneIntent = Intent(Intent.ACTION_DIAL).apply {
-                                data = Uri.parse("tel:${contact}")
-                            }
-                            startActivity(callPersonalPhoneIntent)
+                            callPhone(contact)
                         }
                         requireContext().resources.getString(R.string.menu_contact_info_office_phone_text) -> {
-                            val callOfficePhoneIntent = Intent(Intent.ACTION_DIAL).apply {
-                                data = Uri.parse("tel:${contact}")
-                            }
-                            startActivity(callOfficePhoneIntent)
+                            callPhone(contact)
                         }
                         requireContext().resources.getString(R.string.menu_contact_info_office_email_text) -> {
-                            val sendToOfficeEmailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                                data = Uri.parse("mailto:")
-                                putExtra(Intent.EXTRA_EMAIL, contact)
-                            }
-                            startActivity(sendToOfficeEmailIntent)
+                            sendEmail(contact)
                         }
                         requireContext().resources.getString(R.string.menu_contact_info_personal_email_text) -> {
-                            val sendToPersonalEmailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                                data = Uri.parse("mailto:")
-                                putExtra(Intent.EXTRA_EMAIL, contact)
-                            }
-                            startActivity(sendToPersonalEmailIntent)
+                            sendEmail(contact)
                         }
                     }
                 },
@@ -91,6 +77,21 @@ class MenuContactInfoDialog : DialogFragment() {
                 }
             )
         }
+    }
+
+    private fun sendEmail(emailContact: String) {
+        val sendToOfficeEmailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, emailContact)
+        }
+        startActivity(sendToOfficeEmailIntent)
+    }
+
+    private fun callPhone(phoneContact: String) {
+        val callOfficePhoneIntent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:${phoneContact}")
+        }
+        startActivity(callOfficePhoneIntent)
     }
 
     private fun setDialogAnimation(window: Window?) {

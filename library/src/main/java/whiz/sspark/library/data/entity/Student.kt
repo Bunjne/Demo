@@ -72,8 +72,6 @@ fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInf
             gender = gender,
             description = relation,
             name = fullName,
-            personalPhone = personalPhoneNumber,
-            personalEmail = personalEmail,
             contactInfoItems = contactInfoItems
         )
     }
@@ -116,9 +114,6 @@ fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactIn
             gender = gender,
             description = context.resources.getString(R.string.general_room, officeRoom),
             name = fullName,
-            officePhone = officePhoneNumber,
-            personalPhone = personalPhoneNumber,
-            officeEmail = officeEmail,
             contactInfoItems = contactInfoItems
         )
     }

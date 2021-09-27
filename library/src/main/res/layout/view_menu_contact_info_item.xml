@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="14dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
@@ -35,13 +35,14 @@
         app:layout_constraintStart_toEndOf="@+id/ivContactIcon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
+        app:ssparkFont="regular"
         tools:text="somchai@gmail.com" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvContactDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="14dp"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
