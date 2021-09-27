@@ -20,3 +20,9 @@ fun Int.toLocalizedYear() = if (isThaiLanguage()) {
 } else {
     this
 }
+
+fun Long.toLocalizedYear() = if (isThaiLanguage()) {
+    this + 543
+} else {
+    this
+}

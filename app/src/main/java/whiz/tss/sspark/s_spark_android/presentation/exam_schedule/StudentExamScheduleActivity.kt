@@ -68,11 +68,13 @@ class StudentExamScheduleActivity : BaseActivity() {
 
     override fun initView() {
         binding.vExamSchedule.init(
-            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toInt().toLocalizedYear().toString()),
+            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toLocalizedYear().toString()),
             segmentTitles = segmentTitles,
             onSegmentClicked = {
-                selectedTab = it
-                updateAdapterItem()
+                if (selectedTab != it) {
+                    selectedTab = it
+                    updateAdapterItem()
+                }
             },
             onRefresh = {
                 viewModel.getClassSchedule(currentTerm.id)
@@ -109,6 +111,7 @@ class StudentExamScheduleActivity : BaseActivity() {
 
         viewModel.errorMessage.observe(this) {
             it?.let {
+                binding.vExamSchedule.setLatestUpdatedText(getNullDataWrapperX())
                 showAlertWithOkButton(it)
             }
         }
@@ -131,7 +134,9 @@ class StudentExamScheduleActivity : BaseActivity() {
 
         val groupedSchedule = examSchedule?.sortedBy { it.date }?.groupBy { it.date.toLocalDate()!!.convertToDateString(DateTimePattern.monthYearFormat) }
 
-        if (!groupedSchedule.isNullOrEmpty()) {
+        if (groupedSchedule.isNullOrEmpty()) {
+            items.add(ExamScheduleAdapter.Item(noExamTitle = resources.getString(R.string.class_schedule_no_exam)))
+        } else {
             groupedSchedule.forEach {
                 val monthYearSplit = it.key.split("/")
                 val month = monthYearSplit[0].toInt()
@@ -184,8 +189,6 @@ class StudentExamScheduleActivity : BaseActivity() {
                     }
                 }
             }
-        } else {
-            items.add(ExamScheduleAdapter.Item(noExamTitle = resources.getString(R.string.class_schedule_no_exam)))
         }
 
         return items.toList()

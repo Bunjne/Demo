@@ -20,8 +20,8 @@ class ExamScheduleCourseItemView: ConstraintLayout {
 
     fun init(examScheduleCourse: ExamScheduleCourse) {
         with(examScheduleCourse) {
-            binding.tvTimeRange.text = resources.getString(R.string.class_schedule_range, startTime.convertToTime(), endTime.convertToTime())
-            binding.tvCourse.text = resources.getString(R.string.class_schedule_course_code_and_name, code, name)
+            binding.tvTimeRange.text = resources.getString(R.string.exam_schedule_range, startTime.convertToTime(), endTime.convertToTime())
+            binding.tvCourse.text = resources.getString(R.string.exam_schedule_course_code_and_name, code, name)
             binding.tvRoom.text = resources.getString(R.string.exam_schedule_room, room)
         }
     }
