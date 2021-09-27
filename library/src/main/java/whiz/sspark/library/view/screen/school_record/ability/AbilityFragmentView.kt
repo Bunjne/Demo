@@ -37,7 +37,6 @@ class AbilityFragmentView: ConstraintLayout {
         }
 
         binding.srlLearningOutcome.setOnRefreshListener {
-            updateItem()
             onRefresh()
         }
     }
@@ -46,7 +45,7 @@ class AbilityFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(items: List<AbilityAdapter.Item> = listOf()) {
+    fun updateItem(items: List<AbilityAdapter.Item>) {
         (binding.rvActivityRecord.adapter as? AbilityAdapter)?.submitList(items)
 
         if (items.isEmpty()) {
