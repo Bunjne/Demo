@@ -25,7 +25,6 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
     fun init(onRefresh: () -> Unit,
              onItemClicked: (LearningOutcome) -> Unit) {
         binding.srlLearningOutcome.setOnRefreshListener {
-            updateItem()
             onRefresh()
         }
 
@@ -47,7 +46,7 @@ class JuniorLearningOutcomeFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(items: List<JuniorLearningOutcomeAdapter.Item> = listOf()) {
+    fun updateItem(items: List<JuniorLearningOutcomeAdapter.Item>) {
         (binding.rvLearningOutcome.adapter as? JuniorLearningOutcomeAdapter)?.submitList(items)
 
         if (items.isNotEmpty()) {
