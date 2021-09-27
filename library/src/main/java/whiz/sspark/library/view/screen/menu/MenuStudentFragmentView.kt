@@ -64,7 +64,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         }
 
         binding.srlMenu.setOnRefreshListener {
-            resetMenuSegment()
+            resetMemberSegment()
             onRefresh()
         }
 
@@ -133,11 +133,10 @@ class MenuStudentFragmentView : ConstraintLayout {
         binding.srlMenu.isRefreshing = isLoading == true
     }
 
-    private fun resetMenuSegment() {
+    private fun resetMemberSegment() {
         menuSegmentType = MenuSegmentType.INSTRUCTOR.type
         updateMemberAdapter()
         segmentAdapter?.resetSelectedTab()
-        menuAdapter?.submitList(listOf())
         menuAdapter?.resetHeight()
     }
 
