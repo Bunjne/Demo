@@ -59,45 +59,31 @@ class InformationDialogAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = items.getOrNull(position) ?: Item()
+        val item = items.getOrNull(position)
 
-        item.juniorOutcome?.let {
-            (holder.itemView as JuniorExpectedOutcomeItemView).apply {
-                init(
-                    number = it.number,
-                    description = it.description
-                )
-
-                if (position != items.lastIndex) {
-                    setPadding(0, 0, 0, 9.toDP(context))
-                }
-            }
+        item?.juniorOutcome?.let {
+            (holder.itemView as JuniorExpectedOutcomeItemView).init(
+                number = it.number,
+                description = it.description
+            )
         }
 
-        item.seniorOutcome?.let {
-            (holder.itemView as SeniorExpectedOutcomeItemView).apply {
-                init(
-                    level = it.level,
-                    description = it.description
-                )
-
-                if (position != items.lastIndex) {
-                    setPadding(0, 0, 0, 9.toDP(context))
-                }
-            }
+        item?.seniorOutcome?.let {
+            (holder.itemView as SeniorExpectedOutcomeItemView).init(
+                level = it.level,
+                description = it.description
+            )
         }
 
-        item.calendarInformationIndex?.let {
-            (holder.itemView as CalendarColorInformationItemView).apply {
-                init(
-                    color = it.color,
-                    description = it.description
-                )
+        item?.calendarInformationIndex?.let {
+            (holder.itemView as CalendarColorInformationItemView).init(
+                color = it.color,
+                description = it.description
+            )
+        }
 
-                if (position != items.lastIndex) {
-                    setPadding(0, 0, 0, 9.toDP(context))
-                }
-            }
+        if (position != items.lastIndex) {
+            holder.itemView.setPadding(0, 0, 0, 9.toDP(context))
         }
     }
 

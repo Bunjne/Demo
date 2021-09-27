@@ -8,9 +8,10 @@
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvLevel"
-        android:layout_width="104dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="17dp"
@@ -19,21 +20,30 @@
         app:autoSizeStepGranularity="1dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vSeparator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:ssparkFont="bold"
         tools:text="Advanced" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vSeparator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.39" />
+
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvOutcomeDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvLevel"
+        app:layout_constraintStart_toEndOf="@id/vSeparator"
         app:layout_constraintTop_toTopOf="parent"
         app:ssparkFont="regular"
         tools:text="อยู่ในระดับที่ทำได้ดีมาก" />
