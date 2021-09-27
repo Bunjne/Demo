@@ -6,7 +6,6 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
-import whiz.sspark.library.view.widget.menu.menu_contact_info_dialog.MenuContactInfoAdapter
 
 data class Student(
     @SerializedName("advisors") private val _advisors: List<StudentInstructorDTO>? = null,
@@ -42,81 +41,6 @@ fun Student.convertToProfile(): Profile {
         middleName = middleName,
         lastName = lastName
     )
-}
-
-fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInfoItem {
-
-    with(this) {
-        val contactInfoItems = mutableListOf<MenuContactItem>()
-
-        if (personalPhoneNumber.isNotEmpty()) {
-            val personalPhone = MenuContactItem(
-                contactIconRes = R.drawable.ic_phone,
-                contact = personalPhoneNumber,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
-            )
-            contactInfoItems.add(personalPhone)
-        }
-
-        if (personalEmail.isNotEmpty()) {
-            val personalEmail = MenuContactItem(
-                contactIconRes = R.drawable.ic_at_sign,
-                contact = personalEmail,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_email_text)
-            )
-            contactInfoItems.add(personalEmail)
-        }
-
-        return MenuContactInfoItem(
-            imageUrl = imageUrl,
-            gender = gender,
-            description = relation,
-            name = fullName,
-            contactInfoItems = contactInfoItems
-        )
-    }
-}
-
-fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactInfoItem {
-
-    with(this) {
-        val contactInfoItems = mutableListOf<MenuContactItem>()
-
-        if (personalPhoneNumber.isNotEmpty()) {
-            val personalPhone = MenuContactItem(
-                contactIconRes = R.drawable.ic_phone,
-                contact = personalPhoneNumber,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
-            )
-            contactInfoItems.add(personalPhone)
-        }
-
-        if (officePhoneNumber.isNotEmpty()) {
-            val officePhone = MenuContactItem(
-                contactIconRes = R.drawable.ic_phone,
-                contact = officePhoneNumber,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_office_phone_text)
-            )
-            contactInfoItems.add(officePhone)
-        }
-
-        if (officeEmail.isNotEmpty()) {
-            val officeEmail = MenuContactItem(
-                contactIconRes = R.drawable.ic_at_sign,
-                contact = officeEmail,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_office_email_text)
-            )
-            contactInfoItems.add(officeEmail)
-        }
-
-        return MenuContactInfoItem(
-            imageUrl = imageUrl,
-            gender = gender,
-            description = context.resources.getString(R.string.general_room, officeRoom),
-            name = fullName,
-            contactInfoItems = contactInfoItems
-        )
-    }
 }
 
 fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
