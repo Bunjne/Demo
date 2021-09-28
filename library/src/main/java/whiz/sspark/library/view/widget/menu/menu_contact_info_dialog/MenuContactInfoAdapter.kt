@@ -25,16 +25,14 @@ class MenuContactInfoAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val menuContactItem = menuContactItems.getOrNull(position)
         menuContactItem?.let {
-            (holder.itemView as? MenuContactInfoItemView)?.apply {
-                init(
-                    contactIconRes = it.contactIconRes,
-                    contact = it.contact,
-                    contactDescription = it.contactDescription,
-                    onContactClicked = {
-                        onContactClicked(it.contactDescription, it.contact)
-                    }
-                )
-            }
+            (holder.itemView as? MenuContactInfoItemView)?.init(
+                contactIconRes = it.contactIconRes,
+                contact = it.contact,
+                contactDescription = it.contactDescription,
+                onContactClicked = {
+                    onContactClicked(it.contactDescription, it.contact)
+                }
+            )
         }
     }
 

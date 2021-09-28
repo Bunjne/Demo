@@ -27,35 +27,33 @@ data class StudentGuardianDTO(
 }
 
 fun StudentGuardianDTO.getGuardianMenuInfoItem(context: Context): MenuContactInfoItem {
-    with(this) {
-        val contactInfoItems = mutableListOf<MenuContactItem>()
+    val contactInfoItems = mutableListOf<MenuContactItem>()
 
-        if (personalPhoneNumber.isNotEmpty()) {
-            val personalPhone = MenuContactItem(
-                contactIconRes = R.drawable.ic_phone,
-                contact = personalPhoneNumber,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
-            )
-
-            contactInfoItems.add(personalPhone)
-        }
-
-        if (personalEmail.isNotEmpty()) {
-            val personalEmail = MenuContactItem(
-                contactIconRes = R.drawable.ic_at_sign,
-                contact = personalEmail,
-                contactDescription = context.resources.getString(R.string.menu_contact_info_personal_email_text)
-            )
-
-            contactInfoItems.add(personalEmail)
-        }
-
-        return MenuContactInfoItem(
-            imageUrl = imageUrl,
-            gender = gender,
-            description = relation,
-            name = fullName,
-            contactInfoItems = contactInfoItems
+    if (personalPhoneNumber.isNotEmpty()) {
+        val personalPhone = MenuContactItem(
+            contactIconRes = R.drawable.ic_phone,
+            contact = personalPhoneNumber,
+            contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
         )
+
+        contactInfoItems.add(personalPhone)
     }
+
+    if (personalEmail.isNotEmpty()) {
+        val personalEmail = MenuContactItem(
+            contactIconRes = R.drawable.ic_at_sign,
+            contact = personalEmail,
+            contactDescription = context.resources.getString(R.string.menu_contact_info_personal_email_text)
+        )
+
+        contactInfoItems.add(personalEmail)
+    }
+
+    return MenuContactInfoItem(
+        imageUrl = imageUrl,
+        gender = gender,
+        description = relation,
+        name = fullName,
+        contactInfoItems = contactInfoItems
+    )
 }
