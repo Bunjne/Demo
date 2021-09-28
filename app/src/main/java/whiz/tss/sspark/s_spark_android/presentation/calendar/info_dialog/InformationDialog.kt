@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import whiz.sspark.library.extension.setFullScreenWidth
-import whiz.sspark.library.extension.toDP
-import whiz.sspark.library.extension.toJson
-import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.extension.*
 import whiz.sspark.library.view.general.information_dialog.InformationDialogAdapter
 import whiz.tss.sspark.s_spark_android.databinding.DialogInformationBinding
 
@@ -41,7 +38,7 @@ class InformationDialog: DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        setFullScreenWidth(horizontalPadding = 31.toDP(requireContext()))
+        setFullscreenWidth(horizontalPadding = 31.toDP(requireContext()))
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

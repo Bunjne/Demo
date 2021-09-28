@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
-fun DialogFragment.setFullScreenWidth(horizontalPadding: Int = 0) {
+fun DialogFragment.setFullscreenWidth(horizontalPadding: Int = 0) {
     val displayMetrics = Resources.getSystem().displayMetrics
     val rect = displayMetrics.run { Rect(0, 0, widthPixels, heightPixels) }
     val width = rect.width() - (horizontalPadding * 2)

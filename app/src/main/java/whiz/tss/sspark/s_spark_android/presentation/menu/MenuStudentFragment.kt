@@ -43,6 +43,7 @@ class MenuStudentFragment : BaseFragment() {
 
     private lateinit var student: Student
     private lateinit var termId: String
+    private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -92,11 +93,23 @@ class MenuStudentFragment : BaseFragment() {
             },
             onMemberClicked = {
                 if (it.type == MenuSegmentType.INSTRUCTOR) {
-                    val advisor = student.advisor.getOrNull(it.index)
-                    //TODO wait contact in screen
+                    student.advisor.getOrNull(it.index)?.let {
+                        val isShown = menuContactInfoDialog?.isAdded ?: false
+
+                        if (menuContactInfoDialog == null || !isShown) {
+                            menuContactInfoDialog = MenuContactInfoDialog.newInstance(it.getAdvisorMenuInfoItem(requireContext()))
+                            menuContactInfoDialog?.show(childFragmentManager, "advisorContactInfoDialog")
+                        }
+                    }
                 } else {
-                    val guardian = student.guardians.getOrNull(it.index)
-                    //TODO wait contact in screen
+                    student.guardians.getOrNull(it.index)?.let {
+                        val isShown = menuContactInfoDialog?.isAdded ?: false
+
+                        if (menuContactInfoDialog == null || !isShown) {
+                            menuContactInfoDialog = MenuContactInfoDialog.newInstance(it.getGuardianMenuInfoItem(requireContext()))
+                            menuContactInfoDialog?.show(childFragmentManager, "guardianContactInfoDialog")
+                        }
+                    }
                 }
             },
             onMenuClicked = { code ->
