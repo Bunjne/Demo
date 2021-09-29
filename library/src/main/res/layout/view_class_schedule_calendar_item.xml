@@ -4,13 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:translationY="-3dp"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginTop="4dp"
     app:background_Color="@color/viewBaseSecondaryColor"
     app:cornerRadius="12dp"
     app:shadow0_Outer_Alpha="1"
     app:shadow0_Outer_Blur="30dp"
     app:shadow0_Outer_Color="@color/shadowColor"
-    app:shadow_Outer_Area="12dp">
+    app:shadow_Outer_Area="6dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/llScheduleRow"
