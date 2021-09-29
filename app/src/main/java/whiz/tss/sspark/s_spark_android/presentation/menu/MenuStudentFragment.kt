@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.MenuSegment
 import whiz.sspark.library.data.entity.Student
+import whiz.sspark.library.data.entity.getAdvisorMenuInfoItem
+import whiz.sspark.library.data.entity.getGuardianMenuInfoItem
 import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
@@ -45,6 +47,7 @@ class MenuStudentFragment : BaseFragment() {
 
     private lateinit var student: Student
     private lateinit var termId: String
+    private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -94,11 +97,23 @@ class MenuStudentFragment : BaseFragment() {
             },
             onMemberClicked = {
                 if (it.type == MenuSegmentType.INSTRUCTOR) {
-                    val advisor = student.advisor.getOrNull(it.index)
-                    //TODO wait contact in screen
+                    student.advisor.getOrNull(it.index)?.let {
+                        val isShown = menuContactInfoDialog?.isAdded ?: false
+
+                        if (menuContactInfoDialog == null || !isShown) {
+                            menuContactInfoDialog = MenuContactInfoDialog.newInstance(it.getAdvisorMenuInfoItem(requireContext()))
+                            menuContactInfoDialog?.show(childFragmentManager, "advisorContactInfoDialog")
+                        }
+                    }
                 } else {
-                    val guardian = student.guardians.getOrNull(it.index)
-                    //TODO wait contact in screen
+                    student.guardians.getOrNull(it.index)?.let {
+                        val isShown = menuContactInfoDialog?.isAdded ?: false
+
+                        if (menuContactInfoDialog == null || !isShown) {
+                            menuContactInfoDialog = MenuContactInfoDialog.newInstance(it.getGuardianMenuInfoItem(requireContext()))
+                            menuContactInfoDialog?.show(childFragmentManager, "guardianContactInfoDialog")
+                        }
+                    }
                 }
             },
             onMenuClicked = { code ->
