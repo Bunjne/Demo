@@ -77,6 +77,11 @@
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
     <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
     <string name="menu_notification_inbox_text">กล่องข้อความ</string>
+    <string name="menu_contact_info_office_email_text">อีเมล</string>
+    <string name="menu_contact_info_personal_email_text">อีเมลส่วนตัว</string>
+    <string name="menu_contact_info_office_phone_text">โทรศัพท์</string>
+    <string name="menu_contact_info_personal_phone_text">โทรศัพท์ส่วนตัว</string>
+    <string name="menu_contact_info_close_text">ปิด</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>
