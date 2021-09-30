@@ -6,7 +6,7 @@ import java.util.*
 data class CalendarDTO(
         @SerializedName("month") val month: Int = 0,
         @SerializedName("year") val year: Int = 0,
-        @SerializedName("events") private val _events: List<CalendarEventDTO>? = null,
+        @SerializedName("events") private val _events: List<CalendarEventDTO>? = null
 ) {
         val events get() = _events ?: listOf()
 }

@@ -18,10 +18,10 @@ class MonthSelectionAdapter(private val onPreviousMonthClicked: () -> Unit,
         return MONTH_SELECTION_VIEW_TYPE
     }
 
-    private class WeekSelectionViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class MonthSelectionViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return WeekSelectionViewHolder(CalendarMonthSelectionItemView(parent.context).apply {
+        return MonthSelectionViewHolder(CalendarMonthSelectionItemView(parent.context).apply {
             layoutParams = RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
