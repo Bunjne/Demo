@@ -78,7 +78,7 @@ class TimelineFragment : BaseFragment() {
 //                                        "courseName" to courseName,
 //                                        "sectionNumber" to sectionNumber,
 //                                        "classIconUrl" to classIconUrl,
-//                                        "color" to Color.parseColor(colorCode),
+//                                        "color" to colorCode.toColor()
 //                                        "allMemberCount" to allMemberCount
 //                                    )
 //                                }

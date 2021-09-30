@@ -11,15 +11,21 @@ import whiz.sspark.library.extension.toCalendarEventType
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.calendar.CalendarAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityCalendarBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.calendar.info_dialog.InformationDialog
 import java.util.*
 
 class CalendarActivity : BaseActivity() {
+
+    companion object {
+        const val CALENDAR_INFO_DIALOG = "CalendarInfoDialog"
+    }
 
     private val viewModel: CalendarViewModel by viewModel()
 
@@ -68,7 +74,7 @@ class CalendarActivity : BaseActivity() {
 
     override fun initView() {
         binding.vCalendar.init(
-            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString()),
+            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             onPreviousMonthClicked = {
                 calendars.getOrNull(selectedIndex - 1)?.let {
                     selectedIndex -= 1
@@ -78,13 +84,27 @@ class CalendarActivity : BaseActivity() {
             },
             onNextMonthClicked = {
                 calendars.getOrNull(selectedIndex + 1)?.let {
-                    selectedIndex -= 1
+                    selectedIndex += 1
                     updateMonth()
                     updateAdapterItem()
                 }
             },
             onInfoClicked = {
-                            // TODO wait information dialog
+                val isShowing = supportFragmentManager.findFragmentByTag(CALENDAR_INFO_DIALOG) != null
+
+                if(!isShowing) {
+                    val informationItems = calendarInfo.map {
+                        CalendarInformationIndex(
+                            _color = it.colorCode,
+                            description = it.name
+                        )
+                    }.toInformationItems()
+
+                    InformationDialog.newInstance(
+                        headerText = resources.getString(R.string.information_dialog_calendar_information_color_header),
+                        informationItems = informationItems
+                    ).show(supportFragmentManager, CALENDAR_INFO_DIALOG)
+                }
             },
             onRefresh = {
                 viewModel.getCalendar(currentTerm.id)
@@ -134,6 +154,7 @@ class CalendarActivity : BaseActivity() {
 
         viewModel.errorMessage.observe(this) {
             it?.let {
+                binding.vCalendar.setLatestUpdatedText(getNullDataWrapperX())
                 showAlertWithOkButton(it)
             }
         }
@@ -151,6 +172,9 @@ class CalendarActivity : BaseActivity() {
                     return
                 }
             }
+
+            selectedIndex = 0
+            updateMonth()
         }
     }
 
@@ -247,14 +271,14 @@ class CalendarActivity : BaseActivity() {
             if(existingEvents.any()) {
                 val day = tempCalendar.get(Calendar.DAY_OF_MONTH)
 
-                val prioritizedEvent = existingEvents.maxByOrNull { it.type.toCalendarEventType().type.toIntOrNull() ?: 0 }!!
+                val prioritizedEvent = existingEvents.maxByOrNull { it.type.toCalendarEventType().value }!!
 
                 val consecutiveDay = highlightDays.singleOrNull { (it.day + it.eventCount) == day && it.title == prioritizedEvent.name}
                 if(consecutiveDay == null) {
                     highlightDays.add(CalendarEntry(day, 1, prioritizedEvent.type.toCalendarEventType(), prioritizedEvent.name, prioritizedEvent.colorCode))
                 } else {
                     when {
-                        prioritizedEvent.type.toCalendarEventType().type == consecutiveDay.type.type -> {
+                        prioritizedEvent.type.toCalendarEventType().value == consecutiveDay.type.value -> {
                             val addedEventCount = consecutiveDay.eventCount + 1
                             highlightDays.removeAll { it.day == consecutiveDay.day }
                             highlightDays.add(CalendarEntry(consecutiveDay.day, addedEventCount, consecutiveDay.type, consecutiveDay.title, consecutiveDay.colorCode))

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.ScheduleSlot
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.extension.toDP
 import java.text.SimpleDateFormat
 import java.util.*
@@ -126,11 +127,7 @@ class ScheduleRowView : View {
 
             slotPaints.add(Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 style = Paint.Style.FILL
-                color = try {
-                    Color.parseColor(slotColor)
-                } catch (exception: Exception) {
-                    Color.BLACK
-                }
+                color = slotColor.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor))
             })
         }
 

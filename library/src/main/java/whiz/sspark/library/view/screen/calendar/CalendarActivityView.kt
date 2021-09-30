@@ -16,6 +16,7 @@ import whiz.sspark.library.extension.showViewStateX
 import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
 import whiz.sspark.library.view.widget.calendar.CalendarAdapter
 import whiz.sspark.library.view.widget.calendar.MonthSelectionAdapter
+import java.lang.Exception
 
 class CalendarActivityView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -84,6 +85,12 @@ class CalendarActivityView: ConstraintLayout {
     }
 
     fun updateCalendar(items: List<CalendarAdapter.CalendarItem>) {
-        calendarAdapter?.submitList(items)
+        calendarAdapter?.submitList(items) {
+            try {
+                binding.rvCalendar.scrollToPosition(0)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }

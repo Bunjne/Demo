@@ -12,6 +12,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.CalendarEntry
 import whiz.sspark.library.data.enum.CalendarEventType
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.extension.toDP
 import java.util.*
 
@@ -265,7 +266,7 @@ class CalendarView : View {
                     if (highlightDay.eventCount == 1) { // If the event is not consecutive
 
                         val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                            color = Color.parseColor(highlightDay.colorCode)
+                            color = highlightDay.colorCode.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor))
                         }
                         drawHighlightCircleBackground(canvas, x, y, backgroundPaint)
                         canvas.drawText(day.toString(), x + centerTextOffset, y, dayTextColor)
@@ -335,7 +336,7 @@ class CalendarView : View {
         val currentDayOfWeek = selectedCalendar.get(Calendar.DAY_OF_WEEK)
         val eventCount = highlightDay.eventCount
         val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor(highlightDay.colorCode)
+            color = highlightDay.colorCode.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor))
         }
 
         if (((currentDayOfWeek + eventCount) - 1) > maxDayNumber) {

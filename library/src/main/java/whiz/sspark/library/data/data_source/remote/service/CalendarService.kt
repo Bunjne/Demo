@@ -6,7 +6,7 @@ import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface CalendarService {
-    @GET("v1/calendar")
+    @GET("v1/calendars")
     suspend fun getCalendar(@Query("termId") termId: String): Response<ApiResponseX>
 
     @GET("v1/calendars/types")

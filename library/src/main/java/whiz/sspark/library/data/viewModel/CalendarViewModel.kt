@@ -49,6 +49,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
         viewModelScope.launch {
             calendarRepository.getCalendar(termId)
                 .onStart {
+                    _viewRendering.value = null
                     _viewLoading.value = true
                 }
                 .onCompletion {
@@ -58,6 +59,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     _errorMessage.value = it.localizedMessage
                 }
                 .collect {
+                    _viewRendering.value = it
                     val data = it.data
 
                     data?.let {
@@ -73,6 +75,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
         viewModelScope.launch {
             calendarRepository.getCalendarInfo()
                 .onStart {
+                    _viewRendering.value = null
                     _viewLoading.value = true
                 }
                 .onCompletion {
@@ -82,6 +85,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     _errorMessage.value = it.localizedMessage
                 }
                 .collect {
+                    _viewRendering.value = it
                     val data = it.data
 
                     data?.let {
