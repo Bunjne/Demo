@@ -10,6 +10,7 @@ import whiz.sspark.library.data.enum.CalendarEventType
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.viewModel.StudentExamScheduleViewModel
 import whiz.sspark.library.extension.*
+import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.exam_schedule.ExamScheduleAdapter
@@ -68,7 +69,7 @@ class StudentExamScheduleActivity : BaseActivity() {
 
     override fun initView() {
         binding.vExamSchedule.init(
-            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toLocalizedYear().toString()),
+            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             segmentTitles = segmentTitles,
             onSegmentClicked = {
                 if (selectedTab != it) {
@@ -143,15 +144,14 @@ class StudentExamScheduleActivity : BaseActivity() {
                 val year = monthYearSplit[1].toInt()
 
                 val monthYearTitle = it.value.first().date.convertToDateString(
-                    defaultPattern = DateTimePattern.FullMonthYearFormat,
-                    dayMonthThPattern = DateTimePattern.FullMonthFormatTh,
+                    defaultPattern = DateTimePattern.fullMonthYearFormat,
+                    dayMonthThPattern = DateTimePattern.fullMonthFormatTh,
                     yearThPattern = DateTimePattern.generalYear
                 )
 
                 items.add(ExamScheduleAdapter.Item(title = monthYearTitle))
 
-                val groupExamByDay =
-                    it.value.groupBy { it.date.convertToDateString(DateTimePattern.fullDayNameWithDayFormat) }
+                val groupExamByDay = it.value.groupBy { it.date.convertToDateString(DateTimePattern.fullDayNameWithDayFormat) }
 
                 val calendarEntries = groupExamByDay.map {
                     val daySplit = it.key.split(" ")
