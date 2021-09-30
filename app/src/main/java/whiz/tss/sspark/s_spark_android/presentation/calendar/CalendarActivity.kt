@@ -161,19 +161,17 @@ class CalendarActivity : BaseActivity() {
     }
 
     private fun initSelectedMonth() {
-        val month = Calendar.getInstance().get(Calendar.MONTH)
+        val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
 
         if (calendars.isNotEmpty()) {
-            for (index in calendars.lastIndex downTo 0) {
-                val calendarMonth = calendars[index].month
-                if (month >= calendarMonth) {
-                    selectedIndex = calendarMonth
-                    updateMonth()
-                    return
+            var index = 0
+            while (calendars.getOrNull(index)?.month ?: 12 < currentMonth ) {
+                if (index < calendars.lastIndex) {
+                    index++
                 }
             }
 
-            selectedIndex = 0
+            selectedIndex = index
             updateMonth()
         }
     }
