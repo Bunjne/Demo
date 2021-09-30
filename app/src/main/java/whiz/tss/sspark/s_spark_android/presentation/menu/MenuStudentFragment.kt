@@ -123,10 +123,6 @@ class MenuStudentFragment : BaseFragment() {
                         val intent = Intent(requireContext(), LearningPathwayActivity::class.java)
                         startActivity(intent)
                     }
-                    MenuCode.EXAM_SCHEDULE.code -> {
-                        val intent = Intent(requireContext(), StudentExamScheduleActivity::class.java)
-                        startActivity(intent)
-                    }
                     //TODO wait implement other screen
                 }
             },
