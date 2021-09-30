@@ -197,6 +197,9 @@
     <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
     <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
 
+    <!--Calendar Color Information-->
+    <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
+
     <!--Calendar-->
     <string name="calendar_title">ปฏิทินการศึกษา</string>
     <string name="calendar_end_date">ถึง %1$s</string>
