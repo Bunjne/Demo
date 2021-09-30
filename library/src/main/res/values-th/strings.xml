@@ -175,7 +175,6 @@
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
     <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
 
-
     <!--Learning pathway-->
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
     <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
@@ -191,4 +190,7 @@
     <string name="class_schedule_range">%1$s - %2$s</string>
     <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
     <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
+
+    <!--information dialog-->
+    <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
 </resources>

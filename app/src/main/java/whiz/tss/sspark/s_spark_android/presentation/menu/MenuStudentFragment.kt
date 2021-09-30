@@ -10,10 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.MenuSegment
-import whiz.sspark.library.data.entity.Student
-import whiz.sspark.library.data.entity.getAdvisorMenuInfoItem
-import whiz.sspark.library.data.entity.getGuardianMenuInfoItem
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
