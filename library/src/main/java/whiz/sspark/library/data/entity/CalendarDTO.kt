@@ -8,7 +8,7 @@ data class CalendarDTO(
         @SerializedName("year") val year: Int = 0,
         @SerializedName("events") private val _events: List<CalendarEventDTO>? = null,
 ) {
-        val event get() = _events ?: listOf()
+        val events get() = _events ?: listOf()
 }
 
 data class CalendarEventDTO(

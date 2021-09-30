@@ -25,6 +25,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.LearningPathwayActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
@@ -123,6 +124,10 @@ class MenuStudentFragment : BaseFragment() {
                     }
                     MenuCode.LEARNING_PATHWAY.code -> {
                         val intent = Intent(requireContext(), LearningPathwayActivity::class.java)
+                        startActivity(intent)
+                    }
+                    MenuCode.CALENDAR.code -> {
+                        val intent = Intent(requireContext(), CalendarActivity::class.java)
                         startActivity(intent)
                     }
                     //TODO wait implement other screen

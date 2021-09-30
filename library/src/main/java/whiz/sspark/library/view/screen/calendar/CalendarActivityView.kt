@@ -32,9 +32,16 @@ class CalendarActivityView: ConstraintLayout {
     fun init(term: String,
              onPreviousMonthClicked: () -> Unit,
              onNextMonthClicked: () -> Unit,
+             onInfoClicked: () -> Unit,
              onRefresh: () -> Unit) {
         binding.tvTerm.text = term
-        binding.icMoreInfo.show(R.drawable.ic_info)
+
+        with(binding.icMoreInfo) {
+            show(R.drawable.ic_info)
+            setOnClickListener {
+                onInfoClicked()
+            }
+        }
 
         val config = ConcatAdapter.Config.Builder().apply {
             setIsolateViewTypes(false)
@@ -72,11 +79,11 @@ class CalendarActivityView: ConstraintLayout {
         binding.tvLatestUpdated.showViewStateX(data)
     }
 
-    fun updateSelectedWeek(weeks: MonthSelection) {
-        monthSelectionAdapter?.submitList(listOf(weeks))
+    fun updateSelectedMonth(month: MonthSelection) {
+        monthSelectionAdapter?.submitList(listOf(month))
     }
 
-    fun updateSchedule(item: List<CalendarAdapter.CalendarItem>) {
-        calendarAdapter?.submitList(item)
+    fun updateCalendar(items: List<CalendarAdapter.CalendarItem>) {
+        calendarAdapter?.submitList(items)
     }
 }

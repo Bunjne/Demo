@@ -8,6 +8,7 @@ import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import java.lang.Exception
+import java.util.*
 
 inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>): DataWrapperX<T> {
     val data = response.body()?.data?.toObject<T>()
@@ -20,7 +21,8 @@ inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>)
     return DataWrapperX(
         data = data,
         error = error,
-        dataSource = DataSource.NETWORK
+        dataSource = DataSource.NETWORK,
+        latestDateTime = Date()
     )
 }
 
@@ -35,7 +37,8 @@ inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>,
     return DataWrapperX(
         data = data,
         error = error,
-        dataSource = DataSource.NETWORK
+        dataSource = DataSource.NETWORK,
+        latestDateTime = Date()
     )
 }
 

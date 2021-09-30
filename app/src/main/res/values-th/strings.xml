@@ -74,4 +74,8 @@
 
     <!--Class Schedule-->
     <string name="class_schedule_no_class">ไม่มีวิชาเรียน</string>
+
+    <!--Calendar-->
+    <string name="calendar_no_event">ไม่มีกิจกรรม</string>
+    <string name="calendar_no_calendar">ไม่มีปฏิทิน</string>
 </resources>
