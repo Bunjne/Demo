@@ -127,7 +127,8 @@ class CalendarActivity : BaseActivity() {
         viewModel.calendarResponse.observe(this) {
             it?.let {
                 calendars = it
-                initSelectedMonth()
+                selectedIndex = getInitialMonth()
+                updateMonth()
                 updateAdapterItem()
             }
         }
@@ -160,20 +161,24 @@ class CalendarActivity : BaseActivity() {
         }
     }
 
-    private fun initSelectedMonth() {
+    private fun getInitialMonth(): Int {
         val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
 
         if (calendars.isNotEmpty()) {
             var index = 0
+
             while (calendars.getOrNull(index)?.month ?: 12 < currentMonth ) {
                 if (index < calendars.lastIndex) {
                     index++
+                } else {
+                    break
                 }
             }
 
-            selectedIndex = index
-            updateMonth()
+            return index
         }
+
+        return -1
     }
 
     private fun updateMonth() {
@@ -212,6 +217,15 @@ class CalendarActivity : BaseActivity() {
         } else {
             calendars.getOrNull(selectedIndex)?.let { calendar ->
                 if (calendar.events.isEmpty()) {
+                    val calendarItem = CalendarAdapter.CalendarItem.Calendar(
+                        month = calendar.month,
+                        year = calendar.year,
+                        entries = listOf(),
+                        isExamCalendar = false
+                    )
+
+                    items.add(calendarItem)
+
                     val title = CalendarAdapter.CalendarItem.NoEvent(
                         title = resources.getString(R.string.calendar_no_event)
                     )
