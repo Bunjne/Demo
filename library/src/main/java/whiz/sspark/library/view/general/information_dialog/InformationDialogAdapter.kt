@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.CalendarInformationIndex
-import whiz.sspark.library.data.entity.JuniorOutcome
-import whiz.sspark.library.data.entity.SeniorOutcome
+import whiz.sspark.library.data.entity.JuniorOutcomeIndex
+import whiz.sspark.library.data.entity.SeniorOutcomeIndex
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.general.information_dialog.item.CalendarColorInformationItemView
 import whiz.sspark.library.view.general.information_dialog.item.JuniorExpectedOutcomeItemView
@@ -61,14 +61,14 @@ class InformationDialogAdapter(private val context: Context,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items.getOrNull(position)
 
-        item?.juniorOutcome?.let {
+        item?.juniorOutcomeIndex?.let {
             (holder.itemView as JuniorExpectedOutcomeItemView).init(
                 number = it.number,
                 description = it.description
             )
         }
 
-        item?.seniorOutcome?.let {
+        item?.seniorOutcomeIndex?.let {
             (holder.itemView as SeniorExpectedOutcomeItemView).init(
                 level = it.level,
                 description = it.description
@@ -89,8 +89,8 @@ class InformationDialogAdapter(private val context: Context,
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            items[position].juniorOutcome != null -> InformationDialogItemType.JUNIOR_OUTCOME_ITEM_TYPE.type
-            items[position].seniorOutcome != null -> InformationDialogItemType.SENIOR_OUTCOME_ITEM_TYPE.type
+            items[position].juniorOutcomeIndex != null -> InformationDialogItemType.JUNIOR_OUTCOME_ITEM_TYPE.type
+            items[position].seniorOutcomeIndex != null -> InformationDialogItemType.SENIOR_OUTCOME_ITEM_TYPE.type
             items[position].calendarInformationIndex != null -> InformationDialogItemType.CALENDAR_COLOR_INFO_ITEM_TYPE.type
             else -> InformationDialogItemType.CALENDAR_COLOR_INFO_ITEM_TYPE.type
         }
@@ -99,8 +99,8 @@ class InformationDialogAdapter(private val context: Context,
     override fun getItemCount() = items.size
 
     data class Item(
-        val juniorOutcome: JuniorOutcome? = null,
-        val seniorOutcome: SeniorOutcome? = null,
+        val juniorOutcomeIndex: JuniorOutcomeIndex? = null,
+        val seniorOutcomeIndex: SeniorOutcomeIndex? = null,
         val calendarInformationIndex: CalendarInformationIndex? = null
     )
 }

@@ -40,12 +40,12 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         fun getOutcomesHeader(context: Context) = context.resources.getString(R.string.school_record_evaluation_title)
 
         fun getJuniorOutcomesItems(context: Context): List<InformationDialogAdapter.Item> = listOf(
-            JuniorOutcome(0, context.resources.getString(R.string.school_record_zero_score_description_text)),
-            JuniorOutcome(1, context.resources.getString(R.string.school_record_one_score_description_text)),
-            JuniorOutcome(2, context.resources.getString(R.string.school_record_two_score_description_text)),
-            JuniorOutcome(3, context.resources.getString(R.string.school_record_three_score_description_text)),
-            JuniorOutcome(4, context.resources.getString(R.string.school_record_four_score_description_text)),
-            JuniorOutcome(5, context.resources.getString(R.string.school_record_five_score_description_text)),
+            JuniorOutcomeIndex(0, context.resources.getString(R.string.school_record_zero_score_description_text)),
+            JuniorOutcomeIndex(1, context.resources.getString(R.string.school_record_one_score_description_text)),
+            JuniorOutcomeIndex(2, context.resources.getString(R.string.school_record_two_score_description_text)),
+            JuniorOutcomeIndex(3, context.resources.getString(R.string.school_record_three_score_description_text)),
+            JuniorOutcomeIndex(4, context.resources.getString(R.string.school_record_four_score_description_text)),
+            JuniorOutcomeIndex(5, context.resources.getString(R.string.school_record_five_score_description_text)),
         ).toInformationItems()
     }
 

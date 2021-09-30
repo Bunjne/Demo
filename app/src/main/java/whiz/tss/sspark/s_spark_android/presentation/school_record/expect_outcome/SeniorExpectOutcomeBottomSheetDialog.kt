@@ -40,19 +40,19 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         fun getOutcomesHeader(context: Context) = context.resources.getString(R.string.school_record_evaluation_title)
 
         fun getSeniorOutcomeItems(context: Context): List<InformationDialogAdapter.Item> = listOf(
-            SeniorOutcome(
+            SeniorOutcomeIndex(
                 level = context.resources.getString(R.string.school_record_beginning_text),
                 description = context.resources.getString(R.string.school_record_beginning_description_text)
             ),
-            SeniorOutcome(
+            SeniorOutcomeIndex(
                 level = context.resources.getString(R.string.school_record_developing_text),
                 description = context.resources.getString(R.string.school_record_developing_description_text)
             ),
-            SeniorOutcome(
+            SeniorOutcomeIndex(
                 level = context.resources.getString(R.string.school_record_proficient_text),
                 description = context.resources.getString(R.string.school_record_proficient_description_text)
             ),
-            SeniorOutcome(
+            SeniorOutcomeIndex(
                 level = context.resources.getString(R.string.school_record_advance_text),
                 description = context.resources.getString(R.string.school_record_advance_description_text)
             )

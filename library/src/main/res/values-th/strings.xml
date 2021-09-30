@@ -175,7 +175,6 @@
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
     <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
 
-
     <!--Learning pathway-->
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
     <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
