@@ -15,7 +15,7 @@ class MenuMemberAdapter(private val context: Context,
                         private val onMemberClicked: (MenuMemberItem) -> Unit): ListAdapter<MenuMemberItem, MenuMemberAdapter.ViewHolder>(MenuMemberDiffCallback()) {
 
     companion object {
-        const val VIEW_TYPE = 2222
+        const val VIEW_TYPE = 2
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -5,91 +5,60 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
-import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
-import whiz.sspark.library.databinding.ViewMenuStudentFragmentBinding
+import whiz.sspark.library.databinding.ViewInstructorMenuFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showUserProfileCircle
 import whiz.sspark.library.extension.toDP
+import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.general.custom_divider.CustomWidgetPaddingItemDecoration
 import whiz.sspark.library.view.widget.menu.MenuAdapter
-import whiz.sspark.library.view.widget.menu.MenuSegmentAdapter
 import whiz.sspark.library.view.widget.menu.MenuMemberAdapter
+import whiz.sspark.library.view.widget.menu.MenuSegmentAdapter
 
-class MenuStudentFragmentView : ConstraintLayout {
+class InstructorMenuFragmentView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewMenuStudentFragmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewInstructorMenuFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    private var menuSegmentType = MenuSegmentType.INSTRUCTOR.type
-
-    private var segmentAdapter: MenuSegmentAdapter? = null
-    private var memberAdapter: MenuMemberAdapter? = null
     private var menuAdapter: MenuAdapter? = null
 
-    private val memberItems: MutableList<MenuMemberItem> = mutableListOf()
-
-    fun init(student: Student,
-             segments: List<MenuSegment>,
+    fun init(instructor: Instructor,
              onCameraClicked: () -> Unit,
              onMenuClicked: (String) -> Unit,
-             onMemberClicked: (MenuMemberItem) -> Unit,
              onRefresh: () -> Unit) {
-
-        val convertedMember = student.getMenuMember(context)
-        with(this.memberItems) {
-            clear()
-            addAll(convertedMember)
-        }
 
         binding.ivCamera.show(R.drawable.ic_camera)
         binding.vGradientTop.show(R.drawable.bg_primary_gradient_0)
-        binding.ivProfile.showUserProfileCircle(student.profileImageUrl, getGender(student.gender).type)
+        binding.ivProfile.showUserProfileCircle(instructor.profileImageUrl, getGender(instructor.gender).type)
 
-        binding.tvFirstname.text = student.firstName
-        binding.tvLastname.text = student.lastName
-        binding.tvIDCardNumber.text = resources.getString(R.string.menu_id_card_number, student.code)
+        binding.tvFirstname.text = convertToFullName(instructor.firstName, null, null, instructor.position)
+        binding.tvLastname.text = instructor.lastName
+        binding.tvJobPosition.text = instructor.jobPosition
         binding.cvCamera.setOnClickListener {
             onCameraClicked()
         }
 
         binding.srlMenu.setOnRefreshListener {
-            resetMemberSegment()
+            menuAdapter?.resetHeight()
             onRefresh()
         }
 
-        segmentAdapter = MenuSegmentAdapter(
-            context = context,
-            segments = segments,
-            onSegmentSelected = {
-                menuSegmentType = it
-                updateMemberAdapter()
-            }
-        )
-
-        memberAdapter = MenuMemberAdapter(context, onMemberClicked)
         menuAdapter = MenuAdapter(context, onMenuClicked)
-
-        val config = ConcatAdapter.Config.Builder().apply {
-            setIsolateViewTypes(false)
-        }.build()
-
-        val concatAdapter = ConcatAdapter(config, segmentAdapter, memberAdapter, menuAdapter)
 
         val layoutManager = GridLayoutManager(context, 12)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return when (concatAdapter.getItemViewType(position)) {
+                return when (menuAdapter!!.getItemViewType(position)) {
                     MenuSegmentAdapter.VIEW_TYPE -> 12
                     MenuMemberAdapter.VIEW_TYPE -> 12
                     MenuAdapter.MENU_TYPE -> 12
@@ -97,6 +66,7 @@ class MenuStudentFragmentView : ConstraintLayout {
                     MenuAdapter.MESSAGE_WIDGET_TYPE -> 6
                     MenuAdapter.CALENDAR_WIDGET_TYPE -> 6
                     MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE -> 6
+                    MenuAdapter.DOWNLOAD_FAILED_WIDGET_TYPE -> 6
                     else -> 12
                 }
             }
@@ -115,6 +85,7 @@ class MenuStudentFragmentView : ConstraintLayout {
                     CustomWidgetPaddingItemDecoration(
                         padding = 6.toDP(context),
                         viewTypes = listOf(
+                            MenuAdapter.DOWNLOAD_FAILED_WIDGET_TYPE,
                             MenuAdapter.NO_MESSAGE_WIDGET_TYPE,
                             MenuAdapter.MESSAGE_WIDGET_TYPE,
                             MenuAdapter.CALENDAR_WIDGET_TYPE,
@@ -123,49 +94,19 @@ class MenuStudentFragmentView : ConstraintLayout {
             }
 
             this.layoutManager = layoutManager
-            adapter = concatAdapter
+            adapter = menuAdapter
         }
-
-        updateMemberAdapter()
     }
 
     fun setSwipeRefreshLoading(isLoading: Boolean?) {
         binding.srlMenu.isRefreshing = isLoading == true
     }
 
-    private fun resetMemberSegment() {
-        menuSegmentType = MenuSegmentType.INSTRUCTOR.type
-        updateMemberAdapter()
-        segmentAdapter?.resetSelectedTab()
-        menuAdapter?.resetHeight()
-    }
-
-    private fun updateMemberAdapter() {
-        val filterMember = memberItems.filter { it.type.type == menuSegmentType }
-        memberAdapter?.submitList(filterMember)
-    }
-
-    fun updateStudentProfileImage(profileImageUrl: String, gender: Long) {
+    fun updateProfileImage(profileImageUrl: String, gender: Long) {
         binding.ivProfile.showUserProfileCircle(profileImageUrl, gender)
     }
 
-    fun updateMenu(menusDTO: List<MenuDTO>) {
-        val items = mutableListOf<MenuAdapter.Item>()
-
-        menusDTO.forEach { menuDTO ->
-            items.add(MenuAdapter.Item(type = menuDTO.type, code = menuDTO.code, title = menuDTO.name))
-
-            menuDTO.items.forEach { menuItemDTO ->
-                when (menuItemDTO.type) {
-                    MenuItemType.ADVISING_WIDGET.type,
-                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
-                    MenuItemType.CALENDAR_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, calendarItem = CalendarWidgetItem()))
-                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, gradeSummary = listOf()))
-                    else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
-                }
-            }
-        }
-
+    fun updateMenu(items: List<MenuAdapter.Item>) {
         menuAdapter?.submitList(items)
     }
 
@@ -174,6 +115,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.ADVISING_WIDGET.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.previewMessageItem = menuAdvisingNoteDTO.convertToPreviewMessageItem()
             menuAdapter?.notifyItemChanged(index)
         }
@@ -184,6 +126,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.CALENDAR_WIDGET.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.calendarItem = menuCalendarDTO.convertToCalendarItem()
             menuAdapter?.notifyItemChanged(index)
         }
@@ -194,6 +137,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.NOTIFICATION_WIDGET.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.previewMessageItem = menuNotificationInboxDTO.convertToPreviewMessageItem()
             menuAdapter?.notifyItemChanged(index)
         }
@@ -204,7 +148,18 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.GRADE_SUMMARY.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.gradeSummary = convertToGradeSummaryItem(grades)
+            menuAdapter?.notifyItemChanged(index)
+        }
+    }
+
+    fun updateFailedWidget(menuType: String) {
+        val items = menuAdapter?.currentList ?: listOf()
+        val index = items.indexOfFirst { it.type == menuType }
+
+        if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = true
             menuAdapter?.notifyItemChanged(index)
         }
     }
