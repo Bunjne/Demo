@@ -158,7 +158,7 @@ class StudentExamScheduleActivity : BaseActivity() {
                     val day = daySplit[1].toIntOrNull() ?: 1
 
                     CalendarEntry(
-                        day = day,
+                        startDay = day,
                         eventCount = it.value.size,
                         type = CalendarEventType.EXAM
                     )

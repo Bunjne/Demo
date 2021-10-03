@@ -12,6 +12,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.CalendarEntry
 import whiz.sspark.library.data.enum.CalendarEventType
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.extension.toDP
 import java.util.*
 
@@ -225,7 +226,7 @@ class CalendarView : View {
 
     private fun drawDay(canvas: Canvas, day: Int, x: Float, y: Float, isExamCalendar: Boolean) {
         if (isSameMonth()) {
-            val highlightDay = highlightDays.singleOrNull { it.day == day }
+            val highlightDay = highlightDays.singleOrNull { it.startDay == day }
             if (isExamCalendar) { // If the exam calendar is being rendered
                 if (highlightDay != null) {
 
@@ -236,14 +237,14 @@ class CalendarView : View {
                     val circleStartingPointX = x + circleOffsetX
 
                     canvas.drawCircle(circleStartingPointX,
-                            y - circleOffsetY,
-                            columnWidth / 10f,
-                            highlightExamAmountBackgroundPaint)
+                        y - circleOffsetY,
+                        columnWidth / 10f,
+                        highlightExamAmountBackgroundPaint)
 
                     canvas.drawCircle(circleStartingPointX,
-                            y - circleOffsetY,
-                            columnWidth / 8f,
-                            highlightExamAmountStrokePaint)
+                        y - circleOffsetY,
+                        columnWidth / 8f,
+                        highlightExamAmountStrokePaint)
 
                     val examAmountPositionY = (y - (columnWidth / 4)) + highlightExamAmountTextPaint.descent() - 1.toDP(context)
 
@@ -265,7 +266,7 @@ class CalendarView : View {
                     if (highlightDay.eventCount == 1) { // If the event is not consecutive
 
                         val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                            color = Color.parseColor(highlightDay.colorCode)
+                            color = highlightDay.colorCode.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor))
                         }
                         drawHighlightCircleBackground(canvas, x, y, backgroundPaint)
                         canvas.drawText(day.toString(), x + centerTextOffset, y, dayTextColor)
@@ -285,14 +286,14 @@ class CalendarView : View {
 
                                 if(isWeekEnd() && isExamWeekendSkipped && highlightDay.type == CalendarEventType.EXAM) {
                                     canvas.drawText(currentDay.toString(),
-                                            dayPositionX + centerTextOffset,
-                                            dayPositionY,
-                                            calendarDimTextPaint)
+                                        dayPositionX + centerTextOffset,
+                                        dayPositionY,
+                                        calendarDimTextPaint)
                                 } else {
                                     canvas.drawText(currentDay.toString(),
-                                            dayPositionX + centerTextOffset,
-                                            dayPositionY,
-                                            dayTextColor)
+                                        dayPositionX + centerTextOffset,
+                                        dayPositionY,
+                                        dayTextColor)
                                 }
 
                                 totalDays--
@@ -335,7 +336,7 @@ class CalendarView : View {
         val currentDayOfWeek = selectedCalendar.get(Calendar.DAY_OF_WEEK)
         val eventCount = highlightDay.eventCount
         val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor(highlightDay.colorCode)
+            color = highlightDay.colorCode.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor))
         }
 
         if (((currentDayOfWeek + eventCount) - 1) > maxDayNumber) {
@@ -345,9 +346,9 @@ class CalendarView : View {
                 (columnWidth * (maxDayNumber)) - (highlightOffsetX / 1f)
             }
             val rectF = RectF(x + highlightOffsetX,
-                    y - highlightOffsetTopY,
-                    positionEndX,
-                    y + highlightOffsetBottomX)
+                y - highlightOffsetTopY,
+                positionEndX,
+                y + highlightOffsetBottomX)
             canvas.drawRoundRect(rectF, highlightRadius, highlightRadius, backgroundPaint)
 
             var remainingDays = (eventCount - (maxDayNumber - currentDayOfWeek)) - 1
@@ -358,15 +359,15 @@ class CalendarView : View {
             while (remainingDays > 0) {
                 val additionalRectF = if (remainingDays >= maxDayNumber) {
                     RectF(startingPositionX + highlightOffsetX,
-                            positionY - highlightOffsetTopY,
-                            positionEndX,
-                            positionY + highlightOffsetBottomX)
+                        positionY - highlightOffsetTopY,
+                        positionEndX,
+                        positionY + highlightOffsetBottomX)
                 } else {
                     val desiredPositionEndX = (startingPositionX + (columnWidth * (remainingDays))) - highlightOffsetX
                     RectF(startingPositionX + highlightOffsetX,
-                            positionY - highlightOffsetTopY,
-                            desiredPositionEndX,
-                            positionY + highlightOffsetBottomX)
+                        positionY - highlightOffsetTopY,
+                        desiredPositionEndX,
+                        positionY + highlightOffsetBottomX)
                 }
 
                 canvas.drawRoundRect(additionalRectF, highlightRadius, highlightRadius, backgroundPaint)
@@ -376,9 +377,9 @@ class CalendarView : View {
         } else {
             val positionEndX = (x + (columnWidth * eventCount)) - (highlightOffsetX / 1.2f)
             val rectF = RectF(x + highlightOffsetX,
-                    y - highlightOffsetTopY,
-                    positionEndX,
-                    y + highlightOffsetBottomX)
+                y - highlightOffsetTopY,
+                positionEndX,
+                y + highlightOffsetBottomX)
             canvas.drawRoundRect(rectF, highlightRadius, highlightRadius, backgroundPaint)
         }
     }
