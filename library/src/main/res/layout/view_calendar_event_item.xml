@@ -11,6 +11,7 @@
         android:layout_width="4dp"
         android:layout_height="0dp"
         android:layout_marginVertical="4dp"
+        android:layout_marginStart="4dp"
         app:cardBackgroundColor="@color/viewBaseFourthColor"
         app:cardCornerRadius="2dp"
         app:cardElevation="0dp"

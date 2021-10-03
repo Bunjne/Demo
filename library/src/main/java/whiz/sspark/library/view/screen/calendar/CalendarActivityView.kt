@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.MonthSelection
 import whiz.sspark.library.databinding.ViewCalendarActivityBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showViewStateX
 import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
 import whiz.sspark.library.view.widget.calendar.CalendarAdapter
-import whiz.sspark.library.view.widget.calendar.MonthSelectionAdapter
 import java.lang.Exception
 
 class CalendarActivityView: ConstraintLayout {
@@ -26,9 +24,6 @@ class CalendarActivityView: ConstraintLayout {
     private val binding by lazy {
         ViewCalendarActivityBinding.inflate(LayoutInflater.from(context), this, true)
     }
-
-    private var monthSelectionAdapter: MonthSelectionAdapter? = null
-    private var calendarAdapter: CalendarAdapter? = null
 
     fun init(term: String,
              onPreviousMonthClicked: () -> Unit,
@@ -44,19 +39,6 @@ class CalendarActivityView: ConstraintLayout {
             }
         }
 
-        val config = ConcatAdapter.Config.Builder().apply {
-            setIsolateViewTypes(false)
-        }.build()
-
-        monthSelectionAdapter = MonthSelectionAdapter(
-            onPreviousMonthClicked = onPreviousMonthClicked,
-            onNextMonthClicked = onNextMonthClicked
-        )
-
-        calendarAdapter = CalendarAdapter()
-
-        val concatAdapter = ConcatAdapter(config, monthSelectionAdapter, calendarAdapter)
-
         with(binding.rvCalendar) {
             addItemDecoration(
                 CustomDividerItemDecoration(
@@ -66,7 +48,10 @@ class CalendarActivityView: ConstraintLayout {
             )
 
             this.layoutManager = LinearLayoutManager(context)
-            adapter = concatAdapter
+            adapter = CalendarAdapter(
+                onPreviousMonthClicked = onPreviousMonthClicked,
+                onNextMonthClicked = onNextMonthClicked
+            )
         }
 
         binding.srlContainer.setOnRefreshListener(onRefresh)
@@ -80,12 +65,8 @@ class CalendarActivityView: ConstraintLayout {
         binding.tvLatestUpdated.showViewStateX(data)
     }
 
-    fun updateSelectedMonth(month: MonthSelection) {
-        monthSelectionAdapter?.submitList(listOf(month))
-    }
-
     fun updateCalendar(items: List<CalendarAdapter.CalendarItem>) {
-        calendarAdapter?.submitList(items) {
+        (binding.rvCalendar.adapter as? CalendarAdapter)?.submitList(items) {
             try {
                 binding.rvCalendar.scrollToPosition(0)
             } catch (e: Exception) {

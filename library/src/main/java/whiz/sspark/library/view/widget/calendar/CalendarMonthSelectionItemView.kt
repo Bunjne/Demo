@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.MonthSelection
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewCalendarMonthSelectionItemBinding
 import whiz.sspark.library.extension.convertToDateString
@@ -21,7 +20,7 @@ class CalendarMonthSelectionItemView: ConstraintLayout {
         ViewCalendarMonthSelectionItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(monthSelection: MonthSelection,
+    fun init(monthSelection: CalendarAdapter.CalendarItem.MonthSelection,
              onNextMonthClicked: () -> Unit,
              onPreviousMonthClicked: () -> Unit) {
         with(monthSelection) {
@@ -43,7 +42,7 @@ class CalendarMonthSelectionItemView: ConstraintLayout {
             }
 
             if (isShowPreviousButton) {
-                binding.ivNextMonth.show(R.drawable.ic_previous_page)
+                binding.ivPreviousMonth.show(R.drawable.ic_previous_page)
                 binding.ivPreviousMonth.visibility = View.VISIBLE
                 binding.ivPreviousMonth.setOnClickListener {
                     onPreviousMonthClicked()

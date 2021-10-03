@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toStartOf="@+id/ivNextMonth"
         app:layout_constraintStart_toEndOf="@+id/tvMonthYear"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_previous_page" />
+        tools:srcCompat="@drawable/ic_previous_page" />
 
     <ImageView
         android:id="@+id/ivNextMonth"
@@ -42,6 +42,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_next_page" />
+        tools:srcCompat="@drawable/ic_next_page" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

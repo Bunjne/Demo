@@ -50,7 +50,6 @@ class CalendarActivity : BaseActivity() {
             if (dataWrapper != null) {
                 binding.vCalendar.setLatestUpdatedText(dataWrapper)
 
-                updateMonth()
                 updateAdapterItem()
             } else {
                 viewModel.getCalendar(currentTerm.id)
@@ -76,38 +75,48 @@ class CalendarActivity : BaseActivity() {
         binding.vCalendar.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             onPreviousMonthClicked = {
-                calendars.getOrNull(selectedIndex - 1)?.let {
-                    selectedIndex -= 1
-                    updateMonth()
-                    updateAdapterItem()
+                if (viewModel.viewLoading.value == false) {
+                    val previousIndex = selectedIndex - 1
+                    val calendar = calendars.getOrNull(previousIndex)
+                    if (calendar != null) {
+                        selectedIndex -= 1
+                        updateAdapterItem()
+                    }
                 }
             },
             onNextMonthClicked = {
-                calendars.getOrNull(selectedIndex + 1)?.let {
-                    selectedIndex += 1
-                    updateMonth()
-                    updateAdapterItem()
+                if (viewModel.viewLoading.value == false) {
+                    val nextIndex = selectedIndex + 1
+                    val calendar = calendars.getOrNull(nextIndex)
+
+                    if (calendar != null) {
+                        selectedIndex += 1
+                        updateAdapterItem()
+                    }
                 }
             },
             onInfoClicked = {
-                val isShowing = supportFragmentManager.findFragmentByTag(CALENDAR_INFO_DIALOG) != null
+                if (viewModel.viewLoading.value == false) {
+                    val isShowing = supportFragmentManager.findFragmentByTag(CALENDAR_INFO_DIALOG) != null
 
-                if(!isShowing) {
-                    val informationItems = calendarInfo.map {
-                        CalendarInformationIndex(
-                            _color = it.colorCode,
-                            description = it.name
-                        )
-                    }.toInformationItems()
+                    if (!isShowing) {
+                        val informationItems = calendarInfo.map {
+                            CalendarInformationIndex(
+                                _color = it.colorCode,
+                                description = it.name
+                            )
+                        }.toInformationItems()
 
-                    InformationDialog.newInstance(
-                        headerText = resources.getString(R.string.information_dialog_calendar_information_color_header),
-                        informationItems = informationItems
-                    ).show(supportFragmentManager, CALENDAR_INFO_DIALOG)
+                        InformationDialog.newInstance(
+                            headerText = resources.getString(R.string.information_dialog_calendar_information_color_header),
+                            informationItems = informationItems
+                        ).show(supportFragmentManager, CALENDAR_INFO_DIALOG)
+                    }
                 }
             },
             onRefresh = {
                 viewModel.getCalendar(currentTerm.id)
+                viewModel.getCalendarInfo()
             }
         )
     }
@@ -125,16 +134,15 @@ class CalendarActivity : BaseActivity() {
 
     override fun observeData() {
         viewModel.calendarResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 calendars = it
                 selectedIndex = getInitialMonth()
-                updateMonth()
                 updateAdapterItem()
             }
         }
 
         viewModel.calendarInfoResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 calendarInfo = it
             }
         }
@@ -181,30 +189,6 @@ class CalendarActivity : BaseActivity() {
         return -1
     }
 
-    private fun updateMonth() {
-        calendars.getOrNull(selectedIndex)?.let {
-            val isHasPreviousItem = calendars.getOrNull(selectedIndex - 1) != null
-            val isHasNextItem = calendars.getOrNull(selectedIndex + 1) != null
-            val date = Calendar.getInstance().apply {
-                set(Calendar.DAY_OF_MONTH, 1)
-                set(Calendar.MONTH, it.month - 1)
-                set(Calendar.YEAR, it.year)
-                set(Calendar.HOUR_OF_DAY, 0)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-            }.time
-
-            val monthSelection = MonthSelection(
-                isShowNextButton = isHasNextItem,
-                isShowPreviousButton = isHasPreviousItem,
-                date = date
-            )
-
-            binding.vCalendar.updateSelectedMonth(monthSelection)
-        }
-    }
-
     private fun updateAdapterItem() {
         val items = mutableListOf<CalendarAdapter.CalendarItem>()
 
@@ -215,8 +199,31 @@ class CalendarActivity : BaseActivity() {
 
             items.add(title)
         } else {
-            calendars.getOrNull(selectedIndex)?.let { calendar ->
+            val calendar = calendars.getOrNull(selectedIndex)
+            if (calendar!= null) {
+                val isHasPreviousItem = calendars.getOrNull(selectedIndex - 1) != null
+                val isHasNextItem = calendars.getOrNull(selectedIndex + 1) != null
+
+                val initialDayCalendar = Calendar.getInstance().apply {
+                    set(Calendar.DAY_OF_MONTH, 1)
+                    set(Calendar.MONTH, calendar.month - 1)
+                    set(Calendar.YEAR, calendar.year)
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+
+                val monthSelection = CalendarAdapter.CalendarItem.MonthSelection(
+                    isShowNextButton = isHasNextItem,
+                    isShowPreviousButton = isHasPreviousItem,
+                    date = initialDayCalendar.time
+                )
+
+                items.add(monthSelection)
+
                 if (calendar.events.isEmpty()) {
+
                     val calendarItem = CalendarAdapter.CalendarItem.Calendar(
                         month = calendar.month,
                         year = calendar.year,
@@ -232,17 +239,7 @@ class CalendarActivity : BaseActivity() {
 
                     items.add(title)
                 } else {
-                    val tempCalendar = Calendar.getInstance().apply {
-                        set(Calendar.YEAR, calendar.year)
-                        set(Calendar.MONTH, calendar.month - 1)
-                        set(Calendar.DAY_OF_MONTH, 1)
-                        set(Calendar.HOUR_OF_DAY, 0)
-                        set(Calendar.MINUTE, 0)
-                        set(Calendar.SECOND, 0)
-                        set(Calendar.MILLISECOND, 0)
-                    }
-
-                    val entries = generateHighlightDays(calendar, tempCalendar)
+                    val entries = generateHighlightDays(calendar, initialDayCalendar)
 
                     val calendarItem = CalendarAdapter.CalendarItem.Calendar(
                         month = calendar.month,
@@ -264,44 +261,46 @@ class CalendarActivity : BaseActivity() {
                         items.add(event)
                     }
                 }
+            } else {
+                val title = CalendarAdapter.CalendarItem.NoEvent(
+                    title = resources.getString(R.string.calendar_no_calendar)
+                )
+
+                items.add(title)
             }
         }
 
         binding.vCalendar.updateCalendar(items)
     }
 
-    private fun generateHighlightDays(calendar: CalendarDTO, tempCalendar: Calendar): MutableList<CalendarEntry> {
+    private fun generateHighlightDays(calendar: CalendarDTO, seledtedMonthCalendar: Calendar): MutableList<CalendarEntry> {
         val highlightDays = mutableListOf<CalendarEntry>()
 
         val month = calendar.month - 1
         val events = calendar.events.sortedBy { it.fromDate }
 
-        while(tempCalendar.get(Calendar.MONTH) == month) {
-            val date = tempCalendar.time
+        while(seledtedMonthCalendar.get(Calendar.MONTH) == month) {
+            val date = seledtedMonthCalendar.time
             val existingEvents = events.filter { date >= it.fromDate && date <= it.toDate }
 
-            if(existingEvents.any()) {
-                val day = tempCalendar.get(Calendar.DAY_OF_MONTH)
+            if (existingEvents.any()) {
+                val day = seledtedMonthCalendar.get(Calendar.DAY_OF_MONTH)
 
                 val prioritizedEvent = existingEvents.maxByOrNull { it.type.toCalendarEventType().value }!!
 
-                val consecutiveDay = highlightDays.singleOrNull { (it.day + it.eventCount) == day && it.title == prioritizedEvent.name}
-                if(consecutiveDay == null) {
+                val consecutiveDay = highlightDays.singleOrNull { (it.startDay + it.eventCount) == day && it.title == prioritizedEvent.name && it.type == prioritizedEvent.type.toCalendarEventType() }
+                if (consecutiveDay == null) {
                     highlightDays.add(CalendarEntry(day, 1, prioritizedEvent.type.toCalendarEventType(), prioritizedEvent.name, prioritizedEvent.colorCode))
                 } else {
-                    when {
-                        prioritizedEvent.type.toCalendarEventType().value == consecutiveDay.type.value -> {
-                            val addedEventCount = consecutiveDay.eventCount + 1
-                            highlightDays.removeAll { it.day == consecutiveDay.day }
-                            highlightDays.add(CalendarEntry(consecutiveDay.day, addedEventCount, consecutiveDay.type, consecutiveDay.title, consecutiveDay.colorCode))
-                        }
-                        else -> highlightDays.add(CalendarEntry(day, 1, prioritizedEvent.type.toCalendarEventType(), prioritizedEvent.name, prioritizedEvent.colorCode))
-                    }
+                    val addedEventCount = consecutiveDay.eventCount + 1
+                    highlightDays.removeAll { it.startDay == consecutiveDay.startDay }
+                    highlightDays.add(CalendarEntry(consecutiveDay.startDay, addedEventCount, consecutiveDay.type, consecutiveDay.title, consecutiveDay.colorCode))
                 }
             }
 
-            tempCalendar.add(Calendar.DAY_OF_MONTH, 1)
+            seledtedMonthCalendar.add(Calendar.DAY_OF_MONTH, 1)
         }
+
         return highlightDays
     }
 

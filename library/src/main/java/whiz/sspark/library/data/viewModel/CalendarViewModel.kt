@@ -1,9 +1,6 @@
 package whiz.sspark.library.data.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
@@ -14,27 +11,28 @@ import whiz.sspark.library.data.entity.CalendarDTO
 import whiz.sspark.library.data.entity.CalendarInfoDTO
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.repository.CalendarRepositoryImpl
+import whiz.sspark.library.utility.LiveDataEvent
 
 class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
-    val viewLoading: LiveData<Boolean>
-        get() = _viewLoading
+    private val _calendarLoading = MutableLiveData<Boolean>()
+    private val _calendarInfoLoading = MutableLiveData<Boolean>()
+    val viewLoading: MediatorLiveData<Boolean> = MediatorLiveData()
 
     private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _calendarResponse = MutableLiveData<List<CalendarDTO>>()
-    val calendarResponse: LiveData<List<CalendarDTO>>
+    private val _calendarResponse = MutableLiveData<LiveDataEvent<List<CalendarDTO>>>()
+    val calendarResponse: LiveData<LiveDataEvent<List<CalendarDTO>>>
         get() = _calendarResponse
 
     private val _calendarErrorResponse = MutableLiveData<ApiResponseX?>()
     val calendarErrorResponse: LiveData<ApiResponseX?>
         get() = _calendarErrorResponse
 
-    private val _calendarInfoResponse = MutableLiveData<List<CalendarInfoDTO>>()
-    val calendarInfoResponse: LiveData<List<CalendarInfoDTO>>
+    private val _calendarInfoResponse = MutableLiveData<LiveDataEvent<List<CalendarInfoDTO>>>()
+    val calendarInfoResponse: LiveData<LiveDataEvent<List<CalendarInfoDTO>>>
         get() = _calendarInfoResponse
 
     private val _calendarInfoErrorResponse = MutableLiveData<ApiResponseX?>()
@@ -45,15 +43,26 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    init {
+        val loadingObservers = listOf(_calendarLoading, _calendarInfoLoading)
+
+        loadingObservers.forEach {
+            viewLoading.addSource(it) {
+                val isLoading = loadingObservers.any { it.value == true }
+                viewLoading.setValue(isLoading)
+            }
+        }
+    }
+
     fun getCalendar(termId: String) {
         viewModelScope.launch {
             calendarRepository.getCalendar(termId)
                 .onStart {
                     _viewRendering.value = null
-                    _viewLoading.value = true
+                    _calendarLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _calendarLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
@@ -63,7 +72,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     val data = it.data
 
                     data?.let {
-                        _calendarResponse.value = it
+                        _calendarResponse.value = LiveDataEvent(it)
                     } ?: run {
                         _calendarErrorResponse.value = it.error
                     }
@@ -76,10 +85,10 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
             calendarRepository.getCalendarInfo()
                 .onStart {
                     _viewRendering.value = null
-                    _viewLoading.value = true
+                    _calendarInfoLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _calendarInfoLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
@@ -89,7 +98,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     val data = it.data
 
                     data?.let {
-                        _calendarInfoResponse.value = it
+                        _calendarInfoResponse.value = LiveDataEvent(it)
                     } ?: run {
                         _calendarInfoErrorResponse.value = it.error
                     }

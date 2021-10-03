@@ -226,7 +226,7 @@ class CalendarView : View {
 
     private fun drawDay(canvas: Canvas, day: Int, x: Float, y: Float, isExamCalendar: Boolean) {
         if (isSameMonth()) {
-            val highlightDay = highlightDays.singleOrNull { it.day == day }
+            val highlightDay = highlightDays.singleOrNull { it.startDay == day }
             if (isExamCalendar) { // If the exam calendar is being rendered
                 if (highlightDay != null) {
 
