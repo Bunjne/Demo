@@ -1,0 +1,13 @@
+package whiz.sspark.library.data.data_source.remote.service
+
+import retrofit2.Response
+import retrofit2.http.POST
+import retrofit2.http.Query
+import whiz.sspark.library.data.entity.ApiResponseX
+
+interface AssignmentService {
+    @POST("v1/classGroups/assignments")
+    suspend fun getAssignment(@Query("termId") termId: String,
+                              @Query("page") page: Int,
+                              @Query("pageSize") pageSize: Int): Response<ApiResponseX>
+}

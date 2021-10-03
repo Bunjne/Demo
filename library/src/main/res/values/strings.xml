@@ -46,6 +46,7 @@
     <string name="update_just_now">UPDATED JUST NOW</string>
     <string name="date_time_just_now">เมื่อสักครู่นี้</string>
     <string name="date_time_post_at">เวลา</string>
+    <string name="date_time_suffix">hrs.</string>
 
     <plurals name="date_time_hour_ago">
         <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
@@ -199,4 +200,8 @@
 
     <!--Calendar Color Information-->
     <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
+
+    <!--Assignment-->
+    <string name="assignment_deadline">กำหนดส่ง: %1$s</string>
+    <string name="assignment_text" translatable="false">ASSIGNMENT</string>
 </resources>

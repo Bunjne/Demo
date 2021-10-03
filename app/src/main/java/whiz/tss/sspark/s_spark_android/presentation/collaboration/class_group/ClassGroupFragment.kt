@@ -22,6 +22,7 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.utility.getHighSchoolLevel
 import whiz.tss.sspark.s_spark_android.utility.isPrimaryHighSchool
@@ -136,7 +137,8 @@ class ClassGroupFragment : BaseFragment() {
                             //TODO wait for flow discussion
                         }
                         BottomNavigationId.ASSIGNMENT.id -> {
-                            //TODO wait for flow discussion
+                            val intent = Intent(requireContext(), AssignmentActivity::class.java)
+                            startActivity(intent)
                         }
                         BottomNavigationId.CLASS_SCHEDULE.id -> {
                             //TODO wait for flow discussion

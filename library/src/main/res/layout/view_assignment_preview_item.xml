@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvVerticalBar"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/viewBaseFourthColor"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCourseName" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvCourseName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="17dp"
+            app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+            app:layout_constraintStart_toEndOf="@+id/cvVerticalBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="regular"
+            tools:text="SCI วิทยาศาสตร์" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+            app:layout_constraintStart_toEndOf="@+id/cvVerticalBar"
+            app:layout_constraintTop_toBottomOf="@+id/tvCourseName"
+            app:ssparkFont="regular"
+            tools:text="19 สิงหาคม เวลา 10:00 น." />
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCourseName"
+            tools:src="@drawable/ic_arrow_right" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            app:ssparkFont="bold"
+            tools:text="โครงงานเรื่องเมนเดล" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:ssparkFont="regular"
+            tools:text="ให้นักเรียนทำใบงานหน่วยการเรียนรู้ที่ 2 เรื่องการศึกษาพันธุศาสตร์ของเมนเดล และทำแบบทดสอบหลังเรียนหน้า" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvDeadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:ssparkFont="bold"
+            tools:text="กำหนดส่ง: 22 สิงหาคม เวลา 10:00 น." />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivInstructorImage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            app:civ_border_color="@color/viewBaseThirdColor"
+            app:civ_border_width="1.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeadline"
+            tools:src="@tools:sample/avatars" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvInstructorName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivInstructorImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivInstructorImage"
+            app:layout_constraintTop_toTopOf="@+id/ivInstructorImage"
+            app:ssparkFont="regular"
+            tools:text="อ.สมชาย เจริญสุข" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>
