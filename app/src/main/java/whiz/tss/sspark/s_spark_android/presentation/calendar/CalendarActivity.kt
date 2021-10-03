@@ -204,7 +204,7 @@ class CalendarActivity : BaseActivity() {
                 val isHasPreviousItem = calendars.getOrNull(selectedIndex - 1) != null
                 val isHasNextItem = calendars.getOrNull(selectedIndex + 1) != null
 
-                val initialDayCalendar = Calendar.getInstance().apply {
+                val initialCalendar = Calendar.getInstance().apply {
                     set(Calendar.DAY_OF_MONTH, 1)
                     set(Calendar.MONTH, calendar.month - 1)
                     set(Calendar.YEAR, calendar.year)
@@ -217,12 +217,12 @@ class CalendarActivity : BaseActivity() {
                 val monthSelection = CalendarAdapter.CalendarItem.MonthSelection(
                     isShowNextButton = isHasNextItem,
                     isShowPreviousButton = isHasPreviousItem,
-                    date = initialDayCalendar.time
+                    date = initialCalendar.time
                 )
 
                 items.add(monthSelection)
 
-                val entries = generateHighlightDays(calendar, initialDayCalendar)
+                val entries = generateHighlightDays(calendar, initialCalendar)
 
                 val calendarItem = CalendarAdapter.CalendarItem.Calendar(
                     month = calendar.month,
@@ -263,7 +263,7 @@ class CalendarActivity : BaseActivity() {
         binding.vCalendar.updateCalendar(items)
     }
 
-    private fun generateHighlightDays(calendar: CalendarDTO, seledtedMonthCalendar: Calendar): List<CalendarEntry> {
+    private fun generateHighlightDays(calendar: CalendarDTO, initialCalendar: Calendar): List<CalendarEntry> {
         if (calendar.events.isEmpty()) {
             return listOf()
         } else {
@@ -272,12 +272,12 @@ class CalendarActivity : BaseActivity() {
             val month = calendar.month - 1
             val events = calendar.events.sortedBy { it.fromDate }
 
-            while(seledtedMonthCalendar.get(Calendar.MONTH) == month) {
-                val date = seledtedMonthCalendar.time
+            while(initialCalendar.get(Calendar.MONTH) == month) {
+                val date = initialCalendar.time
                 val existingEvents = events.filter { date >= it.fromDate && date <= it.toDate }
 
                 if (existingEvents.any()) {
-                    val day = seledtedMonthCalendar.get(Calendar.DAY_OF_MONTH)
+                    val day = initialCalendar.get(Calendar.DAY_OF_MONTH)
 
                     val prioritizedEvent = existingEvents.maxByOrNull { it.type.toCalendarEventType().value }!!
 
@@ -291,7 +291,7 @@ class CalendarActivity : BaseActivity() {
                     }
                 }
 
-                seledtedMonthCalendar.add(Calendar.DAY_OF_MONTH, 1)
+                initialCalendar.add(Calendar.DAY_OF_MONTH, 1)
             }
 
             return highlightDays
