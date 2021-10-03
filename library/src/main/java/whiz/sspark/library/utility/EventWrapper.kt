@@ -1,6 +1,6 @@
 package whiz.sspark.library.utility
 
-open class LiveDataEvent<out T>(private val content: T) {
+open class EventWrapper<out T>(private val content: T) {
 
     var hasBeenHandled = false
         private set

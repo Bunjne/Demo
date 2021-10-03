@@ -11,7 +11,7 @@ import whiz.sspark.library.data.entity.CalendarDTO
 import whiz.sspark.library.data.entity.CalendarInfoDTO
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.repository.CalendarRepositoryImpl
-import whiz.sspark.library.utility.LiveDataEvent
+import whiz.sspark.library.utility.EventWrapper
 
 class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl): ViewModel() {
 
@@ -23,16 +23,16 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _calendarResponse = MutableLiveData<LiveDataEvent<List<CalendarDTO>>>()
-    val calendarResponse: LiveData<LiveDataEvent<List<CalendarDTO>>>
+    private val _calendarResponse = MutableLiveData<EventWrapper<List<CalendarDTO>>>()
+    val calendarResponse: LiveData<EventWrapper<List<CalendarDTO>>>
         get() = _calendarResponse
 
     private val _calendarErrorResponse = MutableLiveData<ApiResponseX?>()
     val calendarErrorResponse: LiveData<ApiResponseX?>
         get() = _calendarErrorResponse
 
-    private val _calendarInfoResponse = MutableLiveData<LiveDataEvent<List<CalendarInfoDTO>>>()
-    val calendarInfoResponse: LiveData<LiveDataEvent<List<CalendarInfoDTO>>>
+    private val _calendarInfoResponse = MutableLiveData<EventWrapper<List<CalendarInfoDTO>>>()
+    val calendarInfoResponse: LiveData<EventWrapper<List<CalendarInfoDTO>>>
         get() = _calendarInfoResponse
 
     private val _calendarInfoErrorResponse = MutableLiveData<ApiResponseX?>()
@@ -72,7 +72,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     val data = it.data
 
                     data?.let {
-                        _calendarResponse.value = LiveDataEvent(it)
+                        _calendarResponse.value = EventWrapper(it)
                     } ?: run {
                         _calendarErrorResponse.value = it.error
                     }
@@ -98,7 +98,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     val data = it.data
 
                     data?.let {
-                        _calendarInfoResponse.value = LiveDataEvent(it)
+                        _calendarInfoResponse.value = EventWrapper(it)
                     } ?: run {
                         _calendarInfoErrorResponse.value = it.error
                     }
