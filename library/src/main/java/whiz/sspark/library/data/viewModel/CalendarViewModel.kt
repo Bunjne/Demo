@@ -12,6 +12,7 @@ import whiz.sspark.library.data.entity.CalendarInfoDTO
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.repository.CalendarRepositoryImpl
 import whiz.sspark.library.utility.EventWrapper
+import whiz.sspark.library.utility.toEventWrapper
 
 class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl): ViewModel() {
 
@@ -27,20 +28,20 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
     val calendarResponse: LiveData<EventWrapper<List<CalendarDTO>>>
         get() = _calendarResponse
 
-    private val _calendarErrorResponse = MutableLiveData<ApiResponseX?>()
-    val calendarErrorResponse: LiveData<ApiResponseX?>
+    private val _calendarErrorResponse = MutableLiveData<EventWrapper<ApiResponseX>>()
+    val calendarErrorResponse: LiveData<EventWrapper<ApiResponseX>>
         get() = _calendarErrorResponse
 
     private val _calendarInfoResponse = MutableLiveData<EventWrapper<List<CalendarInfoDTO>>>()
     val calendarInfoResponse: LiveData<EventWrapper<List<CalendarInfoDTO>>>
         get() = _calendarInfoResponse
 
-    private val _calendarInfoErrorResponse = MutableLiveData<ApiResponseX?>()
-    val calendarInfoErrorResponse: LiveData<ApiResponseX?>
+    private val _calendarInfoErrorResponse = MutableLiveData<EventWrapper<ApiResponseX>>()
+    val calendarInfoErrorResponse: LiveData<EventWrapper<ApiResponseX>>
         get() = _calendarInfoErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
+    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
 
     init {
@@ -65,16 +66,16 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     _calendarLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     _viewRendering.value = it
                     val data = it.data
 
                     data?.let {
-                        _calendarResponse.value = EventWrapper(it)
+                        _calendarResponse.value = it.toEventWrapper()
                     } ?: run {
-                        _calendarErrorResponse.value = it.error
+                        _calendarInfoErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }
@@ -91,7 +92,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     _calendarInfoLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     _viewRendering.value = it
@@ -100,7 +101,7 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
                     data?.let {
                         _calendarInfoResponse.value = EventWrapper(it)
                     } ?: run {
-                        _calendarInfoErrorResponse.value = it.error
+                        _calendarInfoErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }

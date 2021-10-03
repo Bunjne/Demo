@@ -150,19 +150,19 @@ class CalendarActivity : BaseActivity() {
 
     override fun observeError() {
         viewModel.calendarErrorResponse.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
                 showApiResponseXAlert(this, it)
             }
         }
 
         viewModel.calendarInfoErrorResponse.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
                 showApiResponseXAlert(this, it)
             }
         }
 
         viewModel.errorMessage.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
                 binding.vCalendar.setLatestUpdatedText(getNullDataWrapperX())
                 showAlertWithOkButton(it)
             }
