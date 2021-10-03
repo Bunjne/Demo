@@ -222,34 +222,24 @@ class CalendarActivity : BaseActivity() {
 
                 items.add(monthSelection)
 
+                val entries = generateHighlightDays(calendar, initialDayCalendar)
+
+                val calendarItem = CalendarAdapter.CalendarItem.Calendar(
+                    month = calendar.month,
+                    year = calendar.year,
+                    entries = entries,
+                    isExamCalendar = false
+                )
+
+                items.add(calendarItem)
+
                 if (calendar.events.isEmpty()) {
-
-                    val calendarItem = CalendarAdapter.CalendarItem.Calendar(
-                        month = calendar.month,
-                        year = calendar.year,
-                        entries = listOf(),
-                        isExamCalendar = false
-                    )
-
-                    items.add(calendarItem)
-
                     val title = CalendarAdapter.CalendarItem.NoEvent(
                         title = resources.getString(R.string.calendar_no_event)
                     )
 
                     items.add(title)
                 } else {
-                    val entries = generateHighlightDays(calendar, initialDayCalendar)
-
-                    val calendarItem = CalendarAdapter.CalendarItem.Calendar(
-                        month = calendar.month,
-                        year = calendar.year,
-                        entries = entries,
-                        isExamCalendar = false
-                    )
-
-                    items.add(calendarItem)
-
                     calendar.events.forEach {
                         val event = CalendarAdapter.CalendarItem.Event(
                             startDate = it.fromDate,
@@ -273,35 +263,39 @@ class CalendarActivity : BaseActivity() {
         binding.vCalendar.updateCalendar(items)
     }
 
-    private fun generateHighlightDays(calendar: CalendarDTO, seledtedMonthCalendar: Calendar): MutableList<CalendarEntry> {
-        val highlightDays = mutableListOf<CalendarEntry>()
+    private fun generateHighlightDays(calendar: CalendarDTO, seledtedMonthCalendar: Calendar): List<CalendarEntry> {
+        if (calendar.events.isEmpty()) {
+            return listOf()
+        } else {
+            val highlightDays = mutableListOf<CalendarEntry>()
 
-        val month = calendar.month - 1
-        val events = calendar.events.sortedBy { it.fromDate }
+            val month = calendar.month - 1
+            val events = calendar.events.sortedBy { it.fromDate }
 
-        while(seledtedMonthCalendar.get(Calendar.MONTH) == month) {
-            val date = seledtedMonthCalendar.time
-            val existingEvents = events.filter { date >= it.fromDate && date <= it.toDate }
+            while(seledtedMonthCalendar.get(Calendar.MONTH) == month) {
+                val date = seledtedMonthCalendar.time
+                val existingEvents = events.filter { date >= it.fromDate && date <= it.toDate }
 
-            if (existingEvents.any()) {
-                val day = seledtedMonthCalendar.get(Calendar.DAY_OF_MONTH)
+                if (existingEvents.any()) {
+                    val day = seledtedMonthCalendar.get(Calendar.DAY_OF_MONTH)
 
-                val prioritizedEvent = existingEvents.maxByOrNull { it.type.toCalendarEventType().value }!!
+                    val prioritizedEvent = existingEvents.maxByOrNull { it.type.toCalendarEventType().value }!!
 
-                val consecutiveDay = highlightDays.singleOrNull { (it.startDay + it.eventCount) == day && it.title == prioritizedEvent.name && it.type == prioritizedEvent.type.toCalendarEventType() }
-                if (consecutiveDay == null) {
-                    highlightDays.add(CalendarEntry(day, 1, prioritizedEvent.type.toCalendarEventType(), prioritizedEvent.name, prioritizedEvent.colorCode))
-                } else {
-                    val addedEventCount = consecutiveDay.eventCount + 1
-                    highlightDays.removeAll { it.startDay == consecutiveDay.startDay }
-                    highlightDays.add(CalendarEntry(consecutiveDay.startDay, addedEventCount, consecutiveDay.type, consecutiveDay.title, consecutiveDay.colorCode))
+                    val consecutiveDay = highlightDays.singleOrNull { (it.startDay + it.eventCount) == day && it.title == prioritizedEvent.name && it.type == prioritizedEvent.type.toCalendarEventType() }
+                    if (consecutiveDay == null) {
+                        highlightDays.add(CalendarEntry(day, 1, prioritizedEvent.type.toCalendarEventType(), prioritizedEvent.name, prioritizedEvent.colorCode))
+                    } else {
+                        val addedEventCount = consecutiveDay.eventCount + 1
+                        highlightDays.removeAll { it.startDay == consecutiveDay.startDay }
+                        highlightDays.add(CalendarEntry(consecutiveDay.startDay, addedEventCount, consecutiveDay.type, consecutiveDay.title, consecutiveDay.colorCode))
+                    }
                 }
+
+                seledtedMonthCalendar.add(Calendar.DAY_OF_MONTH, 1)
             }
 
-            seledtedMonthCalendar.add(Calendar.DAY_OF_MONTH, 1)
+            return highlightDays
         }
-
-        return highlightDays
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
