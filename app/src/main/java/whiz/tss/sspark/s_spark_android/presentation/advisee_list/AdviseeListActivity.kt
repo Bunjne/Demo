@@ -60,13 +60,13 @@ class AdviseeListActivity : BaseActivity() {
                 binding.vAdviseeList.setLatestUpdatedText(dataWrapper)
                 updateAdapterItem()
             } else {
-                updateAdapterItem()
+                setNoAdvisee()
                 viewModel.getAdviseeList()
             }
         } else {
             initView()
+            setNoAdvisee()
             binding.vAdviseeList.updateAdapterHeader(isPrimaryHighSchool)
-            updateAdapterItem()
             viewModel.getAdviseeList()
         }
     }
@@ -171,9 +171,13 @@ class AdviseeListActivity : BaseActivity() {
 
             binding.vAdviseeList.updateItem(convertedAdvisees)
         } else {
-            val noAdviseeItem = AdviseeListAdapter.AdviseeListItem.NoAdvisee(resources.getString(R.string.advisee_list_no_advisee))
-            binding.vAdviseeList.updateItem(listOf(noAdviseeItem))
+            setNoAdvisee()
         }
+    }
+
+    private fun setNoAdvisee() {
+        val noAdviseeItem = AdviseeListAdapter.AdviseeListItem.NoAdvisee(resources.getString(R.string.advisee_list_no_advisee))
+        binding.vAdviseeList.updateItem(listOf(noAdviseeItem))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
