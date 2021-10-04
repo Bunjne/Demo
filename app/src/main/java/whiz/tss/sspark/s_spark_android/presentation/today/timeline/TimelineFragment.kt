@@ -60,7 +60,7 @@ class TimelineFragment : BaseFragment() {
                 authority?.let { authority ->
                     when (authority) {
                         TimeLineAuthorityType.CLASS_DETAIL.type -> {
-                            with (uri) {
+                            with(uri) {
                                 val id = getQueryParameter("classGroupId") ?: ""
                                 val courseCode = getQueryParameter("courseCode") ?: ""
                                 val courseName = getQueryParameter("courseName") ?: ""
@@ -102,7 +102,7 @@ class TimelineFragment : BaseFragment() {
 //                            )
                         }
                         TimeLineAuthorityType.EXAMINATION.type -> {
-                            with (uri) {
+                            with(uri) {
                                 val term = getQueryParameter("term") ?: ""
                                 val academicYear = getQueryParameter("academicYear") ?: ""
                                 val examPeriodType = getQueryParameter("examPeriodType") ?: ""

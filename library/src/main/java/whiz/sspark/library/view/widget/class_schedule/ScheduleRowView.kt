@@ -116,7 +116,7 @@ class ScheduleRowView : View {
         oneMilliSecondWidth = columnWidth / (timeFormatter.parse(scheduleTimes[1]).time - scheduleStartTime)
 
         verticalLineCount = scheduleTimes.size
-        if(title.isEmpty()) {
+        if (title.isEmpty()) {
             columnWidth = rowWidth / (scheduleTimes.size)
             oneMilliSecondWidth = columnWidth / (timeFormatter.parse(scheduleTimes[1]).time - scheduleStartTime)
             verticalLineCount = scheduleTimes.size - 1
