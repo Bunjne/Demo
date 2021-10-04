@@ -23,5 +23,6 @@ val remoteModule = module {
     factory<StudentClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<StudentClassAttendanceService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrlV3) }
     factory<StudentClassScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<StudentExamScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<TimelineService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
 }

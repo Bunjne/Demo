@@ -75,6 +75,14 @@
     <!--Class Schedule-->
     <string name="class_schedule_no_class">ไม่มีวิชาเรียน</string>
 
+    <!--Exam Schedule-->
+    <string name="class_schedule_no_exam">ไม่มีตารางสอบ</string>
+
+    <string-array name="exam_schedule_segment">
+        <item>กลางภาค</item>
+        <item>ปลายภาค</item>
+    </string-array>
+
     <!--Calendar-->
     <string name="calendar_no_event">ไม่มีกิจกรรม</string>
     <string name="calendar_no_calendar">ไม่มีปฏิทิน</string>

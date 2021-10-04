@@ -49,6 +49,9 @@
             android:name=".presentation.class_schedule.StudentClassScheduleActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presentation.exam_schedule.StudentExamScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.calendar.CalendarActivity"
             android:screenOrientation="portrait" />
     </application>

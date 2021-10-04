@@ -9,6 +9,7 @@ import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.viewModel.StudentClassScheduleViewModel
 import whiz.sspark.library.extension.*
+import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.class_schedule.ClassScheduleAdapter
@@ -63,7 +64,7 @@ class StudentClassScheduleActivity : BaseActivity() {
 
     override fun initView() {
         binding.vClassSchedule.init(
-            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString()),
+            term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             onPreviousWeekClicked = {
                 if (viewModel.viewLoading.value == false) {
                     selectedWeekId -= 1
@@ -121,6 +122,7 @@ class StudentClassScheduleActivity : BaseActivity() {
 
         viewModel.errorMessage.observe(this) {
             it?.let {
+                binding.vClassSchedule.setLatestUpdatedText(getNullDataWrapperX())
                 showAlertWithOkButton(it)
             }
         }

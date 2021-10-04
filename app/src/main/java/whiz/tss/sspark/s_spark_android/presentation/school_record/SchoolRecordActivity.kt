@@ -90,8 +90,8 @@ class SchoolRecordActivity : BaseActivity(),
                             val termTitle = it.title
                             val splitTerm = termTitle.split("/")
 
-                            val selectedTerm = splitTerm.getOrNull(0)?.toLongOrNull() ?: 0
-                            val selectedYear = splitTerm.getOrNull(1)?.toLongOrNull() ?: 0
+                            val selectedTerm = splitTerm.getOrNull(0)?.toIntOrNull() ?: 0
+                            val selectedYear = splitTerm.getOrNull(1)?.toIntOrNull() ?: 0
 
                             val index = terms.indexOfFirst { it.term == selectedTerm && it.year == selectedYear }
                             if (index != -1) {

@@ -6,6 +6,6 @@ data class CalendarEntry(
     val startDay: Int,
     val eventCount: Int,
     val type: CalendarEventType,
-    val title: String,
+    val title: String = " ",
     val colorCode: String = ""
 )
