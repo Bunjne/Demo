@@ -45,7 +45,7 @@ class MenuStudentFragment : BaseFragment() {
     private lateinit var termId: String
     private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -141,7 +141,7 @@ class MenuStudentFragment : BaseFragment() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender)?.type)
+                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender).type)
             }
         }
 
