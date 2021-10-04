@@ -206,8 +206,9 @@
     <string name="exam_schedule_range">%1$s - %2$s</string>
     <string name="exam_schedule_course_code_and_name">%1$s %2$s</string>
 
-    <!--Advisee menu-->
+    <!--Advisee list-->
     <string name="advisee_list_gpa_text">เกรดเฉลี่ยสะสม</string>
     <string name="advisee_list_credit_text">หน่วยกิตสะสม</string>
     <string name="advisee_list_code_and_name">#%1$s %2$s</string>
+    <string name="advisee_list_total_credit">/%1$s</string>
 </resources>

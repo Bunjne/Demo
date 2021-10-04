@@ -11,12 +11,13 @@ class AdviseeProfileViewHolder(
     private val binding: ViewAdviseeProfileItemViewBinding
 ): RecyclerView.ViewHolder(binding.root) {
     fun init(advisee: Advisee) {
+        val context = binding.root.context
         with(advisee) {
             binding.ivProfile.showProfile(imageUrl, getGender(gender).type, 6)
-            binding.tvCodeAndNickname.text = binding.root.context.resources.getString(R.string.advisee_list_code_and_name, code, nickname)
+            binding.tvCodeAndNickname.text = context.resources.getString(R.string.advisee_list_code_and_name, code, nickname)
             binding.tvName.text = name
             binding.tvCredit.text = credit.toString()
-            binding.tvMaxCredit.text = maxCredit.toString()
+            binding.tvTotalCredit.text = context.resources.getString(R.string.advisee_list_total_credit, totalCredit.toString())
             binding.tvGPA.text = GPA.toString()
         }
     }

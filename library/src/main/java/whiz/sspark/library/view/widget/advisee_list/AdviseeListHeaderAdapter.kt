@@ -21,6 +21,14 @@ class AdviseeListHeaderAdapter(private val segmentTitles: List<String>,
         const val SEGMENT_VIEW_TYPE = 2222
     }
 
+    private var selectedTab = 0
+    private var currentText = ""
+
+    fun setInitialAdapter(selectedTab: Int, text: String) {
+        this.currentText = text
+        this.selectedTab = selectedTab
+    }
+
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -31,7 +39,8 @@ class AdviseeListHeaderAdapter(private val segmentTitles: List<String>,
         }
 
         override fun afterTextChanged(s: Editable?) {
-            onTextChanged(s.toString())
+            currentText = s.toString()
+            onTextChanged(currentText)
         }
     }
 
@@ -40,14 +49,14 @@ class AdviseeListHeaderAdapter(private val segmentTitles: List<String>,
 
         return when(item) {
             is AdviseeListHeaderItem.Search -> SEARCH_VIEW_TYPE
-            is AdviseeListHeaderItem.Segment ->SEGMENT_VIEW_TYPE
+            is AdviseeListHeaderItem.Segment -> SEGMENT_VIEW_TYPE
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
-            SEGMENT_VIEW_TYPE -> SegmentViewHolder(ViewSegmentItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, true))
-            else -> SearchViewHolder(ViewSearchItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, true))
+            SEGMENT_VIEW_TYPE -> SegmentViewHolder(ViewSegmentItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            else -> SearchViewHolder(ViewSearchItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
     }
 
@@ -55,11 +64,20 @@ class AdviseeListHeaderAdapter(private val segmentTitles: List<String>,
         val item = getItem(position)
 
         when(item) {
-            is AdviseeListHeaderItem.Segment -> (holder as SegmentViewHolder).init(
-                segments = segmentTitles,
-                onTabClicked = onSegmentClicked
-            )
-            is AdviseeListHeaderItem.Search -> (holder as SearchViewHolder).init(textWatcher)
+            is AdviseeListHeaderItem.Segment -> (holder as SegmentViewHolder).apply {
+                init(
+                    segments = segmentTitles,
+                    onTabClicked = {
+                        selectedTab = it
+                        onSegmentClicked(it)
+                    },
+                    initialTab = selectedTab
+                )
+            }
+            is AdviseeListHeaderItem.Search -> (holder as SearchViewHolder).apply {
+                setText(currentText)
+                init(textWatcher)
+            }
         }
     }
 

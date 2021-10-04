@@ -51,6 +51,9 @@
         <activity
             android:name=".presentation.exam_schedule.StudentExamScheduleActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.advisee_list.AdviseeListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

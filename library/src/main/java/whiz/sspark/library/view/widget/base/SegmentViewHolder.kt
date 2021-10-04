@@ -7,10 +7,12 @@ class SegmentViewHolder(
     private val binding: ViewSegmentItemViewBinding
 ): RecyclerView.ViewHolder(binding.root) {
     fun init(segments: List<String>,
-             onTabClicked: (Int) -> Unit) {
+             onTabClicked: (Int) -> Unit,
+             initialTab: Int) {
         binding.vSegment.init(
             titles = segments,
-            onTabClicked = onTabClicked
+            onTabClicked = onTabClicked,
+            initialTab = initialTab
         )
     }
 }

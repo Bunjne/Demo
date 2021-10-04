@@ -14,4 +14,8 @@ class SearchViewHolder(
         binding.etSearch.removeTextChangedListener(watcher)
         binding.etSearch.addTextChangedListener(watcher)
     }
+
+    fun setText(currentText: String) {
+        binding.etSearch.setText(currentText)
+    }
 }

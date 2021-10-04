@@ -8,6 +8,7 @@ val viewModelModule = module {
     viewModel { AbilityViewModel(get()) }
     viewModel { ActivityRecordViewModel(get()) }
     viewModel { AddCourseViewModel(get()) }
+    viewModel { AdviseeListViewModel(get()) }
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }

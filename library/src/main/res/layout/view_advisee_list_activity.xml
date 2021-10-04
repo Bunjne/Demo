@@ -93,9 +93,7 @@
             android:id="@+id/rvAdvisee"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingTop="16dp" />
+            android:overScrollMode="never" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

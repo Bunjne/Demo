@@ -28,12 +28,14 @@ data class AdviseeListStudentDTO(
     @SerializedName("credit") val credit: Int = 0,
     @SerializedName("totalCredit") val totalCredit: Int = 0,
     @SerializedName("GPA") val GPA: Float = 0f,
-    @SerializedName("term") val term: Term = Term(),
-    @SerializedName("userId") val userId: String = ""
+    @SerializedName("term") val term: Term = Term()
 ) {
     val firstName get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, false)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)
     val lastName get() = localize(_lastNameEn, _lastNameTh, _lastNameEn, false)
+    val nickName get() = localize(_nickNameEn, _nickNameTh, _nickNameEn, false)
 
     val fullName get() = convertToFullName(firstName, middleName, lastName)
+    val fullNameEn get() = convertToFullName(_firstNameEn, _middleNameEn, _lastNameEn)
+    val fullNameTh get() = convertToFullName(_firstNameTh, _middleNameTh, _middleNameEn)
 }

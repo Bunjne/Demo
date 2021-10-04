@@ -128,7 +128,7 @@
                 android:textSize="15dp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/tvCreditTitle"
-                app:layout_constraintEnd_toStartOf="@+id/tvMaxCredit"
+                app:layout_constraintEnd_toStartOf="@+id/tvTotalCredit"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/tvCreditTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
@@ -138,7 +138,7 @@
                 tools:text="3.23" />
 
             <whiz.sspark.library.view.general.SSparkTextView
-                android:id="@+id/tvMaxCredit"
+                android:id="@+id/tvTotalCredit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

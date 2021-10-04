@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.databinding.ViewAdviseeListActivityBinding
 import whiz.sspark.library.extension.showViewStateX
@@ -59,5 +60,28 @@ class AdviseeListActivityView: ConstraintLayout {
 
     fun setLatestUpdatedText(data: DataWrapperX<Any>?) {
         binding.tvLatestUpdated.showViewStateX(data)
+    }
+
+    fun updateItem(advisees: List<AdviseeListAdapter.AdviseeListItem>) {
+        adviseeAdapter?.submitList(advisees)
+    }
+
+    fun updateAdapterHeader(isPrimaryHighSchool: Boolean) {
+        val headerItem = if (isPrimaryHighSchool) {
+            listOf(
+                AdviseeListHeaderAdapter.AdviseeListHeaderItem.Search
+            )
+        } else {
+            listOf(
+                AdviseeListHeaderAdapter.AdviseeListHeaderItem.Search,
+                AdviseeListHeaderAdapter.AdviseeListHeaderItem.Segment
+            )
+        }
+
+        headerAdapter?.submitList(headerItem)
+    }
+
+    fun setInitialHeader(selectedTab: Int, text: String) {
+        headerAdapter?.setInitialAdapter(selectedTab, text)
     }
 }
