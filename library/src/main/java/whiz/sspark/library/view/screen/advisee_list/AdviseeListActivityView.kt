@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.databinding.ViewAdviseeListActivityBinding
 import whiz.sspark.library.extension.showViewStateX
@@ -83,5 +82,12 @@ class AdviseeListActivityView: ConstraintLayout {
 
     fun setInitialHeader(selectedTab: Int, text: String) {
         headerAdapter?.setInitialAdapter(selectedTab, text)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        binding.rvAdvisee.post {
+            adviseeAdapter?.notifyOnSizeChange(binding.rvAdvisee.height)
+        }
     }
 }

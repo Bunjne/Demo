@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.databinding.ViewAdviseeProfileItemViewBinding
 import whiz.sspark.library.databinding.ViewCenterTextBinding
-import whiz.sspark.library.view.widget.base.CenterTextItemView
 import whiz.sspark.library.view.widget.base.CenterTextViewHolder
+import java.lang.Exception
 
 class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, RecyclerView.ViewHolder>(DiffCallback()) {
 
@@ -18,15 +18,31 @@ class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, Recycl
         const val NO_ADVISEE_ITEM_VIEW = 4444
     }
 
+    private var recyclerViewHeight = 0
+
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
+
         return when (item ) {
             is AdviseeListItem.Student -> ADVISEE_ITEM_VIEW
             is AdviseeListItem.NoAdvisee -> NO_ADVISEE_ITEM_VIEW
         }
     }
 
+
+    fun notifyOnSizeChange(height: Int) {
+        try {
+            val isNoAdviseeTitle = getItem(0) is AdviseeListItem.NoAdvisee
+            if (isNoAdviseeTitle) {
+                recyclerViewHeight = height
+                notifyItemChanged(0)
+            }
+        } catch (e: Exception) { }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        recyclerViewHeight = parent.height
+
         return if (viewType == ADVISEE_ITEM_VIEW) {
             AdviseeProfileViewHolder(ViewAdviseeProfileItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
@@ -36,11 +52,25 @@ class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, Recycl
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
+
         when (item) {
             is AdviseeListItem.Student -> (holder as AdviseeProfileViewHolder).init(item.advisee)
-            is AdviseeListItem.NoAdvisee -> (holder as CenterTextViewHolder).init(item.title)
-        }
+            is AdviseeListItem.NoAdvisee -> (holder as CenterTextViewHolder).apply {
+                init(item.title)
 
+                itemView.post {
+                    val lastItemBottom = itemView.bottom
+                    val lastItemHeight = itemView.height
+                    val heightDifference = recyclerViewHeight - lastItemBottom
+                    val requiredHeight = lastItemHeight + heightDifference
+
+                    if (requiredHeight != itemView.height) {
+                        holder.itemView.layoutParams.height = requiredHeight
+                        notifyItemChanged(position)
+                    }
+                }
+            }
+        }
     }
 
     sealed class AdviseeListItem {
@@ -54,7 +84,11 @@ class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, Recycl
         }
 
         override fun areContentsTheSame(oldItem: AdviseeListItem, newItem: AdviseeListItem): Boolean {
-            return oldItem == newItem
+            return if (oldItem is AdviseeListItem.NoAdvisee && newItem is AdviseeListItem.NoAdvisee) {
+                false
+            } else {
+                oldItem == newItem
+            }
         }
     }
 }
