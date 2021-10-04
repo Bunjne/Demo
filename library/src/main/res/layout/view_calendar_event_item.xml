@@ -24,6 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="15dp"
         app:layout_constrainedWidth="true"
@@ -37,15 +39,18 @@
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvEndDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="15dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvStartDate"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_min="40dp"
         app:ssparkFont="bold"
         tools:text="ถึง 11" />
 

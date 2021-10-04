@@ -10,7 +10,9 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewCalendarEventItemBinding
 import whiz.sspark.library.extension.convertToDateString
+import whiz.sspark.library.extension.toCalendar
 import whiz.sspark.library.extension.toColor
+import whiz.sspark.library.extension.toLocalDate
 import java.util.*
 
 class CalendarEventItemView: ConstraintLayout {
@@ -23,15 +25,25 @@ class CalendarEventItemView: ConstraintLayout {
     }
 
     fun init(event: CalendarAdapter.CalendarItem.Event) {
+        val startEventMonth = event.startDate.toLocalDate()?.toCalendar()?.get(Calendar.MONTH)
+        val endEventMonth = event.endDate.toLocalDate()?.toCalendar()?.get(Calendar.MONTH)
+
         with(event) {
             binding.cvVerticalBar.setCardBackgroundColor(color.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor)))
             binding.tvDescription.text = description
-            binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.singleDayFormat)
 
             if (endDate != null) {
-                binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.convertToDateString(DateTimePattern.singleDayFormat))
-                binding.tvEndDate.visibility = View.VISIBLE
+                if (startEventMonth == endEventMonth) {
+                    binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.singleDayFormat)
+                    binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.convertToDateString(DateTimePattern.singleDayFormat))
+                    binding.tvEndDate.visibility = View.VISIBLE
+                } else {
+                    binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.dayFullMonthFormatTh)
+                    binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.convertToDateString(DateTimePattern.dayFullMonthFormatTh))
+                    binding.tvEndDate.visibility = View.VISIBLE
+                }
             } else {
+                binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.singleDayFormat)
                 binding.tvEndDate.visibility = View.GONE
             }
         }

@@ -7,10 +7,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.CalendarViewModel
-import whiz.sspark.library.extension.toCalendarEventType
-import whiz.sspark.library.extension.toJson
-import whiz.sspark.library.extension.toObject
-import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -270,11 +267,11 @@ class CalendarActivity : BaseActivity() {
             val highlightDays = mutableListOf<CalendarEntry>()
 
             val month = calendar.month - 1
-            val events = calendar.events.sortedBy { it.fromDate }
+            val events = calendar.events.sortedBy { it.fromDate.toLocalDate() }
 
             while(initialCalendar.get(Calendar.MONTH) == month) {
                 val date = initialCalendar.time
-                val existingEvents = events.filter { date >= it.fromDate && date <= it.toDate }
+                val existingEvents = events.filter { date >= it.fromDate.toLocalDate() && date <= it.toDate.toLocalDate() }
 
                 if (existingEvents.any()) {
                     val day = initialCalendar.get(Calendar.DAY_OF_MONTH)
