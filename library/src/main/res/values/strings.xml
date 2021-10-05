@@ -205,4 +205,8 @@
     <string name="exam_schedule_room">ห้องสอบ %1$s</string>
     <string name="exam_schedule_range">%1$s - %2$s</string>
     <string name="exam_schedule_course_code_and_name">%1$s %2$s</string>
+
+    <!--Calendar-->
+    <string name="calendar_title">ปฏิทินการศึกษา</string>
+    <string name="calendar_end_date">ถึง %1$s</string>
 </resources>
