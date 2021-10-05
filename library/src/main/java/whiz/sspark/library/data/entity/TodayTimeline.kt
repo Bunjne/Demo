@@ -8,7 +8,7 @@ data class TimelineResponse (
     @SerializedName("aqius") val aqi: Int = 0,
     @SerializedName("aqiIcon") val aqiIcon: String = "",
     @SerializedName("aqiColor") val aqiColor: String = "",
-    @SerializedName("weatherIcon") val weatherIcon: String = "",
+    @SerializedName("weatherIcon") val weatherIcon: String? = "",
     @SerializedName("tempHi") val tempHi: Double = 0.0,
     @SerializedName("tempLw") val tempLw: Double = 0.0,
     @SerializedName("alertAnnouncements") val _alertAnnouncements: List<String> = listOf(),
@@ -40,8 +40,4 @@ data class TimelineItemBody (
     @SerializedName("color") val color: String = "",
     @SerializedName("style") val style: String = "",
     @SerializedName("icon") val icon: String = ""
-)
-
-data class TodayDateResponse (
-    @SerializedName("today") val today: Date = Date()
 )

@@ -40,9 +40,9 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun login(username: String, password: String, uuid: String, operatorName: String) {
+    fun login(username: String, password: String) {
         viewModelScope.launch {
-            loginRepository.login(username, password, uuid, operatorName)
+            loginRepository.login(username, password)
                 .onStart { _viewLoading.value = true }
                 .onCompletion { _viewLoading.value = false }
                 .catch {

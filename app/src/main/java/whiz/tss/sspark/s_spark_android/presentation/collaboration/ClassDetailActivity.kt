@@ -98,10 +98,12 @@ class ClassDetailActivity : BaseActivity() {
                         currentFragment = it
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
-                                if (SSparkApp.role != RoleType.INSTRUCTOR) {
-                                    renderFragment(StudentClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
-                                } else {
-                                    renderFragment(InstructorClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                when (SSparkApp.role) {
+                                    RoleType.INSTRUCTOR_JUNIOR,
+                                    RoleType.INSTRUCTOR_SENIOR -> renderFragment(InstructorClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    RoleType.STUDENT_JUNIOR,
+                                    RoleType.STUDENT_SENIOR -> renderFragment(StudentClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    RoleType.GUARDIAN -> { } //TODO wait implement
                                 }
                             }
                             BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)

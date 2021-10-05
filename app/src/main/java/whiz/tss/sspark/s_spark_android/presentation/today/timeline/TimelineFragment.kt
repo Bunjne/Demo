@@ -144,13 +144,13 @@ class TimelineFragment : BaseFragment() {
                     it.dayImageUrl
                 }
 
-                updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon, backgroundImageUrl ?: "", it.aqi , it.aqiColor)
+                updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon ?: "", backgroundImageUrl ?: "", it.aqi , it.aqiColor)
             }
         })
 
         viewModel.todayDateResponse.observe(this, Observer {
             it?.let {
-                currentDate = it.today.toLocalDate()!!
+                currentDate = it.toLocalDate()!!
                 binding.vTimeline.updateSegment(currentDate)
             }
         })

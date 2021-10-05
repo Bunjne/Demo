@@ -78,7 +78,7 @@ class MenuStudentFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val segments = if (SSparkApp.role == RoleType.JUNIOR) {
+        val segments = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
                 MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         } else {
@@ -126,6 +126,9 @@ class MenuStudentFragment : BaseFragment() {
                     MenuCode.CALENDAR.code -> {
                         val intent = Intent(requireContext(), CalendarActivity::class.java)
                         startActivity(intent)
+                    }
+                    MenuCode.LOGOUT.code -> {
+                        logout(requireContext())
                     }
                     //TODO wait implement other screen
                 }
