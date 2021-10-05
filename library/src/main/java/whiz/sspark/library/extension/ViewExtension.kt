@@ -65,7 +65,7 @@ fun TextView.showViewStateX(dataWrapper: DataWrapperX<Any>?) {
                 this@showViewStateX.showLatestUpdated(latestDateTime ?: Date())
             } else if (dataSource == DataSource.NETWORK) {
                 if (data != null || statusCode == "204") {
-                    this@showViewStateX.showLatestUpdated(Date())
+                    this@showViewStateX.showLatestUpdated(latestDateTime ?: Date())
                 } else {
                     if (!isCacheExisted) {
                         this@showViewStateX.showUpdateFailed()

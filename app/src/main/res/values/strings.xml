@@ -85,4 +85,8 @@
         <item>กลางภาค</item>
         <item>ปลายภาค</item>
     </string-array>
+
+    <!--Calendar-->
+    <string name="calendar_no_event">ไม่มีกิจกรรม</string>
+    <string name="calendar_no_calendar">ไม่มีปฏิทิน</string>
 </resources>
