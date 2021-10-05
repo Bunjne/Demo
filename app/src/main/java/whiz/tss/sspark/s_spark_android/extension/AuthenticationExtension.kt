@@ -19,7 +19,7 @@ fun AuthenticationInformation.getRoleType(): RoleType {
 
 fun AuthenticationInformation.getAuthorizationToken(): String {
     val builder = StringBuilder()
-    builder.append(token_type)
+    builder.append(tokenType)
     builder.append(" ")
     builder.append(accessToken)
 

@@ -8,6 +8,6 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface AbilityService {
     @Headers("Content-Type: application/json")
-    @POST("api/v1/students/me/ability") //TODO wait confirm path
+    @POST("api/v1/students/me/ability")
     suspend fun getAbility(@Query("termId") termId: String): Response<ApiResponseX>
 }

@@ -8,6 +8,6 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface ActivityRecordService {
     @Headers("Content-Type: application/json")
-    @POST("api/v1/students/me/activity") //TODO wait confirm path
+    @POST("api/v1/students/me/activity")
     suspend fun getActivityRecord(@Query("termId") termId: String): Response<ApiResponseX>
 }

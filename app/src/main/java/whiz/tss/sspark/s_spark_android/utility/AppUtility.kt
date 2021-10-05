@@ -56,7 +56,7 @@ fun bytesToHex(bytes: ByteArray): String {
 fun getRoleFromToken(token: String): String {
     return try {
         val jwt = JWT(token)
-        jwt.getClaim("user_type").asString() ?:""
+        jwt.getClaim("user_type").asString() ?: ""
     } catch (e: Exception) {
         ""
     }

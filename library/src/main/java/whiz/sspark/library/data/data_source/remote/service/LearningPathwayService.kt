@@ -7,15 +7,15 @@ import whiz.sspark.library.data.entity.LearningPathwayAddCourseAPIBody
 
 interface LearningPathwayService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/students/me/course") //TODO wait confirm path
+    @GET("api/v1/students/me/course")
     suspend fun getLearningPathway(): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @POST("api/v1/students/me/concentrate_course") //TODO wait confirm path
+    @POST("api/v1/students/me/concentrate_course")
     suspend fun addCourse(@Body body: LearningPathwayAddCourseAPIBody): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @DELETE("api/v1/students/me/course") //TODO wait confirm path
+    @DELETE("api/v1/students/me/course")
     suspend fun deleteCourse(@Query("termId") termId: String,
                              @Query("courseId") courseId: String): Response<ApiResponseX>
 }

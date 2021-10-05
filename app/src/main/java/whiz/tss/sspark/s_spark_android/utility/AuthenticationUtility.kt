@@ -120,6 +120,7 @@ fun refreshToken(context: Context, onTokenRefreshed: () -> Unit) {
 
     if (!refreshToken.isNullOrBlank()) {
         val remote: LoginService by inject(LoginService::class.java)
+
         runBlocking {
             remote.refreshToken(
                 client_id = SSparkLibrary.clientId,
