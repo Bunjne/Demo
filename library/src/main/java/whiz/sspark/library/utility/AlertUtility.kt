@@ -67,15 +67,17 @@ fun Context.showAlertWithOkButton(title: String = "",
                                   onPositiveClicked: (DialogInterface, Int) -> Unit = { _, _ -> },
                                   onDialogDismiss: () -> Unit = { }) {
     val dialog = AlertDialog.Builder(this)
-        .setMessage(message)
         .setPositiveButton(resources.getString(R.string.general_text_ok)) { dialogInterface, i ->
             onPositiveClicked(dialogInterface, i)
         }
         .setCancelable(isCancelable)
         .setOnDismissListener { onDialogDismiss() }
 
-    if (title.isNotBlank()) {
+    if (message.isNotBlank()) {
         dialog.setTitle(title)
+        dialog.setMessage(message)
+    } else {
+        dialog.setMessage(title)
     }
 
     dialog.show()

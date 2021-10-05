@@ -13,6 +13,7 @@ import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
+import whiz.sspark.library.utility.getHighSchoolLevel
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivitySchoolRecordBinding
@@ -21,8 +22,6 @@ import whiz.tss.sspark.s_spark_android.presentation.school_record.ability.Abilit
 import whiz.tss.sspark.s_spark_android.presentation.school_record.activity_record.ActivityRecordFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.JuniorLearningOutcomeFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.SeniorLearningOutcomeFragment
-import whiz.tss.sspark.s_spark_android.utility.getHighSchoolLevel
-import whiz.tss.sspark.s_spark_android.utility.isPrimaryHighSchool
 
 class SchoolRecordActivity : BaseActivity(),
     JuniorLearningOutcomeFragment.OnRefresh,
@@ -71,7 +70,7 @@ class SchoolRecordActivity : BaseActivity(),
     }
 
     override fun initView() {
-        val title = resources.getString(R.string.school_record_title, getHighSchoolLevel(currentTerm.academicGrade!!).toString())
+        val title = resources.getString(R.string.school_record_title, getHighSchoolLevel(currentTerm.academicGrade).toString())
         val term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString())
         val segmentTitles = if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
             resources.getStringArray(R.array.junior_school_record_segment).toList()
@@ -156,7 +155,7 @@ class SchoolRecordActivity : BaseActivity(),
     }
 
     private fun updateTerm() {
-        val title = resources.getString(R.string.school_record_title, getHighSchoolLevel(currentTerm.academicGrade!!).toString())
+        val title = resources.getString(R.string.school_record_title, getHighSchoolLevel(currentTerm.academicGrade).toString())
         val term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), currentTerm.year.toString())
         val segmentTitles = if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
             resources.getStringArray(R.array.junior_school_record_segment).toList()
@@ -232,5 +231,9 @@ class SchoolRecordActivity : BaseActivity(),
         outState.putString("terms", terms.toJson())
         outState.putString("currentTerm", currentTerm.toJson())
         viewModelStore.clear()
+    }
+
+    private fun isPrimaryHighSchool(academicGrade: Int): Boolean {
+        return academicGrade in 7..9
     }
 }

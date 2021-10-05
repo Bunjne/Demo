@@ -14,8 +14,9 @@ object SSparkLibrary {
 
     var projectType: ProjectType? = null
     var apiKey = ""
+    var clientId = ""
+    var clientSecret = ""
     var baseUrl = ""
-    var baseUrlV3 = ""
     var collaborationSocketBaseURL = ""
 
     var isDarkModeEnabled = false
