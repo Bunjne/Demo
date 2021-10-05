@@ -1,7 +1,6 @@
 package whiz.sspark.library.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import whiz.sspark.library.data.viewModel.*
 
@@ -9,7 +8,8 @@ val viewModelModule = module {
     viewModel { AbilityViewModel(get()) }
     viewModel { ActivityRecordViewModel(get()) }
     viewModel { AddCourseViewModel(get()) }
-    viewModel { termId -> AssignmentViewModel(get { parametersOf(termId)}) }
+    viewModel { AssignmentViewModel(get()) }
+    viewModel { CalendarViewModel(get()) }
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
@@ -23,5 +23,6 @@ val viewModelModule = module {
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { StudentClassScheduleViewModel(get()) }
+    viewModel { StudentExamScheduleViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }

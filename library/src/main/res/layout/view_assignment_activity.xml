@@ -12,12 +12,12 @@
         android:id="@+id/clHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_primary_gradient_0"
         android:paddingTop="15dp"
         android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/bg_primary_gradient_0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <whiz.sspark.library.view.general.SSparkTextView
             android:id="@+id/tvCourseCode"

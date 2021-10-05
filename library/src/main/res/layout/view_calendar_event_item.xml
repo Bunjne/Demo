@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvVerticalBar"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="4dp"
+        android:layout_marginStart="4dp"
+        app:cardBackgroundColor="@color/viewBaseFourthColor"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="15dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/tvEndDate"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/cvVerticalBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="bold"
+        tools:text="วันที่ 6" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvEndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="15dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvStartDate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_min="40dp"
+        app:ssparkFont="bold"
+        tools:text="ถึง 11" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/textBaseSecondaryColor"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvVerticalBar"
+        app:layout_constraintTop_toBottomOf="@+id/tvStartDate"
+        app:ssparkFont="regular"
+        tools:text="วันเปิดภาคเรียน 1/2564" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

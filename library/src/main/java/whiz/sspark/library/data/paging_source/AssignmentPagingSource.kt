@@ -10,10 +10,8 @@ import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import java.io.IOException
 
-class AssignmentPagingSource(
-    private val remote: AssignmentService,
-    private val termId: String
-): PagingSource<Int, AssignmentItemDTO>() {
+class AssignmentPagingSource(private val remote: AssignmentService,
+                             private val termId: String): PagingSource<Int, AssignmentItemDTO>() {
     override fun getRefreshKey(state: PagingState<Int, AssignmentItemDTO>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)

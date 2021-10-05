@@ -8,11 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.Assignment
-import whiz.sspark.library.data.entity.AssignmentDTO
-import whiz.sspark.library.data.entity.ConcentrateCourseDTO
-import whiz.sspark.library.data.repository.AddCourseRepositoryImpl
 import whiz.sspark.library.data.repository.AssignmentRepositoryImpl
 
 class AssignmentViewModel(private val assignmentRepository: AssignmentRepositoryImpl): ViewModel() {
@@ -25,9 +21,9 @@ class AssignmentViewModel(private val assignmentRepository: AssignmentRepository
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getAssignment() {
+    fun getAssignment(termId: String) {
         viewModelScope.launch {
-            assignmentRepository.getAssignment()
+            assignmentRepository.getAssignment(termId)
                 .catch {
                     _errorMessage.value = it.localizedMessage
                 }

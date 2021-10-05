@@ -22,6 +22,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.LearningPathwayActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
@@ -45,7 +46,7 @@ class MenuStudentFragment : BaseFragment() {
     private lateinit var termId: String
     private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -77,7 +78,7 @@ class MenuStudentFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val segments = if (SSparkApp.role == RoleType.JUNIOR) {
+        val segments = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
                 MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         } else {
@@ -122,6 +123,13 @@ class MenuStudentFragment : BaseFragment() {
                         val intent = Intent(requireContext(), LearningPathwayActivity::class.java)
                         startActivity(intent)
                     }
+                    MenuCode.CALENDAR.code -> {
+                        val intent = Intent(requireContext(), CalendarActivity::class.java)
+                        startActivity(intent)
+                    }
+                    MenuCode.LOGOUT.code -> {
+                        logout(requireContext())
+                    }
                     //TODO wait implement other screen
                 }
             },
@@ -141,7 +149,7 @@ class MenuStudentFragment : BaseFragment() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender)?.type)
+                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender).type)
             }
         }
 

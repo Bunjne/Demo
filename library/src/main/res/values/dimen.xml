@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="ScaleIndicatorTextSize">9dp</dimen>
+
+    <dimen name="CalendarDayTitleTextSize">9dp</dimen>
+    <dimen name="CalendarTextSize">12dp</dimen>
+    <dimen name="ExamAmountTextSize">6dp</dimen>
 </resources>
