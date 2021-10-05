@@ -29,12 +29,11 @@ class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, Recycl
         }
     }
 
-
     fun notifyOnSizeChange(height: Int) {
         try {
+            recyclerViewHeight = height
             val isNoAdviseeTitle = getItem(0) is AdviseeListItem.NoAdvisee
             if (isNoAdviseeTitle) {
-                recyclerViewHeight = height
                 notifyItemChanged(0)
             }
         } catch (e: Exception) { }

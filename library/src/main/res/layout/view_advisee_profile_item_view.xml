@@ -33,15 +33,25 @@
             android:layout_height="wrap_content"
             android:padding="12dp">
 
-            <ImageView
-                android:id="@+id/ivProfile"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvProfile"
                 android:layout_width="77dp"
                 android:layout_height="88dp"
-                android:scaleType="centerCrop"
+                app:cardBackgroundColor="@color/viewBaseThirdColor"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvCodeAndNickname"
@@ -51,7 +61,7 @@
                 android:textColor="@color/textBaseThirdColor"
                 android:textSize="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintStart_toEndOf="@+id/cvProfile"
                 app:layout_constraintTop_toTopOf="parent"
                 app:ssparkFont="regular"
                 tools:text="#1 ซินดี้" />
@@ -65,7 +75,7 @@
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintStart_toEndOf="@+id/cvProfile"
                 app:layout_constraintTop_toBottomOf="@+id/tvCodeAndNickname"
                 app:ssparkFont="regular"
                 tools:text="ทอฝัน รักษา" />
@@ -100,7 +110,7 @@
                 android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tvSeparator"
-                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintStart_toEndOf="@+id/cvProfile"
                 app:layout_constraintTop_toBottomOf="@+id/tvGPA"
                 app:ssparkFont="regular" />
 

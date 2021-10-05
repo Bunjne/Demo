@@ -48,6 +48,10 @@ class AdviseeListActivityView: ConstraintLayout {
         with(binding.rvAdvisee) {
             layoutManager = LinearLayoutManager(context)
             adapter = concatAdapter
+
+            post {
+                adviseeAdapter?.notifyOnSizeChange(binding.rvAdvisee.height)
+            }
         }
 
         binding.srlContainer.setOnRefreshListener(onRefresh)
