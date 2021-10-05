@@ -227,7 +227,7 @@ class StudentMenuFragment : BaseFragment() {
                     MenuItemType.ADVISING_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_advising_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
                     MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_notification_inbox_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
                     MenuItemType.CALENDAR_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, calendarItem = CalendarWidgetItem()))
-                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_advising_text),code = menuItemDTO.code, gradeSummary = listOf()))
+                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_grade_summary_text),code = menuItemDTO.code, gradeSummary = listOf()))
                     else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
                 }
             }
