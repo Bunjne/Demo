@@ -11,9 +11,10 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
-import whiz.sspark.library.data.repository.MenuStudentRepositoryImpl
+import whiz.sspark.library.data.repository.InstructorMenuRepositoryImpl
+import whiz.sspark.library.data.repository.StudentMenuRepositoryImpl
 
-class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRepositoryImpl): ViewModel() {
+class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: InstructorMenuRepositoryImpl): ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -26,14 +27,6 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
     private val _menuErrorResponse = MutableLiveData<ApiResponseX?>()
     val menuErrorResponse: LiveData<ApiResponseX?>
         get() = _menuErrorResponse
-
-    private val _advisingNoteResponse = MutableLiveData<MenuAdvisingNoteDTO>()
-    val advisingNoteResponse: LiveData<MenuAdvisingNoteDTO>
-        get() = _advisingNoteResponse
-
-    private val _advisingNoteErrorResponse = MutableLiveData<ApiResponseX?>()
-    val advisingNoteErrorResponse: LiveData<ApiResponseX?>
-        get() = _advisingNoteErrorResponse
 
     private val _notificationInboxResponse = MutableLiveData<MenuNotificationInboxDTO>()
     val notificationInboxResponse: LiveData<MenuNotificationInboxDTO>
@@ -51,21 +44,13 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
     val calendarErrorResponse: LiveData<ApiResponseX?>
         get() = _calendarErrorResponse
 
-    private val _gradeSummaryResponse = MutableLiveData<List<MenuGradeSummaryDTO>>()
-    val gradeSummaryResponse: LiveData<List<MenuGradeSummaryDTO>>
-        get() = _gradeSummaryResponse
-
-    private val _gradeSummaryErrorResponse = MutableLiveData<ApiResponseX?>()
-    val gradeSummaryErrorResponse: LiveData<ApiResponseX?>
-        get() = _gradeSummaryErrorResponse
-
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
     fun getMenu() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getMenu()
+            instructorMenuRepositoryImpl.getMenu()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -87,33 +72,9 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
         }
     }
 
-    private fun getAdvising() {
-        viewModelScope.launch {
-            menuStudentRepositoryImpl.getAdvisingNote()
-                .onStart {
-                    _viewLoading.value = true
-                }
-                .onCompletion {
-                    _viewLoading.value = false
-                }
-                .catch {
-                    _errorMessage.value = it.localizedMessage
-                }
-                .collect {
-                    val data = it.data
-
-                    data?.let {
-                        _advisingNoteResponse.value = it
-                    } ?: run {
-                        _advisingNoteErrorResponse.value = it.error
-                    }
-                }
-        }
-    }
-
     private fun getNotificationInbox() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getNotificationInbox()
+            instructorMenuRepositoryImpl.getNotificationInbox()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -137,7 +98,7 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
 
     private fun getCalendar() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getCalendar()
+            instructorMenuRepositoryImpl.getCalendar()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -159,38 +120,12 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
         }
     }
 
-    private fun getGradeSummary(termId: String) {
-        viewModelScope.launch {
-            menuStudentRepositoryImpl.getGradeSummary(termId)
-                .onStart {
-                    _viewLoading.value = true
-                }
-                .onCompletion {
-                    _viewLoading.value = false
-                }
-                .catch {
-                    _errorMessage.value = it.localizedMessage
-                }
-                .collect {
-                    val data = it.data
-
-                    data?.let {
-                        _gradeSummaryResponse.value = it
-                    } ?: run {
-                        _gradeSummaryErrorResponse.value = it.error
-                    }
-                }
-        }
-    }
-
-    fun fetchWidget(menusDTO: List<MenuDTO>, termId: String) {
+    fun fetchWidget(menusDTO: List<MenuDTO>) {
         menusDTO.forEach {
             it.items.forEach {
                 when (it.type) {
-                    MenuItemType.ADVISING_WIDGET.type -> getAdvising()
                     MenuItemType.NOTIFICATION_WIDGET.type -> getNotificationInbox()
                     MenuItemType.CALENDAR_WIDGET.type -> getCalendar()
-                    MenuItemType.GRADE_SUMMARY.type -> getGradeSummary(termId)
                 }
             }
         }

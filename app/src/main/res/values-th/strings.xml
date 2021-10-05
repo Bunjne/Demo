@@ -11,6 +11,9 @@
     <string name="menu_junior_segment_instructor_text">อาจารย์ประจำชั้น</string>
     <string name="menu_senior_segment_instructor_text">อาจารย์ที่ปรึกษา</string>
     <string name="menu_segment_guardian_text">ผู้ปกครอง</string>
+    <string name="menu_widget_notification_inbox_text">กล่องข้อความ</string>
+    <string name="menu_widget_advising_text">ปรึกษาอาจารย์</string>
+    <string name="menu_widget_grade_summary_text">ผลการเรียน</string>
 
     <!--general-->
     <string name="general_back_text">ย้อนกลับ</string>
@@ -68,4 +71,12 @@
 
     <!--Class Schedule-->
     <string name="class_schedule_no_class">ไม่มีวิชาเรียน</string>
+
+    <!--Exam Schedule-->
+    <string name="class_schedule_no_exam">ไม่มีตารางสอบ</string>
+
+    <string-array name="exam_schedule_segment">
+        <item>กลางภาค</item>
+        <item>ปลายภาค</item>
+    </string-array>
 </resources>

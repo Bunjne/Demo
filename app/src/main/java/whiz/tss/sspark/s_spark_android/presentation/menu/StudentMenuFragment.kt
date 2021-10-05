@@ -15,7 +15,7 @@ import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
-import whiz.sspark.library.data.viewModel.MenuStudentViewModel
+import whiz.sspark.library.data.viewModel.StudentMenuViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.menu.MenuAdapter
@@ -34,7 +34,7 @@ class StudentMenuFragment : BaseFragment() {
         fun newInstance() = StudentMenuFragment()
     }
 
-    private val viewModel: MenuStudentViewModel by viewModel()
+    private val viewModel: StudentMenuViewModel by viewModel()
 
     private var _binding: FragmentStudentMenuBinding? = null
     private val binding get() = _binding!!
@@ -43,7 +43,7 @@ class StudentMenuFragment : BaseFragment() {
     private lateinit var termId: String
     private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentStudentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,7 +75,7 @@ class StudentMenuFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val segments = if (SSparkApp.role == RoleType.JUNIOR) {
+        val segments = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
                 MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         } else {
@@ -120,6 +120,9 @@ class StudentMenuFragment : BaseFragment() {
                         val intent = Intent(requireContext(), LearningPathwayActivity::class.java)
                         startActivity(intent)
                     }
+                    MenuCode.LOGOUT.code -> {
+                        logout(requireContext())
+                    }
                     //TODO wait implement other screen
                 }
             },
@@ -139,7 +142,7 @@ class StudentMenuFragment : BaseFragment() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender)?.type)
+                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender).type)
             }
         }
 
@@ -221,10 +224,10 @@ class StudentMenuFragment : BaseFragment() {
 
             menuDTO.items.forEach { menuItemDTO ->
                 when (menuItemDTO.type) {
-                    MenuItemType.ADVISING_WIDGET.type,
-                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
+                    MenuItemType.ADVISING_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_advising_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
+                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_notification_inbox_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
                     MenuItemType.CALENDAR_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, calendarItem = CalendarWidgetItem()))
-                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, gradeSummary = listOf()))
+                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_advising_text),code = menuItemDTO.code, gradeSummary = listOf()))
                     else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
                 }
             }

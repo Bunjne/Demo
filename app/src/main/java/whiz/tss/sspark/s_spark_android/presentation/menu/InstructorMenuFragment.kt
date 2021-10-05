@@ -13,12 +13,15 @@ import whiz.sspark.library.data.entity.CalendarWidgetItem
 import whiz.sspark.library.data.entity.Instructor
 import whiz.sspark.library.data.entity.MenuDTO
 import whiz.sspark.library.data.entity.PreviewMessageItem
+import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.enum.getGender
-import whiz.sspark.library.data.viewModel.MenuStudentViewModel
+import whiz.sspark.library.data.viewModel.InstructorMenuViewModel
+import whiz.sspark.library.data.viewModel.StudentMenuViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.menu.MenuAdapter
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentInstructorMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.utility.logout
@@ -29,13 +32,12 @@ class InstructorMenuFragment : BaseFragment() {
         fun newInstance() = InstructorMenuFragment()
     }
 
-    private val viewModel: MenuStudentViewModel by viewModel()
+    private val viewModel: InstructorMenuViewModel by viewModel()
 
     private var _binding: FragmentInstructorMenuBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var instructor: Instructor
-    private lateinit var termId: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentInstructorMenuBinding.inflate(inflater, container, false)
@@ -44,14 +46,6 @@ class InstructorMenuFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            profileManager.term.collect {
-                it?.let {
-                    termId = it.id
-                }
-            }
-        }
 
         lifecycleScope.launch {
             profileManager.instructor.collect {
@@ -76,7 +70,7 @@ class InstructorMenuFragment : BaseFragment() {
             },
             onMenuClicked = { code ->
                 when(code) {
-                    //TODO wait implement other screen
+                    MenuCode.LOGOUT.code -> logout(requireContext())
                 }
             },
             onRefresh = {
@@ -102,13 +96,7 @@ class InstructorMenuFragment : BaseFragment() {
         viewModel.menuResponse.observe(this) {
             it?.let {
                 updateAdapterItem(it)
-                viewModel.fetchWidget(it, termId)
-            }
-        }
-
-        viewModel.advisingNoteResponse.observe(this) {
-            it?.let {
-                binding.vMenu.updateAdvisingNote(it)
+                viewModel.fetchWidget(it)
             }
         }
 
@@ -123,30 +111,12 @@ class InstructorMenuFragment : BaseFragment() {
                 binding.vMenu.updateNotificationInbox(it)
             }
         }
-
-        viewModel.gradeSummaryResponse.observe(this) {
-            it?.let {
-                binding.vMenu.updateGradeSummary(it)
-            }
-        }
     }
 
     override fun observeError() {
         viewModel.menuErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(requireContext(), it)
-            }
-        }
-
-        viewModel.errorMessage.observe(this) {
-            it?.let {
-                requireContext().showAlertWithOkButton(it)
-            }
-        }
-
-        viewModel.advisingNoteErrorResponse.observe(this) {
-            it?.let {
-                binding.vMenu.updateFailedWidget(MenuItemType.ADVISING_WIDGET.type)
             }
         }
 
@@ -161,10 +131,10 @@ class InstructorMenuFragment : BaseFragment() {
                 binding.vMenu.updateFailedWidget(MenuItemType.NOTIFICATION_WIDGET.type)
             }
         }
-
-        viewModel.gradeSummaryErrorResponse.observe(this) {
+        
+        viewModel.errorMessage.observe(this) {
             it?.let {
-                binding.vMenu.updateFailedWidget(MenuItemType.GRADE_SUMMARY.type)
+                requireContext().showAlertWithOkButton(it)
             }
         }
     }
@@ -177,10 +147,8 @@ class InstructorMenuFragment : BaseFragment() {
 
             menuDTO.items.forEach { menuItemDTO ->
                 when (menuItemDTO.type) {
-                    MenuItemType.ADVISING_WIDGET.type,
-                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
+                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_notification_inbox_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
                     MenuItemType.CALENDAR_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, calendarItem = CalendarWidgetItem()))
-                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, gradeSummary = listOf()))
                     else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
                 }
             }

@@ -18,7 +18,7 @@ import java.util.*
 
 interface TimelineRepository {
     suspend fun getTimeline(date: Date, differDay: Int, isNetworkPreferred: Boolean): Flow<DataWrapperX<TimelineResponse>>
-    suspend fun getTodayDate(): Flow<DataWrapperX<TodayDateResponse>>
+    suspend fun getTodayDate(): Flow<DataWrapperX<Date>>
 }
 
 class TimelineRepositoryImpl(private val context: Context,
@@ -51,12 +51,12 @@ class TimelineRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getTodayDate(): Flow<DataWrapperX<TodayDateResponse>> {
+    override suspend fun getTodayDate(): Flow<DataWrapperX<Date>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.getTodayDate()
-                    fetchX<TodayDateResponse>(response)
+                    fetchX<Date>(response)
                 } catch (e: Exception) {
                     throw e
                 }

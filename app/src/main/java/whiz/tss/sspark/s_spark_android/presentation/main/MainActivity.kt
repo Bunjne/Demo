@@ -76,9 +76,10 @@ class MainActivity : BaseActivity() {
                     BottomNavigationId.MENU.id -> {
                         if (!isFragmentVisible(BottomNavigationId.MENU.id)) {
                             when (SSparkApp.role) {
-                                RoleType.JUNIOR,
-                                RoleType.SENIOR -> renderFragment(StudentMenuFragment.newInstance(), BottomNavigationId.MENU.id)
-                                RoleType.INSTRUCTOR -> renderFragment(InstructorMenuFragment.newInstance(), BottomNavigationId.MENU.id)
+                                RoleType.STUDENT_JUNIOR,
+                                RoleType.STUDENT_SENIOR -> renderFragment(StudentMenuFragment.newInstance(), BottomNavigationId.MENU.id)
+                                RoleType.INSTRUCTOR_JUNIOR,
+                                RoleType.INSTRUCTOR_SENIOR -> renderFragment(InstructorMenuFragment.newInstance(), BottomNavigationId.MENU.id)
                             }
                         }
                     }

@@ -167,8 +167,8 @@
     <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
 
     <!-- Class Group -->
-    <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1d/%2d</string>
-    <string name="class_group_senior_class_level_place_holder">มัธยมศึกษาปีที่ %1d</string>
+    <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s/%2$s</string>
+    <string name="class_group_senior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s</string>
     <string name="class_group_navigation_item_advisory_title">Advisory</string>
     <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
     <string name="class_group_navigation_item_assignment_title">Assignment</string>
@@ -195,4 +195,10 @@
 
     <!--information dialog-->
     <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
+
+    <!--Exam Schedule-->
+    <string name="exam_schedule_title">ตารางสอบ</string>
+    <string name="exam_schedule_room">ห้องสอบ %1$s</string>
+    <string name="exam_schedule_range">%1$s - %2$s</string>
+    <string name="exam_schedule_course_code_and_name">%1$s %2$s</string>
 </resources>
