@@ -69,7 +69,6 @@ class MenuAdapter(private val context: Context,
             }
             item.type == MenuItemType.CALENDAR_WIDGET.type -> CALENDAR_WIDGET_TYPE
             item.type == MenuItemType.GRADE_SUMMARY.type -> GRADE_SUMMARY_WIDGET_TYPE
-            item.type == MenuItemType.GRADE_SUMMARY.type -> GRADE_SUMMARY_WIDGET_TYPE
             else -> TITLE_TYPE
         }
     }

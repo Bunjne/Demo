@@ -65,7 +65,6 @@ class InstructorMenuFragmentView : ConstraintLayout {
                     MenuAdapter.NO_MESSAGE_WIDGET_TYPE -> 6
                     MenuAdapter.MESSAGE_WIDGET_TYPE -> 6
                     MenuAdapter.CALENDAR_WIDGET_TYPE -> 6
-                    MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE -> 6
                     MenuAdapter.DOWNLOAD_FAILED_WIDGET_TYPE -> 6
                     else -> 12
                 }
@@ -88,8 +87,7 @@ class InstructorMenuFragmentView : ConstraintLayout {
                             MenuAdapter.DOWNLOAD_FAILED_WIDGET_TYPE,
                             MenuAdapter.NO_MESSAGE_WIDGET_TYPE,
                             MenuAdapter.MESSAGE_WIDGET_TYPE,
-                            MenuAdapter.CALENDAR_WIDGET_TYPE,
-                            MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE))
+                            MenuAdapter.CALENDAR_WIDGET_TYPE))
                 )
             }
 
@@ -110,17 +108,6 @@ class InstructorMenuFragmentView : ConstraintLayout {
         menuAdapter?.submitList(items)
     }
 
-    fun updateAdvisingNote(menuAdvisingNoteDTO: MenuAdvisingNoteDTO) {
-        val items = menuAdapter?.currentList ?: listOf()
-        val index = items.indexOfFirst { it.type == MenuItemType.ADVISING_WIDGET.type }
-
-        if (index != -1) {
-            items.getOrNull(index)?.isShowDownloadFailedWidget = false
-            items.getOrNull(index)?.previewMessageItem = menuAdvisingNoteDTO.convertToPreviewMessageItem()
-            menuAdapter?.notifyItemChanged(index)
-        }
-    }
-
     fun updateCalendar(menuCalendarDTO: MenuCalendarDTO) {
         val items = menuAdapter?.currentList ?: listOf()
         val index = items.indexOfFirst { it.type == MenuItemType.CALENDAR_WIDGET.type }
@@ -139,17 +126,6 @@ class InstructorMenuFragmentView : ConstraintLayout {
         if (index != -1) {
             items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.previewMessageItem = menuNotificationInboxDTO.convertToPreviewMessageItem()
-            menuAdapter?.notifyItemChanged(index)
-        }
-    }
-
-    fun updateGradeSummary(grades: List<MenuGradeSummaryDTO>) {
-        val items = menuAdapter?.currentList ?: listOf()
-        val index = items.indexOfFirst { it.type == MenuItemType.GRADE_SUMMARY.type }
-
-        if (index != -1) {
-            items.getOrNull(index)?.isShowDownloadFailedWidget = false
-            items.getOrNull(index)?.gradeSummary = convertToGradeSummaryItem(grades)
             menuAdapter?.notifyItemChanged(index)
         }
     }
