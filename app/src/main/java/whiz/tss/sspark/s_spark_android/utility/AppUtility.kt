@@ -3,6 +3,8 @@ package whiz.tss.sspark.s_spark_android.utility
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import com.auth0.android.jwt.Claim
+import com.auth0.android.jwt.JWT
 import java.security.MessageDigest
 
 fun getAPKSignedSignature(context: Context) : String {
@@ -51,12 +53,11 @@ fun bytesToHex(bytes: ByteArray): String {
     return String(hexChars)
 }
 
-@Deprecated("use from lib instead")
-fun isPrimaryHighSchool(academicGrade: Int): Boolean {
-    return academicGrade in 7..9
-}
-
-@Deprecated("use from lib instead")
-fun getHighSchoolLevel(academicGrade: Int): Int {
-    return academicGrade - 6
+fun getRoleFromToken(token: String): String {
+    return try {
+        val jwt = JWT(token)
+        jwt.getClaim("user_type").asString() ?:""
+    } catch (e: Exception) {
+        ""
+    }
 }

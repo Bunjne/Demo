@@ -15,18 +15,19 @@ import whiz.sspark.library.data.entity.ClassGroup
 import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.viewModel.ClassGroupViewModel
 import whiz.sspark.library.extension.*
+import whiz.sspark.library.utility.getHighSchoolLevel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_group.ClassGroupAdapter
 import whiz.tss.sspark.s_spark_android.R
+import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
+import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
-import whiz.tss.sspark.s_spark_android.utility.getHighSchoolLevel
-import whiz.tss.sspark.s_spark_android.utility.isPrimaryHighSchool
 import java.util.*
 
 class ClassGroupFragment : BaseFragment() {
@@ -67,7 +68,7 @@ class ClassGroupFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val firstNavigationItem = if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
+        val firstNavigationItem = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             BottomNavigationBarItem(
                 id = BottomNavigationId.HOMEROOM.id,
                 title = resources.getString(R.string.class_group_navigation_item_homeroom_title),
@@ -105,10 +106,10 @@ class ClassGroupFragment : BaseFragment() {
                 ))
         }
 
-        val classLevel = if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-            resources.getString(R.string.class_group_junior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade!!), currentTerm.room)
+        val classLevel = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
+            resources.getString(R.string.class_group_junior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade), currentTerm.roomNumber)
         } else {
-            resources.getString(R.string.class_group_senior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade!!))
+            resources.getString(R.string.class_group_senior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade))
         }
 
         with (binding.vClassGroup) {
