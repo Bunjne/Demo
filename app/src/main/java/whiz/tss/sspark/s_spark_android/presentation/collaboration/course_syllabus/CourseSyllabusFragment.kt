@@ -72,7 +72,7 @@ class CourseSyllabusFragment: DialogFragment(),
             with(window) {
                 decorView.setBackgroundColor(Color.TRANSPARENT)
                 setGravity(Gravity.BOTTOM)
-                attributes.windowAnimations = R.style.DialogAnimationStyle
+                attributes.windowAnimations = R.style.VerticalSlidesAnimationStyle
             }
         }
     }

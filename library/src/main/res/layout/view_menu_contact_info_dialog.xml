@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:civ_border_color="@color/viewBaseThirdColor"
+            app:civ_border_width="1.5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProfileImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:ssparkFont="regular"
+            tools:text="อ.สมชาย ใจสงบสุข" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/rvContacts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:ssparkFont="regular"
+            tools:text="ห้องพัก 541" />
+
+        <View
+            android:id="@+id/vTopDivier"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.80"
+            android:background="@color/lineBasePrimaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProfileImage" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContacts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@+id/tvClose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vTopDivier"
+            tools:itemCount="11"
+            tools:listitem="@layout/view_menu_contact_info_item" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvClose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/viewBaseThirdColor"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="@string/menu_contact_info_close_text"
+            android:textColor="@color/primaryColor"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:ssparkFont="bold" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

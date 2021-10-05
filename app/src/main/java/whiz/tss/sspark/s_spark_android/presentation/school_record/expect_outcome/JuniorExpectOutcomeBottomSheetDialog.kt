@@ -1,5 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +12,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.ExpectOutcomeCourse
-import whiz.sspark.library.data.entity.ExpectOutcomeDTO
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
 import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.general.information_dialog.InformationDialogAdapter
 import whiz.sspark.library.view.widget.school_record.expect_outcome.ExpectOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorExpectOutcomeBinding
-import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.info.JuniorExpectOutcomeInfoDialog
+import whiz.tss.sspark.s_spark_android.presentation.calendar.info_dialog.InformationDialog
 
 class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
 
@@ -35,6 +36,17 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                 putInt("credit", credit)
             }
         }
+
+        fun getOutcomesHeader(context: Context) = context.resources.getString(R.string.school_record_evaluation_title)
+
+        fun getJuniorOutcomesItems(context: Context): List<InformationDialogAdapter.Item> = listOf(
+            JuniorOutcomeIndex(0, context.resources.getString(R.string.school_record_zero_score_description_text)),
+            JuniorOutcomeIndex(1, context.resources.getString(R.string.school_record_one_score_description_text)),
+            JuniorOutcomeIndex(2, context.resources.getString(R.string.school_record_two_score_description_text)),
+            JuniorOutcomeIndex(3, context.resources.getString(R.string.school_record_three_score_description_text)),
+            JuniorOutcomeIndex(4, context.resources.getString(R.string.school_record_four_score_description_text)),
+            JuniorOutcomeIndex(5, context.resources.getString(R.string.school_record_five_score_description_text)),
+        ).toInformationItems()
     }
 
     private val viewModel: ExpectOutcomeViewModel by viewModel()
@@ -118,7 +130,10 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
             onInfoClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_INFO) != null
                 if (!isShowing) {
-                    JuniorExpectOutcomeInfoDialog.newInstance().show(childFragmentManager, EXPECT_OUTCOME_INFO)
+                    InformationDialog.newInstance(
+                        headerText = getOutcomesHeader(requireContext()),
+                        informationItems = getJuniorOutcomesItems(requireContext())
+                    ).show(childFragmentManager, EXPECT_OUTCOME_INFO)
                 }
             },
             onRefresh = {
