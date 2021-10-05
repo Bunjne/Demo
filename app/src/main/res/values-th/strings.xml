@@ -77,6 +77,10 @@
         <item>ปลายภาค</item>
     </string-array>
 
+    <!--Calendar-->
+    <string name="calendar_no_event">ไม่มีกิจกรรม</string>
+    <string name="calendar_no_calendar">ไม่มีปฏิทิน</string>
+
     <!--Advisee list-->
     <string name="advisee_list_no_advisee">ไม่มีนักเรียน</string>
     <string-array name="advisee_list_segment">
