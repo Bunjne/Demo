@@ -107,9 +107,9 @@ class ClassGroupFragment : BaseFragment() {
         }
 
         val classLevel = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
-            resources.getString(R.string.class_group_junior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade), currentTerm.roomNumber)
+            resources.getString(R.string.class_group_junior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade).toString(), currentTerm.roomNumber?.toString() ?: "")
         } else {
-            resources.getString(R.string.class_group_senior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade))
+            resources.getString(R.string.class_group_senior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade).toString())
         }
 
         with (binding.vClassGroup) {
