@@ -29,8 +29,8 @@ class LoginRepositoryImpl(private val context: Context,
                     val response = remote.getLogin(
                         client_id = SSparkLibrary.clientId,
                         client_secret = SSparkLibrary.clientSecret,
-                        username = "sjunior",
-                        password = "password",
+                        username = username,
+                        password = password,
                         grant_type = GrantType.LOGIN.type
                     )
 
