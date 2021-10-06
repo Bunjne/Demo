@@ -2,15 +2,7 @@ package whiz.sspark.library.extension
 
 import android.content.Context
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ApiErrorResponse
 import whiz.sspark.library.data.entity.ApiResponseX
-
-fun ApiErrorResponse.toAlertMessage(context: Context) =
-    if (this.description.isBlank()) {
-        this.statusCode.toErrorMessage(context)
-    } else {
-        this.description
-    }
 
 fun ApiResponseX.toAlertMessage(context: Context): String {
     return if (this.message.isBlank()) {

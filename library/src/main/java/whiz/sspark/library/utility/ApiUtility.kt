@@ -51,21 +51,6 @@ inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>,
     )
 }
 
-fun <T> transformToDataWrapper(response: Response<T>): DataWrapper<T> {
-    val data = response.body()
-    val error = try {
-        response.errorBody()?.string()?.toObject<ApiErrorResponse>() ?: ApiErrorResponse(statusCode = response.code())
-    } catch (e: Exception) {
-        ApiErrorResponse(statusCode = response.code())
-    }
-
-    return DataWrapper(
-        data = data,
-        error = error,
-        dataSource = DataSource.NETWORK
-    )
-}
-
 suspend inline fun <reified T> FlowCollector<DataWrapperX<T>>.fetchX(response: Response<ApiResponseX>) {
     if (response.code() == 401) {
         SSparkLibrary.onSessionExpired()
@@ -81,14 +66,5 @@ suspend inline fun <reified T> FlowCollector<DataWrapperX<MutableList<T>>>.fetch
     } else {
         val dataWrapperX = transformToDataWrapperX(response, classOf)
         emit(dataWrapperX)
-    }
-}
-
-suspend fun <T> FlowCollector<DataWrapper<T>>.fetch(response: Response<T>) {
-    if (response.code() == 401) {
-        SSparkLibrary.onSessionExpired()
-    } else {
-        val dataWrapper = transformToDataWrapper(response)
-        emit(dataWrapper)
     }
 }
