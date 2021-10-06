@@ -16,8 +16,9 @@ import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.menu.AdviseeGuardianAdapter
 import whiz.sspark.library.view.widget.menu.MenuAdapter
+import java.lang.Exception
 
-class AdviseeMenuFragmentView: ConstraintLayout {
+class AdviseeMenuActivityView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
@@ -29,11 +30,12 @@ class AdviseeMenuFragmentView: ConstraintLayout {
     private var guardianAdapter: AdviseeGuardianAdapter? = null
     private var menuAdapter: MenuAdapter? = null
 
-    fun init(advisee: Advisee,
+    fun init(advisee: Advisee?,
              onMemberClicked: (MenuMemberItem) -> Unit,
              onMenuClicked: (String) -> Unit,
              onRefresh: () -> Unit) {
         updateAdviseeInfo(advisee)
+
         guardianAdapter = AdviseeGuardianAdapter(
             onMemberClicked = onMemberClicked
         )
@@ -56,7 +58,9 @@ class AdviseeMenuFragmentView: ConstraintLayout {
                         divider = ContextCompat.getDrawable(context, R.drawable.divider_list_base)!!,
                         dividerViewType = listOf(
                             AdviseeGuardianAdapter.GUARDIAN_VIEW_TYPE,
-                            MenuAdapter.MENU_TYPE))
+                            MenuAdapter.MENU_TYPE
+                        )
+                    )
                 )
             }
 
@@ -71,22 +75,32 @@ class AdviseeMenuFragmentView: ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun updateAdviseeInfo(advisee: Advisee) {
-        with(advisee) {
-            binding.ivProfile.showProfile(imageUrl, getGender(gender).type, 6)
-            binding.tvCodeAndNickname.text = context.resources.getString(R.string.advisee_list_code_and_name, code, nickname)
-            binding.tvName.text = name
-            binding.tvCredit.text = credit.toString()
-            binding.tvTotalCredit.text = context.resources.getString(R.string.advisee_list_total_credit, totalCredit.toString())
-            binding.tvGPA.text = GPA.toString()
+    fun updateAdviseeInfo(advisee: Advisee?) {
+        if (advisee != null) {
+            with(advisee) {
+                binding.ivProfile.showProfile(imageUrl, getGender(gender).type, 6)
+                binding.tvCodeAndNickname.text = context.resources.getString(R.string.advisee_list_code_and_name, code, nickname)
+                binding.tvName.text = name
+                binding.tvCredit.text = credit.toString()
+                binding.tvTotalCredit.text = context.resources.getString(R.string.advisee_list_total_credit, totalCredit.toString())
+                binding.tvGPA.text = GPA.toString()
+            }
         }
     }
 
     fun updateGuardian(items: List<AdviseeGuardianAdapter.AdviseeGuardianItem>) {
-        guardianAdapter?.submitList(items)
+        guardianAdapter?.submitList(items) {
+            try {
+                binding.rvMenu.scrollToPosition(0)
+            } catch (e: Exception) { }
+        }
     }
 
     fun updateMenu(items: List<MenuAdapter.Item>) {
-        menuAdapter?.submitList(items)
+        menuAdapter?.submitList(items) {
+            try {
+                binding.rvMenu.scrollToPosition(0)
+            } catch (e: Exception) { }
+        }
     }
 }

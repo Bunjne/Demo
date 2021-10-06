@@ -216,7 +216,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingTop="16dp" />
+            android:paddingTop="8dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -1,14 +1,12 @@
 package whiz.sspark.library.view.widget.menu
 
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.MenuMemberItem
+import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import whiz.sspark.library.view.widget.base.MemberWithRightArrowView
 import java.lang.Exception
@@ -16,7 +14,7 @@ import java.lang.Exception
 class AdviseeGuardianAdapter(private val onMemberClicked: (MenuMemberItem) -> Unit): ListAdapter<AdviseeGuardianAdapter.AdviseeGuardianItem, RecyclerView.ViewHolder>(MenuMemberDiffCallback()) {
 
     companion object {
-        const val TITLE_VIEW_TYPE = 2222
+        const val TITLE_VIEW_TYPE = 1111
         const val GUARDIAN_VIEW_TYPE = 2222
     }
 
@@ -57,6 +55,8 @@ class AdviseeGuardianAdapter(private val onMemberClicked: (MenuMemberItem) -> Un
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
+        val isNextItemHeader = getItemViewType(position + 1) == TITLE_VIEW_TYPE
+        val isPreviousItemHeader = getItemViewType(position - 1) == TITLE_VIEW_TYPE
 
         when (item) {
             is AdviseeGuardianItem.Guardian -> {
@@ -68,17 +68,13 @@ class AdviseeGuardianAdapter(private val onMemberClicked: (MenuMemberItem) -> Un
                         }
                     )
 
-                    background = when {
-                        itemCount == 1 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_single)
-                        position == 0 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
-                        position == itemCount - 1 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_bottom)
-                        else ->  ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_middle)
-                    }
+                    setDarkModeBackground(
+                        isNextItemHeader = isNextItemHeader,
+                        isPreviousItemHeader = isPreviousItemHeader
+                    )
                 }
             }
-            is AdviseeGuardianItem.Title -> {
-                (holder.itemView as ItemListTitleView).init(item.title)
-            }
+            is AdviseeGuardianItem.Title -> (holder.itemView as ItemListTitleView).init(item.title)
         }
     }
 
@@ -91,6 +87,7 @@ class AdviseeGuardianAdapter(private val onMemberClicked: (MenuMemberItem) -> Un
         override fun areItemsTheSame(oldItem: AdviseeGuardianItem, newItem: AdviseeGuardianItem): Boolean {
             return oldItem == newItem
         }
+
         override fun areContentsTheSame(oldItem: AdviseeGuardianItem, newItem: AdviseeGuardianItem): Boolean {
             return oldItem == newItem
         }

@@ -149,7 +149,7 @@ class MenuStudentFragment : BaseFragment() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender).type)
+                binding.vMenu.updateStudentProfileImage(student.imageUrl, getGender(it.gender).type)
             }
         }
 
