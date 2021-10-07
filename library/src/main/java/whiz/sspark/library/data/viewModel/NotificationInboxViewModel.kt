@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.repository.NotificationInboxRepositoryImpl
+import whiz.sspark.library.utility.EventWrapper
+import whiz.sspark.library.utility.toEventWrapper
 
 class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: NotificationInboxRepositoryImpl): ViewModel() {
 
@@ -19,20 +21,20 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _newNotificationResponse = MutableLiveData<List<InboxDTO>>()
-    val newNotificationResponse: LiveData<List<InboxDTO>>
+    private val _newNotificationResponse = MutableLiveData<EventWrapper<InboxDTO>>()
+    val newNotificationResponse: LiveData<EventWrapper<InboxDTO>>
         get() = _newNotificationResponse
 
-    private val _notificationResponse = MutableLiveData<List<InboxDTO>>()
-    val notificationResponse: LiveData<List<InboxDTO>>
+    private val _notificationResponse = MutableLiveData<EventWrapper<InboxDTO>>()
+    val notificationResponse: LiveData<EventWrapper<InboxDTO>>
         get() = _notificationResponse
 
-    private val _notificationErrorResponse = MutableLiveData<ApiResponseX>()
-    val notificationErrorResponse: LiveData<ApiResponseX>
+    private val _notificationErrorResponse = MutableLiveData<EventWrapper<ApiResponseX>>()
+    val notificationErrorResponse: LiveData<EventWrapper<ApiResponseX>>
         get() = _notificationErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
+    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
 
     fun getNewNotification(page: Int, pageSize: Int) {
@@ -46,7 +48,7 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
                     _viewLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     _viewRendering.value = it
@@ -54,9 +56,9 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
                     val data = it.data
 
                     data?.let {
-                        _newNotificationResponse.value = it
+                        _newNotificationResponse.value = it.toEventWrapper()
                     } ?: run {
-                        _notificationErrorResponse.value = it.error
+                        _notificationErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }
@@ -73,7 +75,7 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
                     _viewLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     _viewRendering.value = it
@@ -81,9 +83,9 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
                     val data = it.data
 
                     data?.let {
-                        _notificationResponse.value = it
+                        _notificationResponse.value = it.toEventWrapper()
                     } ?: run {
-                        _notificationErrorResponse.value = it.error
+                        _notificationErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }

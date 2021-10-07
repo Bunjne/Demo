@@ -13,17 +13,17 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface NotificationInboxRepository {
-    suspend fun getNotification(page: Int, pageSize: Int): Flow<DataWrapperX<List<InboxDTO>>>
+    suspend fun getNotification(page: Int, pageSize: Int): Flow<DataWrapperX<InboxDTO>>
 }
 
 class NotificationInboxRepositoryImpl(private val context: Context,
                                       private val remote: NotificationInboxService): NotificationInboxRepository {
-    override suspend fun getNotification(page: Int, pageSize: Int): Flow<DataWrapperX<List<InboxDTO>>> {
+    override suspend fun getNotification(page: Int, pageSize: Int): Flow<DataWrapperX<InboxDTO>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.getNotification(page, pageSize)
-                    fetchX(response, Array<InboxDTO>::class.java)
+                    fetchX<InboxDTO>(response)
                 } catch (e: Exception) {
                     throw e
                 }

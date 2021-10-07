@@ -18,8 +18,8 @@ object DateTimePattern {
     const val fullMonthFormatTh = "MMMM "
     const val fullMonthYearFormat = "MMMM yyyy"
 
-    const val dayShortMonthFormatEn = "d MM yyyy"
-    const val dayShortMonthFormatTh = "d MM"
+    const val dayAbbreviateMonthFormatEn = "d MMM yyyy"
+    const val dayAbbreviateMonthFormatTh = "d MMM "
 
     const val todayAbbreviatedDateFormatEn = "d MMMM yyyy"
     const val todayAbbreviatedDayMonthFormatTh = "d MMM "

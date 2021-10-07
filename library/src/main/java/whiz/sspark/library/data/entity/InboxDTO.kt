@@ -4,6 +4,13 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class InboxDTO(
+    @SerializedName("totalPage") val totalPage: Int = 0,
+    @SerializedName("items") private val _items: List<InboxItemDTO>? = null
+) {
+    val item get() = _items ?: listOf()
+}
+
+data class InboxItemDTO(
     @SerializedName("id") val id: String,
     @SerializedName("title") val title: String,
     @SerializedName("message") val message: String,

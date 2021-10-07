@@ -18,6 +18,7 @@ import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
 import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.presentation.notification_inbox.NotificationInboxActivity
 import whiz.tss.sspark.s_spark_android.utility.*
 
 class LoginActivity : LocalizationActivity() {
@@ -89,7 +90,7 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, NotificationInboxActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }

@@ -26,8 +26,8 @@ class NotificationInboxDateItemView: ConstraintLayout {
             resources.getString(R.string.general_text_today)
         } else {
             binding.tvDate.text = date.convertToDateString(
-                defaultPattern = DateTimePattern.dayShortMonthFormatEn,
-                dayMonthThPattern = DateTimePattern.dayShortMonthFormatTh,
+                defaultPattern = DateTimePattern.dayAbbreviateMonthFormatEn,
+                dayMonthThPattern = DateTimePattern.dayAbbreviateMonthFormatTh,
                 yearThPattern = DateTimePattern.generalYear
             )
         }

@@ -6,43 +6,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_base_header"
+    <View
+        android:id="@+id/vTranslationTop"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <whiz.sspark.library.view.general.SSparkTextView
-            android:id="@+id/tvTitle"
-            style="@style/ScreenHeaderTitleStyle"
-            android:layout_width="0dp"
+    <View
+        android:id="@+id/vTranslationRight"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationLeft"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/vTranslationRight"
+        app:layout_constraintStart_toStartOf="@+id/vTranslationLeft"
+        app:layout_constraintTop_toTopOf="@+id/vTranslationTop"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="30dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/notification_inbox_text"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <whiz.sspark.library.view.general.SSparkTextView
-            android:id="@+id/tvLatestUpdated"
-            style="@style/ScreenHeaderSubTitleStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            tools:text="อัปเดตล่าสุดเมื่อ 20/8/64 9:41 น." />
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvTitle"
+                style="@style/ScreenHeaderTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_inbox_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvLatestUpdated"
+                style="@style/ScreenHeaderSubTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="อัปเดตล่าสุดเมื่อ 20/8/64 9:41 น." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
     <View
         android:id="@+id/vTranslation"
         android:layout_width="match_parent"
-        android:layout_height="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/clHeader" />
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvHeader" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srlContainer"
@@ -51,13 +87,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vTranslation">
+        app:layout_constraintTop_toTopOf="@+id/vTranslation">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvInbox"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="6dp"
             android:paddingTop="2dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

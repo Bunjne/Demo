@@ -4,10 +4,11 @@ import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.Inbox
-import whiz.sspark.library.data.entity.InboxDTO
+import whiz.sspark.library.data.entity.InboxItemDTO
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.viewModel.NotificationInboxViewModel
 import whiz.sspark.library.extension.*
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.notification_inbox.NotificationInboxAdapter
 import whiz.tss.sspark.s_spark_android.R
@@ -20,10 +21,12 @@ class NotificationInboxActivity : BaseActivity() {
 
     private lateinit var binding: ActivityNotificationInboxBinding
 
+    private var dataWrapper: DataWrapperX<Any>? = null
+    private var inboxes: MutableList<InboxItemDTO> = mutableListOf()
+
     private var currentPage = 1
     private var pageSize = 10
-    private var dataWrapper: DataWrapperX<Any>? = null
-    private var inboxes: MutableList<InboxDTO> = mutableListOf()
+    private var totalPage = 0
     private var isLoadMoreData = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +35,9 @@ class NotificationInboxActivity : BaseActivity() {
         window.setGradientDrawable(R.drawable.bg_primary_gradient_0)
         setContentView(binding.root)
 
-        initView()
-
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
+            initView()
 
             if (dataWrapper != null) {
                 binding.vInbox.setLatestUpdatedText(dataWrapper)
@@ -44,6 +46,7 @@ class NotificationInboxActivity : BaseActivity() {
                 viewModel.getNewNotification(currentPage, pageSize)
             }
         } else {
+            initView()
             viewModel.getNewNotification(currentPage, pageSize)
         }
     }
@@ -52,10 +55,11 @@ class NotificationInboxActivity : BaseActivity() {
         binding.vInbox.init(
             onRefresh = {
                 currentPage = 1
+                totalPage = 0
                 viewModel.getNewNotification(currentPage, pageSize)
             },
             onLoadMore = {
-                if (isLoadMoreData) {
+                if (isLoadMoreData || totalPage < currentPage) {
                     return@init
                 }
 
@@ -79,27 +83,27 @@ class NotificationInboxActivity : BaseActivity() {
 
     override fun observeData() {
         viewModel.notificationResponse.observe(this) {
-            it?.let {
-                checkIsLastPage(it)
-
+            it.getContentIfNotHandled()?.let {
                 with(inboxes) {
-                    addAll(it)
+                    addAll(it.item)
                 }
 
+                checkIsLastPage()
                 updateAdapterItem()
                 isLoadMoreData = false
             }
         }
 
         viewModel.newNotificationResponse.observe(this) {
-            it?.let {
-                checkIsLastPage(it)
+            it.getContentIfNotHandled()?.let {
+                totalPage = it.totalPage
 
                 with(inboxes) {
                     clear()
-                    addAll(it)
+                    addAll(it.item)
                 }
 
+                checkIsLastPage()
                 updateAdapterItem()
             }
         }
@@ -107,9 +111,15 @@ class NotificationInboxActivity : BaseActivity() {
 
     override fun observeError() {
         viewModel.notificationErrorResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 showApiResponseXAlert(this, it)
                 isLoadMoreData = false
+            }
+        }
+
+        viewModel.errorMessage.observe(this ) {
+            it.getContentIfNotHandled()?.let {
+                showAlertWithOkButton(it)
             }
         }
     }
@@ -117,7 +127,7 @@ class NotificationInboxActivity : BaseActivity() {
     private fun updateAdapterItem() {
         val items = mutableListOf<NotificationInboxAdapter.Item>()
         val sortedInbox = inboxes.sortedByDescending { it.datetime.toLocalDate()!! }
-        val groupedInbox = sortedInbox.groupBy { it.datetime.toLocalDate()!!.convertToDateString(DateTimePattern.dayShortMonthFormatEn) }
+        val groupedInbox = sortedInbox.groupBy { it.datetime.toLocalDate()!!.convertToDateString(DateTimePattern.dayAbbreviateMonthFormatEn) }
 
         groupedInbox.forEach {
             val date = it.value.firstOrNull()?.datetime
@@ -138,16 +148,17 @@ class NotificationInboxActivity : BaseActivity() {
         binding.vInbox.updateItem(items)
     }
 
-    private fun checkIsLastPage(inboxes: List<InboxDTO>) {
-        val isLastPage = inboxes.size != 10
+    private fun checkIsLastPage() {
+        val isLastPage = currentPage >= totalPage
         binding.vInbox.setIsLastPage(isLastPage)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
-        inboxes = savedInstanceState.getString("inboxes")?.toObjects(Array<InboxDTO>::class.java) ?: mutableListOf()
+        inboxes = savedInstanceState.getString("inboxes")?.toObjects(Array<InboxItemDTO>::class.java) ?: mutableListOf()
         currentPage = savedInstanceState.getInt("currentPage")
+        totalPage = savedInstanceState.getInt("lastPage")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -155,5 +166,6 @@ class NotificationInboxActivity : BaseActivity() {
         outState.putString("dataWrapper", dataWrapper?.toJson())
         outState.putString("inboxes", inboxes.toJson())
         outState.putInt("currentPage", currentPage)
+        outState.putInt("lastPage", totalPage)
     }
 }
