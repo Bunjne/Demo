@@ -83,11 +83,7 @@ class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, Recycl
         }
 
         override fun areContentsTheSame(oldItem: AdviseeListItem, newItem: AdviseeListItem): Boolean {
-            return if (oldItem is AdviseeListItem.NoAdvisee && newItem is AdviseeListItem.NoAdvisee) {
-                false
-            } else {
-                oldItem == newItem
-            }
+            return oldItem == newItem
         }
     }
 }

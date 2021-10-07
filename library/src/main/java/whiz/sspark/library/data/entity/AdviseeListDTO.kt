@@ -27,7 +27,7 @@ data class AdviseeListStudentDTO(
     @SerializedName("number") val number: Int? = null,
     @SerializedName("credit") val credit: Int = 0,
     @SerializedName("totalCredit") val totalCredit: Int = 0,
-    @SerializedName("GPA") val GPA: Float = 0f,
+    @SerializedName("GPA") val gpa: Float = 0f,
     @SerializedName("term") val term: Term = Term()
 ) {
     val firstName get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, false)

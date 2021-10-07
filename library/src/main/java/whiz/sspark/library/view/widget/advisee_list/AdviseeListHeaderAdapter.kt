@@ -64,16 +64,15 @@ class AdviseeListHeaderAdapter(private val segmentTitles: List<String>,
         val item = getItem(position)
 
         when(item) {
-            is AdviseeListHeaderItem.Segment -> (holder as SegmentViewHolder).apply {
-                init(
-                    segments = segmentTitles,
-                    onTabClicked = {
-                        selectedTab = it
-                        onSegmentClicked(it)
-                    },
-                    initialTab = selectedTab
-                )
-            }
+            is AdviseeListHeaderItem.Segment -> (holder as SegmentViewHolder).init(
+                segments = segmentTitles,
+                onTabClicked = {
+                    selectedTab = it
+                    onSegmentClicked(it)
+                },
+                initialTab = selectedTab
+            )
+
             is AdviseeListHeaderItem.Search -> (holder as SearchViewHolder).apply {
                 setText(currentText)
                 init(textWatcher)

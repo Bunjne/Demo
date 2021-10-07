@@ -50,21 +50,18 @@ class AdviseeListActivity : BaseActivity() {
         window.setGradientDrawable(R.drawable.bg_primary_gradient_0)
         setContentView(binding.root)
 
+        initView()
+
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
-            initView()
+        }
 
-            if (dataWrapper != null) {
-                binding.vAdviseeList.setInitialHeader(selectedSegment, currentSearchText)
-                binding.vAdviseeList.updateAdapterHeader(isPrimaryHighSchool)
-                binding.vAdviseeList.setLatestUpdatedText(dataWrapper)
-                updateAdapterItem()
-            } else {
-                setNoAdvisee()
-                viewModel.getAdviseeList()
-            }
+        if (dataWrapper != null) {
+            binding.vAdviseeList.setInitialHeader(selectedSegment, currentSearchText)
+            binding.vAdviseeList.updateAdapterHeader(isPrimaryHighSchool)
+            binding.vAdviseeList.setLatestUpdatedText(dataWrapper)
+            updateAdapterItem()
         } else {
-            initView()
             setNoAdvisee()
             binding.vAdviseeList.updateAdapterHeader(isPrimaryHighSchool)
             viewModel.getAdviseeList()
@@ -130,7 +127,7 @@ class AdviseeListActivity : BaseActivity() {
 
     private fun updateAdapterItem() {
         val filteredAdvisees = advisees.filter {
-            if (currentSearchText.isNotEmpty()) {
+            val isSearchTextMatched  = if (currentSearchText.isNotEmpty()) {
                 it.fullNameEn.contains(currentSearchText, true) ||
                 it.fullNameTh.contains(currentSearchText, true) ||
                 it._nickNameEn.contains(currentSearchText, true) ||
@@ -139,7 +136,9 @@ class AdviseeListActivity : BaseActivity() {
                 it.number?.toString()?.contains(currentSearchText, true) == true
             } else {
                 true
-            } && if (!isPrimaryHighSchool) {
+            }
+
+            val isSelectedAcademicGradeExisted = if (!isPrimaryHighSchool) {
                 when (selectedSegment) {
                     1 -> it.term.academicGrade == MATHAYOM_4
                     2 -> it.term.academicGrade == MATHAYOM_5
@@ -149,11 +148,17 @@ class AdviseeListActivity : BaseActivity() {
             } else {
                 true
             }
+
+            isSearchTextMatched && isSelectedAcademicGradeExisted
         }
 
         if (filteredAdvisees.isNotEmpty()) {
             val convertedAdvisees = filteredAdvisees.map {
-                val studentCode = if (isPrimaryHighSchool) it.number?.toString() ?: "0" else it.code
+                val studentCode = if (isPrimaryHighSchool) {
+                    it.number?.toString() ?: "0"
+                } else {
+                    it.code
+                }
 
                 val advisee = Advisee(
                     nickname = it.nickName,
@@ -161,7 +166,7 @@ class AdviseeListActivity : BaseActivity() {
                     name = it.fullName,
                     imageUrl = it.imageUrl,
                     gender = it.gender,
-                    GPA = it.GPA,
+                    gpa = it.gpa,
                     credit = it.credit,
                     totalCredit = it.totalCredit
                 )
