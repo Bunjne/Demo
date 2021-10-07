@@ -10,8 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.MenuSegment
-import whiz.sspark.library.data.entity.Student
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
@@ -23,6 +22,8 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
+import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.LearningPathwayActivity
 import whiz.tss.sspark.s_spark_android.presentation.notification_inbox.NotificationInboxActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
@@ -44,8 +45,9 @@ class MenuStudentFragment : BaseFragment() {
 
     private lateinit var student: Student
     private lateinit var termId: String
+    private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -77,7 +79,7 @@ class MenuStudentFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val segments = if (SSparkApp.role == RoleType.JUNIOR) {
+        val segments = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             listOf(MenuSegment(resources.getString(R.string.menu_junior_segment_instructor_text), MenuSegmentType.INSTRUCTOR),
                 MenuSegment(resources.getString(R.string.menu_segment_guardian_text), MenuSegmentType.GUARDIAN))
         } else {
@@ -93,11 +95,23 @@ class MenuStudentFragment : BaseFragment() {
             },
             onMemberClicked = {
                 if (it.type == MenuSegmentType.INSTRUCTOR) {
-                    val advisor = student.advisor.getOrNull(it.index)
-                    //TODO wait contact in screen
+                    student.advisor.getOrNull(it.index)?.let {
+                        val isShown = menuContactInfoDialog?.isAdded ?: false
+
+                        if (menuContactInfoDialog == null || !isShown) {
+                            menuContactInfoDialog = MenuContactInfoDialog.newInstance(it.getAdvisorMenuInfoItem(requireContext()))
+                            menuContactInfoDialog?.show(childFragmentManager, "advisorContactInfoDialog")
+                        }
+                    }
                 } else {
-                    val guardian = student.guardians.getOrNull(it.index)
-                    //TODO wait contact in screen
+                    student.guardians.getOrNull(it.index)?.let {
+                        val isShown = menuContactInfoDialog?.isAdded ?: false
+
+                        if (menuContactInfoDialog == null || !isShown) {
+                            menuContactInfoDialog = MenuContactInfoDialog.newInstance(it.getGuardianMenuInfoItem(requireContext()))
+                            menuContactInfoDialog?.show(childFragmentManager, "guardianContactInfoDialog")
+                        }
+                    }
                 }
             },
             onMenuClicked = { code ->
@@ -106,9 +120,20 @@ class MenuStudentFragment : BaseFragment() {
                         val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
                         startActivity(intent)
                     }
+                    MenuCode.LEARNING_PATHWAY.code -> {
+                        val intent = Intent(requireContext(), LearningPathwayActivity::class.java)
+                        startActivity(intent)
+                    }
+                    MenuCode.CALENDAR.code -> {
+                        val intent = Intent(requireContext(), CalendarActivity::class.java)
+                        startActivity(intent)
+                    }
                     MenuCode.NOTIFICATION_INBOX.code -> {
                         val intent = Intent(requireContext(), NotificationInboxActivity::class.java)
                         startActivity(intent)
+                    }
+                    MenuCode.LOGOUT.code -> {
+                        logout(requireContext())
                     }
                     //TODO wait implement other screen
                 }
@@ -129,7 +154,7 @@ class MenuStudentFragment : BaseFragment() {
         profileManager.student.asLiveData().observe(this) {
             it?.let {
                 student = it
-                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender)?.type)
+                binding.vMenu.updateStudentProfileImage(student.profileImageUrl, getGender(it.gender).type)
             }
         }
 

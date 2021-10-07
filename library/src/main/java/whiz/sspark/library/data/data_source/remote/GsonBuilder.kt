@@ -6,6 +6,7 @@ import whiz.sspark.library.extension.NullStringToEmptyAdapterFactory
 
 class GsonConverterBuilder {
     fun build(): GsonConverterFactory = GsonConverterFactory.create(GsonBuilder()
+        .setLenient()
         .registerTypeAdapterFactory(NullStringToEmptyAdapterFactory())
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         .create())

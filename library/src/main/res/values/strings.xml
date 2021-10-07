@@ -30,6 +30,16 @@
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_add_text">เพิ่ม</string>
 
+    <string-array name="full_day_name">
+        <item>อาทิตย์</item>
+        <item>จันทร์</item>
+        <item>อังคาร</item>
+        <item>พุธ</item>
+        <item>พฤหัส</item>
+        <item>ศุกร์</item>
+        <item>เสาร์</item>
+    </string-array>
+
     <!--Datetime-->
     <string name="screen_header_subtitle">LAST UPDATED AT %1$s HRS.</string>
     <string name="update_failed">UPDATE FAILED</string>
@@ -68,6 +78,11 @@
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
     <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
     <string name="menu_notification_inbox_text">กล่องข้อความ</string>
+    <string name="menu_contact_info_office_email_text">อีเมล</string>
+    <string name="menu_contact_info_personal_email_text">อีเมลส่วนตัว</string>
+    <string name="menu_contact_info_office_phone_text">โทรศัพท์</string>
+    <string name="menu_contact_info_personal_phone_text">โทรศัพท์ส่วนตัว</string>
+    <string name="menu_contact_info_close_text">ปิด</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>
@@ -157,8 +172,8 @@
     <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
 
     <!-- Class Group -->
-    <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1d/%2d</string>
-    <string name="class_group_senior_class_level_place_holder">มัธยมศึกษาปีที่ %1d</string>
+    <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s/%2$s</string>
+    <string name="class_group_senior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s</string>
     <string name="class_group_navigation_item_advisory_title">Advisory</string>
     <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
     <string name="class_group_navigation_item_assignment_title">Assignment</string>
@@ -175,6 +190,26 @@
     <string name="learning_pathway_required_course_text">วิชาบังคับ</string>
     <string name="learning_pathway_add_course_text">เพิ่มวิชา</string>
     <string name="learning_pathway_add_course_preview_credit">%1$s หน่วยกิต (ต่ำสุด = %2$s, สูงสุด = %3$s)</string>
+
+    <!--Class Schedule-->
+    <string name="class_schedule_title">ตารางเรียน</string>
+    <string name="class_schedule_day_with_short_date_title">%1$s\n%2$s</string>
+    <string name="class_schedule_range">%1$s - %2$s</string>
+    <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
+    <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
+
+    <!--Calendar Color Information-->
+    <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
+
+    <!--Exam Schedule-->
+    <string name="exam_schedule_title">ตารางสอบ</string>
+    <string name="exam_schedule_room">ห้องสอบ %1$s</string>
+    <string name="exam_schedule_range">%1$s - %2$s</string>
+    <string name="exam_schedule_course_code_and_name">%1$s %2$s</string>
+
+    <!--Calendar-->
+    <string name="calendar_title">ปฏิทินการศึกษา</string>
+    <string name="calendar_end_date">ถึง %1$s</string>
 
     <!-- Notification Inbox -->
     <string name="notification_inbox_created_at">%1$s น.</string>

@@ -8,6 +8,7 @@ val repositoryModule = module {
     factory { AbilityRepositoryImpl(androidContext(), get()) }
     factory { ActivityRecordRepositoryImpl(androidContext(), get()) }
     factory { AddCourseRepositoryImpl(androidContext(), get()) }
+    factory { CalendarRepositoryImpl(androidContext(), get()) }
     factory { ClassGroupRepositoryImpl(androidContext(), get()) }
     factory { ClassMemberRepositoryImpl(androidContext(), get(), get()) }
     factory { ClassPostCommentRepositoryImpl(androidContext(), get(), get()) }
@@ -21,5 +22,7 @@ val repositoryModule = module {
     factory { SchoolRecordRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
     factory { StudentClassAttendanceRepositoryImpl(androidContext(), get()) }
+    factory { StudentClassScheduleRepositoryImpl(androidContext(), get()) }
+    factory { StudentExamScheduleRepositoryImpl(androidContext(), get()) }
     factory { TimelineRepositoryImpl(androidContext(), get(), get()) }
 }

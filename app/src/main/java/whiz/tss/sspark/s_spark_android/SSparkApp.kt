@@ -31,7 +31,8 @@ class SSparkApp: Application() {
 
     private external fun getApiBaseURL(key: String): String
     private external fun getApiKey(key: String): String
-    private external fun getApiBaseURLV3(key: String): String
+    private external fun getClientId(key: String): String
+    private external fun getClientSecret(key: String): String
     private external fun getCollaborationSocketURL(key: String): String
 
     companion object {
@@ -40,25 +41,30 @@ class SSparkApp: Application() {
         }
 
         private var instance: SSparkApp? = null
-
         private var _role: RoleType? = null
-        val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
 
-        fun setJuniorApp() {
-            _role = RoleType.JUNIOR
+        fun setStudentJuniorApp() {
+            _role = RoleType.STUDENT_JUNIOR
         }
 
-        fun setSeniorApp() {
-            _role = RoleType.SENIOR
+        fun setStudentSeniorApp() {
+            _role = RoleType.STUDENT_SENIOR
         }
 
-        fun setInstructorApp() {
-            _role = RoleType.INSTRUCTOR
+        fun setInstructorJuniorApp() {
+            _role = RoleType.INSTRUCTOR_JUNIOR
+        }
+
+        fun setInstructorSeniorApp() {
+            _role = RoleType.INSTRUCTOR_SENIOR
         }
 
         fun setGuardianApp() {
             _role = RoleType.GUARDIAN
         }
+
+        val role get() = _role ?: retrieveAuthenticationInformation(instance!!.applicationContext)?.getRoleType() ?: throw IllegalStateException("FLAG not found")
+        var scheduleTime = listOf("07:30", "08:30", "09:30", "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", )
     }
 
     private val localizationDelegate = LocalizationApplicationDelegate()
@@ -88,8 +94,9 @@ class SSparkApp: Application() {
             setProjectType(applicationContext, ProjectType.TSS)
 
             apiKey = getApiKey(getAPKSignedSignature(applicationContext))
+            clientId = getClientId(getAPKSignedSignature(applicationContext))
+            clientSecret = getClientSecret(getAPKSignedSignature(applicationContext))
             baseUrl = getApiBaseURL(getAPKSignedSignature(applicationContext))
-            baseUrlV3 = getApiBaseURLV3(getAPKSignedSignature(applicationContext))
             collaborationSocketBaseURL = getCollaborationSocketURL(getAPKSignedSignature(applicationContext))
 
             setOnSessionExpireCallback {

@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import androidx.core.view.forEachIndexed
+import java.lang.Exception
 
 class CustomDividerMultiItemDecoration(private val divider: Drawable,
                                        private val dividerViewType: List<Int>) : RecyclerView.ItemDecoration() {
@@ -39,8 +40,13 @@ class CustomDividerMultiItemDecoration(private val divider: Drawable,
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val viewType = parent.getChildViewHolder(view).itemViewType
-        val nextPosition = parent.getChildAdapterPosition(view) + 1
-        val nextViewType = parent.adapter?.getItemViewType(nextPosition)
+
+        val nextViewType = try {
+            val nextPosition = parent.getChildAdapterPosition(view) + 1
+            parent.adapter?.getItemViewType(nextPosition)
+        } catch (e: Exception) {
+            -1
+        }
 
         if (dividerViewType.contains(viewType) && dividerViewType.contains(nextViewType)) {
             outRect.bottom = divider.intrinsicHeight

@@ -4,36 +4,8 @@ import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ApiErrorResponse
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.extension.toAlertMessage
-
-fun showApiResponseAlert(context: Context?, errorResponse: ApiErrorResponse, okClicked: () -> Unit = {}) {
-    context?.let { context ->
-        val statusCode = errorResponse.statusCode
-        if (statusCode != 404) {
-            AlertDialog.Builder(context)
-                .setTitle(context.resources.getString(R.string.general_alertmessage_title))
-                .setMessage("${errorResponse.toAlertMessage(context)}\n${context.resources.getString(R.string.general_alertmessage_error_code, errorResponse.id)}")
-                .setPositiveButton(R.string.general_text_ok) { _,_ -> okClicked() }
-                .show()
-        }
-    }
-}
-
-fun showApiResponseAlert(context: Context?, errorResponse: ApiErrorResponse, retryClicked: () -> Unit = {}, cancelClicked: () -> Unit = {}) {
-    context?.let { context ->
-        val statusCode = errorResponse.statusCode
-        if (statusCode != 404) {
-            AlertDialog.Builder(context)
-                .setTitle(context.resources.getString(R.string.general_alertmessage_title))
-                .setMessage("${errorResponse.toAlertMessage(context)}\n${context.resources.getString(R.string.general_alertmessage_error_code, errorResponse.id)}")
-                .setPositiveButton(R.string.general_text_retry) { _,_ -> retryClicked() }
-                .setNegativeButton(R.string.general_text_discard) { _,_ -> cancelClicked() }
-                .show()
-        }
-    }
-}
 
 fun showApiResponseXAlert(context: Context?, errorResponse: ApiResponseX, okClicked: () -> Unit = {}) {
     if (errorResponse.statusCode in 205..500) {
@@ -67,15 +39,17 @@ fun Context.showAlertWithOkButton(title: String = "",
                                   onPositiveClicked: (DialogInterface, Int) -> Unit = { _, _ -> },
                                   onDialogDismiss: () -> Unit = { }) {
     val dialog = AlertDialog.Builder(this)
-        .setMessage(message)
         .setPositiveButton(resources.getString(R.string.general_text_ok)) { dialogInterface, i ->
             onPositiveClicked(dialogInterface, i)
         }
         .setCancelable(isCancelable)
         .setOnDismissListener { onDialogDismiss() }
 
-    if (title.isNotBlank()) {
+    if (message.isNotBlank()) {
         dialog.setTitle(title)
+        dialog.setMessage(message)
+    } else {
+        dialog.setMessage(title)
     }
 
     dialog.show()
