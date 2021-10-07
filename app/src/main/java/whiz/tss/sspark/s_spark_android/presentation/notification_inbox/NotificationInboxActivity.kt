@@ -158,7 +158,7 @@ class NotificationInboxActivity : BaseActivity() {
         dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
         inboxes = savedInstanceState.getString("inboxes")?.toObjects(Array<InboxItemDTO>::class.java) ?: mutableListOf()
         currentPage = savedInstanceState.getInt("currentPage")
-        totalPage = savedInstanceState.getInt("lastPage")
+        totalPage = savedInstanceState.getInt("totalPage")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -166,6 +166,6 @@ class NotificationInboxActivity : BaseActivity() {
         outState.putString("dataWrapper", dataWrapper?.toJson())
         outState.putString("inboxes", inboxes.toJson())
         outState.putInt("currentPage", currentPage)
-        outState.putInt("lastPage", totalPage)
+        outState.putInt("totalPage", totalPage)
     }
 }
