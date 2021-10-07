@@ -1,5 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.menu
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +18,13 @@ import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.data.viewModel.InstructorMenuViewModel
-import whiz.sspark.library.data.viewModel.StudentMenuViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.menu.MenuAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentInstructorMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
 
 class InstructorMenuFragment : BaseFragment() {
@@ -70,6 +71,10 @@ class InstructorMenuFragment : BaseFragment() {
             },
             onMenuClicked = { code ->
                 when(code) {
+                    MenuCode.CALENDAR.code -> {
+                        val intent = Intent(requireContext(), CalendarActivity::class.java)
+                        startActivity(intent)
+                    }
                     MenuCode.LOGOUT.code -> logout(requireContext())
                 }
             },
@@ -89,7 +94,7 @@ class InstructorMenuFragment : BaseFragment() {
         profileManager.instructor.asLiveData().observe(this) {
             it?.let {
                 instructor = it
-                binding.vMenu.updateProfileImage(it.profileImageUrl, getGender(it.gender).type)
+                binding.vMenu.updateProfileImage(it.imageUrl, getGender(it.gender).type)
             }
         }
 

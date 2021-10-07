@@ -9,4 +9,8 @@ interface ProfileService {
     @Headers("Content-Type: application/json")
     @GET("api/v1/students/me")
     suspend fun getStudentProfile(): Response<ApiResponseX>
+
+    @Headers("Content-Type: application/json")
+    @GET("api/v1/instructors/me")
+    suspend fun getInstructorProfile(): Response<ApiResponseX>
 }
