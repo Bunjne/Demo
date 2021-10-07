@@ -21,9 +21,10 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 class ActivityRecordFragment: BaseFragment() {
 
     companion object {
-        fun newInstance(termId: String) = ActivityRecordFragment().apply {
+        fun newInstance(termId: String, studentId: String? = null) = ActivityRecordFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
+                putString("studentId", studentId)
             }
         }
     }
@@ -32,6 +33,10 @@ class ActivityRecordFragment: BaseFragment() {
 
     private val termId by lazy {
         arguments?.getString("termId") ?: ""
+    }
+
+    private val studentId by lazy {
+        arguments?.getString("studentId")
     }
 
     private var _binding: FragmentActivityRecordBinding? = null
@@ -65,16 +70,16 @@ class ActivityRecordFragment: BaseFragment() {
 
                 listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
-                viewModel.getActivityRecord(termId)
+                viewModel.getActivityRecord(termId, studentId)
             }
         } else {
-            viewModel.getActivityRecord(termId)
+            viewModel.getActivityRecord(termId, studentId)
         }
     }
 
     override fun initView() {
         binding.vActivityRecord.init {
-            viewModel.getActivityRecord(termId)
+            viewModel.getActivityRecord(termId, studentId)
         }
     }
 

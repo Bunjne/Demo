@@ -12,4 +12,10 @@ interface ExpectOutcomeService {
     @GET("api/v1/students/me/grades/courses/{courseId}")
     suspend fun getExpectOutcome(@Path("courseId") courseId: String,
                                  @Query("termId") termId: String): Response<ApiResponseX>
+
+    @Headers("Content-Type: application/json")
+    @GET("api/v1/students/{studentId}/grades/courses/{courseId}")
+    suspend fun getExpectOutcome(@Path("studentId") studentId: String,
+                                 @Path("courseId") courseId: String,
+                                 @Query("termId") termId: String): Response<ApiResponseX>
 }

@@ -10,6 +10,7 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.LearningOutcome
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
+import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
 import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -23,9 +24,10 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
     companion object {
         private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
 
-        fun newInstance(termId: String) = JuniorLearningOutcomeFragment().apply {
+        fun newInstance(termId: String, student: Student? = null) = JuniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
+                putString("student", student?.toJson())
             }
         }
     }
@@ -34,6 +36,10 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
 
     private val termId by lazy {
         arguments?.getString("termId") ?: "0"
+    }
+
+    private val student by lazy {
+        arguments?.getString("student")?.toObject<Student>()
     }
 
     private var _binding: FragmentJuniorLearningOutcomeBinding? = null
@@ -67,23 +73,24 @@ class JuniorLearningOutcomeFragment : BaseFragment() {
 
                 listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
-                viewModel.getLearningOutcome(termId)
+                viewModel.getLearningOutcome(termId, student?.id)
             }
         } else {
-            viewModel.getLearningOutcome(termId)
+            viewModel.getLearningOutcome(termId, student?.id)
         }
     }
 
     override fun initView() {
         binding.vLearningOutcome.init(
             onRefresh = {
-                viewModel.getLearningOutcome(termId)
+                viewModel.getLearningOutcome(termId, student?.id)
             },
             onItemClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_TAG) != null
                 if (!isShowing) {
                     JuniorExpectOutcomeBottomSheetDialog.newInstance(
                         termId = termId,
+                        student = student,
                         courseId = it.courseId,
                         courseCode = it.courseCode,
                         courseName = it.courseName,

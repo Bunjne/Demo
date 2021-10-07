@@ -12,16 +12,21 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface AbilityRepository {
-    suspend fun getAbility(termId: String): Flow<DataWrapperX<List<AbilityDTO>>>
+    suspend fun getAbility(termId: String, studentId: String?): Flow<DataWrapperX<List<AbilityDTO>>>
 }
 
 class AbilityRepositoryImpl(private val context: Context,
                             private val remote: AbilityService): AbilityRepository {
-    override suspend fun getAbility(termId: String): Flow<DataWrapperX<List<AbilityDTO>>> {
+    override suspend fun getAbility(termId: String, studentId: String?): Flow<DataWrapperX<List<AbilityDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getAbility(termId)
+                    val response = if (studentId.isNullOrBlank()) {
+                        remote.getAbility(termId)
+                    } else {
+                        remote.getAbility(studentId, termId)
+                    }
+
                     fetchX(response, Array<AbilityDTO>::class.java)
                 } catch (e: Exception) {
                     throw e

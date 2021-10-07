@@ -1,13 +1,16 @@
 package whiz.sspark.library.data.data_source.remote.service
 
 import retrofit2.Response
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface ActivityRecordService {
     @Headers("Content-Type: application/json")
-    @POST("api/v1/students/me/activity")
+    @GET("api/v1/students/me/activity")
     suspend fun getActivityRecord(@Query("termId") termId: String): Response<ApiResponseX>
+
+    @Headers("Content-Type: application/json")
+    @GET("api/v1/students/{studentId}/activity")
+    suspend fun getActivityRecord(@Path("studentId") studentId: String,
+                                  @Query("termId") termId: String): Response<ApiResponseX>
 }

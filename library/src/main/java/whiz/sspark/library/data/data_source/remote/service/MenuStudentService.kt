@@ -7,7 +7,7 @@ import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface MenuStudentService {
-    @Headers("Content-Type: application/json")
+    @Headers("Content-Type: application/json", "x-mock-match-request-headers: Authorization")
     @GET("api/v1/menus")
     suspend fun getMenu(): Response<ApiResponseX>
 

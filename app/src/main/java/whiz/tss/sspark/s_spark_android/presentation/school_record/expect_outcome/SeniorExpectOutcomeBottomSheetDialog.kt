@@ -15,6 +15,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.ExpectOutcomeViewModel
 import whiz.sspark.library.extension.toColor
+import whiz.sspark.library.extension.toJson
+import whiz.sspark.library.extension.toObject
+import whiz.sspark.library.utility.isPrimaryHighSchool
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.general.information_dialog.InformationDialogAdapter
 import whiz.sspark.library.view.widget.school_record.expect_outcome.ExpectOutcomeAdapter
@@ -27,9 +30,10 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     companion object {
         private const val EXPECT_OUTCOME_INFO = "ExpectOutcomeInfo"
 
-        fun newInstance(termId: String, courseId: String, courseCode: String, courseName: String, credit: Int) = SeniorExpectOutcomeBottomSheetDialog().apply {
+        fun newInstance(termId: String, student: Student?, courseId: String, courseCode: String, courseName: String, credit: Int) = SeniorExpectOutcomeBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
+                putString("student", student?.toJson())
                 putString("courseId", courseId)
                 putString("courseCode", courseCode)
                 putString("courseName", courseName)
@@ -66,6 +70,10 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
 
     private val termId by lazy {
         arguments?.getString("termId") ?: ""
+    }
+
+    private val student by lazy {
+        arguments?.getString("student")?.toObject<Student>()
     }
 
     private val courseId by lazy {
@@ -105,7 +113,11 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
             validateDialog()
         }
 
-        viewModel.getExpectOutcome(courseId = courseId, termId = termId)
+        viewModel.getExpectOutcome(
+            courseId = courseId,
+            termId = termId,
+            studentId = student?.id
+        )
     }
 
     private fun validateDialog() {
@@ -130,10 +142,21 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        val advisee = if (student != null) {
+            if (isPrimaryHighSchool(student?.term?.academicGrade ?: 0)) {
+                student?.convertToJuniorAdvisee()
+            } else {
+                student?.convertToSeniorAdvisee()
+            }
+        } else {
+            null
+        }
+
         binding.vExpectOutcome.init(
             title = courseCode,
             subTitle = courseName,
             credit = credit,
+            advisee = advisee,
             onCloseClicked = {
                 dismiss()
             },
@@ -147,7 +170,11 @@ class SeniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
                 }
             },
             onRefresh = {
-                viewModel.getExpectOutcome(courseId = courseId, termId = termId)
+                viewModel.getExpectOutcome(
+                    courseId = courseId,
+                    termId = termId,
+                    studentId = student?.id
+                )
             }
         )
     }

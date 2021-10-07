@@ -22,9 +22,10 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 class AbilityFragment: BaseFragment() {
 
     companion object {
-        fun newInstance(termId: String) = AbilityFragment().apply {
+        fun newInstance(termId: String, studentId: String? = null) = AbilityFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
+                putString("studentId", studentId)
             }
         }
     }
@@ -33,6 +34,10 @@ class AbilityFragment: BaseFragment() {
 
     private val termId by lazy {
         arguments?.getString("termId") ?: ""
+    }
+
+    private val studentId by lazy {
+        arguments?.getString("studentId")
     }
 
     private val indicators by lazy {
@@ -70,16 +75,16 @@ class AbilityFragment: BaseFragment() {
 
                 listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
-                viewModel.getAbility(termId)
+                viewModel.getAbility(termId, studentId)
             }
         } else {
-            viewModel.getAbility(termId)
+            viewModel.getAbility(termId, studentId)
         }
     }
 
     override fun initView() {
         binding.vAbility.init {
-            viewModel.getAbility(termId)
+            viewModel.getAbility(termId, studentId)
         }
     }
 

@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.GradeSummary
-import whiz.sspark.library.data.entity.LearningOutcome
-import whiz.sspark.library.data.entity.LearningOutcomeDTO
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
 import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -24,9 +21,10 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
     companion object {
         private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
 
-        fun newInstance(termId: String) = SeniorLearningOutcomeFragment().apply {
+        fun newInstance(termId: String, student: Student? = null) = SeniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
+                putString("student", student?.toJson())
             }
         }
     }
@@ -35,6 +33,10 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
     private val termId by lazy {
         arguments?.getString("termId") ?: "0"
+    }
+
+    private val student by lazy {
+        arguments?.getString("student")?.toObject<Student>()
     }
 
     private var _binding: FragmentSeniorLearningOutcomeBinding? = null
@@ -68,23 +70,24 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
                 listener?.onSetLatestUpdatedText(dataWrapper)
             } else {
-                viewModel.getLearningOutcome(termId)
+                viewModel.getLearningOutcome(termId, student?.id)
             }
         } else {
-            viewModel.getLearningOutcome(termId)
+            viewModel.getLearningOutcome(termId, student?.id)
         }
     }
 
     override fun initView() {
         binding.vLearningOutcome.init(
             onRefresh = {
-                viewModel.getLearningOutcome(termId)
+                viewModel.getLearningOutcome(termId, student?.id)
             },
             onItemClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_TAG) != null
                 if (!isShowing) {
                     SeniorExpectOutcomeBottomSheetDialog.newInstance(
                         termId = termId,
+                        student = student,
                         courseId = it.courseId,
                         courseCode = it.courseCode,
                         courseName = it.courseName,

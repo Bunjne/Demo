@@ -13,16 +13,21 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface LearningOutcomeRepository {
-    suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
+    suspend fun getLearningOutcome(termId: String, studentId: String?): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
 }
 
 class LearningOutcomeRepositoryImpl(private val context: Context,
                                     private val remote: LearningOutcomeService): LearningOutcomeRepository {
-    override suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
+    override suspend fun getLearningOutcome(termId: String, studentId: String?): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getLearningOutcome(termId)
+                    val response = if (studentId.isNullOrBlank()) {
+                        remote.getLearningOutcome(termId)
+                    } else {
+                        remote.getLearningOutcome(studentId, termId)
+                    }
+
                     fetchX(response, Array<LearningOutcomeDTO>::class.java)
                 } catch (e: Exception) {
                     throw e

@@ -25,6 +25,7 @@
     <string name="general_room">ห้องพัก %1$s</string>
     <string name="general_triple_text_format">%1$s %2$s %3$s</string>
     <string name="general_credit">%1$s หน่วยกิต</string>
+    <string name="general_code_and_nickname_placeholder">#%1$s %2$s</string>
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_add_text">เพิ่ม</string>

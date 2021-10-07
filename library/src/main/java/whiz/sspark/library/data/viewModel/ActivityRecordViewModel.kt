@@ -36,9 +36,9 @@ class ActivityRecordViewModel(private val activityRecordRepositoryImpl: Activity
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getActivityRecord(termId: String) {
+    fun getActivityRecord(termId: String, studentId: String?) {
         viewModelScope.launch {
-            activityRecordRepositoryImpl.getActivityRecord(termId)
+            activityRecordRepositoryImpl.getActivityRecord(termId, studentId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true

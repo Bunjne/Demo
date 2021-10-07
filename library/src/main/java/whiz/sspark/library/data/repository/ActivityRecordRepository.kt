@@ -12,16 +12,21 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface ActivityRecordRepository {
-    suspend fun getActivityRecord(termId: String): Flow<DataWrapperX<List<ActivityDTO>>>
+    suspend fun getActivityRecord(termId: String, studentId: String?): Flow<DataWrapperX<List<ActivityDTO>>>
 }
 
 class ActivityRecordRepositoryImpl(private val context: Context,
                                    private val remote: ActivityRecordService): ActivityRecordRepository {
-    override suspend fun getActivityRecord(termId: String): Flow<DataWrapperX<List<ActivityDTO>>> {
+    override suspend fun getActivityRecord(termId: String, studentId: String?): Flow<DataWrapperX<List<ActivityDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getActivityRecord(termId)
+                    val response = if (studentId.isNullOrBlank()) {
+                        remote.getActivityRecord(termId)
+                    } else {
+                        remote.getActivityRecord(studentId, termId)
+                    }
+
                     fetchX(response, Array<ActivityDTO>::class.java)
                 } catch (e: Exception) {
                     throw e

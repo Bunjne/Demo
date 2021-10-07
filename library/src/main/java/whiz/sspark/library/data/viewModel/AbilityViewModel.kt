@@ -36,9 +36,9 @@ class AbilityViewModel(private val abilityRepositoryImpl: AbilityRepositoryImpl)
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getAbility(termId: String) {
+    fun getAbility(termId: String, studentId: String?) {
         viewModelScope.launch {
-            abilityRepositoryImpl.getAbility(termId)
+            abilityRepositoryImpl.getAbility(termId, studentId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true
