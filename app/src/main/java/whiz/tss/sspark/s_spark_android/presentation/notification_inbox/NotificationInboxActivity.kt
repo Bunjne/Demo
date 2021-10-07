@@ -17,6 +17,13 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
 class NotificationInboxActivity : BaseActivity() {
 
+    companion object {
+        private const val PAGE_SIZE = 10
+        private const val PAGE_INCREASE_SIZE = 1
+        private const val INITIAL_PAGE = 1
+        private const val INITIAL_TOTAL_PAGE = 0
+    }
+
     private val viewModel: NotificationInboxViewModel by viewModel()
 
     private lateinit var binding: ActivityNotificationInboxBinding
@@ -25,7 +32,6 @@ class NotificationInboxActivity : BaseActivity() {
     private var inboxes: MutableList<InboxItemDTO> = mutableListOf()
 
     private var currentPage = 1
-    private var pageSize = 10
     private var totalPage = 0
     private var isLoadMoreData = false
 
@@ -43,20 +49,20 @@ class NotificationInboxActivity : BaseActivity() {
                 binding.vInbox.setLatestUpdatedText(dataWrapper)
                 updateAdapterItem()
             } else {
-                viewModel.getNewNotification(currentPage, pageSize)
+                viewModel.getNewNotification(currentPage, PAGE_SIZE)
             }
         } else {
             initView()
-            viewModel.getNewNotification(currentPage, pageSize)
+            viewModel.getNewNotification(currentPage, PAGE_SIZE)
         }
     }
 
     override fun initView() {
         binding.vInbox.init(
             onRefresh = {
-                currentPage = 1
-                totalPage = 0
-                viewModel.getNewNotification(currentPage, pageSize)
+                currentPage = INITIAL_PAGE
+                totalPage = INITIAL_TOTAL_PAGE
+                viewModel.getNewNotification(currentPage, PAGE_SIZE)
             },
             onLoadMore = {
                 if (isLoadMoreData || totalPage < currentPage) {
@@ -64,8 +70,8 @@ class NotificationInboxActivity : BaseActivity() {
                 }
 
                 isLoadMoreData = true
-                currentPage += 1
-                viewModel.getNotifications(currentPage, pageSize)
+                currentPage += PAGE_INCREASE_SIZE
+                viewModel.getNotifications(currentPage, PAGE_SIZE)
             }
         )
     }
