@@ -21,9 +21,9 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _newNotificationResponse = MutableLiveData<EventWrapper<InboxDTO>>()
-    val newNotificationResponse: LiveData<EventWrapper<InboxDTO>>
-        get() = _newNotificationResponse
+    private val _latestNotificationResponse = MutableLiveData<EventWrapper<InboxDTO>>()
+    val latestNotificationResponse: LiveData<EventWrapper<InboxDTO>>
+        get() = _latestNotificationResponse
 
     private val _notificationResponse = MutableLiveData<EventWrapper<InboxDTO>>()
     val notificationResponse: LiveData<EventWrapper<InboxDTO>>
@@ -37,7 +37,7 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
     val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
 
-    fun getNewNotification(page: Int, pageSize: Int) {
+    fun getLatestNotification(page: Int, pageSize: Int) {
         viewModelScope.launch {
             notificationInboxRepositoryImpl.getNotification(page, pageSize)
                 .onStart {
@@ -56,7 +56,7 @@ class NotificationInboxViewModel(private val notificationInboxRepositoryImpl: No
                     val data = it.data
 
                     data?.let {
-                        _newNotificationResponse.value = it.toEventWrapper()
+                        _latestNotificationResponse.value = it.toEventWrapper()
                     } ?: run {
                         _notificationErrorResponse.value = it.error?.toEventWrapper()
                     }

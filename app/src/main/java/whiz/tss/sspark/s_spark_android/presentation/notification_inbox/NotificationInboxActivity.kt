@@ -49,11 +49,11 @@ class NotificationInboxActivity : BaseActivity() {
                 binding.vInbox.setLatestUpdatedText(dataWrapper)
                 updateAdapterItem()
             } else {
-                viewModel.getNewNotification(currentPage, PAGE_SIZE)
+                viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
             }
         } else {
             initView()
-            viewModel.getNewNotification(currentPage, PAGE_SIZE)
+            viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
         }
     }
 
@@ -62,7 +62,7 @@ class NotificationInboxActivity : BaseActivity() {
             onRefresh = {
                 currentPage = INITIAL_PAGE
                 totalPage = INITIAL_TOTAL_PAGE
-                viewModel.getNewNotification(currentPage, PAGE_SIZE)
+                viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
             },
             onLoadMore = {
                 if (isLoadMoreData || totalPage < currentPage) {
@@ -100,7 +100,7 @@ class NotificationInboxActivity : BaseActivity() {
             }
         }
 
-        viewModel.newNotificationResponse.observe(this) {
+        viewModel.latestNotificationResponse.observe(this) {
             it.getContentIfNotHandled()?.let {
                 totalPage = it.totalPage
 
