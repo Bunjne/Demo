@@ -27,6 +27,10 @@ inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>)
         ApiResponseX(statusCode = response.code())
     }
 
+    if (error.statusCode == 0) {
+        error.statusCode = response.code()
+    }
+
     return DataWrapperX(
         data = data,
         error = error,
@@ -41,6 +45,10 @@ inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>,
         response.errorBody()?.string()?.toObject<ApiResponseX>() ?: ApiResponseX(statusCode = response.code())
     } catch (e: Exception) {
         ApiResponseX(statusCode = response.code())
+    }
+
+    if (error.statusCode == 0) {
+        error.statusCode = response.code()
     }
 
     return DataWrapperX(
