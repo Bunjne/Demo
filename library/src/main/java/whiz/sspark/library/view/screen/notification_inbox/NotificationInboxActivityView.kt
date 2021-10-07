@@ -3,6 +3,7 @@ package whiz.sspark.library.view.screen.notification_inbox
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.data.entity.DataWrapperX
@@ -48,6 +49,14 @@ class NotificationInboxActivityView : ConstraintLayout {
 
     fun updateItem(items: List<NotificationInboxAdapter.Item>) {
         (binding.rvInbox.adapter as? NotificationInboxAdapter)?.submitList(items)
+
+        if (items.isEmpty()) {
+            binding.tvNoCourse.visibility = View.VISIBLE
+            binding.rvInbox.visibility = View.GONE
+        } else {
+            binding.tvNoCourse.visibility = View.GONE
+            binding.rvInbox.visibility = View.VISIBLE
+        }
     }
 
     private fun paginationScrollListener(layoutManager: LinearLayoutManager, onLoadMore: () -> Unit): PaginationScrollListener {

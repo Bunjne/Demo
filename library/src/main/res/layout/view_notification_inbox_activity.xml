@@ -96,8 +96,23 @@
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingHorizontal="6dp"
-            android:paddingTop="2dp" />
+            android:paddingTop="2dp"
+            android:visibility="gone" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvNoCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/general_no_message_text"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/srlContainer"
+        app:layout_constraintEnd_toEndOf="@+id/srlContainer"
+        app:layout_constraintStart_toStartOf="@+id/srlContainer"
+        app:layout_constraintTop_toTopOf="@+id/srlContainer"
+        app:ssparkFont="regular" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
