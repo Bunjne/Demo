@@ -1,9 +1,6 @@
 package whiz.sspark.library.data.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
@@ -17,7 +14,11 @@ import whiz.sspark.library.utility.toEventWrapper
 
 class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: InstructorMenuRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    private val _menuLoading = MutableLiveData<Boolean>()
+    private val _notificationInboxLoading = MutableLiveData<Boolean>()
+    private val _calendarLoading = MutableLiveData<Boolean>()
+
+    private val _viewLoading: MediatorLiveData<Boolean> = MediatorLiveData()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
@@ -48,6 +49,17 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
     private val _errorMessage = MutableLiveData<EventWrapper<String>>()
     val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
+
+    init {
+        val loadingObservers = listOf(_calendarLoading, _notificationInboxLoading, _menuLoading)
+
+        loadingObservers.forEach {
+            _viewLoading.addSource(it) {
+                val isLoading = loadingObservers.any { it.value == true }
+                _viewLoading.setValue(isLoading)
+            }
+        }
+    }
 
     fun getMenu() {
         viewModelScope.launch {
