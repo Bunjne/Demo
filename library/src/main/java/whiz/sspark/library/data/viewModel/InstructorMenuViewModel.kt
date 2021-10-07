@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.repository.InstructorMenuRepositoryImpl
-import whiz.sspark.library.data.repository.StudentMenuRepositoryImpl
+import whiz.sspark.library.utility.EventWrapper
+import whiz.sspark.library.utility.toEventWrapper
 
 class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: InstructorMenuRepositoryImpl): ViewModel() {
 
@@ -20,32 +21,32 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _menuResponse = MutableLiveData<List<MenuDTO>>()
-    val menuResponse: LiveData<List<MenuDTO>>
+    private val _menuResponse = MutableLiveData<EventWrapper<List<MenuDTO>>>()
+    val menuResponse: LiveData<EventWrapper<List<MenuDTO>>>
         get() = _menuResponse
 
-    private val _menuErrorResponse = MutableLiveData<ApiResponseX?>()
-    val menuErrorResponse: LiveData<ApiResponseX?>
+    private val _menuErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
+    val menuErrorResponse: LiveData<EventWrapper<ApiResponseX?>>
         get() = _menuErrorResponse
 
-    private val _notificationInboxResponse = MutableLiveData<MenuNotificationInboxDTO>()
-    val notificationInboxResponse: LiveData<MenuNotificationInboxDTO>
+    private val _notificationInboxResponse = MutableLiveData<EventWrapper<MenuNotificationInboxDTO>>()
+    val notificationInboxResponse: LiveData<EventWrapper<MenuNotificationInboxDTO>>
         get() = _notificationInboxResponse
 
-    private val _notificationInboxErrorResponse = MutableLiveData<ApiResponseX?>()
-    val notificationInboxErrorResponse: LiveData<ApiResponseX?>
+    private val _notificationInboxErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
+    val notificationInboxErrorResponse: LiveData<EventWrapper<ApiResponseX?>>
         get() = _notificationInboxErrorResponse
 
-    private val _calendarResponse = MutableLiveData<MenuCalendarDTO>()
-    val calendarResponse: LiveData<MenuCalendarDTO>
+    private val _calendarResponse = MutableLiveData<EventWrapper<MenuCalendarDTO>>()
+    val calendarResponse: LiveData<EventWrapper<MenuCalendarDTO>>
         get() = _calendarResponse
 
-    private val _calendarErrorResponse = MutableLiveData<ApiResponseX?>()
-    val calendarErrorResponse: LiveData<ApiResponseX?>
+    private val _calendarErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
+    val calendarErrorResponse: LiveData<EventWrapper<ApiResponseX?>>
         get() = _calendarErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
+    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
 
     fun getMenu() {
@@ -58,15 +59,15 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
                     _viewLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     val data = it.data
 
                     data?.let {
-                        _menuResponse.value = it
+                        _menuResponse.value = it.toEventWrapper()
                     } ?: run {
-                        _menuErrorResponse.value = it.error
+                        _menuErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }
@@ -82,15 +83,15 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
                     _viewLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     val data = it.data
 
                     data?.let {
-                        _notificationInboxResponse.value = it
+                        _notificationInboxResponse.value = it.toEventWrapper()
                     } ?: run {
-                        _notificationInboxErrorResponse.value = it.error
+                        _notificationInboxErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }
@@ -106,15 +107,15 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
                     _viewLoading.value = false
                 }
                 .catch {
-                    _errorMessage.value = it.localizedMessage
+                    _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
                     val data = it.data
 
                     data?.let {
-                        _calendarResponse.value = it
+                        _calendarResponse.value = it.toEventWrapper()
                     } ?: run {
-                        _calendarErrorResponse.value = it.error
+                        _calendarErrorResponse.value = it.error?.toEventWrapper()
                     }
                 }
         }

@@ -99,20 +99,20 @@ class InstructorMenuFragment : BaseFragment() {
         }
 
         viewModel.menuResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 updateAdapterItem(it)
                 viewModel.fetchWidget(it)
             }
         }
 
         viewModel.calendarResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 binding.vMenu.updateCalendar(it)
             }
         }
 
         viewModel.notificationInboxResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 binding.vMenu.updateNotificationInbox(it)
             }
         }
@@ -120,25 +120,25 @@ class InstructorMenuFragment : BaseFragment() {
 
     override fun observeError() {
         viewModel.menuErrorResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 showApiResponseXAlert(requireContext(), it)
             }
         }
 
         viewModel.calendarErrorResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 binding.vMenu.updateFailedWidget(MenuItemType.CALENDAR_WIDGET.type)
             }
         }
 
         viewModel.notificationInboxErrorResponse.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 binding.vMenu.updateFailedWidget(MenuItemType.NOTIFICATION_WIDGET.type)
             }
         }
         
         viewModel.errorMessage.observe(this) {
-            it?.let {
+            it.getContentIfNotHandled()?.let {
                 requireContext().showAlertWithOkButton(it)
             }
         }
