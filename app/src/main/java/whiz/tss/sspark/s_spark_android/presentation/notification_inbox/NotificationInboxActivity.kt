@@ -31,8 +31,8 @@ class NotificationInboxActivity : BaseActivity() {
     private var dataWrapper: DataWrapperX<Any>? = null
     private var inboxes: MutableList<InboxItemDTO> = mutableListOf()
 
-    private var currentPage = 1
-    private var totalPage = 0
+    private var currentPage = INITIAL_PAGE
+    private var totalPage = INITIAL_TOTAL_PAGE
     private var isLoadMoreData = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
