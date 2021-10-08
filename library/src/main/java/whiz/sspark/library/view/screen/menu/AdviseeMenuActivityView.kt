@@ -83,7 +83,7 @@ class AdviseeMenuActivityView: ConstraintLayout {
                 binding.tvName.text = name
                 binding.tvCredit.text = credit.toString()
                 binding.tvTotalCredit.text = context.resources.getString(R.string.advisee_list_total_credit, totalCredit.toString())
-                binding.tvGPA.text = GPA.toString()
+                binding.tvGPA.text = gpa.toString()
             }
         }
     }

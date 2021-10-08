@@ -45,7 +45,7 @@ fun Student.convertToJuniorAdvisee(): Advisee {
         name = fullName,
         imageUrl = imageUrl,
         gender = gender,
-        GPA = GPA,
+        gpa = GPA,
         credit = credit,
         totalCredit = totalCredit
     )
@@ -58,7 +58,7 @@ fun Student.convertToSeniorAdvisee(): Advisee {
         name = fullName,
         imageUrl = imageUrl,
         gender = gender,
-        GPA = GPA,
+        gpa = GPA,
         credit = credit,
         totalCredit = totalCredit
     )

@@ -27,10 +27,6 @@ fun ImageView.show(resId: Int) {
 
 fun ImageView.show(url: String) {
     Glide.with(this.context)
-        .setDefaultRequestOptions(RequestOptions
-            .diskCacheStrategyOf(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-        )
         .load(url)
         .into(this)
 }

@@ -6,7 +6,7 @@ data class Advisee(
     val name: String,
     val imageUrl: String,
     val gender: String,
-    val GPA: Float,
+    val gpa: Float,
     val credit: Int,
     val totalCredit: Int
 )
