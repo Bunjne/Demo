@@ -12,7 +12,7 @@ import whiz.sspark.library.data.repository.InstructorMenuRepositoryImpl
 import whiz.sspark.library.utility.EventWrapper
 import whiz.sspark.library.utility.toEventWrapper
 
-class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: InstructorMenuRepositoryImpl): ViewModel() {
+class InstructorMenuViewModel(private val instructorMenuRepository: InstructorMenuRepositoryImpl): ViewModel() {
 
     private val _menuLoading = MutableLiveData<Boolean>()
     private val _notificationInboxLoading = MutableLiveData<Boolean>()
@@ -63,7 +63,7 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
 
     fun getMenu() {
         viewModelScope.launch {
-            instructorMenuRepositoryImpl.getMenu()
+            instructorMenuRepository.getMenu()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -87,7 +87,7 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
 
     private fun getNotificationInbox() {
         viewModelScope.launch {
-            instructorMenuRepositoryImpl.getNotificationInbox()
+            instructorMenuRepository.getNotificationInbox()
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -111,7 +111,7 @@ class InstructorMenuViewModel(private val instructorMenuRepositoryImpl: Instruct
 
     private fun getCalendar() {
         viewModelScope.launch {
-            instructorMenuRepositoryImpl.getCalendar()
+            instructorMenuRepository.getCalendar()
                 .onStart {
                     _viewLoading.value = true
                 }

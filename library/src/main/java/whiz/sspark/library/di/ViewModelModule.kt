@@ -18,11 +18,11 @@ val viewModelModule = module {
     viewModel { InstructorMenuViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { LearningPathwayViewModel(get()) }
-    viewModel { StudentMenuViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { StudentExamScheduleViewModel(get()) }
+    viewModel { StudentMenuViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }

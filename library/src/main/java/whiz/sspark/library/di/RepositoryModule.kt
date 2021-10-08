@@ -18,11 +18,11 @@ val repositoryModule = module {
     factory { InstructorMenuRepositoryImpl(androidContext(), get()) }
     factory { LearningOutcomeRepositoryImpl(androidContext(), get()) }
     factory { LearningPathwayRepositoryImpl(androidContext(), get()) }
-    factory { StudentMenuRepositoryImpl(androidContext(), get()) }
     factory { SchoolRecordRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
     factory { StudentClassAttendanceRepositoryImpl(androidContext(), get()) }
     factory { StudentClassScheduleRepositoryImpl(androidContext(), get()) }
     factory { StudentExamScheduleRepositoryImpl(androidContext(), get()) }
+    factory { StudentMenuRepositoryImpl(androidContext(), get()) }
     factory { TimelineRepositoryImpl(androidContext(), get(), get()) }
 }

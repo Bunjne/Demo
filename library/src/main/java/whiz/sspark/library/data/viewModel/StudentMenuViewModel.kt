@@ -10,7 +10,7 @@ import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.repository.StudentMenuRepositoryImpl
 
-class StudentMenuViewModel(private val studentMenuRepositoryImpl: StudentMenuRepositoryImpl): ViewModel() {
+class StudentMenuViewModel(private val studentMenuRepository: StudentMenuRepositoryImpl): ViewModel() {
 
     private val _menuLoading = MutableLiveData<Boolean>()
     private val _notificationInboxLoading = MutableLiveData<Boolean>()
@@ -68,7 +68,7 @@ class StudentMenuViewModel(private val studentMenuRepositoryImpl: StudentMenuRep
 
     fun getMenu() {
         viewModelScope.launch {
-            studentMenuRepositoryImpl.getMenu()
+            studentMenuRepository.getMenu()
                 .onStart {
                     _menuLoading.value = true
                 }
@@ -92,7 +92,7 @@ class StudentMenuViewModel(private val studentMenuRepositoryImpl: StudentMenuRep
 
     private fun getAdvising() {
         viewModelScope.launch {
-            studentMenuRepositoryImpl.getAdvisingNote()
+            studentMenuRepository.getAdvisingNote()
                 .onStart {
                     _advisingLoading.value = true
                 }
@@ -116,7 +116,7 @@ class StudentMenuViewModel(private val studentMenuRepositoryImpl: StudentMenuRep
 
     private fun getNotificationInbox() {
         viewModelScope.launch {
-            studentMenuRepositoryImpl.getNotificationInbox()
+            studentMenuRepository.getNotificationInbox()
                 .onStart {
                     _notificationInboxLoading.value = true
                 }
@@ -140,7 +140,7 @@ class StudentMenuViewModel(private val studentMenuRepositoryImpl: StudentMenuRep
 
     private fun getCalendar() {
         viewModelScope.launch {
-            studentMenuRepositoryImpl.getCalendar()
+            studentMenuRepository.getCalendar()
                 .onStart {
                     _calendarLoading.value = true
                 }
@@ -164,7 +164,7 @@ class StudentMenuViewModel(private val studentMenuRepositoryImpl: StudentMenuRep
 
     private fun getGradeSummary(termId: String) {
         viewModelScope.launch {
-            studentMenuRepositoryImpl.getGradeSummary(termId)
+            studentMenuRepository.getGradeSummary(termId)
                 .onStart {
                     _gradeSummaryLoading.value = true
                 }
