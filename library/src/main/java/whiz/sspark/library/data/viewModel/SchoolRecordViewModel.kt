@@ -31,9 +31,9 @@ class SchoolRecordViewModel(private val schoolRecordRepositoryImpl: SchoolRecord
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getTerms() {
+    fun getTerms(studentId: String?) {
         viewModelScope.launch {
-            schoolRecordRepositoryImpl.getTerms()
+            schoolRecordRepositoryImpl.getTerms(studentId)
                 .onStart {
                     _viewLoading.value = true
                 }

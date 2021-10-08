@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.AuthenticationInformation
 import whiz.sspark.library.extension.setGradientDrawable
+import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.general.loading_dialog.SSparkLoadingDialog
@@ -18,6 +19,7 @@ import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
 import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.*
 
 class LoginActivity : LocalizationActivity() {
@@ -89,7 +91,9 @@ class LoginActivity : LocalizationActivity() {
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val intent = Intent(this@LoginActivity, SchoolRecordActivity::class.java).apply {
+                        putExtra("student", it.toJson())
+                    }
                     startActivity(intent)
                     finishAffinity()
                 }
