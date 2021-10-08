@@ -78,7 +78,7 @@ class AdviseeMenuActivityView: ConstraintLayout {
     fun updateAdviseeInfo(advisee: Advisee?) {
         if (advisee != null) {
             with(advisee) {
-                binding.ivProfile.showProfile(imageUrl, getGender(gender).type, 6)
+                binding.ivProfile.showProfile(imageUrl, getGender(gender).type)
                 binding.tvCodeAndNickname.text = context.resources.getString(R.string.advisee_list_code_and_name, code, nickname)
                 binding.tvName.text = name
                 binding.tvCredit.text = credit.toString()

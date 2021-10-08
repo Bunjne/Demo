@@ -165,13 +165,7 @@ class AdviseeMenuActivity : BaseActivity() {
             items.add(MenuAdapter.Item(type = menuDTO.type, code = menuDTO.code, title = menuDTO.name))
 
             menuDTO.items.forEach { menuItemDTO ->
-                when (menuItemDTO.type) {
-                    MenuItemType.ADVISING_WIDGET.type,
-                    MenuItemType.NOTIFICATION_WIDGET.type,
-                    MenuItemType.CALENDAR_WIDGET.type,
-                    MenuItemType.GRADE_SUMMARY.type -> { }
-                    else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
-                }
+                items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
             }
         }
 

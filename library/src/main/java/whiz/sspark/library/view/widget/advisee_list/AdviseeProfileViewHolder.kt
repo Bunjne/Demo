@@ -13,7 +13,7 @@ class AdviseeProfileViewHolder(
     fun init(advisee: Advisee) {
         val context = binding.root.context
         with(advisee) {
-            binding.ivProfile.showProfile(imageUrl, getGender(gender).type, 6)
+            binding.ivProfile.showProfile(imageUrl, getGender(gender).type)
             binding.tvCodeAndNickname.text = context.resources.getString(R.string.advisee_list_code_and_name, code, nickname)
             binding.tvName.text = name
             binding.tvCredit.text = credit.toString()
