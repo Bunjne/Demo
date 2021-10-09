@@ -66,6 +66,17 @@ class StudentMenuViewModel(private val studentMenuRepository: StudentMenuReposit
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    init {
+        val loadingObservers = listOf(_calendarLoading, _notificationInboxLoading, _menuLoading, _gradeSummaryLoading, _advisingLoading)
+
+        loadingObservers.forEach {
+            _viewLoading.addSource(it) {
+                val isLoading = loadingObservers.any { it.value == true }
+                _viewLoading.setValue(isLoading)
+            }
+        }
+    }
+
     fun getMenu() {
         viewModelScope.launch {
             studentMenuRepository.getMenu()

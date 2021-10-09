@@ -10,7 +10,7 @@ data class MenuNotificationInboxDTO (
     val item get() = _items ?: listOf()
 
     fun convertToPreviewMessageItem(): PreviewMessageItem {
-        val unreadNotification = item.firstOrNull { it.isRead }
+        val unreadNotification = item.firstOrNull { !it.isRead }
         val unreadMessageCount = item.filterNot { it.isRead }.size
 
         return PreviewMessageItem(

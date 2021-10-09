@@ -53,7 +53,6 @@ class StudentMenuFragmentView : ConstraintLayout {
         }
 
         binding.ivCamera.show(R.drawable.ic_camera)
-        binding.vGradientTop.show(R.drawable.bg_primary_gradient_0)
         binding.ivProfile.showUserProfileCircle(student.profileImageUrl, getGender(student.gender).type)
 
         binding.tvFirstname.text = student.firstName

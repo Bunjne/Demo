@@ -38,7 +38,6 @@ class InstructorMenuFragmentView : ConstraintLayout {
              onRefresh: () -> Unit) {
 
         binding.ivCamera.show(R.drawable.ic_camera)
-        binding.vGradientTop.show(R.drawable.bg_primary_gradient_0)
         binding.ivProfile.showUserProfileCircle(instructor.imageUrl, getGender(instructor.gender).type)
 
         binding.tvFirstname.text = convertToFullName(instructor.firstName, null, null, instructor.position)

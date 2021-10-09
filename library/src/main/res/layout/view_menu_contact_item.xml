@@ -60,6 +60,7 @@
                 android:layout_marginStart="6dp"
                 android:text="@string/menu_contact_info_text"
                 android:textColor="@color/naturalV100"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivEdit"

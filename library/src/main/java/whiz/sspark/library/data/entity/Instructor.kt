@@ -15,7 +15,7 @@ data class Instructor(
         @SerializedName("middleNameTh") val middleNameTh: String = "",
         @SerializedName("lastNameEn") val lastNameEn: String = "",
         @SerializedName("lastNameTh") val lastNameTh: String = "",
-        @SerializedName("jobPositin") var jobPosition: String = "Job position",
+        @SerializedName("jobPosition") var jobPosition: String = "",
         @SerializedName("gender") var gender: String = "",
         @SerializedName("imageUrl") var imageUrl: String = "",
         @SerializedName("officeRoom") var officeRoom: String = "",
