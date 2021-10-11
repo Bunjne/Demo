@@ -100,10 +100,12 @@ class ClassScheduleAdapter: ListAdapter<ClassScheduleAdapter.Item, RecyclerView.
                     val lastItemBottom = holder.itemView.bottom
                     val lastItemHeight = holder.itemView.height
                     val heightDifference = recyclerViewHeight - lastItemBottom
+                    val requiredHeight = lastItemHeight + heightDifference
 
-                    holder.itemView.layoutParams.height = lastItemHeight + heightDifference
-
-                    notifyItemChanged(position)
+                    if (requiredHeight != holder.itemView.height) {
+                        holder.itemView.layoutParams.height = requiredHeight
+                        notifyItemChanged(position)
+                    }
                 }
             }
             TITLE_VIEW_TYPE -> (holder.itemView as? ItemListTitleView)?.init(item.title!!)

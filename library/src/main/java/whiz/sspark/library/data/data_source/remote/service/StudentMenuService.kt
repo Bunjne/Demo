@@ -6,8 +6,8 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface MenuStudentService {
-    @Headers("Content-Type: application/json", "x-mock-match-request-headers: Authorization")
+interface StudentMenuService {
+    @Headers("Content-Type: application/json")
     @GET("api/v1/menus")
     suspend fun getMenu(): Response<ApiResponseX>
 
@@ -16,14 +16,14 @@ interface MenuStudentService {
     suspend fun getGradeSummary(@Query("termId") termId: String): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/menu/calendar") //TODO wait confirm path
+    @GET("api/v1/calendars/today")
     suspend fun getCalendar(): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/menu/notification_inbox") //TODO wait confirm path
+    @GET("api/v1/notification/widget")
     suspend fun getNotificationInbox(): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/menu/advising_note") //TODO wait confirm path
+    @GET("api/v1/menu/advising_note")
     suspend fun getAdvisingNote(): Response<ApiResponseX>
 }

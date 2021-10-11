@@ -85,7 +85,7 @@ class LoginActivity : LocalizationActivity() {
             }
         }
 
-        viewModel.profileResponse.observe(this) {
+        viewModel.studentProfileResponse.observe(this) {
             it?.let {
                 saveUserID(this, it.id)
 
@@ -94,6 +94,19 @@ class LoginActivity : LocalizationActivity() {
                     val intent = Intent(this@LoginActivity, SchoolRecordActivity::class.java).apply {
                         putExtra("student", it.toJson())
                     }
+                    startActivity(intent)
+                    finishAffinity()
+                }
+            }
+        }
+
+        viewModel.instructorProfileResponse.observe(this) {
+            it?.let {
+                saveUserID(this, it.id)
+
+                lifecycleScope.launch {
+                    profileManager.saveInstructor(it)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 }
@@ -114,7 +127,13 @@ class LoginActivity : LocalizationActivity() {
             }
         }
 
-        viewModel.profileErrorResponse.observe(this) {
+        viewModel.studentProfileErrorResponse.observe(this) {
+            it?.let {
+                showApiResponseXAlert(this, it)
+            }
+        }
+
+        viewModel.instructorProfileErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(this, it)
             }
@@ -133,11 +152,11 @@ class LoginActivity : LocalizationActivity() {
             }
             RoleType.INSTRUCTOR_JUNIOR -> {
                 SSparkApp.setInstructorJuniorApp()
-                //TODO wait implement instructor API
+                viewModel.getInstructorProfile()
             }
             RoleType.INSTRUCTOR_SENIOR -> {
                 SSparkApp.setInstructorSeniorApp()
-                //TODO wait implement instructor API
+                viewModel.getInstructorProfile()
             }
             RoleType.GUARDIAN -> {
                 SSparkApp.setGuardianApp()

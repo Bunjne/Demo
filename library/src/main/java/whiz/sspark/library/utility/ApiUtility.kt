@@ -12,7 +12,7 @@ import java.util.*
 
 inline fun <reified T> transformToDataWrapperX(response: Response<ApiResponseX>): DataWrapperX<T> {
     val data = if (response.code() in 200..204) {
-        if (T::class.java == String::class.java) {
+        if (T::class.java == String::class.java && response.body()?.data == null) {
             (response.body()?.message ?: "") as T
         } else {
             response.body()?.data?.toObject<T>()

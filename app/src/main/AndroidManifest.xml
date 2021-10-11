@@ -54,6 +54,15 @@
         <activity
             android:name=".presentation.calendar.CalendarActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.advisee_list.AdviseeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.menu.AdviseeMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.notification_inbox.NotificationInboxActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

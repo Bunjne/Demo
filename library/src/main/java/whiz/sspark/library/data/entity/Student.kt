@@ -40,12 +40,13 @@ data class Student(
 
 fun Student.convertToJuniorAdvisee(): Advisee {
     return Advisee(
+        id = id,
         nickname = nickName,
         code = number?.toString() ?: "",
         name = fullName,
         imageUrl = imageUrl,
         gender = gender,
-        GPA = GPA,
+        gpa = GPA,
         credit = credit,
         totalCredit = totalCredit
     )
@@ -53,17 +54,17 @@ fun Student.convertToJuniorAdvisee(): Advisee {
 
 fun Student.convertToSeniorAdvisee(): Advisee {
     return Advisee(
+        id = id,
         nickname = nickName,
         code = code,
         name = fullName,
         imageUrl = imageUrl,
         gender = gender,
-        GPA = GPA,
+        gpa = GPA,
         credit = credit,
         totalCredit = totalCredit
     )
 }
-
 
 fun Student.convertToProfile(): Profile {
     return Profile(
@@ -92,6 +93,25 @@ fun Student.getMenuMember(context: Context): List<MenuMemberItem> {
             )
         )
     }
+
+    guardians.forEachIndexed { index, studentInstructorInfo ->
+        menuMemberItems.add(
+            MenuMemberItem(
+                type = MenuSegmentType.GUARDIAN,
+                index = index,
+                imageUrl = studentInstructorInfo.imageUrl,
+                gender = studentInstructorInfo.gender,
+                description = studentInstructorInfo.relation,
+                name = studentInstructorInfo.fullName
+            )
+        )
+    }
+
+    return menuMemberItems
+}
+
+fun Student.getGuardian(): List<MenuMemberItem> {
+    val menuMemberItems: MutableList<MenuMemberItem> = mutableListOf()
 
     guardians.forEachIndexed { index, studentInstructorInfo ->
         menuMemberItems.add(

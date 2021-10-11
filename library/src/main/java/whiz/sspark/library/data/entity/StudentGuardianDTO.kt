@@ -14,7 +14,9 @@ data class StudentGuardianDTO(
     @SerializedName("lastNameTh") val lastNameTh: String = "",
     @SerializedName("middleNameEn") val middleNameEn: String = "",
     @SerializedName("middleNameTh") val middleNameTh: String = "",
-    @SerializedName("relation") val relation: String = "",
+    @SerializedName("relationEn") val relationEn: String = "",
+    @SerializedName("relationTh") val relationTh: String = "",
+    @SerializedName("relationCn") val relationCn: String = "",
     @SerializedName("personalEmail") val personalEmail: String = "",
     @SerializedName("personalPhoneNumber") val personalPhoneNumber: String = "",
     @SerializedName("imageUrl") var imageUrl: String = "",
@@ -22,6 +24,7 @@ data class StudentGuardianDTO(
     val firstName: String get() = localize(firstNameEn, firstNameTh, firstNameEn, false)
     val lastName: String get() = localize(lastNameEn, lastNameTh, lastNameEn, false)
     val middleName: String get() = localize(middleNameEn, middleNameTh, middleNameEn, false)
+    val relation: String get() = localize(relationEn, relationTh, relationCn, false)
 
     val fullName get() = convertToFullName(firstName, middleName, lastName)
 }

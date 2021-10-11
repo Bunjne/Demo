@@ -60,6 +60,12 @@ class ProfileManager(private val context: Context) {
         }
     }
 
+    suspend fun saveInstructor(instructor: Instructor) {
+        context.dataStore.edit { settings ->
+            settings[INSTRUCTOR_KEY] = instructor.toJson()
+        }
+    }
+
     suspend fun clearData() {
         context.dataStore.edit {
             it.clear()

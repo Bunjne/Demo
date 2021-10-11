@@ -6,12 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.data_source.remote.service.MenuStudentService
+import whiz.sspark.library.data.data_source.remote.service.StudentMenuService
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
-interface MenuStudentRepository {
+interface StudentMenuRepository {
     suspend fun getMenu(): Flow<DataWrapperX<List<MenuDTO>>>
     suspend fun getGradeSummary(termId: String): Flow<DataWrapperX<List<MenuGradeSummaryDTO>>>
     suspend fun getCalendar(): Flow<DataWrapperX<MenuCalendarDTO>>
@@ -19,8 +19,8 @@ interface MenuStudentRepository {
     suspend fun getAdvisingNote(): Flow<DataWrapperX<MenuAdvisingNoteDTO>>
 }
 
-class MenuStudentRepositoryImpl(private val context: Context,
-                                private val remote: MenuStudentService): MenuStudentRepository {
+class StudentMenuRepositoryImpl(private val context: Context,
+                                private val remote: StudentMenuService): StudentMenuRepository {
 
     override suspend fun getMenu(): Flow<DataWrapperX<List<MenuDTO>>> {
         return flow {

@@ -1,9 +1,6 @@
 package whiz.sspark.library.data.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
@@ -11,11 +8,17 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
-import whiz.sspark.library.data.repository.MenuStudentRepositoryImpl
+import whiz.sspark.library.data.repository.StudentMenuRepositoryImpl
 
-class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRepositoryImpl): ViewModel() {
+class StudentMenuViewModel(private val studentMenuRepository: StudentMenuRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    private val _menuLoading = MutableLiveData<Boolean>()
+    private val _notificationInboxLoading = MutableLiveData<Boolean>()
+    private val _calendarLoading = MutableLiveData<Boolean>()
+    private val _gradeSummaryLoading = MutableLiveData<Boolean>()
+    private val _advisingLoading = MutableLiveData<Boolean>()
+
+    private val _viewLoading: MediatorLiveData<Boolean> = MediatorLiveData()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
@@ -63,14 +66,25 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    init {
+        val loadingObservers = listOf(_calendarLoading, _notificationInboxLoading, _menuLoading, _gradeSummaryLoading, _advisingLoading)
+
+        loadingObservers.forEach {
+            _viewLoading.addSource(it) {
+                val isLoading = loadingObservers.any { it.value == true }
+                _viewLoading.setValue(isLoading)
+            }
+        }
+    }
+
     fun getMenu() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getMenu()
+            studentMenuRepository.getMenu()
                 .onStart {
-                    _viewLoading.value = true
+                    _menuLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _menuLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
@@ -89,12 +103,12 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
 
     private fun getAdvising() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getAdvisingNote()
+            studentMenuRepository.getAdvisingNote()
                 .onStart {
-                    _viewLoading.value = true
+                    _advisingLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _advisingLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
@@ -113,12 +127,12 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
 
     private fun getNotificationInbox() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getNotificationInbox()
+            studentMenuRepository.getNotificationInbox()
                 .onStart {
-                    _viewLoading.value = true
+                    _notificationInboxLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _notificationInboxLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
@@ -137,12 +151,12 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
 
     private fun getCalendar() {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getCalendar()
+            studentMenuRepository.getCalendar()
                 .onStart {
-                    _viewLoading.value = true
+                    _calendarLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _calendarLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
@@ -161,12 +175,12 @@ class MenuStudentViewModel(private val menuStudentRepositoryImpl: MenuStudentRep
 
     private fun getGradeSummary(termId: String) {
         viewModelScope.launch {
-            menuStudentRepositoryImpl.getGradeSummary(termId)
+            studentMenuRepository.getGradeSummary(termId)
                 .onStart {
-                    _viewLoading.value = true
+                    _gradeSummaryLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _gradeSummaryLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage
