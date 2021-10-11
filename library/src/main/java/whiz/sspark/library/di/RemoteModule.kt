@@ -9,6 +9,7 @@ val remoteModule = module {
     factory<AbilityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ActivityRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AddCourseService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeListService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AssignmentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<CalendarService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassGroupService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
@@ -17,13 +18,14 @@ val remoteModule = module {
     factory<ExpectOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<HappeningsService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<InstructorClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<InstructorMenuService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<LearningOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<LearningPathwayService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
-    factory<MenuStudentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<SchoolRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentClassAttendanceService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentClassScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentExamScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<StudentMenuService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<TimelineService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
 }

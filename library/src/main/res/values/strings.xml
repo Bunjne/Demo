@@ -83,6 +83,8 @@
     <string name="menu_contact_info_office_phone_text">โทรศัพท์</string>
     <string name="menu_contact_info_personal_phone_text">โทรศัพท์ส่วนตัว</string>
     <string name="menu_contact_info_close_text">ปิด</string>
+    <string name="menu_download_failed_text">โหลดข้อมูลไม่สำเร็จ</string>
+    <string name="menu_contact_info_text">ข้อมูลการติดต่อ</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>
@@ -210,6 +212,12 @@
     <!--Calendar-->
     <string name="calendar_title">ปฏิทินการศึกษา</string>
     <string name="calendar_end_date">ถึง %1$s</string>
+
+    <!--Advisee list-->
+    <string name="advisee_list_gpa_text">เกรดเฉลี่ยสะสม</string>
+    <string name="advisee_list_credit_text">หน่วยกิตสะสม</string>
+    <string name="advisee_list_code_and_name">#%1$s %2$s</string>
+    <string name="advisee_list_total_credit">/%1$s</string>
 
     <!--Assignment-->
     <string name="assignment_deadline">กำหนดส่ง: %1$s</string>

@@ -5,16 +5,20 @@ import java.util.*
 
 data class MenuAdvisingNoteDTO (
     @SerializedName("unreadMessageCount") val unreadMessageCount: Int = 0,
-    @SerializedName("message") val message: String = "",
-    @SerializedName("createdAt") val createdAt: Date? = null,
-    @SerializedName("advisor") val advisor: StudentInstructorDTO? = null
+    @SerializedName("note") val note: MenuAdvisingNoteDetailDTO = MenuAdvisingNoteDetailDTO(),
 ) {
     fun convertToPreviewMessageItem(): PreviewMessageItem {
         return PreviewMessageItem(
-            title = advisor?.fullName ?: "",
-            description = message,
+            title = note.advisor?.fullName ?: "",
+            description = note.message,
             notificationCount = unreadMessageCount,
-            date = createdAt
+            date = note.dateTime
         )
     }
 }
+
+data class MenuAdvisingNoteDetailDTO(
+    @SerializedName("message") val message: String = "",
+    @SerializedName("dateTime") val dateTime: Date? = null,
+    @SerializedName("advisor") val advisor: StudentInstructorDTO? = null
+)
