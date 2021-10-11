@@ -5,6 +5,7 @@
     <string name="general_text_cancel">Cancel</string>
     <string name="general_text_discard">Discard</string>
     <string name="general_interpunct">●</string>
+    <string name="general_text_today">วันนี้</string>
 
     <!--General alert message-->
     <string name="general_alertmessage_no_internet_connection">No internet connection</string>
@@ -217,4 +218,8 @@
     <string name="advisee_list_credit_text">หน่วยกิตสะสม</string>
     <string name="advisee_list_code_and_name">#%1$s %2$s</string>
     <string name="advisee_list_total_credit">/%1$s</string>
+
+    <!-- Notification Inbox -->
+    <string name="notification_inbox_created_at">%1$s น.</string>
+    <string name="notification_inbox_text">กล่องข้อความ</string>
 </resources>

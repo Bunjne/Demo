@@ -26,6 +26,7 @@ import whiz.tss.sspark.s_spark_android.databinding.FragmentInstructorMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.advisee_list.AdviseeListActivity
 import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
+import whiz.tss.sspark.s_spark_android.presentation.notification_inbox.NotificationInboxActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
 
 class InstructorMenuFragment : BaseFragment() {
@@ -80,6 +81,10 @@ class InstructorMenuFragment : BaseFragment() {
                     }
                     MenuCode.CALENDAR.code -> {
                         val intent = Intent(requireContext(), CalendarActivity::class.java)
+                        startActivity(intent)
+                    }
+                    MenuCode.NOTIFICATION_INBOX.code -> {
+                        val intent = Intent(requireContext(), NotificationInboxActivity::class.java)
                         startActivity(intent)
                     }
                     MenuCode.LOGOUT.code -> logout(requireContext())
