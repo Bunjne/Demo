@@ -112,7 +112,7 @@ class CourseSyllabusWeekDetailFragment: BaseFragment() {
             items.add(CourseSyllabusWeekAdapter.Item(instructors = instructors))
         }
 
-        binding.vWeekDetail.updateItem()
+        binding.vWeekDetail.updateItem(items)
     }
 
     override fun onDestroyView() {

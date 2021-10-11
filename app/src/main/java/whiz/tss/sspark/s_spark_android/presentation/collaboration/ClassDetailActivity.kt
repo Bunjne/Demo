@@ -131,7 +131,12 @@ class ClassDetailActivity : BaseActivity() {
                 onStudyPlanClicked = {
                     val isShowing = supportFragmentManager.findFragmentByTag(COURSE_SYLLABUS) != null
                     if (!isShowing) {
-                        CourseSyllabusFragment.newInstance(classGroupId, currentTerm.id ,startColor, endColor).show(supportFragmentManager, COURSE_SYLLABUS)
+                        CourseSyllabusFragment.newInstance(
+                            classGroupId =  classGroupId,
+                            termId = currentTerm.id,
+                            startColor = startColor,
+                            endColor = endColor
+                        ).show(supportFragmentManager, COURSE_SYLLABUS)
                     }
                 }
             )

@@ -32,8 +32,6 @@ data class CourseSyllabusWeekDTO(
 }
 
 data class CourseSyllabusInstructorDTO(
-    @SerializedName("abbreviateNameEn") val abbreviateNameEn: String = "",
-    @SerializedName("abbreviateNameTh") val abbreviateNameTh: String = "",
     @SerializedName("colorCode") val colorCode: String = "",
     @SerializedName("id") val id: String = "",
     @SerializedName("profileImageUrl") val profileImageUrl: String? = null,

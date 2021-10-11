@@ -54,7 +54,6 @@
                 app:ssparkFont="regular"
                 tools:text="อ.สมชาย, อ.วีรพล, อ.ดวงจันทร์" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.sinaseyfi.advancedcardview.AdvancedCardView>

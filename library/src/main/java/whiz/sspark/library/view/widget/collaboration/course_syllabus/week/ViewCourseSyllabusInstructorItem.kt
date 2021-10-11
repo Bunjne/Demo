@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import whiz.sspark.library.R
 import whiz.sspark.library.databinding.ViewCourseSyllabusInstructorItemBinding
+import whiz.sspark.library.extension.show
 
 class ViewCourseSyllabusInstructorItem: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -18,5 +20,6 @@ class ViewCourseSyllabusInstructorItem: ConstraintLayout {
     fun init(instructors: List<String>) {
         val convertedInstructor = instructors.joinToString(", ") { it }
         binding.tvInstructor.text = convertedInstructor
+//        binding.ivInstructor.show(R.drawable.ic) TODO wait confirm image
     }
 }

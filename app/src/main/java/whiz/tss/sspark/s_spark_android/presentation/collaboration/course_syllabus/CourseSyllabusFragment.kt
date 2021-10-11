@@ -1,10 +1,10 @@
 package whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.extension.toResourceColor
@@ -56,7 +56,7 @@ class CourseSyllabusFragment: DialogFragment(),
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = FragmentCourseSyllabusBinding.inflate(layoutInflater)
-        val alertDialog = AlertDialog.Builder(requireContext()).create().apply {
+        val dialog = AlertDialog.Builder(requireContext()).create().apply {
             setView(binding.root)
             setCancelable(false)
             setDialogAnimation(window)
@@ -64,7 +64,7 @@ class CourseSyllabusFragment: DialogFragment(),
 
         initView()
 
-        return alertDialog
+        return dialog
     }
 
     private fun setDialogAnimation(window: Window?) {

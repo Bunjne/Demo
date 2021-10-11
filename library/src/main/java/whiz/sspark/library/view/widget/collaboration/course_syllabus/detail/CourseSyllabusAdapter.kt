@@ -28,20 +28,20 @@ class CourseSyllabusAdapter: ListAdapter<CourseSyllabusAdapter.Item, RecyclerVie
         val nextItem = try {
             getItem(position + 1)
         } catch (e: IndexOutOfBoundsException) {
-            return TITLE_VIEW_TYPE
+            null
         }
 
         val previousItem = try {
             getItem(position - 1)
         } catch (e: IndexOutOfBoundsException) {
-            return TITLE_VIEW_TYPE
+            null
         }
 
         return when {
-            item.courseDetail != null && previousItem.courseDetail == null && nextItem.courseDetail == null -> COURSE_DETAIL_SINGLE_VIEW_TYPE
-            item.courseDetail != null && previousItem.courseDetail != null && nextItem.courseDetail != null -> COURSE_DETAIL_MIDDLE_VIEW_TYPE
-            item.courseDetail != null && previousItem.courseDetail == null && nextItem.courseDetail != null -> COURSE_DETAIL_TOP_VIEW_TYPE
-            item.courseDetail != null && previousItem.courseDetail != null && nextItem.courseDetail == null -> COURSE_DETAIL_BOTTOM_VIEW_TYPE
+            item.courseDetail != null && previousItem?.courseDetail == null && nextItem?.courseDetail == null -> COURSE_DETAIL_SINGLE_VIEW_TYPE
+            item.courseDetail != null && previousItem?.courseDetail != null && nextItem?.courseDetail != null -> COURSE_DETAIL_MIDDLE_VIEW_TYPE
+            item.courseDetail != null && previousItem?.courseDetail == null && nextItem?.courseDetail != null -> COURSE_DETAIL_TOP_VIEW_TYPE
+            item.courseDetail != null && previousItem?.courseDetail != null && nextItem?.courseDetail == null -> COURSE_DETAIL_BOTTOM_VIEW_TYPE
             else -> TITLE_VIEW_TYPE
         }
     }
@@ -96,11 +96,11 @@ class CourseSyllabusAdapter: ListAdapter<CourseSyllabusAdapter.Item, RecyclerVie
         val viewType = getItemViewType(position)
 
         when(viewType) {
+            COURSE_DETAIL_SINGLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailSingleItemView).init(item.code, item.courseDetail!!)
             COURSE_DETAIL_TOP_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailTopItemView).init(item.code, item.courseDetail!!)
             COURSE_DETAIL_MIDDLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailMiddleItemView).init(item.code, item.courseDetail!!)
             COURSE_DETAIL_BOTTOM_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailBottomItemView).init(item.code, item.courseDetail!!)
-            COURSE_DETAIL_SINGLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusDetailSingleItemView).init(item.code, item.courseDetail!!)
-            TITLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusTitleItemView).init(item.title!!)
+            TITLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusTitleItemView).init(item.title ?: "")
         }
     }
 

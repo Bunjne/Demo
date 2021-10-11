@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.databinding.ViewCourseSyllabusWeekDetailFragmentBinding
-import whiz.sspark.library.view.widget.collaboration.course_syllabus.detail.CourseSyllabusAdapter
 import whiz.sspark.library.view.widget.collaboration.course_syllabus.week.CourseSyllabusWeekAdapter
 
 class CourseSyllabusWeekDetailFragmentView: ConstraintLayout {
@@ -33,7 +32,7 @@ class CourseSyllabusWeekDetailFragmentView: ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun updateItem(item: List<CourseSyllabusAdapter.Item> = listOf()) {
-        (binding.rvWeekDetail.adapter as? CourseSyllabusAdapter)?.submitList(item)
+    fun updateItem(item: List<CourseSyllabusWeekAdapter.Item>) {
+        (binding.rvWeekDetail.adapter as? CourseSyllabusWeekAdapter)?.submitList(item)
     }
 }
