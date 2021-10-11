@@ -40,12 +40,14 @@ class MenuAdapter(private val context: Context,
     }
 
     companion object {
-        const val TITLE_TYPE = 3333
-        const val MENU_TYPE = 4444
-        const val MESSAGE_WIDGET_TYPE = 5555
-        const val NO_MESSAGE_WIDGET_TYPE = 6666
-        const val CALENDAR_WIDGET_TYPE = 7777
-        const val GRADE_SUMMARY_WIDGET_TYPE = 8888
+        const val TITLE_TYPE = 3
+        const val MENU_TYPE = 4
+        const val MESSAGE_WIDGET_TYPE = 5
+        const val NO_MESSAGE_WIDGET_TYPE = 6
+        const val CALENDAR_WIDGET_TYPE = 7
+        const val GRADE_SUMMARY_WIDGET_TYPE = 8
+        const val DOWNLOAD_FAILED_WIDGET_TYPE = 9
+        const val CONTACT_VIEW_TYPE = 10
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -55,23 +57,29 @@ class MenuAdapter(private val context: Context,
             return TITLE_TYPE
         }
 
-        return when(item.type) {
-            MenuItemType.MENU.type -> MENU_TYPE
-            MenuItemType.ADVISING_WIDGET.type,
-            MenuItemType.NOTIFICATION_WIDGET.type -> if (!item.previewMessageItem?.title.isNullOrBlank()) {
+        return when {
+            item.isShowDownloadFailedWidget -> DOWNLOAD_FAILED_WIDGET_TYPE
+            item.type == MenuItemType.MENU.type -> MENU_TYPE
+            item.type == MenuItemType.CONTACT.type -> CONTACT_VIEW_TYPE
+            item.type == MenuItemType.ADVISING_WIDGET.type ||
+            item.type == MenuItemType.NOTIFICATION_WIDGET.type -> if (!item.previewMessageItem?.title.isNullOrBlank()) {
                 MESSAGE_WIDGET_TYPE
             } else {
                 NO_MESSAGE_WIDGET_TYPE
             }
-            MenuItemType.CALENDAR_WIDGET.type -> CALENDAR_WIDGET_TYPE
-            MenuItemType.GRADE_SUMMARY.type -> GRADE_SUMMARY_WIDGET_TYPE
+            item.type == MenuItemType.CALENDAR_WIDGET.type -> CALENDAR_WIDGET_TYPE
+            item.type == MenuItemType.GRADE_SUMMARY.type -> GRADE_SUMMARY_WIDGET_TYPE
             else -> TITLE_TYPE
         }
     }
 
     class TitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
+    class ContactViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
     class MenuViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    class DownloadFailedViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     class NoMessageWidgetViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -113,6 +121,18 @@ class MenuAdapter(private val context: Context,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
             })
+            DOWNLOAD_FAILED_WIDGET_TYPE -> DownloadFailedViewHolder(MenuDownloadFailedWidget(context).apply {
+                layoutParams = RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            })
+            CONTACT_VIEW_TYPE -> ContactViewHolder(MenuContactItemView(context).apply {
+                layoutParams = RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            })
             else -> TitleViewHolder(ItemListTitleView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -128,7 +148,7 @@ class MenuAdapter(private val context: Context,
         val isNextItemHeader = getItemViewType(position + 1) != MENU_TYPE
         val isPreviousItemHeader = getItemViewType(position - 1) != MENU_TYPE
 
-        when (viewType) {
+        when(viewType) {
             MENU_TYPE -> {
                 (holder.itemView as? MenuItemView)?.apply {
                     init(item.menuItem!!)
@@ -206,10 +226,24 @@ class MenuAdapter(private val context: Context,
                     }
                 }
             }
-            else -> {
-                (holder.itemView as? ItemListTitleView)?.apply {
-                    init(item.title)
+            DOWNLOAD_FAILED_WIDGET_TYPE -> {
+                holder.itemView.post {
+                    val height = holder.itemView.height
+                    if (height > requiredHeight) {
+                        requiredHeight = height
+                        notifyWidgetHeightChange()
+                    } else {
+                        holder.itemView.layoutParams.height = requiredHeight
+                    }
                 }
+            }
+            CONTACT_VIEW_TYPE -> {
+                (holder.itemView as? MenuContactItemView)?.init(item.title) {
+                    onMenuClicked(item.code)
+                }
+            }
+            TITLE_TYPE -> {
+                (holder.itemView as? ItemListTitleView)?.init(item.title)
             }
         }
     }
@@ -218,6 +252,7 @@ class MenuAdapter(private val context: Context,
         val type: String,
         val code: String,
         val title: String,
+        var isShowDownloadFailedWidget: Boolean = false,
         val menuItem: MenuItem? = null,
         var calendarItem: CalendarWidgetItem? = null,
         var previewMessageItem: PreviewMessageItem? = null,
