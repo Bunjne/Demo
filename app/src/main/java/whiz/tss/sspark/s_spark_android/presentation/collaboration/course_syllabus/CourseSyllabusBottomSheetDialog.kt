@@ -1,19 +1,17 @@
 package whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus
 
-import android.app.Dialog
-import android.graphics.Color
 import android.os.Bundle
-import android.view.*
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
-import whiz.sspark.library.extension.toDP
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import whiz.sspark.library.extension.toResourceColor
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentCourseSyllabusBinding
+import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus.detail.CourseSyllabusDetailFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus.week_detail.CourseSyllabusWeekDetailFragment
 
-class CourseSyllabusFragment: DialogFragment(),
+class CourseSyllabusBottomSheetDialog: BaseBottomSheetDialogFragment(),
     CourseSyllabusDetailFragment.OnCloseListener,
     CourseSyllabusWeekDetailFragment.OnCloseListener {
 
@@ -21,7 +19,7 @@ class CourseSyllabusFragment: DialogFragment(),
         const val COURSE_DETAIL = 0
         const val COURSE_WEEK_DETAIL = 1
 
-        fun newInstance(classGroupId: String, termId: String, startColor: Int, endColor: Int) = CourseSyllabusFragment().apply {
+        fun newInstance(classGroupId: String, termId: String, startColor: Int, endColor: Int) = CourseSyllabusBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
                 putString("termId", termId)
@@ -54,34 +52,20 @@ class CourseSyllabusFragment: DialogFragment(),
         resources.getStringArray(R.array.course_syllabus_segment).toList()
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = FragmentCourseSyllabusBinding.inflate(layoutInflater)
-        val dialog = AlertDialog.Builder(requireContext()).create().apply {
-            setView(binding.root)
-            setCancelable(false)
-            setDialogAnimation(window)
-        }
-
-        initView()
-
-        return dialog
-    }
-
-    private fun setDialogAnimation(window: Window?) {
-        window?.let {
-            with(window) {
-                decorView.setBackgroundColor(Color.TRANSPARENT)
-                setGravity(Gravity.BOTTOM)
-                attributes.windowAnimations = R.style.VerticalSlidesAnimationStyle
-            }
-        }
-    }
+    override val isDraggable = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentCourseSyllabusBinding.inflate(layoutInflater)
         return binding.root
     }
 
-    private fun initView() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initView()
+    }
+
+    override fun initView() {
         binding.vCourseSyllabus.init(
             segmentTitles = segmentTitles,
             startColor = startColor,
@@ -95,16 +79,6 @@ class CourseSyllabusFragment: DialogFragment(),
             onCloseClicked = {
                 dismiss()
             }
-        )
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val height = resources.displayMetrics.heightPixels - 20.toDP(requireContext())
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            height
         )
     }
 

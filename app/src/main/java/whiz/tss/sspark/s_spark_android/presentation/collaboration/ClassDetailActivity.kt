@@ -21,7 +21,7 @@ import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
-import whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus.CourseSyllabusFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus.CourseSyllabusBottomSheetDialog
 
 class ClassDetailActivity : BaseActivity() {
 
@@ -131,7 +131,7 @@ class ClassDetailActivity : BaseActivity() {
                 onStudyPlanClicked = {
                     val isShowing = supportFragmentManager.findFragmentByTag(COURSE_SYLLABUS) != null
                     if (!isShowing) {
-                        CourseSyllabusFragment.newInstance(
+                        CourseSyllabusBottomSheetDialog.newInstance(
                             classGroupId =  classGroupId,
                             termId = currentTerm.id,
                             startColor = startColor,
