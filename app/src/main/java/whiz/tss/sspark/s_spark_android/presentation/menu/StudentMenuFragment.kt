@@ -114,10 +114,6 @@ class StudentMenuFragment : BaseFragment() {
             },
             onMenuClicked = { code, title ->
                 when(code) {
-                    MenuCode.ADVISEE.code -> {
-                        val intent = Intent(requireContext(), AdviseeListActivity::class.java)
-                        startActivity(intent)
-                    }
                     MenuCode.GRADE_SUMMARY.code -> {
                         val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
                         startActivity(intent)
