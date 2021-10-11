@@ -20,7 +20,7 @@ interface StudentMenuService {
     suspend fun getCalendar(): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/notifications?page=1&pageSize=1")
+    @GET("api/v1/notification/widget")
     suspend fun getNotificationInbox(): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")

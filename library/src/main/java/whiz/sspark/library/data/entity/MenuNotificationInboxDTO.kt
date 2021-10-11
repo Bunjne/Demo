@@ -4,22 +4,15 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class MenuNotificationInboxDTO (
-    @SerializedName("totalPage") val totalPage: Int = 0,
-    @SerializedName("items") private val _items: List<MenuNotificationInboxItemDTO>? = null
+    @SerializedName("notReadNotificationCount") val notReadNotificationCount: Int = 0,
+    @SerializedName("item") val item: MenuNotificationInboxItemDTO? = null
 ) {
-    val item get() = _items ?: listOf()
-
-    fun convertToPreviewMessageItem(): PreviewMessageItem {
-        val unreadNotification = item.firstOrNull { !it.isRead }
-        val unreadMessageCount = item.filterNot { it.isRead }.size
-
-        return PreviewMessageItem(
-            title = unreadNotification?.title ?: "",
-            description = unreadNotification?.message ?: "",
-            notificationCount = unreadMessageCount,
-            date = unreadNotification?.datetime
-        )
-    }
+    fun convertToPreviewMessageItem()= PreviewMessageItem(
+        title = item?.title ?: "",
+        description = item?.message ?: "",
+        notificationCount = notReadNotificationCount,
+        date = item?.datetime
+    )
 }
 
 data class MenuNotificationInboxItemDTO(
