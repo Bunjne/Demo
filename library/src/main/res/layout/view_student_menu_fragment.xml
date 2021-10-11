@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:background="@color/viewBasePrimaryColor">
 
-    <ImageView
+    <View
         android:id="@+id/vGradientTop"
         android:layout_width="0dp"
         android:layout_height="94dp"
+        android:background="@drawable/bg_primary_gradient_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/bg_primary_gradient_0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/vTranslation"

@@ -14,7 +14,6 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.DataWrapper
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.data.enum.ItemPosition
@@ -28,30 +27,6 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, parent: ViewGroup? = this) {
 
 fun View.inflate(@LayoutRes layoutRes: Int, parent: ViewGroup? = null) {
     LayoutInflater.from(context).inflate(layoutRes, parent)
-}
-
-fun TextView.showViewState(dataWrapper: DataWrapper<Any>?) {
-    if (dataWrapper == null) {
-        this.showUpdatingData()
-    } else {
-        with(dataWrapper) {
-            if (dataSource == DataSource.CACHE && isNetworkPreferred == true) {
-                this@showViewState.showUpdatingData()
-            } else if (dataSource == DataSource.CACHE && isNetworkPreferred == false) {
-                this@showViewState.showLatestUpdated(latestDateTime ?: Date())
-            } else if (dataSource == DataSource.NETWORK) {
-                if (data != null || statusCode == 204) {
-                    this@showViewState.showLatestUpdated(Date())
-                } else {
-                    if (isCacheExisted == false) {
-                        this@showViewState.showUpdateFailed()
-                    } else {
-                        this@showViewState.showLatestUpdated(latestDateTime ?: Date())
-                    }
-                }
-            }
-        }
-    }
 }
 
 fun TextView.showViewStateX(dataWrapper: DataWrapperX<Any>?) {
