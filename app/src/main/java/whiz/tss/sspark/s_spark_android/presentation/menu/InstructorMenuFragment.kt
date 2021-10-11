@@ -70,10 +70,12 @@ class InstructorMenuFragment : BaseFragment() {
             onCameraClicked = {
                 //TODO wait implement camera
             },
-            onMenuClicked = { code ->
+            onMenuClicked = { code, title ->
                 when(code) {
                     MenuCode.ADVISEE.code -> {
-                        val intent = Intent(requireContext(), AdviseeListActivity::class.java)
+                        val intent = Intent(requireContext(), AdviseeListActivity::class.java).apply {
+                            putExtra("title", title)
+                        }
                         startActivity(intent)
                     }
                     MenuCode.CALENDAR.code -> {

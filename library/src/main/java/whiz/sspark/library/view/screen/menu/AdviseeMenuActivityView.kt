@@ -32,7 +32,7 @@ class AdviseeMenuActivityView: ConstraintLayout {
 
     fun init(advisee: Advisee?,
              onMemberClicked: (MenuMemberItem) -> Unit,
-             onMenuClicked: (String) -> Unit,
+             onMenuClicked: (String, String) -> Unit,
              onRefresh: () -> Unit) {
         updateAdviseeInfo(advisee)
 

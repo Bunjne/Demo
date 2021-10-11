@@ -82,7 +82,7 @@ class AdviseeMenuActivity : BaseActivity() {
                     }
                 }
             },
-            onMenuClicked = {
+            onMenuClicked = { code, title ->
                             //TODO wait implement advisee screen
             },
             onRefresh = {

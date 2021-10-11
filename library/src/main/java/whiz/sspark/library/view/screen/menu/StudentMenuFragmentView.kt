@@ -42,7 +42,7 @@ class StudentMenuFragmentView : ConstraintLayout {
     fun init(student: Student,
              segments: List<MenuSegment>,
              onCameraClicked: () -> Unit,
-             onMenuClicked: (String) -> Unit,
+             onMenuClicked: (String, String) -> Unit,
              onMemberClicked: (MenuMemberItem) -> Unit,
              onRefresh: () -> Unit) {
 
