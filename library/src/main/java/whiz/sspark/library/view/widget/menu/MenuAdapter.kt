@@ -16,7 +16,7 @@ import whiz.sspark.library.view.widget.base.ItemListTitleView
 import java.lang.IndexOutOfBoundsException
 
 class MenuAdapter(private val context: Context,
-                  private val onMenuClicked: (String) -> Unit): ListAdapter<MenuAdapter.Item, RecyclerView.ViewHolder>(MenuDiffCallback()) {
+                  private val onMenuClicked: (String, String) -> Unit): ListAdapter<MenuAdapter.Item, RecyclerView.ViewHolder>(MenuDiffCallback()) {
 
     private var requiredHeight = 0
 
@@ -153,7 +153,7 @@ class MenuAdapter(private val context: Context,
                 (holder.itemView as? MenuItemView)?.apply {
                     init(item.menuItem!!)
                     setOnClickListener {
-                        onMenuClicked(item.code)
+                        onMenuClicked(item.code, item.title)
                     }
                     setDarkModeBackground(isNextItemHeader, isPreviousItemHeader)
                 }
@@ -162,7 +162,7 @@ class MenuAdapter(private val context: Context,
                 (holder.itemView as? MenuPreviewMessageWidget)?.apply {
                     init(item.title, item.previewMessageItem!!)
                     setOnClickListener {
-                        onMenuClicked(item.code)
+                        onMenuClicked(item.code, item.title)
                     }
                 }
                 holder.itemView.post {
@@ -179,7 +179,7 @@ class MenuAdapter(private val context: Context,
                 (holder.itemView as? MenuPreviewNoMessageWidget)?.apply {
                     init(item.title)
                     setOnClickListener {
-                        onMenuClicked(item.code)
+                        onMenuClicked(item.code, item.title)
                     }
                 }
                 holder.itemView.post {
@@ -196,7 +196,7 @@ class MenuAdapter(private val context: Context,
                 (holder.itemView as? MenuCalendarWidget)?.apply {
                     init(item.calendarItem!!)
                     setOnClickListener {
-                        onMenuClicked(item.code)
+                        onMenuClicked(item.code, item.title)
                     }
                 }
                 holder.itemView.post {
@@ -213,7 +213,7 @@ class MenuAdapter(private val context: Context,
                 (holder.itemView as? MenuGradeSummaryWidget)?.apply {
                     init(item.title, item.gradeSummary!!)
                     setOnClickListener {
-                        onMenuClicked(item.code)
+                        onMenuClicked(item.code, item.title)
                     }
                 }
                 holder.itemView.post {
@@ -239,7 +239,7 @@ class MenuAdapter(private val context: Context,
             }
             CONTACT_VIEW_TYPE -> {
                 (holder.itemView as? MenuContactItemView)?.init(item.title) {
-                    onMenuClicked(item.code)
+                    onMenuClicked(item.code, item.title)
                 }
             }
             TITLE_TYPE -> {

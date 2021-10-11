@@ -42,7 +42,7 @@ class StudentMenuFragmentView : ConstraintLayout {
     fun init(student: Student,
              segments: List<MenuSegment>,
              onCameraClicked: () -> Unit,
-             onMenuClicked: (String) -> Unit,
+             onMenuClicked: (String, String) -> Unit,
              onMemberClicked: (MenuMemberItem) -> Unit,
              onRefresh: () -> Unit) {
 
@@ -53,7 +53,7 @@ class StudentMenuFragmentView : ConstraintLayout {
         }
 
         binding.ivCamera.show(R.drawable.ic_camera)
-        binding.ivProfile.showUserProfileCircle(student.profileImageUrl, getGender(student.gender).type)
+        binding.ivProfile.showUserProfileCircle(student.imageUrl, getGender(student.gender).type)
 
         binding.tvFirstname.text = student.firstName
         binding.tvLastname.text = student.lastName

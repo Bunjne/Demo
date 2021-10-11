@@ -34,7 +34,7 @@ class InstructorMenuFragmentView : ConstraintLayout {
 
     fun init(instructor: Instructor,
              onCameraClicked: () -> Unit,
-             onMenuClicked: (String) -> Unit,
+             onMenuClicked: (String, String) -> Unit,
              onRefresh: () -> Unit) {
 
         binding.ivCamera.show(R.drawable.ic_camera)
