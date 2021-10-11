@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/vTranslationTop"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationRight"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationLeft"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/vTranslationRight"
+        app:layout_constraintStart_toStartOf="@+id/vTranslationLeft"
+        app:layout_constraintTop_toTopOf="@+id/vTranslationTop"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="30dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="14dp"
+            app:cardBackgroundColor="@color/viewBaseThirdColor"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvProfile"
+                    android:layout_width="77dp"
+                    android:layout_height="88dp"
+                    app:cardBackgroundColor="@color/viewBaseThirdColor"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="77dp"
+                        android:layout_height="88dp"
+                        android:scaleType="centerCrop"
+                        tools:src="@tools:sample/avatars" />
+
+                </androidx.cardview.widget.CardView>
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvCodeAndNickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/textBaseThirdColor"
+                    android:textSize="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cvProfile"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:ssparkFont="regular"
+                    tools:text="#1 ซินดี้" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="17dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cvProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodeAndNickname"
+                    app:ssparkFont="regular"
+                    tools:text="ทอฝัน รักษา" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvGPA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="15dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toTopOf="@+id/tvGPATitle"
+                    app:layout_constraintEnd_toEndOf="@+id/tvGPATitle"
+                    app:layout_constraintStart_toStartOf="@+id/tvGPATitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName"
+                    app:layout_constraintVertical_bias="1"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:ssparkFont="bold"
+                    tools:text="3.23" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvGPATitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/advisee_list_gpa_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvSeparator"
+                    app:layout_constraintStart_toEndOf="@+id/cvProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGPA"
+                    app:ssparkFont="regular" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tvSeparator"
+                    android:layout_width="2dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="@color/viewBaseFourthColor"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvCreditTitle"
+                    app:layout_constraintStart_toEndOf="@+id/tvGPATitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvGPA" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvCredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="15dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toTopOf="@+id/tvCreditTitle"
+                    app:layout_constraintEnd_toStartOf="@+id/tvTotalCredit"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@+id/tvCreditTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName"
+                    app:layout_constraintVertical_bias="1"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:ssparkFont="bold"
+                    tools:text="3.23" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvTotalCredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBaseThirdColor"
+                    android:textSize="13dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tvCredit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvCredit"
+                    app:ssparkFont="bold"
+                    tools:text="/120" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvCreditTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/advisee_list_credit_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvSeparator"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCredit"
+                    app:ssparkFont="regular" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    <View
+        android:id="@+id/vTranslation"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvHeader" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vTranslation">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="8dp" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

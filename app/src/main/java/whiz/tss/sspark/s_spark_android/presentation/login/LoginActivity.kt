@@ -85,7 +85,7 @@ class LoginActivity : LocalizationActivity() {
 
         viewModel.studentProfileResponse.observe(this) {
             it?.let {
-                saveUserID(this, it.userId)
+                saveUserID(this, it.id)
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)

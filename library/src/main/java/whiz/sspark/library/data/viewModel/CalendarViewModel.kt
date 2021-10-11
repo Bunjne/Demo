@@ -18,7 +18,10 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
 
     private val _calendarLoading = MutableLiveData<Boolean>()
     private val _calendarInfoLoading = MutableLiveData<Boolean>()
-    val viewLoading: MediatorLiveData<Boolean> = MediatorLiveData()
+
+    private val _viewLoading: MediatorLiveData<Boolean> = MediatorLiveData()
+    val viewLoading: LiveData<Boolean>
+        get() = _viewLoading
 
     private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
@@ -48,9 +51,9 @@ class CalendarViewModel(private val calendarRepository: CalendarRepositoryImpl):
         val loadingObservers = listOf(_calendarLoading, _calendarInfoLoading)
 
         loadingObservers.forEach {
-            viewLoading.addSource(it) {
+            _viewLoading.addSource(it) {
                 val isLoading = loadingObservers.any { it.value == true }
-                viewLoading.setValue(isLoading)
+                _viewLoading.setValue(isLoading)
             }
         }
     }

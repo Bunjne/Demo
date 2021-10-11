@@ -11,7 +11,7 @@ import whiz.sspark.library.databinding.ViewCenterTextBinding
 import whiz.sspark.library.view.widget.base.CenterTextViewHolder
 import java.lang.Exception
 
-class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, RecyclerView.ViewHolder>(DiffCallback()) {
+class AdviseeListAdapter(private val onAdviseeClicked: (Advisee) -> Unit): ListAdapter<AdviseeListAdapter.AdviseeListItem, RecyclerView.ViewHolder>(DiffCallback()) {
 
     companion object {
         const val ADVISEE_ITEM_VIEW = 3333
@@ -53,7 +53,12 @@ class AdviseeListAdapter: ListAdapter<AdviseeListAdapter.AdviseeListItem, Recycl
         val item = getItem(position)
 
         when (item) {
-            is AdviseeListItem.Student -> (holder as AdviseeProfileViewHolder).init(item.advisee)
+            is AdviseeListItem.Student -> (holder as AdviseeProfileViewHolder).apply {
+                init(item.advisee)
+                holder.itemView.setOnClickListener {
+                    onAdviseeClicked(item.advisee)
+                }
+            }
             is AdviseeListItem.NoAdvisee -> (holder as CenterTextViewHolder).apply {
                 init(item.title)
 
