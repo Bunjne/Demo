@@ -19,7 +19,7 @@ class NotificationInboxActivity : BaseActivity() {
 
     companion object {
         private const val PAGE_SIZE = 10
-        private const val PAGE_INCREASE_SIZE = 1
+        private const val PAGE_INCREASE_STEP = 1
         private const val INITIAL_PAGE = 1
         private const val INITIAL_TOTAL_PAGE = 0
     }
@@ -60,18 +60,14 @@ class NotificationInboxActivity : BaseActivity() {
     override fun initView() {
         binding.vInbox.init(
             onRefresh = {
-                currentPage = INITIAL_PAGE
-                totalPage = INITIAL_TOTAL_PAGE
                 viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
             },
             onLoadMore = {
-                if (isLoadMoreData || totalPage < currentPage) {
-                    return@init
+                if (!isLoadMoreData) {
+                    isLoadMoreData = true
+                    val nextPage = currentPage + PAGE_INCREASE_STEP
+                    viewModel.getNotifications(nextPage, PAGE_SIZE)
                 }
-
-                isLoadMoreData = true
-                currentPage += PAGE_INCREASE_SIZE
-                viewModel.getNotifications(currentPage, PAGE_SIZE)
             }
         )
     }
@@ -90,10 +86,8 @@ class NotificationInboxActivity : BaseActivity() {
     override fun observeData() {
         viewModel.notificationResponse.observe(this) {
             it.getContentIfNotHandled()?.let {
-                with(inboxes) {
-                    addAll(it.item)
-                }
-
+                currentPage += PAGE_INCREASE_STEP
+                inboxes.addAll(it.item)
                 checkIsLastPage()
                 updateAdapterItem()
                 isLoadMoreData = false
@@ -102,6 +96,7 @@ class NotificationInboxActivity : BaseActivity() {
 
         viewModel.latestNotificationResponse.observe(this) {
             it.getContentIfNotHandled()?.let {
+                currentPage = INITIAL_PAGE
                 totalPage = it.totalPage
 
                 with(inboxes) {
@@ -116,6 +111,13 @@ class NotificationInboxActivity : BaseActivity() {
     }
 
     override fun observeError() {
+        viewModel.notificationErrorResponse.observe(this) {
+            it.getContentIfNotHandled()?.let {
+                showApiResponseXAlert(this, it)
+                isLoadMoreData = false
+            }
+        }
+
         viewModel.notificationErrorResponse.observe(this) {
             it.getContentIfNotHandled()?.let {
                 showApiResponseXAlert(this, it)

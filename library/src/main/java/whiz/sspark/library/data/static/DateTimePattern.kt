@@ -5,7 +5,7 @@ object DateTimePattern {
     const val generalYear = "yyyy"
     const val twoPositionYear = "yy"
     const val generalTime = "HH:mm"
-    const val generalShortTime = "H:m"
+    const val generalShortTime = "H:mm"
     const val serviceDateFullFormat = "yyyy-MM-dd'T'HH:mm:ss"
     const val serviceDateFormat = "dd/MM/yyyy"
 
