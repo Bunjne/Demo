@@ -40,6 +40,7 @@ data class Student(
 
 fun Student.convertToJuniorAdvisee(): Advisee {
     return Advisee(
+        id = id,
         nickname = nickName,
         code = number?.toString() ?: "",
         name = fullName,
@@ -53,6 +54,7 @@ fun Student.convertToJuniorAdvisee(): Advisee {
 
 fun Student.convertToSeniorAdvisee(): Advisee {
     return Advisee(
+        id = id,
         nickname = nickName,
         code = code,
         name = fullName,

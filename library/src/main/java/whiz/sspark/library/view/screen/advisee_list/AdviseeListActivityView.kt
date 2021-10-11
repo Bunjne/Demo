@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.databinding.ViewAdviseeListActivityBinding
 import whiz.sspark.library.extension.showViewStateX
@@ -26,6 +27,7 @@ class AdviseeListActivityView: ConstraintLayout {
 
     fun init(title: String,
              segmentTitles: List<String>,
+             onAdviseeClicked: (Advisee) -> Unit,
              onSegmentClicked: (Int) -> Unit,
              onTextChanged: (String) -> Unit,
              onRefresh: () -> Unit) {
@@ -37,7 +39,7 @@ class AdviseeListActivityView: ConstraintLayout {
             onTextChanged = onTextChanged
         )
 
-        adviseeAdapter = AdviseeListAdapter()
+        adviseeAdapter = AdviseeListAdapter(onAdviseeClicked)
 
         val config = ConcatAdapter.Config.Builder().apply {
             setIsolateViewTypes(false)

@@ -1,5 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.advisee_list
 
+import android.content.Intent
 import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.Advisee
@@ -16,6 +17,7 @@ import whiz.sspark.library.view.widget.advisee_list.AdviseeListAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityAdviseeListBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.menu.AdviseeMenuActivity
 
 class AdviseeListActivity : BaseActivity() {
 
@@ -75,6 +77,13 @@ class AdviseeListActivity : BaseActivity() {
             onSegmentClicked = {
                 selectedSegment = it
                 updateAdapterItem()
+            },
+            onAdviseeClicked = {
+                val intent = Intent(this, AdviseeMenuActivity::class.java).apply {
+                    putExtra("advisee", it.toJson())
+                    putExtra("studentId", it.id)
+                }
+                startActivity(intent)
             },
             onTextChanged = {
                 currentSearchText = it
@@ -161,6 +170,7 @@ class AdviseeListActivity : BaseActivity() {
                 }
 
                 val advisee = Advisee(
+                    id = it.id,
                     nickname = it.nickName,
                     code = studentCode,
                     name = it.fullName,
