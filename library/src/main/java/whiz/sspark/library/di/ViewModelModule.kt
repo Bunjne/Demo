@@ -16,14 +16,15 @@ val viewModelModule = module {
     viewModel { ExpectOutcomeViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
+    viewModel { InstructorMenuViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { LearningPathwayViewModel(get()) }
-    viewModel { MenuStudentViewModel(get()) }
     viewModel { NotificationInboxViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { StudentExamScheduleViewModel(get()) }
+    viewModel { StudentMenuViewModel(get()) }
     viewModel { TimelineViewModel(get()) }
 }

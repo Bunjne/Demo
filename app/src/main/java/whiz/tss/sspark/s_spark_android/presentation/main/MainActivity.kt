@@ -7,11 +7,14 @@ import whiz.sspark.library.data.entity.BottomNavigationBarItem
 import whiz.sspark.library.data.enum.BottomNavigationType
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.tss.sspark.s_spark_android.R
+import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
+import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityMainBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_group.ClassGroupFragment
-import whiz.tss.sspark.s_spark_android.presentation.menu.MenuStudentFragment
+import whiz.tss.sspark.s_spark_android.presentation.menu.InstructorMenuFragment
+import whiz.tss.sspark.s_spark_android.presentation.menu.StudentMenuFragment
 import whiz.tss.sspark.s_spark_android.presentation.today.TodayFragment
 
 class MainActivity : BaseActivity() {
@@ -72,7 +75,12 @@ class MainActivity : BaseActivity() {
                     }
                     BottomNavigationId.MENU.id -> {
                         if (!isFragmentVisible(BottomNavigationId.MENU.id)) {
-                            renderFragment(MenuStudentFragment.newInstance(), BottomNavigationId.MENU.id)
+                            when (SSparkApp.role) {
+                                RoleType.STUDENT_JUNIOR,
+                                RoleType.STUDENT_SENIOR -> renderFragment(StudentMenuFragment.newInstance(), BottomNavigationId.MENU.id)
+                                RoleType.INSTRUCTOR_JUNIOR,
+                                RoleType.INSTRUCTOR_SENIOR -> renderFragment(InstructorMenuFragment.newInstance(), BottomNavigationId.MENU.id)
+                            }
                         }
                     }
                 }
