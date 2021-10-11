@@ -12,7 +12,7 @@ import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
-import whiz.sspark.library.databinding.ViewMenuStudentFragmentBinding
+import whiz.sspark.library.databinding.ViewStudentMenuFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showUserProfileCircle
 import whiz.sspark.library.extension.toDP
@@ -22,13 +22,13 @@ import whiz.sspark.library.view.widget.menu.MenuAdapter
 import whiz.sspark.library.view.widget.menu.MenuSegmentAdapter
 import whiz.sspark.library.view.widget.menu.MenuMemberAdapter
 
-class MenuStudentFragmentView : ConstraintLayout {
+class StudentMenuFragmentView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewMenuStudentFragmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewStudentMenuFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     private var menuSegmentType = MenuSegmentType.INSTRUCTOR.type
@@ -53,7 +53,6 @@ class MenuStudentFragmentView : ConstraintLayout {
         }
 
         binding.ivCamera.show(R.drawable.ic_camera)
-        binding.vGradientTop.show(R.drawable.bg_primary_gradient_0)
         binding.ivProfile.showUserProfileCircle(student.imageUrl, getGender(student.gender).type)
 
         binding.tvFirstname.text = student.firstName
@@ -97,6 +96,7 @@ class MenuStudentFragmentView : ConstraintLayout {
                     MenuAdapter.MESSAGE_WIDGET_TYPE -> 6
                     MenuAdapter.CALENDAR_WIDGET_TYPE -> 6
                     MenuAdapter.GRADE_SUMMARY_WIDGET_TYPE -> 6
+                    MenuAdapter.DOWNLOAD_FAILED_WIDGET_TYPE -> 6
                     else -> 12
                 }
             }
@@ -115,6 +115,7 @@ class MenuStudentFragmentView : ConstraintLayout {
                     CustomWidgetPaddingItemDecoration(
                         padding = 6.toDP(context),
                         viewTypes = listOf(
+                            MenuAdapter.DOWNLOAD_FAILED_WIDGET_TYPE,
                             MenuAdapter.NO_MESSAGE_WIDGET_TYPE,
                             MenuAdapter.MESSAGE_WIDGET_TYPE,
                             MenuAdapter.CALENDAR_WIDGET_TYPE,
@@ -149,23 +150,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         binding.ivProfile.showUserProfileCircle(profileImageUrl, gender)
     }
 
-    fun updateMenu(menusDTO: List<MenuDTO>) {
-        val items = mutableListOf<MenuAdapter.Item>()
-
-        menusDTO.forEach { menuDTO ->
-            items.add(MenuAdapter.Item(type = menuDTO.type, code = menuDTO.code, title = menuDTO.name))
-
-            menuDTO.items.forEach { menuItemDTO ->
-                when (menuItemDTO.type) {
-                    MenuItemType.ADVISING_WIDGET.type,
-                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
-                    MenuItemType.CALENDAR_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, calendarItem = CalendarWidgetItem()))
-                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, gradeSummary = listOf()))
-                    else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
-                }
-            }
-        }
-
+    fun updateMenu(items: List<MenuAdapter.Item>) {
         menuAdapter?.submitList(items)
     }
 
@@ -174,6 +159,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.ADVISING_WIDGET.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.previewMessageItem = menuAdvisingNoteDTO.convertToPreviewMessageItem()
             menuAdapter?.notifyItemChanged(index)
         }
@@ -184,6 +170,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.CALENDAR_WIDGET.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.calendarItem = menuCalendarDTO.convertToCalendarItem()
             menuAdapter?.notifyItemChanged(index)
         }
@@ -194,6 +181,7 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.NOTIFICATION_WIDGET.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.previewMessageItem = menuNotificationInboxDTO.convertToPreviewMessageItem()
             menuAdapter?.notifyItemChanged(index)
         }
@@ -204,7 +192,18 @@ class MenuStudentFragmentView : ConstraintLayout {
         val index = items.indexOfFirst { it.type == MenuItemType.GRADE_SUMMARY.type }
 
         if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = false
             items.getOrNull(index)?.gradeSummary = convertToGradeSummaryItem(grades)
+            menuAdapter?.notifyItemChanged(index)
+        }
+    }
+
+    fun updateFailedWidget(menuType: String) {
+        val items = menuAdapter?.currentList ?: listOf()
+        val index = items.indexOfFirst { it.type == menuType }
+
+        if (index != -1) {
+            items.getOrNull(index)?.isShowDownloadFailedWidget = true
             menuAdapter?.notifyItemChanged(index)
         }
     }

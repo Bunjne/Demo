@@ -12,34 +12,32 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.enum.MenuCode
+import whiz.sspark.library.data.enum.MenuItemType
 import whiz.sspark.library.data.enum.MenuSegmentType
 import whiz.sspark.library.data.enum.getGender
-import whiz.sspark.library.data.viewModel.MenuStudentViewModel
+import whiz.sspark.library.data.viewModel.StudentMenuViewModel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.menu.MenuAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
-import whiz.tss.sspark.s_spark_android.databinding.FragmentMenuBinding
+import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.LearningPathwayActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
 import whiz.tss.sspark.s_spark_android.utility.logout
 
-class MenuStudentFragment : BaseFragment() {
+class StudentMenuFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = MenuStudentFragment().apply {
-            arguments = Bundle().apply {
-
-            }
-        }
+        fun newInstance() = StudentMenuFragment()
     }
 
-    private val viewModel: MenuStudentViewModel by viewModel()
+    private val viewModel: StudentMenuViewModel by viewModel()
 
-    private var _binding: FragmentMenuBinding? = null
+    private var _binding: FragmentStudentMenuBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var student: Student
@@ -47,7 +45,7 @@ class MenuStudentFragment : BaseFragment() {
     private var menuContactInfoDialog: MenuContactInfoDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentMenuBinding.inflate(inflater, container, false)
+        _binding = FragmentStudentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -155,7 +153,7 @@ class MenuStudentFragment : BaseFragment() {
 
         viewModel.menuResponse.observe(this) {
             it?.let {
-                binding.vMenu.updateMenu(it)
+                updateAdapterItem(it)
                 viewModel.fetchWidget(it, termId)
             }
         }
@@ -197,5 +195,49 @@ class MenuStudentFragment : BaseFragment() {
                 requireContext().showAlertWithOkButton(it)
             }
         }
+
+        viewModel.advisingNoteErrorResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateFailedWidget(MenuItemType.ADVISING_WIDGET.type)
+            }
+        }
+
+        viewModel.calendarErrorResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateFailedWidget(MenuItemType.CALENDAR_WIDGET.type)
+            }
+        }
+
+        viewModel.notificationInboxErrorResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateFailedWidget(MenuItemType.NOTIFICATION_WIDGET.type)
+            }
+        }
+
+        viewModel.gradeSummaryErrorResponse.observe(this) {
+            it?.let {
+                binding.vMenu.updateFailedWidget(MenuItemType.GRADE_SUMMARY.type)
+            }
+        }
+    }
+
+    private fun updateAdapterItem(menusDTO: List<MenuDTO>) {
+        val items = mutableListOf<MenuAdapter.Item>()
+
+        menusDTO.forEach { menuDTO ->
+            items.add(MenuAdapter.Item(type = menuDTO.type, code = menuDTO.code, title = menuDTO.name))
+
+            menuDTO.items.forEach { menuItemDTO ->
+                when (menuItemDTO.type) {
+                    MenuItemType.ADVISING_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_advising_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
+                    MenuItemType.NOTIFICATION_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_notification_inbox_text), code = menuItemDTO.code, previewMessageItem = PreviewMessageItem()))
+                    MenuItemType.CALENDAR_WIDGET.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name,code = menuItemDTO.code, calendarItem = CalendarWidgetItem()))
+                    MenuItemType.GRADE_SUMMARY.type -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = resources.getString(R.string.menu_widget_grade_summary_text),code = menuItemDTO.code, gradeSummary = listOf()))
+                    else -> items.add(MenuAdapter.Item(type = menuItemDTO.type, title = menuItemDTO.name, code = menuItemDTO.code, menuItem = menuItemDTO.convertToAdapterItem()))
+                }
+            }
+        }
+
+        binding.vMenu.updateMenu(items)
     }
 }
