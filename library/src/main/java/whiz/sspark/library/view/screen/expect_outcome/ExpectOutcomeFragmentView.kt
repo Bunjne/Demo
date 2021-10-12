@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Advisee
-import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.databinding.ViewExpectOutcomeFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.view.widget.school_record.expect_outcome.ExpectOutcomeAdapter
