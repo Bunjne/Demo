@@ -8,9 +8,4 @@ interface ActivityRecordService {
     @Headers("Content-Type: application/json")
     @GET("api/v1/students/me/activity")
     suspend fun getActivityRecord(@Query("termId") termId: String): Response<ApiResponseX>
-
-    @Headers("Content-Type: application/json")
-    @GET("api/v1/students/{studentId}/activity")
-    suspend fun getActivityRecord(@Path("studentId") studentId: String,
-                                  @Query("termId") termId: String): Response<ApiResponseX>
 }

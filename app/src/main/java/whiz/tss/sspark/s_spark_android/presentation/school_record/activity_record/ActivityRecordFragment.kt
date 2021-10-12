@@ -18,25 +18,20 @@ import whiz.sspark.library.view.widget.school_record.activity_record.ActivityRec
 import whiz.tss.sspark.s_spark_android.databinding.FragmentActivityRecordBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
-class ActivityRecordFragment: BaseFragment() {
+open class ActivityRecordFragment: BaseFragment() {
 
     companion object {
-        fun newInstance(termId: String, studentId: String? = null) = ActivityRecordFragment().apply {
+        fun newInstance(termId: String) = ActivityRecordFragment().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
-                putString("studentId", studentId)
             }
         }
     }
 
-    private val viewModel: ActivityRecordViewModel by viewModel()
+    protected open val viewModel: ActivityRecordViewModel by viewModel()
 
-    private val termId by lazy {
+    protected val termId by lazy {
         arguments?.getString("termId") ?: ""
-    }
-
-    private val studentId by lazy {
-        arguments?.getString("studentId")
     }
 
     private var _binding: FragmentActivityRecordBinding? = null
@@ -63,23 +58,25 @@ class ActivityRecordFragment: BaseFragment() {
 
         if (savedInstanceState != null) {
             dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
-
-            if (dataWrapper != null) {
-                val activities = dataWrapper?.data?.toJson()?.toObjects(Array<ActivityDTO>::class.java) ?: listOf()
-                updateAdapterItem(activities)
-
-                listener?.onSetLatestUpdatedText(dataWrapper)
-            } else {
-                viewModel.getActivityRecord(termId, studentId)
-            }
-        } else {
-            viewModel.getActivityRecord(termId, studentId)
         }
+
+        if (dataWrapper != null) {
+            val activities = dataWrapper?.data?.toJson()?.toObjects(Array<ActivityDTO>::class.java) ?: listOf()
+            updateAdapterItem(activities)
+
+            listener?.onSetLatestUpdatedText(dataWrapper)
+        } else {
+            getActivityRecord()
+        }
+    }
+
+    protected open fun getActivityRecord() {
+        viewModel.getActivityRecord(termId)
     }
 
     override fun initView() {
         binding.vActivityRecord.init {
-            viewModel.getActivityRecord(termId, studentId)
+            getActivityRecord()
         }
     }
 

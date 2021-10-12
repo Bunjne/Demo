@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
 import whiz.sspark.library.data.data_source.remote.service.AdviseeExpectOutcomeService
-import whiz.sspark.library.data.data_source.remote.service.ExpectOutcomeService
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.utility.NetworkManager
@@ -18,7 +17,7 @@ interface AdviseeExpectOutcomeRepository {
 }
 
 class AdviseeExpectOutcomeRepositoryImpl(private val context: Context,
-                                         private val remote: AdviseeExpectOutcomeService):AdviseeExpectOutcomeRepository, ExpectOutcomeRepositoryImpl(context, remote) {
+                                         private val remote: AdviseeExpectOutcomeService): AdviseeExpectOutcomeRepository, ExpectOutcomeRepositoryImpl(context, remote) {
 
     override suspend fun getExpectOutcome(courseId: String, termId: String, studentId: String): Flow<DataWrapperX<ExpectOutcomeDTO>> {
         return flow {

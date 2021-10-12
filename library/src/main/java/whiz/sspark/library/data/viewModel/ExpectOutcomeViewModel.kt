@@ -14,7 +14,7 @@ import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.ExpectOutcomeDTO
 import whiz.sspark.library.data.repository.ExpectOutcomeRepositoryImpl
 
-open class ExpectOutcomeViewModel(private val learningOutcomeRepositoryImpl: ExpectOutcomeRepositoryImpl): ViewModel() {
+open class ExpectOutcomeViewModel(private val expectOutcomeRepositoryImpl: ExpectOutcomeRepositoryImpl): ViewModel() {
 
     protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -38,7 +38,7 @@ open class ExpectOutcomeViewModel(private val learningOutcomeRepositoryImpl: Exp
 
     open fun getExpectOutcome(courseId: String, termId: String) {
         viewModelScope.launch {
-            learningOutcomeRepositoryImpl.getExpectOutcome(courseId, termId)
+            expectOutcomeRepositoryImpl.getExpectOutcome(courseId, termId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true

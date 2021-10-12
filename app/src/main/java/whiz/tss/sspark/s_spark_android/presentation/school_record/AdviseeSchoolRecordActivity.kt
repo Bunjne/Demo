@@ -9,14 +9,12 @@ import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.utility.isPrimaryHighSchool
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
-import whiz.tss.sspark.s_spark_android.presentation.school_record.ability.AbilityFragment
-import whiz.tss.sspark.s_spark_android.presentation.school_record.activity_record.ActivityRecordFragment
+import whiz.tss.sspark.s_spark_android.presentation.school_record.ability.AdviseeAbilityFragment
+import whiz.tss.sspark.s_spark_android.presentation.school_record.activity_record.AdviseeActivityRecordFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.AdviseeJuniorLearningOutcomeFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.AdviseeSeniorLearningOutcomeFragment
-import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.JuniorLearningOutcomeFragment
-import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.SeniorLearningOutcomeFragment
 
-open class AdviseeSchoolRecordActivity : SchoolRecordActivity(){
+open class AdviseeSchoolRecordActivity : SchoolRecordActivity() {
 
     override val viewModel: AdviseeSchoolRecordViewModel by viewModel()
 
@@ -52,9 +50,9 @@ open class AdviseeSchoolRecordActivity : SchoolRecordActivity(){
             }
             ACTIVITY_AND_ABILITY_FRAGMENT -> {
                 if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-                    binding.vSchoolRecord.renderFragment(supportFragmentManager, ActivityRecordFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, AdviseeActivityRecordFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 } else {
-                    binding.vSchoolRecord.renderFragment(supportFragmentManager, AbilityFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, AdviseeAbilityFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 }
             }
             //TODO wait implement other screen
@@ -73,9 +71,9 @@ open class AdviseeSchoolRecordActivity : SchoolRecordActivity(){
             }
             ACTIVITY_AND_ABILITY_FRAGMENT -> {
                 if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, ActivityRecordFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, AdviseeActivityRecordFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 } else {
-                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, AbilityFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, AdviseeAbilityFragment.newInstance(currentTerm.id, student.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 }
             }
             //TODO wait implement other screen
