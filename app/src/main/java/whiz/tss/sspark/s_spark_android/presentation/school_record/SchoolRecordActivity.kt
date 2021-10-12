@@ -61,13 +61,17 @@ open class SchoolRecordActivity : BaseActivity(),
             val isTermSelectable = terms.size > 1
             binding.vSchoolRecord.setIsTermSelectable(isTermSelectable)
         } else {
-            lifecycleScope.launch {
-                profileManager.term.collect {
-                    it?.let {
-                        currentTerm = it
-                        initView()
-                        getTerms()
-                    }
+            getInitialTerm()
+            initView()
+            getTerms()
+        }
+    }
+
+    protected open fun getInitialTerm() {
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    currentTerm = it
                 }
             }
         }
