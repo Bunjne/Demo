@@ -28,6 +28,7 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
+import whiz.tss.sspark.s_spark_android.presentation.homeroom.HomeroomActivity
 import java.util.*
 
 class ClassGroupFragment : BaseFragment() {
@@ -136,7 +137,8 @@ class ClassGroupFragment : BaseFragment() {
                             //TODO wait for flow discussion
                         }
                         BottomNavigationId.HOMEROOM.id -> {
-                            //TODO wait for flow discussion
+                            val intent = Intent(requireContext(), HomeroomActivity::class.java)
+                            startActivity(intent)
                         }
                         BottomNavigationId.ASSIGNMENT.id -> {
                             //TODO wait for flow discussion

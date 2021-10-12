@@ -7,7 +7,7 @@ import java.util.*
 
 data class ClassMember(
     @SerializedName("code") val code: String = "",
-    @SerializedName("userId") val userId: String? = null,
+    @SerializedName("id") val id: String? = null,
     @SerializedName("classMemberSectionInfo") val classMemberSectionInfo: ClassSharedSection? = null,
     @SerializedName("firstNameEn") val _firstNameEn: String = "",
     @SerializedName("firstNameTh") private val _firstNameTh: String = "",
@@ -25,12 +25,10 @@ data class ClassMember(
     @SerializedName("cardImage") val cardImage: String? = "",
     @SerializedName("colorCode") val colorCode: String? = null,
     @SerializedName("gender") val gender: String = "",
-    @SerializedName("healthStatus") val healthStatus: String = "",
-    @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date(),
     @SerializedName("abbreviateNameEn") val abbreviateNameEn: String = "",
     @SerializedName("abbreviateNameTh") val abbreviateNameTh: String = "",
-    @SerializedName("number") val number: String = "",
-    @SerializedName("remark") val remark: String = "" //TODO this will be talked with API or Design later, when ClassMember topic is raised to discuss.
+    @SerializedName("number") val number: String? = "",
+    @SerializedName("jobPosition") val jobPosition: String = "" //TODO this will be talked with API or Design later, when ClassMember topic is raised to discuss.
 ) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)

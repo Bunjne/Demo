@@ -1,7 +1,6 @@
-package whiz.sspark.library.view.screen.collaboration
+package whiz.sspark.library.view.screen.homeroom
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -12,42 +11,28 @@ import androidx.fragment.app.FragmentManager
 import whiz.sspark.library.R
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
-import whiz.sspark.library.databinding.ViewClassDetailActivityBinding
-import whiz.sspark.library.extension.show
+import whiz.sspark.library.databinding.ViewHomeroomActivityBinding
 
-class ClassDetailActivityView : ConstraintLayout {
+class HomeroomActivityView : ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewClassDetailActivityBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewHomeroomActivityBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(backgroundDrawable: GradientDrawable,
-             courseName: String,
-             courseCode: String,
-             color: Int,
+             level: String,
+             room: String,
              bottomNavigationBarItems: List<BottomNavigationBarItem>,
-             onNavigationItemSelected: (Int) -> Unit,
-             onStudyPlanClicked: () -> Unit) {
-        renderDetail(backgroundDrawable, courseName, courseCode)
+             onNavigationItemSelected: (Int) -> Unit) {
+        renderDetail(backgroundDrawable, level, room)
 
         with(binding.bnvActivity) {
             init(context, bottomNavigationBarItems) {
                 onNavigationItemSelected(it)
             }
-        }
-
-        with (binding.ivStudyPlan) {
-            show(R.drawable.ic_clipboard)
-            setColorFilter(color)
-        }
-
-        binding.tvStudyPlan.setTextColor(color)
-
-        binding.cvStudyPlan.setOnClickListener {
-            onStudyPlanClicked()
         }
     }
 
@@ -75,20 +60,19 @@ class ClassDetailActivityView : ConstraintLayout {
     }
 
     private fun renderDetail(backgroundDrawable: GradientDrawable,
-                             courseName: String,
-                             courseCode: String) {
+                             level: String,
+                             room: String) {
 
         if (SSparkLibrary.isDarkModeEnabled) {
             binding.clHeader.setBackgroundColor(ContextCompat.getColor(context, R.color.viewBaseSecondaryColor))
-            binding.tvCourseCode.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
-            binding.tvCourseName.setTextColor(ContextCompat.getColor(context, R.color.textBaseSecondaryColor))
+            binding.tvHomeroomTitle.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+            binding.tvHomeroomLevel.setTextColor(ContextCompat.getColor(context, R.color.textBaseSecondaryColor))
         } else {
             binding.clHeader.background = backgroundDrawable
-            binding.tvCourseCode.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
-            binding.tvCourseName.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
+            binding.tvHomeroomTitle.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
+            binding.tvHomeroomLevel.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
         }
 
-        binding.tvCourseName.text = courseName
-        binding.tvCourseCode.text = courseCode
+        binding.tvHomeroomLevel.text = resources.getString(R.string.class_group_junior_class_level_place_holder, level, room)
     }
 }

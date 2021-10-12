@@ -149,7 +149,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     val createdAtString = data.getString("createdAt")
 
                     if (postId.contains(post.id, true)) {
-                        val member = members?.students?.singleOrNull { it.userId == userId } ?: members?.instructors?.singleOrNull { it.userId == userId }
+                        val member = members?.students?.singleOrNull { it.id == userId } ?: members?.instructors?.singleOrNull { it.id == userId }
 
                         member?.let { member ->
                             val createdAt = createdAtString.convertToDate(DateTimePattern.serviceDateFullFormat) ?: Date()
@@ -308,7 +308,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     }
 
     private fun showCommentOption(comment: Post) {
-        if (comment.author.userId == instructorUserId) {
+        if (comment.author.id == instructorUserId) {
             showAlertWithMultipleItems(resources.getStringArray(R.array.class_post_comment_action_owner).toList()) { index ->
                 when (index) {
                     0 -> (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(comment.message, comment.message))

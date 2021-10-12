@@ -34,7 +34,7 @@ class ClassPostAuthorHeaderView : LinearLayout {
 
             binding.tvName.text = convertToFullName(it.firstName, it.middleName, it.lastName, it.position).toUpperCase()
             binding.tvDate.text = if (createdAt == updatedAt) {
-                updatedAt.toPostTime(context)
+                resources.getString(R.string.class_post_time_unit_place_holder, updatedAt.toPostTime(context))
             } else {
                 resources.getString(R.string.class_post_updated_at, updatedAt.toPostTime(context))
             }

@@ -112,7 +112,8 @@
     <string name="class_post_action_title_comment">ความคิดเห็น</string>
     <string name="class_post_open_file_title">เปิดไฟล์ด้วย</string>
     <string name="class_post_author_header_new">ใหม่</string>
-    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s</string>
+    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s น.</string>
+    <string name="class_post_time_unit_place_holder">%1$s น.</string>
     <string name="class_post_delete">ลบ</string>
     <string name="class_post_edit">แก้ไข</string>
 
@@ -151,8 +152,9 @@
 
     <!-- Class Member -->
     <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="class_member_instructor_homeroom_title">อาจารย์ประจำชั้น (%1$d)</string>
     <string name="class_member_student_title">นักเรียน (%1$d)</string>
-    <string name="class_member_number_place_holder">#%1$d %2$s</string>
+    <string name="class_member_number_place_holder">#%1$s %2$s</string>
 
     <!-- Class Attendance -->
     <string name="class_attendance_summary_info_from">จาก</string>
@@ -165,7 +167,7 @@
     <string name="class_attendance_late">เข้าร่วมช้า</string>
     <string name="class_attendance_item_late">มาสาย</string>
     <string name="class_attendance_no_record">ไม่มีบันทึก</string>
-    <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
+    <string name="class_attendance_class_check_date_place_holder">%1$s %2$s น.</string>
 
     <!-- Class Group -->
     <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s/%2$s</string>

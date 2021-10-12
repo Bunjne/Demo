@@ -78,18 +78,38 @@ class StudentClassMemberFragment : BaseFragment() {
                 val newItems = mutableListOf<ClassMemberAdapter.Item>()
                 with(newItems) {
                     if (member.instructors.isNotEmpty()) {
-                        add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_instructor_title, instructorCounts), student = null, instructor = null))
-                        addAll(member.instructors.map { instructor -> ClassMemberAdapter.Item(title = null, student = null, instructor = instructor) })
+                        val instructorTitle = ClassMemberAdapter.Item(
+                            title = resources.getString(R.string.class_member_instructor_title, instructorCounts)
+                        )
+
+                        add(instructorTitle)
+
+                        val instructors = member.instructors.map { instructor ->
+                            ClassMemberAdapter.Item(
+                                instructor = instructor
+                            )
+                        }
+
+                        addAll(instructors)
                     }
 
                     if (member.students.isNotEmpty()) {
-                        add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_student_title, studentCounts), student = null, instructor = null))
-                        addAll(member.students.mapIndexed { index, student ->
-                            val isSelf = userId == student.userId
-                            val studentNumber = index + 1
+                        val studentTitle = ClassMemberAdapter.Item(
+                            title = resources.getString(R.string.class_member_student_title, studentCounts)
+                        )
 
-                            ClassMemberAdapter.Item(title = null, student = student, instructor = null, isSelf = isSelf, studentNumber = studentNumber)
-                        })
+                        add(studentTitle)
+
+                        val students = member.students.map { student ->
+                            val isSelf = userId == student.id
+
+                            ClassMemberAdapter.Item(
+                                student = student,
+                                isSelf = isSelf
+                            )
+                        }
+
+                        addAll(students)
                     }
                 }
 
