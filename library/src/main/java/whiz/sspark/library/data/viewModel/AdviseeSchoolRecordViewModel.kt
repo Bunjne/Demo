@@ -11,29 +11,13 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.Term
+import whiz.sspark.library.data.repository.AdviseeSchoolRecordRepositoryImpl
 import whiz.sspark.library.data.repository.SchoolRecordRepositoryImpl
 
-open class SchoolRecordViewModel(private val schoolRecordRepositoryImpl: SchoolRecordRepositoryImpl): ViewModel() {
-
-    protected val _viewLoading = MutableLiveData<Boolean>()
-    val viewLoading: LiveData<Boolean>
-        get() = _viewLoading
-
-    protected val _termsResponse = MutableLiveData<List<Term>>()
-    val termsResponse: LiveData<List<Term>>
-        get() = _termsResponse
-
-    protected val _termsErrorResponse = MutableLiveData<ApiResponseX?>()
-    val termsErrorResponse: LiveData<ApiResponseX?>
-        get() = _termsErrorResponse
-
-    protected val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
-
-    open fun getTerms() {
+class AdviseeSchoolRecordViewModel(private val adviseeSchoolRecordRepositoryImpl: AdviseeSchoolRecordRepositoryImpl): SchoolRecordViewModel(adviseeSchoolRecordRepositoryImpl) {
+    fun getTerms(studentId: String) {
         viewModelScope.launch {
-            schoolRecordRepositoryImpl.getTerms()
+            adviseeSchoolRecordRepositoryImpl.getTerms(studentId)
                 .onStart {
                     _viewLoading.value = true
                 }

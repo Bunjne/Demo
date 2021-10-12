@@ -25,15 +25,14 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorExpectOutcomeBinding
 import whiz.tss.sspark.s_spark_android.presentation.calendar.info_dialog.InformationDialog
 
-class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
+open class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
 
     companion object {
-        private const val EXPECT_OUTCOME_INFO = "ExpectOutcomeInfo"
+        internal const val EXPECT_OUTCOME_INFO = "ExpectOutcomeInfo"
 
-        fun newInstance(termId: String, student: Student?, courseId: String, courseCode: String, courseName: String, credit: Int) = JuniorExpectOutcomeBottomSheetDialog().apply {
+        fun newInstance(termId: String, courseId: String, courseCode: String, courseName: String, credit: Int) = JuniorExpectOutcomeBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("termId", termId)
-                putString("student", student?.toJson())
                 putString("courseId", courseId)
                 putString("courseCode", courseCode)
                 putString("courseName", courseName)
@@ -53,36 +52,32 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         ).toInformationItems()
     }
 
-    private val viewModel: ExpectOutcomeViewModel by viewModel()
+    protected open val viewModel: ExpectOutcomeViewModel by viewModel()
 
     private var _binding: FragmentJuniorExpectOutcomeBinding? = null
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
-    private val termId by lazy {
+    protected val termId by lazy {
         arguments?.getString("termId") ?: ""
     }
 
-    private val student by lazy {
-        arguments?.getString("student")?.toObject<Student>()
-    }
-
-    private val courseId by lazy {
+    protected val courseId by lazy {
         arguments?.getString("courseId") ?: ""
     }
 
-    private val courseCode by lazy {
+    protected val courseCode by lazy {
         arguments?.getString("courseCode") ?: ""
     }
 
-    private val courseName by lazy {
+    protected val courseName by lazy {
         arguments?.getString("courseName") ?: ""
     }
 
-    private val credit by lazy {
+    protected val credit by lazy {
         arguments?.getInt("credit", 0) ?: 0
     }
 
-    private val indicators by lazy {
+    protected open val indicators by lazy {
         resources.getStringArray(R.array.school_record_junior_indicator).toList()
     }
 
@@ -103,11 +98,21 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
             validateDialog()
         }
 
+        getExpectOutcome()
+    }
+
+    protected open fun getExpectOutcome() {
         viewModel.getExpectOutcome(
             courseId = courseId,
-            termId = termId,
-            studentId = student?.id
+            termId = termId
         )
+    }
+
+    protected open fun showInformationDialog() {
+        InformationDialog.newInstance(
+            headerText = getOutcomesHeader(requireContext()),
+            informationItems = getJuniorOutcomesItems(requireContext())
+        ).show(childFragmentManager, EXPECT_OUTCOME_INFO)
     }
 
     private fun validateDialog() {
@@ -132,39 +137,21 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private fun initView() {
-        val advisee = if (student != null) {
-            if (isPrimaryHighSchool(student?.term?.academicGrade ?: 0)) {
-                student?.convertToJuniorAdvisee()
-            } else {
-                student?.convertToSeniorAdvisee()
-            }
-        } else {
-            null
-        }
-
         binding.vExpectOutcome.init(
             title = courseCode,
             subTitle = courseName,
             credit = credit,
-            advisee = advisee,
             onCloseClicked = {
                 dismiss()
             },
             onInfoClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_INFO) != null
                 if (!isShowing) {
-                    InformationDialog.newInstance(
-                        headerText = getOutcomesHeader(requireContext()),
-                        informationItems = getJuniorOutcomesItems(requireContext())
-                    ).show(childFragmentManager, EXPECT_OUTCOME_INFO)
+                    showInformationDialog()
                 }
             },
             onRefresh = {
-                viewModel.getExpectOutcome(
-                    courseId = courseId,
-                    termId = termId,
-                    studentId = student?.id
-                )
+                getExpectOutcome()
             }
         )
     }
@@ -183,7 +170,7 @@ class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         }
     }
 
-    private fun updateAdapterItem(expectOutcome: ExpectOutcomeDTO) {
+    protected open fun updateAdapterItem(expectOutcome: ExpectOutcomeDTO) {
         val items: MutableList<ExpectOutcomeAdapter.Item> = mutableListOf()
 
         val startColor = expectOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))

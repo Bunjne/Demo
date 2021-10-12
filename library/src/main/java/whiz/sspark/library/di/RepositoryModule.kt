@@ -9,7 +9,10 @@ val repositoryModule = module {
     factory { ActivityRecordRepositoryImpl(androidContext(), get()) }
     factory { AddCourseRepositoryImpl(androidContext(), get()) }
     factory { AdviseeListRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeExpectOutcomeRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeLearningOutcomeRepositoryImpl(androidContext(), get()) }
     factory { AdviseeMenuRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeSchoolRecordRepositoryImpl(androidContext(), get()) }
     factory { CalendarRepositoryImpl(androidContext(), get()) }
     factory { ClassGroupRepositoryImpl(androidContext(), get()) }
     factory { ClassMemberRepositoryImpl(androidContext(), get(), get()) }

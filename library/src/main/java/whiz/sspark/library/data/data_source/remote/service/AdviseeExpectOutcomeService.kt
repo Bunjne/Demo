@@ -7,9 +7,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface ExpectOutcomeService {
+interface AdviseeExpectOutcomeService: ExpectOutcomeService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/students/me/grades/courses/{courseId}")
-    suspend fun getExpectOutcome(@Path("courseId") courseId: String,
+    @GET("api/v1/students/{studentId}/grades/courses/{courseId}")
+    suspend fun getExpectOutcome(@Path("studentId") studentId: String,
+                                 @Path("courseId") courseId: String,
                                  @Query("termId") termId: String): Response<ApiResponseX>
 }

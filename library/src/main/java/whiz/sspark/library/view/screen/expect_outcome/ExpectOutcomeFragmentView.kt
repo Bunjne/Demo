@@ -25,15 +25,9 @@ class ExpectOutcomeFragmentView: ConstraintLayout {
     fun init(title: String,
              subTitle: String,
              credit: Int,
-             advisee: Advisee?,
              onCloseClicked: () -> Unit,
              onInfoClicked: () -> Unit,
              onRefresh: () -> Unit) {
-        if (advisee != null) {
-            binding.vAdviseeProfile.init(advisee)
-            binding.vAdviseeProfile.visibility = View.VISIBLE
-        }
-
         binding.ivInfo.show(R.drawable.ic_info)
         binding.ivClose.show(R.drawable.ic_close_bottom_sheet_dialog)
 
@@ -57,6 +51,11 @@ class ExpectOutcomeFragmentView: ConstraintLayout {
         binding.ivClose.setOnClickListener {
             onCloseClicked()
         }
+    }
+
+    fun showAdviseeProfile(advisee: Advisee) {
+        binding.vAdviseeProfile.init(advisee)
+        binding.vAdviseeProfile.visibility = View.VISIBLE
     }
 
     fun setSwipeRefreshLayout(isLoading: Boolean) {

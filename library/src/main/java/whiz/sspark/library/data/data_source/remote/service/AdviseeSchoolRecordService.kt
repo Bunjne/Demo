@@ -6,8 +6,8 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface AdviseeSchoolRecordService {
+interface AdviseeSchoolRecordService: SchoolRecordService {
     @Headers("Content-Type: application/json")
     @GET("api/v1/students/{studentId}/terms")
-    suspend fun getTerms(@Path("studentId") studentId: String): Response<ApiResponseX>
+    open suspend fun getTerms(@Path("studentId") studentId: String): Response<ApiResponseX>
 }

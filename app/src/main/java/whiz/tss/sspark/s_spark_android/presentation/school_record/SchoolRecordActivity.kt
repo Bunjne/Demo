@@ -23,29 +23,25 @@ import whiz.tss.sspark.s_spark_android.presentation.school_record.activity_recor
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.JuniorLearningOutcomeFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.SeniorLearningOutcomeFragment
 
-class SchoolRecordActivity : BaseActivity(),
+open class SchoolRecordActivity : BaseActivity(),
     JuniorLearningOutcomeFragment.OnRefresh,
     SeniorLearningOutcomeFragment.OnRefresh,
     ActivityRecordFragment.OnRefresh,
     AbilityFragment.OnRefresh {
 
     companion object {
-        private const val LEARNING_OUTCOME_FRAGMENT = 0
-        private const val ACTIVITY_AND_ABILITY_FRAGMENT = 1
+        const val LEARNING_OUTCOME_FRAGMENT = 0
+        const val ACTIVITY_AND_ABILITY_FRAGMENT = 1
     }
 
-    private val viewModel: SchoolRecordViewModel by viewModel()
+    protected open val viewModel: SchoolRecordViewModel by viewModel()
 
-    private lateinit var binding: ActivitySchoolRecordBinding
+    protected lateinit var binding: ActivitySchoolRecordBinding
 
-    private val student by lazy {
-        intent?.getStringExtra("student")?.toObject<Student>()
-    }
-
-    private var currentSegment = -1
+    protected var currentSegment = -1
     private var savedFragment = -1
 
-    private lateinit var currentTerm: Term
+    protected lateinit var currentTerm: Term
     private var terms: MutableList<Term> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,11 +66,15 @@ class SchoolRecordActivity : BaseActivity(),
                     it?.let {
                         currentTerm = it
                         initView()
-                        viewModel.getTerms(student?.id)
+                        getTerms()
                     }
                 }
             }
         }
+    }
+
+    protected open fun getTerms() {
+        viewModel.getTerms()
     }
 
     override fun initView() {
@@ -121,16 +121,6 @@ class SchoolRecordActivity : BaseActivity(),
                     renderFragment(fragmentId = it)
                 }
             )
-
-            if (student != null) {
-                val advisee = if (isPrimaryHighSchool(student!!.term.academicGrade!!)) {
-                    student!!.convertToJuniorAdvisee()
-                } else {
-                    student!!.convertToSeniorAdvisee()
-                }
-
-                showAdviseeProfile(advisee)
-            }
         }
     }
 
@@ -181,42 +171,42 @@ class SchoolRecordActivity : BaseActivity(),
         forceRenderNewFragment(currentSegment)
     }
 
-    private fun renderFragment(fragmentId: Int) {
+    protected open fun renderFragment(fragmentId: Int) {
         currentSegment = fragmentId
         when(currentSegment) {
             LEARNING_OUTCOME_FRAGMENT -> {
                 if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-                    binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentTerm.id, student), LEARNING_OUTCOME_FRAGMENT)
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentTerm.id), LEARNING_OUTCOME_FRAGMENT)
                 } else {
-                    binding.vSchoolRecord.renderFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(currentTerm.id, student), LEARNING_OUTCOME_FRAGMENT)
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(currentTerm.id), LEARNING_OUTCOME_FRAGMENT)
                 }
             }
             ACTIVITY_AND_ABILITY_FRAGMENT -> {
                 if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-                    binding.vSchoolRecord.renderFragment(supportFragmentManager, ActivityRecordFragment.newInstance(currentTerm.id, student?.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, ActivityRecordFragment.newInstance(currentTerm.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 } else {
-                    binding.vSchoolRecord.renderFragment(supportFragmentManager, AbilityFragment.newInstance(currentTerm.id, student?.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.renderFragment(supportFragmentManager, AbilityFragment.newInstance(currentTerm.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 }
             }
             //TODO wait implement other screen
         }
     }
 
-    private fun forceRenderNewFragment(fragmentId: Int) {
+    protected open fun forceRenderNewFragment(fragmentId: Int) {
         currentSegment = fragmentId
         when(currentSegment) {
             LEARNING_OUTCOME_FRAGMENT -> {
                 if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentTerm.id, student), LEARNING_OUTCOME_FRAGMENT)
+                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, JuniorLearningOutcomeFragment.newInstance(currentTerm.id), LEARNING_OUTCOME_FRAGMENT)
                 } else {
-                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(currentTerm.id, student), LEARNING_OUTCOME_FRAGMENT)
+                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, SeniorLearningOutcomeFragment.newInstance(currentTerm.id), LEARNING_OUTCOME_FRAGMENT)
                 }
             }
             ACTIVITY_AND_ABILITY_FRAGMENT -> {
                 if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
-                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, ActivityRecordFragment.newInstance(currentTerm.id, student?.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, ActivityRecordFragment.newInstance(currentTerm.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 } else {
-                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, AbilityFragment.newInstance(currentTerm.id, student?.id), ACTIVITY_AND_ABILITY_FRAGMENT)
+                    binding.vSchoolRecord.forceRenderNewFragment(supportFragmentManager, AbilityFragment.newInstance(currentTerm.id), ACTIVITY_AND_ABILITY_FRAGMENT)
                 }
             }
             //TODO wait implement other screen

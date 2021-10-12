@@ -6,24 +6,25 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.data_source.remote.service.LearningOutcomeService
+import whiz.sspark.library.data.data_source.remote.service.AdviseeSchoolRecordService
+import whiz.sspark.library.data.data_source.remote.service.SchoolRecordService
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.LearningOutcomeDTO
+import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
-interface LearningOutcomeRepository {
-    suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
+interface AdviseeSchoolRecordRepository {
+    suspend fun getTerms(studentId: String): Flow<DataWrapperX<List<Term>>>
 }
 
-open class LearningOutcomeRepositoryImpl(private val context: Context,
-                                         private val remote: LearningOutcomeService): LearningOutcomeRepository {
-    open override suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
+class AdviseeSchoolRecordRepositoryImpl(private val context: Context,
+                                        private val remote: AdviseeSchoolRecordService): AdviseeSchoolRecordRepository, SchoolRecordRepositoryImpl(context, remote) {
+    override suspend fun getTerms(studentId: String): Flow<DataWrapperX<List<Term>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getLearningOutcome(termId)
-                    fetchX(response, Array<LearningOutcomeDTO>::class.java)
+                    val response = remote.getTerms(studentId)
+                    fetchX(response, Array<Term>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }
