@@ -1,16 +1,16 @@
 package whiz.sspark.library.view.widget.collaboration.class_post_comment
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.data.entity.Comment
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassPostCommentBinding
-import whiz.sspark.library.extension.showClassMemberProfileCircle
-import whiz.sspark.library.extension.toColor
+import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.extension.toPostTime
+import whiz.sspark.library.utility.convertToFullName
 
 class ClassPostCommentView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -21,27 +21,25 @@ class ClassPostCommentView : ConstraintLayout {
         ViewClassPostCommentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(post: Post,
+    fun init(comment: Comment,
              color: Int,
-             onItemClicked: (Post) -> Unit) {
-        with(post) {
-
-            val authorColor = if (author.colorCode.isNullOrBlank()) {
-                Color.BLACK
-            } else {
-                author.colorCode.toColor()
-            }
-
-            binding.cvProfile.showClassMemberProfileCircle(author.profileImageUrl, author.abbreviatedName, Color.WHITE, authorColor)
+             onItemClicked: (Comment) -> Unit) {
+        with(comment) {
+            binding.cvProfile.showProfile(author.profileImageUrl, getGender(author.gender).type)
 
             val commentAuthorName = if (author.position.isNotBlank()) {
-                resources.getString(R.string.class_post_comment_author_name_place_holder, author.number, author.firstName)
+                convertToFullName(
+                    position = author.position,
+                    firstName = author.firstName,
+                    middleName = author.middleName,
+                    lastName = author.lastName
+                )
             } else {
                 resources.getString(R.string.class_post_comment_author_name_place_holder, author.number, author.nickname)
             }
 
             binding.tvName.text = commentAuthorName
-            binding.tvDate.text = createdAt.toPostTime(context)
+            binding.tvDate.text = resources.getString(R.string.date_time_place_holder, datetime.toPostTime(context))
             with(binding.tvMessage) {
                 text = message
                 setLinkTextColor(color)
@@ -49,7 +47,7 @@ class ClassPostCommentView : ConstraintLayout {
         }
 
         binding.clCommentContainer.setOnClickListener {
-            onItemClicked(post)
+            onItemClicked(comment)
         }
     }
 }

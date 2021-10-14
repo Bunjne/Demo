@@ -9,14 +9,14 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface ClassPostCommentService {
     @Headers("Content-Type: application/json")
-    @GET("api/v3/posts/{postId}/comments")
+    @GET("api/v1/classgroups/posts/{postId}/comments")
     suspend fun listComments(@Path("postId") postId: String): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v3/classgroups/{classId}/members")
+    @GET("api/v1/classgroups/{classId}/members")
     suspend fun listClassMembers(@Path("classId") classId: String): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @DELETE("api/v3/posts/{postId}")
+    @DELETE("api/v1/posts/{postId}")
     suspend fun deletePost(@Path("postId") postId: String): Response<ApiResponseX>
 }

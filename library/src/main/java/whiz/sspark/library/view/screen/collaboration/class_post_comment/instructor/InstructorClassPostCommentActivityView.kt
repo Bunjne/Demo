@@ -9,14 +9,15 @@ import android.view.MotionEvent
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.databinding.ViewClassPostCommentActivityBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showKeyboard
 import whiz.sspark.library.utility.openFile
+import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.instructor.InstructorClassPostCommentAdapter
 
 class InstructorClassPostCommentActivityView : ConstraintLayout {
@@ -34,7 +35,7 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
              onImageClicked: (ImageView, String) -> Unit,
              onEditPostClicked: (Post) -> Unit = {},
              onDeletePostClicked: (Post) -> Unit = {},
-             onCommentItemClicked: (Post) -> Unit,
+             onCommentItemClicked: (Comment) -> Unit,
              onPostLiked: (Post) -> Unit,
              onCommentSent: (String) -> Unit,
              onDisplayLikedUsersClicked: () -> Unit,
@@ -43,9 +44,13 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
         val linearLayoutManager = LinearLayoutManager(context)
         with(binding.rvPostComment) {
             layoutManager = linearLayoutManager
-            addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation).apply {
-                setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_comment)!!)
-            })
+
+            if (itemDecorationCount == 0) {
+                addItemDecoration(CustomDividerItemDecoration(
+                    ContextCompat.getDrawable(context, R.drawable.divider_comment)!!,
+                    InstructorClassPostCommentAdapter.PostCommentType.COMMENT.type)
+                )
+            }
 
             adapter = InstructorClassPostCommentAdapter(
                     context = context,

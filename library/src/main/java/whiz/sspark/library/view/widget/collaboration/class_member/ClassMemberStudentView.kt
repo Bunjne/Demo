@@ -8,9 +8,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassMemberStudentBinding
 import whiz.sspark.library.extension.getFirstConsonant
-import whiz.sspark.library.extension.showClassMemberProfileCircle
+import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.utility.convertToFullName
 
 class ClassMemberStudentView : ConstraintLayout {
@@ -24,13 +25,7 @@ class ClassMemberStudentView : ConstraintLayout {
 
     fun init(member: ClassMember, position: Int, isSelf: Boolean) {
         with (member) {
-            val color = if (colorCode.isNullOrBlank()) {
-                Color.BLACK
-            } else {
-                colorCode.toColorInt()
-            }
-
-            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
+            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
 
             binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, position, nickname)
             binding.tvName.text = if (isSelf) {

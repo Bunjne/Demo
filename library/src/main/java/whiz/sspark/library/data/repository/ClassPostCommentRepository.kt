@@ -14,7 +14,7 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface ClassPostCommentRepository {
-    fun listComments(postId: String): Flow<DataWrapperX<List<Post>>>
+    fun listComments(postId: String): Flow<DataWrapperX<List<Comment>>>
     fun listClassMembers(classId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>>
     fun deletePost(postId: String): Flow<DataWrapperX<String>> //TODO wait for Response confirmation from API team
 }
@@ -22,12 +22,12 @@ interface ClassPostCommentRepository {
 class ClassPostCommentRepositoryImpl(private val context: Context,
                                      private val local: ClassMemberCacheImpl,
                                      private val remote: ClassPostCommentService): ClassPostCommentRepository {
-    override fun listComments(postId: String): Flow<DataWrapperX<List<Post>>> {
+    override fun listComments(postId: String): Flow<DataWrapperX<List<Comment>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.listComments(postId)
-                    fetchX(response, Array<Post>::class.java)
+                    fetchX(response, Array<Comment>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }

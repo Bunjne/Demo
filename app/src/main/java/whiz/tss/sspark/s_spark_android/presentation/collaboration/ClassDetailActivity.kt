@@ -27,7 +27,7 @@ class ClassDetailActivity : BaseActivity() {
     }
 
     private val startColor by lazy {
-        intent?.getIntExtra("color", ContextCompat.getColor(this, R.color.primaryStartColor)) ?: ContextCompat.getColor(this, R.color.primaryStartColor)
+        intent?.getIntExtra("startColor", ContextCompat.getColor(this, R.color.primaryStartColor)) ?: ContextCompat.getColor(this, R.color.primaryStartColor)
     }
 
     private val endColor by lazy {

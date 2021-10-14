@@ -47,6 +47,7 @@
     <string name="update_just_now">UPDATED JUST NOW</string>
     <string name="date_time_just_now">เมื่อสักครู่นี้</string>
     <string name="date_time_post_at">เวลา</string>
+    <string name="date_time_place_holder">%1$s น.</string>
 
     <plurals name="date_time_hour_ago">
         <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
@@ -115,7 +116,7 @@
     <string name="class_post_action_title_comment">ความคิดเห็น</string>
     <string name="class_post_open_file_title">เปิดไฟล์ด้วย</string>
     <string name="class_post_author_header_new">ใหม่</string>
-    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s</string>
+    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s น.</string>
     <string name="class_post_delete">ลบ</string>
     <string name="class_post_edit">แก้ไข</string>
 
@@ -168,10 +169,9 @@
     <string name="class_attendance_present">มาเรียน</string>
     <string name="class_attendance_absent">ขาด</string>
     <string name="class_attendance_leave">ลา</string>
-    <string name="class_attendance_late">เข้าร่วมช้า</string>
-    <string name="class_attendance_item_late">มาสาย</string>
+    <string name="class_attendance_late">สาย</string>
     <string name="class_attendance_no_record">ไม่มีบันทึก</string>
-    <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
+    <string name="class_attendance_class_check_date_place_holder">%1$s %2$s น.</string>
 
     <!-- Class Group -->
     <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s/%2$s</string>

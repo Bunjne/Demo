@@ -28,17 +28,23 @@ class StudentClassAttendanceFragmentView : ConstraintLayout {
     }
 
     fun renderAttendance(attendance: Attendance) {
-        binding.vSummary.renderSummaryAttendance(attendance)
+        binding.vSummary.renderSummaryAttendance(attendance.summary)
+
+        val attendances = if (attendance.attendanceDetails.isNotEmpty()) {
+            attendance.attendanceDetails
+        } else {
+            attendance.sessions
+        }
 
         with (binding.rvAttendance) {
             layoutManager = LinearLayoutManager(context)
             adapter = ClassAttendanceAdapter(
                 context = context,
-                attendanceClasses = attendance.classes
+                attendanceDetails = attendances
             )
         }
 
-        if (attendance.classes.isNotEmpty()) {
+        if (attendances.isNotEmpty()) {
             setNoAttendanceVisibility(false)
         } else {
             setNoAttendanceVisibility(true)

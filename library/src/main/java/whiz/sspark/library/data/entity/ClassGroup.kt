@@ -5,6 +5,14 @@ import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.localize
 
 data class ClassGroup(
+        @SerializedName("specialGroup") val _specialGroup: ClassGroupDetail? = null,
+        @SerializedName("guardianGroup") val _guardianGroup: ClassGroupDetail? = null,
+        @SerializedName("classRooms") private val _classRooms: List<ClassGroupDetail>? = null,
+) {
+        val classRooms get() = _classRooms ?: listOf()
+}
+
+data class ClassGroupDetail(
         @SerializedName("nameEn") private val _classGroupNameEn: String = "",
         @SerializedName("nameTh") private val _classGroupNameTh: String = "",
         @SerializedName("iconImageUrl") val iconImageUrl: String = "",

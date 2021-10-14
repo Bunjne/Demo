@@ -1,14 +1,13 @@
 package whiz.sspark.library.view.widget.collaboration.class_member
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.toColorInt
 import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassMemberInstructorBinding
-import whiz.sspark.library.extension.showClassMemberProfileCircle
+import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.utility.convertToFullName
 
 class ClassMemberInstructorView : ConstraintLayout {
@@ -22,16 +21,10 @@ class ClassMemberInstructorView : ConstraintLayout {
 
     fun init(member: ClassMember) {
         with (member) {
-            val color = if (colorCode.isNullOrBlank()) {
-                Color.BLACK
-            } else {
-                colorCode.toColorInt()
-            }
-
-            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
+            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
 
             binding.tvName.text = convertToFullName(firstName, middleName, lastName, position)
-            binding.tvDetail.text = remark
+            binding.tvDetail.text = jobDescription
         }
     }
 }

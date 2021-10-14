@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.Attachment
+import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.entity.Post
-import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostView
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.ClassPostCommentView
 
@@ -20,7 +20,7 @@ class InstructorClassPostCommentAdapter(private val context: Context,
                                         private val onImageClicked: (ImageView, Attachment) -> Unit,
                                         private val onFileClicked: (Attachment) -> Unit,
                                         private val onCommentClicked: () -> Unit,
-                                        private val onCommentItemClicked: (Post) -> Unit,
+                                        private val onCommentItemClicked: (Comment) -> Unit,
                                         private val onPostLiked: (Post) -> Unit,
                                         private val onDisplayLikedUsersClicked :() -> Unit,
                                         private val onDisplaySeenUsersClicked :() -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -59,30 +59,27 @@ class InstructorClassPostCommentAdapter(private val context: Context,
         item?.let { item ->
             if (item.type == PostCommentType.POST) {
                 val post = item.post
-                (holder.itemView as InstructorClassPostView).init(
-                    post = post,
-                    allMemberCount = allMemberCount,
-                    color = color,
-                    onDeletePostClicked = { post -> onDeletePostClicked(post) },
-                    onEditPostClicked = { post -> onEditPostClicked(post) },
-                    onImageClicked = { imageView, attachment -> onImageClicked(imageView, attachment) },
-                    onFileClicked = { attachment -> onFileClicked(attachment) },
-                    onLikeClicked = { post -> onPostLiked(post) },
-                    onCommentClicked = { onCommentClicked() },
-                    onDisplayLikedUsersClicked = { onDisplayLikedUsersClicked() },
-                    onDisplaySeenUsersClicked = { onDisplaySeenUsersClicked() })
+
+                post?.let {
+                    (holder.itemView as InstructorClassPostView).init(
+                        post = post,
+                        allMemberCount = allMemberCount,
+                        color = color,
+                        onDeletePostClicked = { post -> onDeletePostClicked(post) },
+                        onEditPostClicked = { post -> onEditPostClicked(post) },
+                        onImageClicked = { imageView, attachment -> onImageClicked(imageView, attachment) },
+                        onFileClicked = { attachment -> onFileClicked(attachment) },
+                        onLikeClicked = { post -> onPostLiked(post) },
+                        onCommentClicked = { onCommentClicked() },
+                        onDisplayLikedUsersClicked = { onDisplayLikedUsersClicked() },
+                        onDisplaySeenUsersClicked = { onDisplaySeenUsersClicked() }
+                    )
+                }
             } else {
-                val comment = item.post
-                (holder.itemView as ClassPostCommentView).apply {
-                    init(comment, color, onCommentItemClicked)
+                val comment = item.comment
 
-                    val isFirstComment = position == 1
-
-                    if (isFirstComment) {
-                        setPadding(0, 16.toDP(context), 0, 0)
-                    } else {
-                        setPadding(0, 0, 0, 0)
-                    }
+                comment?.let {
+                    (holder.itemView as ClassPostCommentView).init(comment, color, onCommentItemClicked)
                 }
             }
         }
@@ -98,6 +95,7 @@ class InstructorClassPostCommentAdapter(private val context: Context,
 
     data class PostCommentItem(
         val type: PostCommentType,
-        val post: Post
+        val post: Post? = null,
+        val comment: Comment? = null
     )
 }

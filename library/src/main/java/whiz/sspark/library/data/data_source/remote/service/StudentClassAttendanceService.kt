@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface StudentClassAttendanceService {
-    @Headers("Content-Type: application/json")
-    @GET("api/v1/classes/{classId}/attendants")
-    suspend fun getClassAttendance(@Path("classId") classId: String): Response<ApiResponseX>
+    @Headers("Content-Type: application/json", "x-mock-match-request-headers: Authorization")
+    @GET("api/v1/classGroups/{classGroupId}/attendances")
+    suspend fun getClassAttendance(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
 }

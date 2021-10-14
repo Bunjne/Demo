@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
+import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.data.repository.ClassPostCommentRepositoryImpl
@@ -20,8 +21,8 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _commentResponses = MutableLiveData<List<Post>>()
-    val commentResponses: LiveData<List<Post>>
+    private val _commentResponses = MutableLiveData<List<Comment>>()
+    val commentResponses: LiveData<List<Comment>>
         get() = _commentResponses
 
     private val _commentErrorResponse = MutableLiveData<ApiResponseX>()

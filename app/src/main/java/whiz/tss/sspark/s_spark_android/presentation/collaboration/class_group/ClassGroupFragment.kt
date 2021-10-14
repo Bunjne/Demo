@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
-import whiz.sspark.library.data.entity.ClassGroup
+import whiz.sspark.library.data.entity.ClassGroupDetail
 import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.viewModel.ClassGroupViewModel
-import whiz.sspark.library.extension.*
+import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.getHighSchoolLevel
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -96,11 +96,6 @@ class ClassGroupFragment : BaseFragment() {
                             id = BottomNavigationId.CLASS_SCHEDULE.id,
                             title = resources.getString(R.string.class_group_navigation_item_class_schedule_title),
                             imageResource = R.drawable.ic_class_schedule
-                        ),
-                        BottomNavigationBarItem(
-                            id = BottomNavigationId.EXAMINATION.id,
-                            title = resources.getString(R.string.class_group_navigation_item_examination_title),
-                            imageResource = R.drawable.ic_exam_schedule
                         )
                     )
                 ))
@@ -166,8 +161,8 @@ class ClassGroupFragment : BaseFragment() {
 
     override fun observeData() {
         viewModel.classGroupResponse.observe(this, Observer {
-            it?.let { classGroups ->
-                val classGroupItems = transformData(classGroups)
+            it?.let { classGroup ->
+                val classGroupItems = transformData(classGroup.classRooms)
 
                 binding.vClassGroup.renderData(items, classGroupItems)
             }
@@ -185,20 +180,19 @@ class ClassGroupFragment : BaseFragment() {
 
         viewModel.errorMessage.observe(this, Observer {
             it?.let {
-                requireContext().showAlertWithOkButton("")
+                requireContext().showAlertWithOkButton(it)
             }
         })
     }
 
-    private fun transformData(classGroups: List<ClassGroup>): MutableList<ClassGroupAdapter.Item> {
+    private fun transformData(classGroups: List<ClassGroupDetail>): MutableList<ClassGroupAdapter.Item> {
         val classGroupItems = mutableListOf<ClassGroupAdapter.Item>()
         with (classGroupItems) {
             classGroups.forEach {
                 add(ClassGroupAdapter.Item(
                     headerBarTitle = it.classGroupName,
                     headerBarIcon = it.iconImageUrl,
-                    headerBarStartColor = it.colorCode1.toColor(),
-                    headerBarEndColor = it.colorCode2.toColor()
+                    gradientColor = it.gradientColors
                 ))
 
                 val classGroupCourseItems = it.courses.map { classGroupCourse ->

@@ -14,6 +14,7 @@ import io.socket.engineio.client.transports.WebSocket
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.SSparkLibrary
+import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.data.static.DateTimePattern
@@ -154,11 +155,11 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                         member?.let { member ->
                             val createdAt = createdAtString.convertToDate(DateTimePattern.serviceDateFullFormat) ?: Date()
 
-                            val comment = Post(
+                            val comment = Comment(
                                 id = commentId.toString().toLowerCase(),
                                 author = member,
                                 message = message,
-                                createdAt = createdAt
+                                datetime = createdAt
                             )
 
                             runOnUiThread {
@@ -221,7 +222,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         }
     }
 
-    private val comments = mutableListOf<Post>()
+    private val comments = mutableListOf<Comment>()
     private var members: Member? = null
 
     private val postCommentItems = mutableListOf<InstructorClassPostCommentAdapter.PostCommentItem>()
@@ -307,7 +308,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         renderPost()
     }
 
-    private fun showCommentOption(comment: Post) {
+    private fun showCommentOption(comment: Comment) {
         if (comment.author.userId == instructorUserId) {
             showAlertWithMultipleItems(resources.getStringArray(R.array.class_post_comment_action_owner).toList()) { index ->
                 when (index) {
@@ -339,7 +340,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         socket?.emit(SocketPath.collaborationSocketEmitterPostCommentPath, data)
     }
 
-    private fun deleteComment(comment: Post) {
+    private fun deleteComment(comment: Comment) {
         val data = JSONObject().apply {
             put("postId", post.id)
             put("commentId", comment.id)
@@ -392,23 +393,23 @@ class InstructorClassPostCommentActivity : BaseActivity() {
             postCommentItems.removeAt(1)
         }
 
-        postCommentItems.addAll(1, comments.map { InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.COMMENT, post = it) })
+        postCommentItems.addAll(1, comments.map { InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.COMMENT, comment = it) })
         binding.vPostDetailSheetDialog.notifyRecycleViewItemRangeInserted(1, comments.size)
     }
 
-    private fun insertComment(comment: Post) {
+    private fun insertComment(comment: Comment) {
         comments.add(comment)
-        postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.COMMENT, post = comment))
+        postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.COMMENT, comment = comment))
 
         binding.vPostDetailSheetDialog.notifyRecycleViewItemInserted(comments.size + 1)
         binding.vPostDetailSheetDialog.notifyRecycleViewItemChanged(0)
     }
 
     private fun updateCommentDeletion(postId: String) {
-        val commentPosition = postCommentItems.indexOfFirst { it.post.id.contains(postId, true) }
+        val commentPosition = postCommentItems.indexOfFirst { it.post?.id?.contains(postId, true) ?: false }
         if (commentPosition > -1) {
             comments.removeAll { it.id == postId }
-            postCommentItems.removeAll { it.post.id == postId }
+            postCommentItems.removeAll { it.comment?.id == postId }
 
             binding.vPostDetailSheetDialog.notifyRecycleViewItemRemoved(commentPosition)
             binding.vPostDetailSheetDialog.notifyRecycleViewItemChanged(0)
