@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
     <View
         android:id="@+id/vTranslationTop"
         android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_height="18dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -16,6 +17,7 @@
     <com.sinaseyfi.advancedcardview.AdvancedCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:translationY="6dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius_BottomLeft="12dp"
         app:cornerRadius_BottomRight="12dp"
@@ -36,9 +38,11 @@
                 android:id="@+id/ivInstructor"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_human" />
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvInstructor"

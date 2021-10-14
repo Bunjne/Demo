@@ -20,6 +20,6 @@ class ViewCourseSyllabusInstructorItem: ConstraintLayout {
     fun init(instructors: List<String>) {
         val convertedInstructor = instructors.joinToString(", ") { it }
         binding.tvInstructor.text = convertedInstructor
-//        binding.ivInstructor.show(R.drawable.ic) TODO wait confirm image
+        binding.ivInstructor.show(R.drawable.ic_human)
     }
 }
