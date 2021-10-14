@@ -26,6 +26,7 @@ import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.advisee_list.AdviseeListActivity
 import whiz.tss.sspark.s_spark_android.presentation.calendar.CalendarActivity
+import whiz.tss.sspark.s_spark_android.presentation.event.event_list.EventListActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.LearningPathwayActivity
 import whiz.tss.sspark.s_spark_android.presentation.notification_inbox.NotificationInboxActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.SchoolRecordActivity
@@ -115,16 +116,22 @@ class StudentMenuFragment : BaseFragment() {
             },
             onMenuClicked = { code, title ->
                 when(code) {
+                    MenuCode.CALENDAR.code -> {
+                        val intent = Intent(requireContext(), CalendarActivity::class.java)
+                        startActivity(intent)
+                    }
+                    MenuCode.EVENT.code -> {
+                        val intent = Intent(requireContext(), EventListActivity::class.java).apply {
+                            putExtra("title", title)
+                        }
+                        startActivity(intent)
+                    }
                     MenuCode.GRADE_SUMMARY.code -> {
                         val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
                         startActivity(intent)
                     }
                     MenuCode.LEARNING_PATHWAY.code -> {
                         val intent = Intent(requireContext(), LearningPathwayActivity::class.java)
-                        startActivity(intent)
-                    }
-                    MenuCode.CALENDAR.code -> {
-                        val intent = Intent(requireContext(), CalendarActivity::class.java)
                         startActivity(intent)
                     }
                     MenuCode.NOTIFICATION_INBOX.code -> {
