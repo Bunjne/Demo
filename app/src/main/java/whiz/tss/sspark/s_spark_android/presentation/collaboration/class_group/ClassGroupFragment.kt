@@ -25,6 +25,7 @@ import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.advisory.AdvisoryActivity
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
@@ -68,6 +69,7 @@ class ClassGroupFragment : BaseFragment() {
     }
 
     override fun initView() {
+        SSparkApp.setStudentSeniorApp()
         val firstNavigationItem = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             BottomNavigationBarItem(
                 id = BottomNavigationId.HOMEROOM.id,
@@ -133,7 +135,8 @@ class ClassGroupFragment : BaseFragment() {
                 onNavigationBarItemClicked = { id ->
                     when (id) {
                         BottomNavigationId.ADVISORY.id -> {
-                            //TODO wait for flow discussion
+                            val intent = Intent(requireContext(), AdvisoryActivity::class.java)
+                            startActivity(intent)
                         }
                         BottomNavigationId.HOMEROOM.id -> {
                             //TODO wait for flow discussion

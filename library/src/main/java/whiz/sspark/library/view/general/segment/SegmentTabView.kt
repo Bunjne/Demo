@@ -1,6 +1,8 @@
 package whiz.sspark.library.view.general.segment
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -26,16 +28,33 @@ class SegmentTabView : ConstraintLayout {
     }
 
     private var onTabClicked: (Int) -> Unit = { }
+    private var segmentTextColorStateList: ColorStateList? = null
+    private var segmentBackgroundDrawable: Drawable? = null
 
     fun init(titles: List<String>,
              onTabClicked: (Int) -> Unit,
-             initialTab: Int = 0) {
+             initialTab: Int = 0,
+             textColorStateList: ColorStateList? = null,
+             backgroundDrawable: Drawable? = null) {
         this.onTabClicked = onTabClicked
+
+        segmentBackgroundDrawable = backgroundDrawable
+        segmentTextColorStateList = textColorStateList
+
+        segmentBackgroundDrawable?.let {
+            binding.rgContainer.background = segmentBackgroundDrawable
+        }
 
         binding.rgContainer.removeAllViews()
 
         titles.forEachIndexed { index, title ->
-            val radioButton = getSegmentRadioButton(context, index, initialTab, title)
+            val radioButton = getSegmentRadioButton(context, index, initialTab, title).apply {
+                if (segmentTextColorStateList != null) {
+                    setTextColor(segmentTextColorStateList)
+                } else {
+                    setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+                }
+            }
             binding.rgContainer.addView(radioButton)
         }
 
@@ -46,7 +65,13 @@ class SegmentTabView : ConstraintLayout {
     fun updateSegmentTitle(titles: List<String>, currentSegment: Int) {
         binding.rgContainer.removeAllViews()
         titles.forEachIndexed { index, title ->
-            val radioButton = getSegmentRadioButton(context, index, currentSegment, title)
+            val radioButton = getSegmentRadioButton(context, index, currentSegment, title).apply {
+                if (segmentTextColorStateList != null) {
+                    setTextColor(segmentTextColorStateList)
+                } else {
+                    setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+                }
+            }
             binding.rgContainer.addView(radioButton)
         }
     }
@@ -82,7 +107,6 @@ class SegmentTabView : ConstraintLayout {
         gravity = Gravity.CENTER
         buttonDrawable = null
         typeface = SSparkLibrary.boldTypeface
-        setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 10, 15, 1, TypedValue.COMPLEX_UNIT_DIP)
         maxLines = 1
