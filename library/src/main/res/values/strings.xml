@@ -188,10 +188,12 @@
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
     <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
     <string name="learning_pathway_required_course_count">+ %1$s วิชาบังคับ</string>
+    <string name="learning_pathway_concentrate_course_count">%1$s วิชาเฉพาะทาง</string>
     <string name="learning_pathway_no_course_text">ไม่มีแผนการเรียน</string>
     <string name="learning_pathway_required_course_text">วิชาบังคับ</string>
     <string name="learning_pathway_add_course_text">เพิ่มวิชา</string>
     <string name="learning_pathway_add_course_preview_credit">%1$s หน่วยกิต (ต่ำสุด = %2$s, สูงสุด = %3$s)</string>
+    <string name="learning_pathway_term_credit">ต่ำสุด = %1$s หน่วยกิต, สูงสุด = %2$s หน่วยกิต</string>
 
     <!--Class Schedule-->
     <string name="class_schedule_title">ตารางเรียน</string>

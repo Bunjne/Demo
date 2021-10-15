@@ -19,11 +19,11 @@ class LearningPathwayCourseMiddleItemView: ConstraintLayout {
     }
 
     fun init(courseItem: LearningPathwayCourseItem,
-             onDeleteClicked: (String, String) -> Unit) {
+             onDeleteClicked: (Int, Int, String) -> Unit) {
         with(binding.ivDelete) {
             show(R.drawable.ic_bin)
             setOnClickListener {
-                onDeleteClicked(courseItem.term.id, courseItem.course.id)
+                onDeleteClicked(courseItem.term.term, courseItem.term.academicGrade ?: 0, courseItem.course.id)
             }
         }
 

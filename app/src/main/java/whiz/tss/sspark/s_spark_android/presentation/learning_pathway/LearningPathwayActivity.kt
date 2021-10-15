@@ -74,7 +74,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                     ).show(supportFragmentManager, ADD_COURSE_DIALOG)
                 }
             },
-            onDeleteCourseClicked = { termId, courseId ->
+            onDeleteCourseClicked = { term, academicGrade, courseId ->
                 if (viewModel.viewLoading.value == true) {
                     return@init
                 }
@@ -83,7 +83,11 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                     title = resources.getString(R.string.general_confirm_to_delete_text),
                     positiveTitle = resources.getString(R.string.general_delete_text),
                     onPositiveClicked = {
-                        viewModel.deleteCourse(termId = termId, courseId = courseId)
+                        viewModel.deleteCourse(
+                            term = term,
+                            academicGrade = academicGrade,
+                            courseId = courseId
+                        )
                     },
                     negativeTitle = resources.getString(R.string.general_text_cancel)
                 )
@@ -182,33 +186,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
             selectedCourseIds.addAll(courseIds)
             selectedCourseIds.addAll(requiredCourseIds)
 
-            val header = LearningPathwayHeaderItem(
-                term = learningPathway.term,
-                currentCredit = credit,
-                maxCredit = learningPathway.maxCredit,
-                minCredit = learningPathway.minCredit,
-                selectedCourseIds = selectedCourseIds
-            )
-
-            items.add(LearningPathwayAdapter.Item(header = header))
-
-            learningPathway.courses.forEach {
-                val course = Course(
-                    id = it.id,
-                    code = it.code,
-                    credit = it.credit,
-                    name = it.name
-                )
-
-                val learningPathwayCourse = LearningPathwayCourseItem(
-                    term = learningPathway.term,
-                    course = course
-                )
-
-                items.add(LearningPathwayAdapter.Item(courseItem = learningPathwayCourse))
-            }
-
-            val courses = learningPathway.requiredCourses.map {
+            val requiredCourses = learningPathway.requiredCourses.map {
                 Course(
                     id = it.id,
                     code = it.code,
@@ -217,12 +195,36 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 )
             }
 
-            val requiredCourse = LearningPathwayRequiredCourseItem(
+            val header = LearningPathwayHeaderItem(
                 term = learningPathway.term,
-                courses = courses
+                currentCredit = credit,
+                maxCredit = learningPathway.maxCredit,
+                minCredit = learningPathway.minCredit,
+                selectedCourseIds = selectedCourseIds,
+                requiredCourses = requiredCourses
             )
 
-            items.add(LearningPathwayAdapter.Item(requiredCourseItem = requiredCourse))
+            items.add(LearningPathwayAdapter.Item(header = header))
+
+            if (learningPathway.courses.isNotEmpty()) {
+                items.add(LearningPathwayAdapter.Item(courseCount = learningPathway.courses.size))
+
+                learningPathway.courses.forEach {
+                    val course = Course(
+                        id = it.id,
+                        code = it.code,
+                        credit = it.credit,
+                        name = it.name
+                    )
+
+                    val learningPathwayCourse = LearningPathwayCourseItem(
+                        term = learningPathway.term,
+                        course = course
+                    )
+
+                    items.add(LearningPathwayAdapter.Item(courseItem = learningPathwayCourse))
+                }
+            }
         }
 
         binding.vLearningPathway.updateItem(items)
@@ -238,9 +240,10 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
         outState.putString("dataWrapper", dataWrapper.toString())
     }
 
-    override fun onAddCourseClicked(termId: String, courseId: String) {
+    override fun onAddCourseClicked(term: Int, academicGrade: Int, courseId: String) {
         viewModel.addCourse(
-            termId = termId,
+            term = term,
+            academicGrade = academicGrade,
             courseId = courseId
         )
     }

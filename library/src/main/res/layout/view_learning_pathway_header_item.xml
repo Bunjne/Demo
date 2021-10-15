@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="15dp"
-    android:background="@drawable/bg_base_item_list_top">
+    android:layout_height="wrap_content">
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvTerm"
@@ -17,10 +15,10 @@
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAdd"
         app:layout_constraintEnd_toStartOf="@+id/cvCredit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivAdd"
         app:ssparkFont="bold"
         tools:text="ม.4 (2/2564)" />
 
@@ -32,7 +30,7 @@
         app:cardBackgroundColor="@color/viewBaseThirdColor"
         app:cardCornerRadius="13dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAdd"
         app:layout_constraintEnd_toStartOf="@+id/ivAdd"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -57,9 +55,80 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_add" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvMinMaxCredit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivAdd"
+        app:ssparkFont="regular"
+        tools:text="ต่ำสุด = 26 หน่วยกิต, สูงสุด = 29 หน่วยกิต" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvRequiredCourse"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:background_Color="@color/viewBaseThirdColor"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMinMaxCredit">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp">
+
+            <ImageView
+                android:id="@+id/ivLock"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_lock" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvCourseCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+                app:layout_constraintStart_toEndOf="@+id/ivLock"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="bold"
+                tools:text="+ 11 วิชาบังคับ" />
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_arrow_right" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

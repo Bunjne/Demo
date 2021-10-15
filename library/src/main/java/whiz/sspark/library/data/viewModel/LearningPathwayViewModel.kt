@@ -82,9 +82,9 @@ class LearningPathwayViewModel(private val learningPathwayRepositoryImpl: Learni
         }
     }
 
-    fun addCourse(termId: String, courseId: String) {
+    fun addCourse(term: Int, academicGrade: Int, courseId: String) {
         viewModelScope.launch {
-            learningPathwayRepositoryImpl.addCourse(termId, courseId)
+            learningPathwayRepositoryImpl.addCourse(term, academicGrade, courseId)
                 .onStart {
                     _courseLoading.value = true
                 }
@@ -106,9 +106,9 @@ class LearningPathwayViewModel(private val learningPathwayRepositoryImpl: Learni
         }
     }
 
-    fun deleteCourse(termId: String, courseId: String) {
+    fun deleteCourse(term: Int, academicGrade: Int, courseId: String) {
         viewModelScope.launch {
-            learningPathwayRepositoryImpl.deleteCourse(termId, courseId)
+            learningPathwayRepositoryImpl.deleteCourse(term, academicGrade, courseId)
                 .onStart {
                     _courseLoading.value = true
                 }
