@@ -57,6 +57,7 @@
                 android:hint="@string/class_post_comment_write_comment"
                 android:inputType="textMultiLine"
                 android:maxLines="6"
+                android:textCursorDrawable="@drawable/bg_primary_cursor_color"
                 android:background="@color/viewBaseThirdColor"
                 android:overScrollMode="always"
                 android:paddingHorizontal="12dp"

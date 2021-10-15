@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.entity.Member
-import whiz.sspark.library.data.entity.Post
 import whiz.sspark.library.data.repository.ClassPostCommentRepositoryImpl
 
 class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: ClassPostCommentRepositoryImpl) : ViewModel() {
@@ -28,6 +27,22 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
     private val _commentErrorResponse = MutableLiveData<ApiResponseX>()
     val commentErrorResponse: LiveData<ApiResponseX>
         get() = _commentErrorResponse
+
+    private val _addCommentResponse = MutableLiveData<String>()
+    val addCommentResponse: LiveData<String>
+        get() = _addCommentResponse
+
+    private val _addCommentErrorResponse = MutableLiveData<ApiResponseX>()
+    val addCommentErrorResponse: LiveData<ApiResponseX>
+        get() = _addCommentErrorResponse
+
+    private val _deleteCommentResponse = MutableLiveData<String>()
+    val deleteCommentResponse: LiveData<String>
+        get() = _deleteCommentResponse
+
+    private val _deleteCommentErrorResponse = MutableLiveData<ApiResponseX>()
+    val deleteCommentErrorResponse: LiveData<ApiResponseX>
+        get() = _deleteCommentErrorResponse
 
     private val _memberResponses = MutableLiveData<Member>()
     val memberResponses: LiveData<Member>
@@ -92,6 +107,54 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
                         _memberResponses.value = it
                     } ?: run {
                         _memberErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    fun addComment(postId: String, message: String) {
+        viewModelScope.launch {
+            classPostCommentRepositoryImpl.addComment(postId, message)
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _addCommentResponse.value = it
+                    } ?: run {
+                        _addCommentErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    fun deleteComment(postId: String, commentId: String) {
+        viewModelScope.launch {
+            classPostCommentRepositoryImpl.deleteComment(postId, commentId)
+                .onStart {
+                    _viewLoading.value = true
+                }
+                .onCompletion {
+                    _viewLoading.value = false
+                }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _deleteCommentResponse.value = it
+                    } ?: run {
+                        _deleteCommentErrorResponse.value = it.error
                     }
                 }
         }

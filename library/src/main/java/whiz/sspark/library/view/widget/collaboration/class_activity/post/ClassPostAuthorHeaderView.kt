@@ -25,7 +25,7 @@ class ClassPostAuthorHeaderView : LinearLayout {
     fun init(member: ClassMember?, createdAt: Date, updatedAt: Date, isRead: Boolean, color: Int) {
         member?.let {
 
-            binding.cvProfile.showProfile(it.profileImageUrl, getGender(it.gender).type)
+            binding.cvProfile.showProfile(it.imageUrl, getGender(it.gender).type)
 
             binding.tvName.text = convertToFullName(it.firstName, it.middleName, it.lastName, it.position).toUpperCase()
             binding.tvDate.text = if (createdAt == updatedAt) {

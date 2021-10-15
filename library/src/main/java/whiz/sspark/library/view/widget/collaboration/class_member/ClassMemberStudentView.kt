@@ -1,11 +1,9 @@
 package whiz.sspark.library.view.widget.collaboration.class_member
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.enum.getGender
@@ -23,11 +21,11 @@ class ClassMemberStudentView : ConstraintLayout {
         ViewClassMemberStudentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(member: ClassMember, position: Int, isSelf: Boolean) {
+    fun init(member: ClassMember, isSelf: Boolean) {
         with (member) {
-            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
+            binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
-            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, position, nickname)
+            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, number, nickname)
             binding.tvName.text = if (isSelf) {
                 convertToFullName(firstName, middleName, lastName)
             } else {

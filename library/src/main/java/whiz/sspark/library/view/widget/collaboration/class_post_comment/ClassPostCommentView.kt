@@ -25,7 +25,7 @@ class ClassPostCommentView : ConstraintLayout {
              color: Int,
              onItemClicked: (Comment) -> Unit) {
         with(comment) {
-            binding.cvProfile.showProfile(author.profileImageUrl, getGender(author.gender).type)
+            binding.cvProfile.showProfile(author.imageUrl, getGender(author.gender).type)
 
             val commentAuthorName = if (author.position.isNotBlank()) {
                 convertToFullName(

@@ -150,7 +150,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     val createdAtString = data.getString("createdAt")
 
                     if (postId.contains(post.id, true)) {
-                        val member = members?.students?.singleOrNull { it.userId == userId } ?: members?.instructors?.singleOrNull { it.userId == userId }
+                        val member = members?.students?.singleOrNull { it.id == userId } ?: members?.instructors?.singleOrNull { it.id == userId }
 
                         member?.let { member ->
                             val createdAt = createdAtString.convertToDate(DateTimePattern.serviceDateFullFormat) ?: Date()
@@ -293,7 +293,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                 likePost(post)
             },
             onCommentSent = { message ->
-                emitComment(message)
+                addComment(message)
             },
             onDisplayLikedUsersClicked = {
 //                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id, color, PostInteraction.LIKE.type)
@@ -309,44 +309,30 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     }
 
     private fun showCommentOption(comment: Comment) {
-        if (comment.author.userId == instructorUserId) {
+        if (comment.author.id == instructorUserId) {
             showAlertWithMultipleItems(resources.getStringArray(R.array.class_post_comment_action_owner).toList()) { index ->
                 when (index) {
                     0 -> (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(comment.message, comment.message))
                     1 -> deleteComment(comment)
-                    2 -> {
-                    }
+                    2 -> { }
                 }
             }
         } else {
-            showAlertWithMultipleItems(resources.getStringArray(R.array.class_post_comment_action_owner).toList()) { index ->
+            showAlertWithMultipleItems(resources.getStringArray(R.array.class_post_comment_action_other).toList()) { index ->
                 when (index) {
                     0 -> (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(comment.message, comment.message))
-                    1 -> {
-                    }
+                    1 -> { }
                 }
             }
         }
     }
 
-    private fun emitComment(text: String) {
-        val data = JSONObject().apply {
-            put("userId", instructorUserId)
-            put("postId", post.id)
-            put("message", text)
-            put("classId", classGroupId)
-        }
-
-        socket?.emit(SocketPath.collaborationSocketEmitterPostCommentPath, data)
+    private fun addComment(message: String) {
+        viewModel.addComment(post.id, message)
     }
 
     private fun deleteComment(comment: Comment) {
-        val data = JSONObject().apply {
-            put("postId", post.id)
-            put("commentId", comment.id)
-        }
-
-        socket?.emit(SocketPath.collaborationSocketEmitterPostDeleteCommentPath, data)
+        viewModel.deleteComment(post.id, comment.id)
     }
 
     override fun observeView() {
@@ -431,7 +417,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
     override fun observeError() {
         with (viewModel) {
-            listOf(commentErrorResponse, memberErrorResponse).forEach {
+            listOf(commentErrorResponse, memberErrorResponse, addCommentErrorResponse, deleteCommentErrorResponse).forEach {
                 it.observe(this@InstructorClassPostCommentActivity, Observer {
                     it?.let {
                         showApiResponseXAlert(this@InstructorClassPostCommentActivity, it)
