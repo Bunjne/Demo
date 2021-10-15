@@ -4,22 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvMonthYear"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="12dp"
-        android:textColor="@color/textBaseThirdColor"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivPreviousMonth"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:ssparkFont="regular"
-        tools:text="สิงหาคม 2564" />
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="12dp">
 
     <ImageView
         android:id="@+id/ivPreviousMonth"
@@ -28,16 +14,30 @@
         android:layout_marginEnd="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivNextMonth"
-        app:layout_constraintStart_toEndOf="@+id/tvMonthYear"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/ic_previous_page" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvMonthYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="12dp"
+        android:textAlignment="center"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivNextMonth"
+        app:layout_constraintStart_toEndOf="@+id/ivPreviousMonth"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular"
+        tools:text="สิงหาคม 2564" />
 
     <ImageView
         android:id="@+id/ivNextMonth"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:layout_marginEnd="12dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

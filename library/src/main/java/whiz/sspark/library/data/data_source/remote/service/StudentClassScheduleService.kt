@@ -12,4 +12,8 @@ interface StudentClassScheduleService {
     suspend fun getClassSchedule(@Query("termId") termId: String,
                                  @Query("fromDate") fromDate: String,
                                  @Query("toDate") toDate: String): Response<ApiResponseX>
+
+    @Headers("Content-Type: application/json")
+    @GET("api/v1/students/me/terms")
+    suspend fun getTerms(): Response<ApiResponseX>
 }

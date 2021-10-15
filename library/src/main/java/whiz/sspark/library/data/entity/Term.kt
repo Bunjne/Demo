@@ -8,7 +8,7 @@ data class Term(
         @SerializedName("roomNumber") val roomNumber: Int? = null,
         @SerializedName("term") val term: Int = 0,
         @SerializedName("year") val year: Int = 0,
-        @SerializedName("startDate") val startDate: Date = Date(),
-        @SerializedName("endDate") val endDate: Date = Date(),
+        @SerializedName("startAt") val startAt: Date = Date(),
+        @SerializedName("endAt") val endAt: Date = Date(),
         @SerializedName("academicGrade") val academicGrade: Int? = null
 )
