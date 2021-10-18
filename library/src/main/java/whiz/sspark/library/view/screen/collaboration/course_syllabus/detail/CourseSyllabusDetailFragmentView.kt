@@ -25,15 +25,14 @@ class CourseSyllabusDetailFragmentView: ConstraintLayout {
             onRefresh()
         }
 
-        with(binding.rvPlan) {
+        with(binding.rvCourseDetail) {
             if (itemDecorationCount == 0) {
                 addItemDecoration(CustomDividerMultiItemDecoration(
                     divider = ContextCompat.getDrawable(context, R.drawable.divider_base_list_secondary)!!,
                     dividerViewType = listOf(
                         CourseSyllabusAdapter.COURSE_DETAIL_TOP_VIEW_TYPE,
                         CourseSyllabusAdapter.COURSE_DETAIL_MIDDLE_VIEW_TYPE,
-                        CourseSyllabusAdapter.COURSE_DETAIL_BOTTOM_VIEW_TYPE,
-                        CourseSyllabusAdapter.COURSE_DETAIL_SINGLE_VIEW_TYPE,
+                        CourseSyllabusAdapter.COURSE_DETAIL_BOTTOM_VIEW_TYPE
                     )
                 ))
             }
@@ -47,7 +46,7 @@ class CourseSyllabusDetailFragmentView: ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun updateItem(item: List<CourseSyllabusAdapter.Item> = listOf()) {
-        (binding.rvPlan.adapter as? CourseSyllabusAdapter)?.submitList(item)
+    fun updateItem(item: List<CourseSyllabusAdapter.Item>) {
+        (binding.rvCourseDetail.adapter as? CourseSyllabusAdapter)?.submitList(item)
     }
 }

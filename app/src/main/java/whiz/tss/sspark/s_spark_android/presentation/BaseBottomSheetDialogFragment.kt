@@ -80,9 +80,8 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
                 }
 
                 bottomSheet.layoutParams = layoutParams
+                view?.requestLayout()
             }
-
-            view?.requestLayout()
         }
     }
 

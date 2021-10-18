@@ -32,8 +32,7 @@ class CourseSyllabusWeekDetailFragmentView: ConstraintLayout {
                     dividerViewType = listOf(
                         CourseSyllabusWeekAdapter.COURSE_DETAIL_TOP_VIEW_TYPE,
                         CourseSyllabusWeekAdapter.COURSE_DETAIL_MIDDLE_VIEW_TYPE,
-                        CourseSyllabusWeekAdapter.COURSE_DETAIL_BOTTOM_VIEW_TYPE,
-                        CourseSyllabusWeekAdapter.COURSE_DETAIL_SINGLE_VIEW_TYPE,
+                        CourseSyllabusWeekAdapter.COURSE_DETAIL_BOTTOM_VIEW_TYPE
                     )
                 ))
             }

@@ -16,7 +16,7 @@ class CourseSyllabusWeekAdapter: ListAdapter<CourseSyllabusWeekAdapter.Item, Rec
         val COURSE_DETAIL_MIDDLE_VIEW_TYPE = 3333
         val COURSE_DETAIL_BOTTOM_VIEW_TYPE = 4444
         val COURSE_DETAIL_SINGLE_VIEW_TYPE = 5555
-        val INTRUCTOR_VIEW_TYPE = 6666
+        val INSTRUCTOR_VIEW_TYPE = 6666
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -39,7 +39,7 @@ class CourseSyllabusWeekAdapter: ListAdapter<CourseSyllabusWeekAdapter.Item, Rec
         }
 
         return when {
-            item.instructors != null -> INTRUCTOR_VIEW_TYPE
+            item.instructors != null -> INSTRUCTOR_VIEW_TYPE
             item.courseDetail != null && previousItem?.courseDetail == null && nextItem?.courseDetail == null -> COURSE_DETAIL_SINGLE_VIEW_TYPE
             item.courseDetail != null && previousItem?.courseDetail != null && nextItem?.courseDetail != null -> COURSE_DETAIL_MIDDLE_VIEW_TYPE
             item.courseDetail != null && previousItem?.courseDetail == null && nextItem?.courseDetail != null -> COURSE_DETAIL_TOP_VIEW_TYPE
@@ -86,7 +86,7 @@ class CourseSyllabusWeekAdapter: ListAdapter<CourseSyllabusWeekAdapter.Item, Rec
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
             })
-            INTRUCTOR_VIEW_TYPE -> InstructorViewHolder(ViewCourseSyllabusInstructorItem(parent.context).apply {
+            INSTRUCTOR_VIEW_TYPE -> InstructorViewHolder(CourseSyllabusInstructorItemView(parent.context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -110,7 +110,7 @@ class CourseSyllabusWeekAdapter: ListAdapter<CourseSyllabusWeekAdapter.Item, Rec
             COURSE_DETAIL_MIDDLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusWeekDetailMiddleItemView).init(item.courseDetail!!)
             COURSE_DETAIL_BOTTOM_VIEW_TYPE -> (holder.itemView as CourseSyllabusWeekDetailBottomItemView).init(item.courseDetail!!)
             COURSE_DETAIL_SINGLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusWeekDetailSingleItemView).init(item.courseDetail!!)
-            INTRUCTOR_VIEW_TYPE -> (holder.itemView as ViewCourseSyllabusInstructorItem).init(item.instructors!!)
+            INSTRUCTOR_VIEW_TYPE -> (holder.itemView as CourseSyllabusInstructorItemView).init(item.instructors!!)
             TITLE_VIEW_TYPE -> (holder.itemView as CourseSyllabusTitleItemView).init(item.title!!)
         }
     }

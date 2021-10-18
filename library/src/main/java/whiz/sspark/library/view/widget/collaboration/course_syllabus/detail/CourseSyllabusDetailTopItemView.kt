@@ -16,13 +16,13 @@ class CourseSyllabusDetailTopItemView: ConstraintLayout {
         ViewCourseSyllabusDetailTopBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(position: String?,
+    fun init(code: String?,
              detail: String) {
-        if (position != null) {
-            binding.tvPosition.text = position.toString()
-            binding.tvPosition.visibility = View.VISIBLE
+        if (code != null) {
+            binding.tvCode.text = code
+            binding.tvCode.visibility = View.VISIBLE
         } else {
-            binding.tvPosition.visibility = View.GONE
+            binding.tvCode.visibility = View.GONE
         }
 
         binding.tvCourseDetail.text = detail

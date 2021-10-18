@@ -30,7 +30,8 @@ class CourseSyllabusFragmentView: ConstraintLayout {
 
         binding.vSegment.init(
             titles = segmentTitles,
-            onTabClicked = onTabClicked)
+            onTabClicked = onTabClicked
+        )
 
         binding.tvClose.setOnClickListener {
             onCloseClicked()

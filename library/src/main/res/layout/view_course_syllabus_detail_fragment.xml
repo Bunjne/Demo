@@ -16,12 +16,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPlan"
+            android:id="@+id/rvCourseDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingTop="12dp" />
+            android:paddingTop="10dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
