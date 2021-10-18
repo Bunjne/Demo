@@ -82,7 +82,7 @@ fun ImageView.showUserProfileCircle(profileImageURL: String, gender: Long) {
         .into(this)
 }
 
-fun ImageView.showProfile(imageUrl: String, gender: Long, radius: Int = 0) {
+fun ImageView.showProfile(imageUrl: String, gender: Long) {
     val defaultImage = when (gender) {
         Gender.MALE.type -> R.drawable.ic_male_circular
         Gender.FEMALE.type -> R.drawable.ic_female_circular
@@ -94,8 +94,6 @@ fun ImageView.showProfile(imageUrl: String, gender: Long, radius: Int = 0) {
         .skipMemoryCache(true)
         .placeholder(defaultImage)
         .error(defaultImage)
-        .transform(RoundedCorners(radius.toDP(this.context)))
-
 
     Glide.with(this)
         .load(imageUrl)
