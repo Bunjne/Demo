@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="10dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="16dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="bold"
+            tools:text="15:00" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:gravity="start"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvStartTime"
+            app:layout_constraintEnd_toStartOf="@id/cvAppointmentStatus"
+            app:layout_constraintStart_toEndOf="@id/tvStartTime"
+            app:layout_constraintTop_toTopOf="@id/tvStartTime"
+            app:ssparkFont="bold"
+            tools:text="- 16:00" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAppointmentStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:cardBackgroundColor="@color/viewBaseThirdColor"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvEndTime"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="3dp"
+                android:paddingHorizontal="8dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvStatus"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    app:cardBackgroundColor="@color/accentBlueV300"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <whiz.sspark.library.view.general.SSparkTextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="start"
+                    android:textColor="@color/textBasePrimaryColor"
+                    android:textSize="14dp"
+                    app:layout_goneMarginEnd="0dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivSelectStatus"
+                    app:layout_constraintStart_toEndOf="@id/cvStatus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:ssparkFont="bold"
+                    tools:text="จอง" />
+
+                <ImageView
+                    android:id="@+id/ivSelectStatus"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_dropdown" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

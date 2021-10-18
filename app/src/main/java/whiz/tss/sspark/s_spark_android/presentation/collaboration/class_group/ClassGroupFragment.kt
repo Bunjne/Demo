@@ -135,6 +135,7 @@ class ClassGroupFragment : BaseFragment() {
                 onNavigationBarItemClicked = { id ->
                     when (id) {
                         BottomNavigationId.ADVISORY.id -> {
+                            //TODO wait for homeroom merged
                             val intent = Intent(requireContext(), AdvisoryActivity::class.java)
                             startActivity(intent)
                         }
