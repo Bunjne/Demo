@@ -90,7 +90,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.paging:paging-runtime-ktx:3.0.1'
 
     //Coroutines and LifeCycle Libraries
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
@@ -128,6 +127,7 @@ dependencies {
     //UI
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.github.sina-seyfi:AdvancedCardView:1.0.1'
 
     testImplementation 'junit:junit:4.+'
 

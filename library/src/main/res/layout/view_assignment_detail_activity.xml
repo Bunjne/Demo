@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:overScrollMode="never">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <View
+        android:id="@+id/vTranslationLeft"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationRight"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationTop"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/vTranslationRight"
+        app:layout_constraintStart_toStartOf="@+id/vTranslationLeft"
+        app:layout_constraintTop_toTopOf="@+id/vTranslationTop"
+        app:layout_constraintVertical_bias="0">
 
         <com.sinaseyfi.advancedcardview.AdvancedCardView
             android:layout_width="match_parent"
@@ -20,7 +49,7 @@
             app:shadow0_Outer_Alpha="1"
             app:shadow0_Outer_Blur="30dp"
             app:shadow0_Outer_Color="@color/shadowColor"
-            app:shadow_Outer_Area="12dp">
+            app:shadow_Outer_Area="30dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -31,21 +60,22 @@
                     android:id="@+id/cvVerticalBar"
                     android:layout_width="4dp"
                     android:layout_height="0dp"
+                    android:layout_marginVertical="5dp"
                     app:cardBackgroundColor="@color/viewBaseFourthColor"
                     app:cardCornerRadius="2dp"
                     app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvDate"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvCourse" />
+                    app:layout_constraintTop_toTopOf="@+id/tvCourseName" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
-                    android:id="@+id/tvCourse"
+                    android:id="@+id/tvCourseName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginStart="12dp"
                     android:textColor="@color/textBasePrimaryColor"
                     android:textSize="17dp"
-                    app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cvVerticalBar"
                     app:layout_constraintTop_toTopOf="parent"
                     app:ssparkFont="regular"
@@ -55,25 +85,14 @@
                     android:id="@+id/tvDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginStart="12dp"
                     android:textColor="@color/textBaseThirdColor"
                     android:textSize="13dp"
-                    app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cvVerticalBar"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCourse"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCourseName"
                     app:ssparkFont="regular"
                     tools:text="19 สิงหาคม เวลา 10:00 น." />
-
-                <ImageView
-                    android:id="@+id/ivArrow"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:padding="4dp"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvDate"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvCourse"
-                    tools:src="@drawable/ic_arrow_right" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
                     android:id="@+id/tvTitle"
@@ -106,13 +125,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:orientation="vertical"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvDate"
                     app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
-                    android:id="@+id/tvEndDate"
+                    android:id="@+id/tvDeadline"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
@@ -133,7 +153,7 @@
                     app:civ_border_width="1.5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvDate"
-                    app:layout_constraintTop_toBottomOf="@+id/tvEndDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDeadline"
                     tools:src="@tools:sample/avatars" />
 
                 <whiz.sspark.library.view.general.SSparkTextView
@@ -154,6 +174,6 @@
 
         </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

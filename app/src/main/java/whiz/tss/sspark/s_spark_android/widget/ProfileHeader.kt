@@ -50,11 +50,16 @@ class ProfileHeader : ConstraintLayout, CoroutineScope {
             }
         }
 
-        binding.ivBack.show(R.drawable.ic_navigation_back)
+        binding.ivBack.show(R.drawable.ic_back)
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    fun setBackGradientColor(startColor: Int, endColor: Int) {
+        binding.cvBack.background_Gradient_Colors = intArrayOf(startColor, endColor)
+        binding.cvBack.invalidate()
     }
 
     override fun onDetachedFromWindow() {

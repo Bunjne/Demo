@@ -3,7 +3,8 @@ package whiz.sspark.library.data.entity
 import java.util.*
 
 data class Assignment(
-    val color: String,
+    val startColor: String,
+    val endColor: String,
     val courseName: String,
     val courseCode: String,
     val createdAt: Date,

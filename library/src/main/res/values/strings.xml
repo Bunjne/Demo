@@ -226,6 +226,7 @@
     <string name="notification_inbox_text">กล่องข้อความ</string>
 
     <!--Assignment-->
+    <string name="assignment_no_assignment">ไม่มี ASSIGNMENT</string>
     <string name="assignment_deadline">กำหนดส่ง: %1$s</string>
     <string name="assignment_text" translatable="false">ASSIGNMENT</string>
 </resources>
