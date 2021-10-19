@@ -152,7 +152,7 @@
     <!-- Class Member -->
     <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
     <string name="class_member_student_title">นักเรียน (%1$d)</string>
-    <string name="class_member_number_place_holder">#%1$d %2$s</string>
+    <string name="class_member_number_place_holder">#%1$s %2$s</string>
 
     <!-- Class Attendance -->
     <string name="class_attendance_summary_info_from">จาก</string>
@@ -221,7 +221,7 @@
     <string name="advisory_screen_title">Advisory</string>
     <string name="advisory_screen_subtitle">การให้คำปรึกษา</string>
     <string name="advisory_appointment_tab_title">การนัดหมาย</string>
-    <string name="advisory_member_tab_title">การนัดหมาย</string>
+    <string name="advisory_member_tab_title">สมาชิก</string>
     <string name="advisory_appointment_pending_segment_title">รอการปรึกษา</string>
     <string name="advisory_appointment_past_segment_title">ผ่านมาแล้ว</string>
     <string name="advisory_appointment_end_time_place_holder">- %1$s</string>
@@ -230,4 +230,5 @@
     <string name="advisory_appointment_cancelled_status">ยกเลิก</string>
     <string name="advisory_appointment_completed_status">สำเร็จ</string>
     <string name="advisory_appointment_no_slot">ไม่มีช่วงเวลานัดหมาย</string>
+    <string name="advisory_member_instructor_title">อาจารย์ประจำชั้น (%1$d)</string>
 </resources>

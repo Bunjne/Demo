@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.advisory.student
+package whiz.sspark.library.view.widget.advisory.appointment.student
 
 import android.content.Context
 import android.util.AttributeSet

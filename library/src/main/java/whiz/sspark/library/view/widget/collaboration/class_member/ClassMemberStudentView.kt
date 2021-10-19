@@ -32,7 +32,7 @@ class ClassMemberStudentView : ConstraintLayout {
 
             binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
 
-            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, position, nickname)
+//            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, position, nickname)
             binding.tvName.text = if (isSelf) {
                 convertToFullName(firstName, middleName, lastName)
             } else {

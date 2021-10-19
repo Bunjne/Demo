@@ -15,8 +15,8 @@ data class ClassMember(
     @SerializedName("middleNameTh") val _middleNameTh: String = "",
     @SerializedName("lastNameEn") val _lastNameEn: String = "",
     @SerializedName("lastNameTh") private val _lastNameTh: String = "",
-    @SerializedName("nicknameEn") val _nicknameEn: String = "",
-    @SerializedName("nicknameTh") val _nicknameTh: String = "",
+    @SerializedName("nickNameEn") val _nicknameEn: String = "",
+    @SerializedName("nickNameTh") val _nicknameTh: String = "",
     @SerializedName("positionEn") private val positionEn: String = "",
     @SerializedName("positionTh") private val positionTh: String = "",
     @SerializedName("facultyNameEn") private val _facultyNameEn: String = "",
@@ -29,8 +29,8 @@ data class ClassMember(
     @SerializedName("healthCheckedAt") val healthCheckedAt: Date = Date(),
     @SerializedName("abbreviateNameEn") val abbreviateNameEn: String = "",
     @SerializedName("abbreviateNameTh") val abbreviateNameTh: String = "",
-    @SerializedName("number") val number: String = "",
-    @SerializedName("remark") val remark: String = "" //TODO this will be talked with API or Design later, when ClassMember topic is raised to discuss.
+    @SerializedName("number") val number: Int? = 0,
+    @SerializedName("jobPosition") val jobPosition: String = ""
 ) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)

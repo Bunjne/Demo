@@ -17,14 +17,12 @@ import whiz.sspark.library.data.viewModel.StudentAdvisoryAppointmentViewModel
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.advisory.student.StudentAdvisoryAppointmentAdapter
+import whiz.sspark.library.view.widget.advisory.appointment.student.StudentAdvisoryAppointmentAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentAdvisoryAppointmentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.presentation.advisory.AdvisoryActivity
-import java.util.*
 
-class StudentAdvisoryAppointmentFragment: BaseFragment(), AdvisoryActivity.OnSegmentChangedListener {
+class StudentAdvisoryAppointmentFragment: BaseFragment() {
 
     companion object {
         const val PENDING_APPOINTMENT = 0
@@ -33,10 +31,10 @@ class StudentAdvisoryAppointmentFragment: BaseFragment(), AdvisoryActivity.OnSeg
         fun newInstance() = StudentAdvisoryAppointmentFragment()
     }
 
-    private val viewModel: StudentAdvisoryAppointmentViewModel by viewModel()
-
     private var _binding: FragmentStudentAdvisoryAppointmentBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: StudentAdvisoryAppointmentViewModel by viewModel()
 
     private lateinit var currentTerm: Term
     private var selectedSegmentId = PENDING_APPOINTMENT
@@ -147,7 +145,7 @@ class StudentAdvisoryAppointmentFragment: BaseFragment(), AdvisoryActivity.OnSeg
         }
     }
 
-    override fun onSegmentChanged(currentSegmentId: Int) {
+    fun onSegmentChanged(currentSegmentId: Int) {
         if (currentSegmentId != selectedSegmentId) {
             selectedSegmentId = currentSegmentId
 

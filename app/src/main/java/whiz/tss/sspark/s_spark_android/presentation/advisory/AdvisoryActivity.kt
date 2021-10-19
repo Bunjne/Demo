@@ -14,6 +14,7 @@ import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityAdvisoryBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.advisory.appointment.student.StudentAdvisoryAppointmentFragment
+import whiz.tss.sspark.s_spark_android.presentation.advisory.member.AdvisoryMemberFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor.InstructorClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
@@ -40,7 +41,6 @@ class AdvisoryActivity : BaseActivity() {
     }
 
     private var currentFragment: Int = BottomNavigationId.NONE_SELECTED.id
-    private var listener: OnSegmentChangedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,7 @@ class AdvisoryActivity : BaseActivity() {
             colors = intArrayOf(startColor, endColor)
         }
 
-        with (binding.vProfile) {
+        with(binding.vProfile) {
             init(backgroundDrawable = gradientDrawable)
 
             if (SSparkLibrary.isDarkModeEnabled) {
@@ -92,7 +92,11 @@ class AdvisoryActivity : BaseActivity() {
                 textColorStateList = ContextCompat.getColorStateList(this@AdvisoryActivity, R.color.selector_text_advisory_segment),
                 segmentBackgroundDrawable = ContextCompat.getDrawable(this@AdvisoryActivity, R.drawable.bg_advisory_appointment_segment),
                 onSegmentTabClicked = { id ->
-                    listener?.onSegmentChanged(id)
+                    val targetFragment = (supportFragmentManager.findFragmentByTag(currentFragment.toString())) as? StudentAdvisoryAppointmentFragment
+
+                    targetFragment?.let {
+                        targetFragment.onSegmentChanged(id)
+                    }
                 },
                 onNavigationItemSelected = {
                     if (currentFragment != it) {
@@ -100,8 +104,6 @@ class AdvisoryActivity : BaseActivity() {
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
                                 setSegmentVisibility(false)
-
-                                listener = null
 
                                 when (SSparkApp.role) {
                                     RoleType.INSTRUCTOR_JUNIOR,
@@ -114,26 +116,17 @@ class AdvisoryActivity : BaseActivity() {
                             BottomNavigationId.APPOINTMENT.id -> {
                                 setSegmentVisibility(true)
 
-                                val advisoryFragment = StudentAdvisoryAppointmentFragment.newInstance()
-                                listener = advisoryFragment
-
-                                renderFragment(advisoryFragment, supportFragmentManager, currentFragment)
+                                renderFragment(StudentAdvisoryAppointmentFragment.newInstance(), supportFragmentManager, currentFragment)
                             }
                             BottomNavigationId.STUDENT.id -> {
                                 setSegmentVisibility(false)
-
-                                listener = null
                                 
-                                renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+                                renderFragment(AdvisoryMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
                             }
                         }
                     }
                 }
             )
         }
-    }
-
-    interface OnSegmentChangedListener {
-        fun onSegmentChanged(currentSegmentId: Int)
     }
 }

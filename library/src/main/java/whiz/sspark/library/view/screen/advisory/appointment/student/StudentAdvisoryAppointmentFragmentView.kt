@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.data.entity.AdvisorySlot
 import whiz.sspark.library.databinding.ViewStudentAdvisoryAppointmentFragmentBinding
-import whiz.sspark.library.view.widget.advisory.student.StudentAdvisoryAppointmentAdapter
+import whiz.sspark.library.view.widget.advisory.appointment.student.StudentAdvisoryAppointmentAdapter
 
 class StudentAdvisoryAppointmentFragmentView : ConstraintLayout {
     constructor(context: Context) : super(context)

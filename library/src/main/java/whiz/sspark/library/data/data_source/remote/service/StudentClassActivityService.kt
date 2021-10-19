@@ -8,10 +8,10 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface StudentClassActivityService {
     @Headers("Content-Type: application/json")
-    @GET("api/v3/classgroups/{classGroupId}/posts")
+    @GET("api/v1/classgroups/{classGroupId}/posts")
     suspend fun listPosts(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v3/classgroups/{classGroupId}/online_classes")
+    @GET("api/v1/classgroups/{classGroupId}/online_classes")
     suspend fun listOnlineClasses(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
 }
