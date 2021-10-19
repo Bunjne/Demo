@@ -217,4 +217,7 @@
     <!-- Notification Inbox -->
     <string name="notification_inbox_created_at">%1$s น.</string>
     <string name="notification_inbox_text">กล่องข้อความ</string>
+
+    <!--Course Syllabus-->
+    <string name="course_syllabus_no_plan">ไม่มีแผนการสอน</string>
 </resources>
