@@ -42,7 +42,6 @@ fun convertToFullName(firstName: String?, middleName: String?, lastName: String?
 
     if (!position.isNullOrBlank()) {
         fullName.append(position)
-        fullName.append(" ")
     }
 
     if (!firstName.isNullOrBlank()) {
