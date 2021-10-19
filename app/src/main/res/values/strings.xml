@@ -98,4 +98,13 @@
         <item>ม.5</item>
         <item>ม.6</item>
     </string-array>
+
+    <!--Course syllabus-->
+    <string name="course_syllabus_description_text">คำอธิบายรายวิชา</string>
+    <string name="course_syllabus_expect_outcome_text">ผลการเรียนรู้ที่คาดหวัง</string>
+    <string name="course_syllabus_week">สัปดาห์ที่ %1$s</string>
+    <string-array name="course_syllabus_segment">
+        <item>รายละเอียดวิชา</item>
+        <item>กำหนดการ</item>
+    </string-array>
 </resources>
