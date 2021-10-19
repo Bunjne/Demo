@@ -35,9 +35,9 @@ class AdvisoryMemberStudentView : ConstraintLayout {
             binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
 
             binding.tvNickname.text = if (number != null) {
-                resources.getString(R.string.class_member_number_place_holder, member.code, nickname)
-            } else {
                 resources.getString(R.string.class_member_number_place_holder, member.number.toString(), nickname)
+            } else {
+                resources.getString(R.string.class_member_number_place_holder, member.code, nickname)
             }
 
             binding.tvName.text = if (isSelf) {

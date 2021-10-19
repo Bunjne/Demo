@@ -84,11 +84,10 @@ class StudentClassMemberFragment : BaseFragment() {
 
                     if (member.students.isNotEmpty()) {
                         add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_student_title, studentCounts), student = null, instructor = null))
-                        addAll(member.students.mapIndexed { index, student ->
+                        addAll(member.students.map { student ->
                             val isSelf = userId == student.userId
-                            val studentNumber = index + 1
 
-                            ClassMemberAdapter.Item(title = null, student = student, instructor = null, isSelf = isSelf, studentNumber = studentNumber)
+                            ClassMemberAdapter.Item(title = null, student = student, instructor = null, isSelf = isSelf)
                         })
                     }
                 }
