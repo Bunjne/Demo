@@ -26,21 +26,21 @@ class SegmentTabView : ConstraintLayout {
     }
 
     private var onTabClicked: (Int) -> Unit = { }
-    private val defaultTab = 0
 
     fun init(titles: List<String>,
-             onTabClicked: (Int) -> Unit) {
+             onTabClicked: (Int) -> Unit,
+             initialTab: Int = 0) {
         this.onTabClicked = onTabClicked
 
         binding.rgContainer.removeAllViews()
 
         titles.forEachIndexed { index, title ->
-            val radioButton = getSegmentRadioButton(context, index, defaultTab, title)
+            val radioButton = getSegmentRadioButton(context, index, initialTab, title)
             binding.rgContainer.addView(radioButton)
         }
 
         setSegmentListener(onTabClicked)
-        onTabClicked(0)
+        onTabClicked(initialTab)
     }
 
     fun updateSegmentTitle(titles: List<String>, currentSegment: Int) {

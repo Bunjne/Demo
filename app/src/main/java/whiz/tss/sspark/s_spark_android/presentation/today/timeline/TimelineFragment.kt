@@ -60,7 +60,7 @@ class TimelineFragment : BaseFragment() {
                 authority?.let { authority ->
                     when (authority) {
                         TimeLineAuthorityType.CLASS_DETAIL.type -> {
-                            with (uri) {
+                            with(uri) {
                                 val id = getQueryParameter("classGroupId") ?: ""
                                 val courseCode = getQueryParameter("courseCode") ?: ""
                                 val courseName = getQueryParameter("courseName") ?: ""
@@ -78,7 +78,7 @@ class TimelineFragment : BaseFragment() {
 //                                        "courseName" to courseName,
 //                                        "sectionNumber" to sectionNumber,
 //                                        "classIconUrl" to classIconUrl,
-//                                        "color" to Color.parseColor(colorCode),
+//                                        "color" to colorCode.toColor()
 //                                        "allMemberCount" to allMemberCount
 //                                    )
 //                                }
@@ -102,7 +102,7 @@ class TimelineFragment : BaseFragment() {
 //                            )
                         }
                         TimeLineAuthorityType.EXAMINATION.type -> {
-                            with (uri) {
+                            with(uri) {
                                 val term = getQueryParameter("term") ?: ""
                                 val academicYear = getQueryParameter("academicYear") ?: ""
                                 val examPeriodType = getQueryParameter("examPeriodType") ?: ""
@@ -144,13 +144,13 @@ class TimelineFragment : BaseFragment() {
                     it.dayImageUrl
                 }
 
-                updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon, backgroundImageUrl ?: "", it.aqi , it.aqiColor)
+                updateAqi?.onUpdateAqi(it.aqiIcon, it.weatherIcon ?: "", backgroundImageUrl ?: "", it.aqi , it.aqiColor)
             }
         })
 
         viewModel.todayDateResponse.observe(this, Observer {
             it?.let {
-                currentDate = it.today.toLocalDate()!!
+                currentDate = it.toLocalDate()!!
                 binding.vTimeline.updateSegment(currentDate)
             }
         })

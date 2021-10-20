@@ -12,5 +12,9 @@ data class ApiResponseX(
     @SerializedName("statusCode") var statusCode: Int = 0
 ) {
     val message get() = localize(messageEn, messageTh, messageEn, false)
-    val data: String get() = Gson().toJson(_data)
+    val data: String? get() = if (_data != null) {
+        Gson().toJson(_data)
+    } else {
+        null
+    }
 }

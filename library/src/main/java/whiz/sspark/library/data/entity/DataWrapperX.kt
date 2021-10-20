@@ -11,3 +11,9 @@ data class DataWrapperX<out T>(val data: T?,
                                val isNetworkPreferred: Boolean? = true,
                                val dataSource: DataSource
 )
+
+fun getNullDataWrapperX() = DataWrapperX(
+    data = null,
+    error = null,
+    dataSource = DataSource.NETWORK
+)

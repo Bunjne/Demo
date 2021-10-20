@@ -41,7 +41,6 @@ class ActivityRecordFragmentView: ConstraintLayout {
         }
 
         binding.srlLearningOutcome.setOnRefreshListener {
-            updateItem()
             onRefresh()
         }
     }
@@ -50,7 +49,7 @@ class ActivityRecordFragmentView: ConstraintLayout {
         binding.srlLearningOutcome.isRefreshing = isLoading == true
     }
 
-    fun updateItem(items: List<ActivityRecordAdapter.Item> = listOf()) {
+    fun updateItem(items: List<ActivityRecordAdapter.Item>) {
         (binding.rvActivityRecord.adapter as? ActivityRecordAdapter)?.submitList(items)
 
         if (items.isEmpty()) {

@@ -35,9 +35,10 @@ class ProfileManager(private val context: Context) {
     val profile: Flow<Profile?> = context.dataStore.data
         .map { preferences ->
             when (SSparkApp.role) {
-                RoleType.JUNIOR,
-                RoleType.SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.convertToProfile()
-                RoleType.INSTRUCTOR -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.convertToProfile()
+                RoleType.STUDENT_JUNIOR,
+                RoleType.STUDENT_SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.convertToProfile()
+                RoleType.INSTRUCTOR_JUNIOR,
+                RoleType.INSTRUCTOR_SENIOR -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.convertToProfile()
                 else -> null
             }
         }
@@ -45,9 +46,10 @@ class ProfileManager(private val context: Context) {
     val term: Flow<Term?> = context.dataStore.data
         .map { preferences ->
             when (SSparkApp.role) {
-                RoleType.JUNIOR,
-                RoleType.SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.term
-                RoleType.INSTRUCTOR -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.term
+                RoleType.STUDENT_JUNIOR,
+                RoleType.STUDENT_SENIOR -> preferences[STUDENT_KEY]?.toObject<Student>()?.term
+                RoleType.INSTRUCTOR_JUNIOR,
+                RoleType.INSTRUCTOR_SENIOR  -> preferences[INSTRUCTOR_KEY]?.toObject<Instructor>()?.term
                 else -> null
             }
         }
@@ -55,6 +57,12 @@ class ProfileManager(private val context: Context) {
     suspend fun saveStudent(student: Student) {
         context.dataStore.edit { settings ->
             settings[STUDENT_KEY] = student.toJson()
+        }
+    }
+
+    suspend fun saveInstructor(instructor: Instructor) {
+        context.dataStore.edit { settings ->
+            settings[INSTRUCTOR_KEY] = instructor.toJson()
         }
     }
 
