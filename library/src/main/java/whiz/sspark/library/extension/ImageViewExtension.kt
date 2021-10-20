@@ -2,15 +2,14 @@ package whiz.sspark.library.extension
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.enum.Gender
 import whiz.sspark.library.view.widget.collaboration.class_member.ClassLargeMemberNameView
 import java.io.File
@@ -27,6 +26,16 @@ fun ImageView.show(resId: Int) {
 
 fun ImageView.show(url: String) {
     Glide.with(this.context)
+        .load(url)
+        .into(this)
+}
+
+fun ImageView.show(url: Drawable) {
+    Glide.with(this.context)
+        .setDefaultRequestOptions(RequestOptions
+            .diskCacheStrategyOf(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+        )
         .load(url)
         .into(this)
 }
