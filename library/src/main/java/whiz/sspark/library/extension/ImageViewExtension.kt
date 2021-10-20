@@ -30,13 +30,13 @@ fun ImageView.show(url: String) {
         .into(this)
 }
 
-fun ImageView.show(url: Drawable) {
+fun ImageView.show(drawable: Drawable) {
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
         )
-        .load(url)
+        .load(drawable)
         .into(this)
 }
 
