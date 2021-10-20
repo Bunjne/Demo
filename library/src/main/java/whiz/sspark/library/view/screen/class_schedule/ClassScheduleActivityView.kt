@@ -32,11 +32,20 @@ class ClassScheduleActivityView: ConstraintLayout {
 
     fun init(term: String,
              onTermClicked: () -> Unit,
+             onAllClassesClicked: () -> Unit,
              onPreviousWeekClicked: () -> Unit,
              onNextWeekClicked: () -> Unit,
              onRefresh: () -> Unit) {
         binding.tvTerm.text = term
         binding.ivDropdown.show(R.drawable.ic_dropdown)
+
+        with(binding.icAllClasses) {
+            show(R.drawable.ic_tab)
+            setOnClickListener {
+                onAllClassesClicked()
+            }
+        }
+
         binding.cvTerm.setOnClickListener {
             if (binding.ivDropdown.visibility == View.VISIBLE) {
                 onTermClicked()

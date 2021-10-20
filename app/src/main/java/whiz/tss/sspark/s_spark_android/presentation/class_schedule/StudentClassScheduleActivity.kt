@@ -19,9 +19,14 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassScheduleBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.ClassScheduleAllClassBottomSheetDialog
 import java.util.*
 
 class StudentClassScheduleActivity : BaseActivity() {
+
+    companion object {
+        private const val ALL_CLASS_DIALOG = "AllClassDialog"
+    }
 
     private val viewModel: StudentClassScheduleViewModel by viewModel()
 
@@ -80,6 +85,14 @@ class StudentClassScheduleActivity : BaseActivity() {
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             onTermClicked = {
                 popupMenu?.show()
+            },
+            onAllClassesClicked = {
+                val isShowing = supportFragmentManager.findFragmentByTag(ALL_CLASS_DIALOG) != null
+                if (!isShowing) {
+                    ClassScheduleAllClassBottomSheetDialog.newInstance(
+                        term = currentTerm
+                    ).show(supportFragmentManager, ALL_CLASS_DIALOG)
+                }
             },
             onPreviousWeekClicked = {
                 if (viewModel.viewLoading.value == false) {
@@ -200,8 +213,7 @@ class StudentClassScheduleActivity : BaseActivity() {
                         val classScheduleCourse = ClassScheduleCourse(
                             startTime = it.startTime,
                             endTime = it.endTime,
-                            code = it.code,
-                            name = it.name,
+                            title = resources.getString(R.string.class_schedule_course_code_and_name, it.code, it.name),
                             color = it.colorCode1,
                             room = it.room,
                             instructorNames = instructorNames

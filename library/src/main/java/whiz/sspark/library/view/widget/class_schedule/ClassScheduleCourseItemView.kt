@@ -25,7 +25,7 @@ class ClassScheduleCourseItemView: ConstraintLayout {
 
             binding.cvVerticalBar.setCardBackgroundColor(color.toColor())
             binding.tvTimeRange.text = resources.getString(R.string.class_schedule_range, startTime.convertToTime(), endTime.convertToTime())
-            binding.tvCourse.text = resources.getString(R.string.class_schedule_course_code_and_name, code, name)
+            binding.tvCourse.text = title
             binding.tvInstructorAndRoom.text = resources.getString(R.string.class_schedule_instructor_and_room, convertedInstructorName, room)
         }
     }

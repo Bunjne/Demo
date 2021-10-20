@@ -64,16 +64,18 @@
                 android:id="@+id/cvTerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
                 app:cardBackgroundColor="@color/viewBaseThirdColor"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/icAllClasses"
                 app:layout_constraintTop_toTopOf="@+id/tvTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="2dp">
 
                     <whiz.sspark.library.view.general.SSparkTextView
                         android:id="@+id/tvTerm"
@@ -106,6 +108,16 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/icAllClasses"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle"
+                tools:src="@drawable/ic_tab" />
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvLatestUpdated"
