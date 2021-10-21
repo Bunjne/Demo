@@ -195,6 +195,9 @@
     <string name="class_schedule_range">%1$s - %2$s</string>
     <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
     <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
+    <string name="class_schedule_all_class_title">วิชาทั้งหมด</string>
+    <string name="class_schedule_term">ภาคเรียนที่ %1$s/%2$s</string>
+    <string name="class_schedule_no_class">ไม่มีวิชา</string>
 
     <!--information dialog-->
     <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
