@@ -4,6 +4,7 @@
     <string name="general_text_ok">ตกลง</string>
     <string name="general_text_retry">ลองอีกครั้ง</string>
     <string name="general_text_cancel">ยกเลิก</string>
+    <string name="general_text_close">ปิด</string>
     <string name="general_text_discard">ละทิ้ง</string>
     <string name="general_text_today">วันนี้</string>
 
@@ -48,6 +49,7 @@
     <string name="update_just_now">สักครู่นี้</string>
     <string name="date_time_just_now">เมื่อสักครู่นี้</string>
     <string name="date_time_post_at">เวลา</string>
+    <string name="date_time_place_holder">%1$s น.</string>
 
     <plurals name="date_time_hour_ago">
         <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
@@ -163,10 +165,9 @@
     <string name="class_attendance_present">มาเรียน</string>
     <string name="class_attendance_absent">ขาด</string>
     <string name="class_attendance_leave">ลา</string>
-    <string name="class_attendance_late">เข้าร่วมช้า</string>
-    <string name="class_attendance_item_late">มาสาย</string>
+    <string name="class_attendance_late">สาย</string>
     <string name="class_attendance_no_record">ไม่มีบันทึก</string>
-    <string name="class_attendance_class_check_date_place_holder">%1$s (%2$s)</string>
+    <string name="class_attendance_class_check_date_place_holder">%1$s %2$s น.</string>
 
     <!-- Class Group -->
     <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s/%2$s</string>
@@ -174,6 +175,7 @@
     <string name="class_group_navigation_item_advisory_title">Advisory</string>
     <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
     <string name="class_group_navigation_item_assignment_title">Assignment</string>
+    <string name="class_group_navigation_item_guardians_title">ผู้ปกครอง</string>
     <string name="class_group_navigation_item_class_schedule_title">ตารางเรียน</string>
     <string name="class_group_navigation_item_examination_title">ตารางสอบ</string>
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
