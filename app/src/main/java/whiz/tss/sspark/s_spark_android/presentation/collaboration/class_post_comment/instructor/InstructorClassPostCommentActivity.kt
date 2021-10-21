@@ -371,7 +371,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     private fun renderComments(comments: List<Comment>) {
         postCommentItems.removeAll { it.comment != null }
 
-        postCommentItems.addAll(1, comments.map { InstructorClassPostCommentAdapter.PostCommentItem(comment = it) })
+        postCommentItems.addAll(comments.map { InstructorClassPostCommentAdapter.PostCommentItem(comment = it) })
 
         binding.vPostDetailSheetDialog.updateItem()
     }
@@ -387,10 +387,10 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         binding.vPostDetailSheetDialog.notifyRecycleViewItemChanged(0)
     }
 
-    private fun updateCommentDeletion(postId: String) {
-        val commentPosition = postCommentItems.indexOfFirst { it.post?.id?.contains(postId, true) ?: false }
+    private fun updateCommentDeletion(commentId: String) {
+        val commentPosition = postCommentItems.indexOfFirst { it.post?.id?.contains(commentId, true) ?: false }
         if (commentPosition > -1) {
-            postCommentItems.removeAll { it.comment?.id == postId }
+            postCommentItems.removeAll { it.comment?.id == commentId }
 
             postCommentItems.singleOrNull { it.post != null }?.post?.apply {
                 commentCount -= 1

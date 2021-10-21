@@ -35,7 +35,11 @@ class ClassPostCommentView : ConstraintLayout {
                     lastName = author.lastName
                 )
             } else {
-                resources.getString(R.string.class_post_comment_author_name_place_holder, author.number, author.nickname)
+                if (author.number != null) {
+                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.number.toString(), author.nickname)
+                } else {
+                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.code, author.nickname)
+                }
             }
 
             binding.tvName.text = commentAuthorName

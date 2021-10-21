@@ -72,21 +72,28 @@ class ClassGroupFragment : BaseFragment() {
 
     override fun initView() {
         val navigationBarItems = mutableListOf<BottomNavigationBarItem>()
-        val firstNavigationItem = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
-            BottomNavigationBarItem(
-                id = BottomNavigationId.HOMEROOM.id,
-                title = resources.getString(R.string.class_group_navigation_item_homeroom_title),
-                imageResource = R.drawable.ic_home
-            )
-        } else {
-            BottomNavigationBarItem(
-                id = BottomNavigationId.ADVISORY.id,
-                title = resources.getString(R.string.class_group_navigation_item_advisory_title),
-                imageResource = R.drawable.ic_home
-            )
+        when (SSparkApp.role) {
+            RoleType.STUDENT_JUNIOR,
+            RoleType.INSTRUCTOR_JUNIOR -> {
+                navigationBarItems.add(
+                    BottomNavigationBarItem(
+                        id = BottomNavigationId.HOMEROOM.id,
+                        title = resources.getString(R.string.class_group_navigation_item_homeroom_title),
+                        imageResource = R.drawable.ic_home
+                    )
+                )
+            }
+            RoleType.STUDENT_SENIOR,
+            RoleType.INSTRUCTOR_SENIOR -> {
+                navigationBarItems.add(
+                    BottomNavigationBarItem(
+                        id = BottomNavigationId.ADVISORY.id,
+                        title = resources.getString(R.string.class_group_navigation_item_advisory_title),
+                        imageResource = R.drawable.ic_home
+                    )
+                )
+            }
         }
-
-        navigationBarItems.add(firstNavigationItem)
 
         if (SSparkApp.role == RoleType.INSTRUCTOR_JUNIOR || SSparkApp.role == RoleType.INSTRUCTOR_SENIOR) {
             navigationBarItems.add(BottomNavigationBarItem(
@@ -109,13 +116,7 @@ class ClassGroupFragment : BaseFragment() {
             )
         ))
 
-        with(items) {
-            add(
-                ClassGroupAdapter.Item(
-                    navigationBarItems = navigationBarItems
-                )
-            )
-        }
+        items.add(ClassGroupAdapter.Item(navigationBarItems = navigationBarItems))
 
         val classLevel = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             resources.getString(R.string.class_group_junior_class_level_place_holder, getHighSchoolLevel(currentTerm.academicGrade).toString(), currentTerm.roomNumber?.toString() ?: "")
