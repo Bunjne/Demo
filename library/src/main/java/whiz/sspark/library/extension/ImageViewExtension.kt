@@ -1,6 +1,7 @@
 package whiz.sspark.library.extension
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -23,6 +24,16 @@ fun ImageView.show(resId: Int) {
 fun ImageView.show(url: String) {
     Glide.with(this.context)
         .load(url)
+        .into(this)
+}
+
+fun ImageView.show(drawable: Drawable) {
+    Glide.with(this.context)
+        .setDefaultRequestOptions(RequestOptions
+            .diskCacheStrategyOf(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+        )
+        .load(drawable)
         .into(this)
 }
 

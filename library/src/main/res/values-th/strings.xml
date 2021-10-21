@@ -4,6 +4,7 @@
     <string name="general_text_ok">ตกลง</string>
     <string name="general_text_retry">ลองอีกครั้ง</string>
     <string name="general_text_cancel">ยกเลิก</string>
+    <string name="general_text_close">ปิด</string>
     <string name="general_text_discard">ละทิ้ง</string>
     <string name="general_text_today">วันนี้</string>
 
