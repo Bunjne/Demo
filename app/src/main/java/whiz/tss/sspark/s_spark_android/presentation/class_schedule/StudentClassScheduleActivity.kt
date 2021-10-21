@@ -154,14 +154,14 @@ class StudentClassScheduleActivity : BaseActivity() {
     override fun observeError() {
         viewModel.classScheduleErrorResponse.observe(this) {
             it?.getContentIfNotHandled()?.let {
-                updateAdapterItem(listOf())
+                updateAdapterItem()
                 showApiResponseXAlert(this, it)
             }
         }
 
         viewModel.errorMessage.observe(this) {
             it?.getContentIfNotHandled()?.let {
-                updateAdapterItem(listOf())
+                updateAdapterItem()
                 binding.vClassSchedule.setLatestUpdatedText(getNullDataWrapperX())
                 showAlertWithOkButton(it)
             }
@@ -176,7 +176,7 @@ class StudentClassScheduleActivity : BaseActivity() {
         }
     }
 
-    private fun updateAdapterItem(classSchedulesDTO: List<ClassScheduleDTO>) {
+    private fun updateAdapterItem(classSchedulesDTO: List<ClassScheduleDTO> = listOf()) {
         val items = mutableListOf<ClassScheduleAdapter.Item>()
         val dates = weeks.find { it.id == selectedWeekId }?.dates ?: listOf()
 

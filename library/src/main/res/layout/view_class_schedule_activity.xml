@@ -69,7 +69,7 @@
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-                app:layout_constraintEnd_toStartOf="@+id/icAllClasses"
+                app:layout_constraintEnd_toStartOf="@+id/ivAllClasses"
                 app:layout_constraintTop_toTopOf="@+id/tvTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,7 +110,7 @@
             </androidx.cardview.widget.CardView>
 
             <ImageView
-                android:id="@+id/icAllClasses"
+                android:id="@+id/ivAllClasses"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:scaleType="fitCenter"

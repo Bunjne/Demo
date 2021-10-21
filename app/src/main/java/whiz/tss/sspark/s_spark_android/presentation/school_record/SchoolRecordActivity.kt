@@ -206,8 +206,7 @@ class SchoolRecordActivity : BaseActivity(),
                 val term = splitTerm.getOrNull(0)?.toIntOrNull() ?: 0
                 val year = splitTerm.getOrNull(1) ?: ""
 
-                val selectedTerm =
-                    terms.find { it.term == term && convertToLocalizeYear(it.year) == year }
+                val selectedTerm = terms.find { it.term == term && convertToLocalizeYear(it.year) == year }
 
                 if (selectedTerm != null && selectedTerm != currentTerm) {
                     currentTerm = selectedTerm

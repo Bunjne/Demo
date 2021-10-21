@@ -39,7 +39,7 @@ class ClassScheduleActivityView: ConstraintLayout {
         binding.tvTerm.text = term
         binding.ivDropdown.show(R.drawable.ic_dropdown)
 
-        with(binding.icAllClasses) {
+        with(binding.ivAllClasses) {
             show(R.drawable.ic_tab)
             setOnClickListener {
                 onAllClassesClicked()
