@@ -21,7 +21,7 @@ data class ClassMember(
     @SerializedName("imageUrl") val imageUrl: String = "",
     @SerializedName("colorCode") val colorCode: String? = null,
     @SerializedName("gender") val gender: String = "",
-    @SerializedName("number") val number: Int = 0,
+    @SerializedName("number") val number: Int? = 0,
     @SerializedName("jobPosition") val jobPosition: String = "",
     @SerializedName("personalPhoneNumber") val personalPhoneNumber: String = "",
     @SerializedName("personalEmail") val personalEmail: String = ""

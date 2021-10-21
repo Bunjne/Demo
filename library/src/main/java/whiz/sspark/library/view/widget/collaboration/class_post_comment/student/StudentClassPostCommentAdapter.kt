@@ -55,7 +55,7 @@ class StudentClassPostCommentAdapter(private val context: Context,
         val item = items.getOrNull(position)
 
         item?.let { item ->
-            if (item.type == PostCommentType.POST) {
+            if (item.post != null) {
                 val post = item.post
 
                 post?.let {
@@ -81,7 +81,7 @@ class StudentClassPostCommentAdapter(private val context: Context,
         }
     }
 
-    override fun getItemViewType(position: Int) = if (items[position].type == PostCommentType.POST) {
+    override fun getItemViewType(position: Int) = if (items[position].post != null) {
         PostCommentType.POST.type
     } else {
         PostCommentType.COMMENT.type
@@ -90,7 +90,6 @@ class StudentClassPostCommentAdapter(private val context: Context,
     override fun getItemCount() = items.size
 
     data class PostCommentItem(
-        val type: PostCommentType,
         val post: Post? = null,
         val comment: Comment? = null
     )

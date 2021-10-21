@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
+import whiz.sspark.library.data.entity.ClassGroupCourse
 import whiz.sspark.library.data.entity.ClassGroupDetail
 import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.viewModel.ClassGroupViewModel
@@ -43,6 +44,8 @@ class ClassGroupFragment : BaseFragment() {
 
     private val items = mutableListOf<ClassGroupAdapter.Item>()
     private lateinit var currentTerm: Term
+    private var specialClassGroup: ClassGroupCourse? = null
+    private var guardianClassGroup: ClassGroupCourse? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentClassGroupBinding.inflate(layoutInflater)
@@ -68,6 +71,7 @@ class ClassGroupFragment : BaseFragment() {
     }
 
     override fun initView() {
+        val navigationBarItems = mutableListOf<BottomNavigationBarItem>()
         val firstNavigationItem = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
             BottomNavigationBarItem(
                 id = BottomNavigationId.HOMEROOM.id,
@@ -82,23 +86,35 @@ class ClassGroupFragment : BaseFragment() {
             )
         }
 
-        with (items) {
+        navigationBarItems.add(firstNavigationItem)
+
+        if (SSparkApp.role == RoleType.INSTRUCTOR_JUNIOR || SSparkApp.role == RoleType.INSTRUCTOR_SENIOR) {
+            navigationBarItems.add(BottomNavigationBarItem(
+                id = BottomNavigationId.GUARDIANS.id,
+                title = resources.getString(R.string.class_group_navigation_item_guardians_title),
+                imageResource = R.drawable.ic_homework
+            ))
+        }
+
+        navigationBarItems.addAll(listOf(
+            BottomNavigationBarItem(
+                id = BottomNavigationId.ASSIGNMENT.id,
+                title = resources.getString(R.string.class_group_navigation_item_assignment_title),
+                imageResource = R.drawable.ic_homework
+            ),
+            BottomNavigationBarItem(
+                id = BottomNavigationId.CLASS_SCHEDULE.id,
+                title = resources.getString(R.string.class_group_navigation_item_class_schedule_title),
+                imageResource = R.drawable.ic_class_schedule
+            )
+        ))
+
+        with(items) {
             add(
                 ClassGroupAdapter.Item(
-                    navigationBarItems = listOf(
-                        firstNavigationItem,
-                        BottomNavigationBarItem(
-                            id = BottomNavigationId.ASSIGNMENT.id,
-                            title = resources.getString(R.string.class_group_navigation_item_assignment_title),
-                            imageResource = R.drawable.ic_homework
-                        ),
-                        BottomNavigationBarItem(
-                            id = BottomNavigationId.CLASS_SCHEDULE.id,
-                            title = resources.getString(R.string.class_group_navigation_item_class_schedule_title),
-                            imageResource = R.drawable.ic_class_schedule
-                        )
-                    )
-                ))
+                    navigationBarItems = navigationBarItems
+                )
+            )
         }
 
         val classLevel = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
@@ -118,7 +134,7 @@ class ClassGroupFragment : BaseFragment() {
                       putExtra("classGroupId", classGroupCourse.classGroupId)
                       putExtra("startColor", classGroupCourse.colorCode1.toColor())
                       putExtra("endColor", classGroupCourse.colorCode2.toColor())
-                      putExtra("allMemberCount", classGroupCourse.studentCount)
+                      putExtra("allMemberCount", classGroupCourse.memberCount)
                       putExtra("courseCode", classGroupCourse.courseCode)
                       putExtra("courseName", classGroupCourse.courseName)
                     }
@@ -128,13 +144,16 @@ class ClassGroupFragment : BaseFragment() {
                 onNavigationBarItemClicked = { id ->
                     when (id) {
                         BottomNavigationId.ADVISORY.id -> {
-                            //TODO wait for flow discussion
+                            //TODO wait for implementation
                         }
                         BottomNavigationId.HOMEROOM.id -> {
-                            //TODO wait for flow discussion
+                            //TODO wait for implementation
+                        }
+                        BottomNavigationId.GUARDIANS.id -> {
+                            //TODO wait for implementation
                         }
                         BottomNavigationId.ASSIGNMENT.id -> {
-                            //TODO wait for flow discussion
+                            //TODO wait for implementation
                         }
                         BottomNavigationId.CLASS_SCHEDULE.id -> {
                             val intent = Intent(requireContext(), StudentClassScheduleActivity::class.java)
@@ -162,7 +181,14 @@ class ClassGroupFragment : BaseFragment() {
     override fun observeData() {
         viewModel.classGroupResponse.observe(this, Observer {
             it?.let { classGroup ->
-                val classGroupItems = transformData(classGroup.classRooms)
+                specialClassGroup = classGroup.specialGroup
+                guardianClassGroup = classGroup.guardianGroup
+
+                val classGroupItems = if (SSparkApp.role == RoleType.STUDENT_JUNIOR) {
+                    transformData(classGroup.juniorClasses)
+                } else {
+                    transformData(classGroup.seniorClasses)
+                }
 
                 binding.vClassGroup.renderData(items, classGroupItems)
             }

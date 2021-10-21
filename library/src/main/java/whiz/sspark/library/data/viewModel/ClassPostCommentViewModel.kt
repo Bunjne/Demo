@@ -64,9 +64,9 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun listComments(postId: String) {
+    fun listComments(classGroupId: String, postId: String) {
         viewModelScope.launch {
-            classPostCommentRepositoryImpl.listComments(postId)
+            classPostCommentRepositoryImpl.listComments(classGroupId, postId)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -88,9 +88,9 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
         }
     }
 
-    fun getMember(classId: String, isNetworkPreferred: Boolean) {
+    fun getMember(classGroupId: String, isNetworkPreferred: Boolean) {
         viewModelScope.launch {
-            classPostCommentRepositoryImpl.listClassMembers(classId, isNetworkPreferred)
+            classPostCommentRepositoryImpl.listClassMembers(classGroupId, isNetworkPreferred)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -112,9 +112,9 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
         }
     }
 
-    fun addComment(postId: String, message: String) {
+    fun addComment(classGroupId: String, postId: String, message: String) {
         viewModelScope.launch {
-            classPostCommentRepositoryImpl.addComment(postId, message)
+            classPostCommentRepositoryImpl.addComment(classGroupId, postId, message)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -136,9 +136,9 @@ class ClassPostCommentViewModel(private val classPostCommentRepositoryImpl: Clas
         }
     }
 
-    fun deleteComment(postId: String, commentId: String) {
+    fun deleteComment(classGroupId: String, postId: String, commentId: String) {
         viewModelScope.launch {
-            classPostCommentRepositoryImpl.deleteComment(postId, commentId)
+            classPostCommentRepositoryImpl.deleteComment(classGroupId, postId, commentId)
                 .onStart {
                     _viewLoading.value = true
                 }

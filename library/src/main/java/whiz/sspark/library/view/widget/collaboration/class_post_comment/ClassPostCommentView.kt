@@ -39,7 +39,7 @@ class ClassPostCommentView : ConstraintLayout {
             }
 
             binding.tvName.text = commentAuthorName
-            binding.tvDate.text = resources.getString(R.string.date_time_place_holder, datetime.toPostTime(context))
+            binding.tvDate.text = datetime.toPostTime(context)
             with(binding.tvMessage) {
                 text = message
                 setLinkTextColor(color)

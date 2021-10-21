@@ -222,7 +222,6 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         }
     }
 
-    private val comments = mutableListOf<Comment>()
     private var members: Member? = null
 
     private val postCommentItems = mutableListOf<InstructorClassPostCommentAdapter.PostCommentItem>()
@@ -233,14 +232,14 @@ class InstructorClassPostCommentActivity : BaseActivity() {
         setContentView(binding.root)
 
         initView()
+
+        viewModel.getMember(classGroupId, false)
     }
 
     override fun onResume() {
         super.onResume()
 
-        if (members == null) {
-            viewModel.listComments(post.id)
-        }
+        viewModel.listComments(classGroupId, post.id)
 
         socket?.run {
             if (!connected()) {
@@ -277,7 +276,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
             window?.statusBarColor = ContextCompat.getColor(this, R.color.viewBaseSecondaryColor)
         }
 
-        postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.POST, post = post))
+        postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(post = post))
 
         binding.vPostDetailSheetDialog.init(
             color = color,
@@ -328,11 +327,11 @@ class InstructorClassPostCommentActivity : BaseActivity() {
     }
 
     private fun addComment(message: String) {
-        viewModel.addComment(post.id, message)
+        viewModel.addComment(classGroupId, post.id, message)
     }
 
     private fun deleteComment(comment: Comment) {
-        viewModel.deleteComment(post.id, comment.id)
+        viewModel.deleteComment(classGroupId, post.id, comment.id)
     }
 
     override fun observeView() {
@@ -354,12 +353,7 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
         viewModel.commentResponses.observe(this, Observer {
             it?.let {
-                with(comments) {
-                    clear()
-                    addAll(it)
-                }
-
-                renderComments()
+                renderComments(it)
                 binding.vPostDetailSheetDialog.showKeyboardMessageEdittext(isKeyboardShown)
             }
         })
@@ -367,35 +361,40 @@ class InstructorClassPostCommentActivity : BaseActivity() {
 
     private fun renderPost() {
         if (postCommentItems.isEmpty()) {
-            postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.POST, post = post))
+            postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(post = post))
             binding.vPostDetailSheetDialog.notifyRecycleViewItemInserted(0)
         } else {
             binding.vPostDetailSheetDialog.notifyRecycleViewItemChanged(0)
         }
     }
 
-    private fun renderComments() {
-        while (postCommentItems.size > 1) {
-            postCommentItems.removeAt(1)
-        }
+    private fun renderComments(comments: List<Comment>) {
+        postCommentItems.removeAll { it.comment != null }
 
-        postCommentItems.addAll(1, comments.map { InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.COMMENT, comment = it) })
-        binding.vPostDetailSheetDialog.notifyRecycleViewItemRangeInserted(1, comments.size)
+        postCommentItems.addAll(1, comments.map { InstructorClassPostCommentAdapter.PostCommentItem(comment = it) })
+
+        binding.vPostDetailSheetDialog.updateItem()
     }
 
     private fun insertComment(comment: Comment) {
-        comments.add(comment)
-        postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(type = InstructorClassPostCommentAdapter.PostCommentType.COMMENT, comment = comment))
+        postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(comment = comment))
 
-        binding.vPostDetailSheetDialog.notifyRecycleViewItemInserted(comments.size + 1)
+        postCommentItems.singleOrNull { it.post != null }?.post?.apply {
+            commentCount += 1
+        }
+
+        binding.vPostDetailSheetDialog.notifyRecycleViewItemInserted(postCommentItems.size)
         binding.vPostDetailSheetDialog.notifyRecycleViewItemChanged(0)
     }
 
     private fun updateCommentDeletion(postId: String) {
         val commentPosition = postCommentItems.indexOfFirst { it.post?.id?.contains(postId, true) ?: false }
         if (commentPosition > -1) {
-            comments.removeAll { it.id == postId }
             postCommentItems.removeAll { it.comment?.id == postId }
+
+            postCommentItems.singleOrNull { it.post != null }?.post?.apply {
+                commentCount -= 1
+            }
 
             binding.vPostDetailSheetDialog.notifyRecycleViewItemRemoved(commentPosition)
             binding.vPostDetailSheetDialog.notifyRecycleViewItemChanged(0)

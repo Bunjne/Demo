@@ -7,16 +7,20 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface ClassPostCommentService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/classgroups/posts/{postId}/comments")
-    suspend fun listComments(@Path("postId") postId: String): Response<ApiResponseX>
+    @GET("api/v1/classgroups/{classGroupId}/posts/{postId}/comments")
+    suspend fun listComments(@Path("classGroupId") classGroupId: String,
+                             @Path("postId") postId: String): Response<ApiResponseX>
 
     @Headers("Content-Type: multipart/form-data")
-    @POST("api/v1/classgroups/posts/{postId}/comments")
-    suspend fun addComment(@Path("postId") postId: String, @Body addCommentAPIBody: AddCommentAPIBody): Response<ApiResponseX>
+    @POST("api/v1/classgroups/{classGroupId}/posts/{postId}/comments")
+    suspend fun addComment(@Path("classGroupId") classGroupId: String,
+                           @Path("postId") postId: String,
+                           @Body addCommentAPIBody: AddCommentAPIBody): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")
-    @DELETE("api/v1/classgroups/posts/{postId}/comments/{commentId}")
-    suspend fun deleteComment(@Path("postId") postId: String,
+    @DELETE("api/v1/classgroups/{classGroupId}/posts/{postId}/comments/{commentId}")
+    suspend fun deleteComment(@Path("classGroupId") classGroupId: String,
+                              @Path("postId") postId: String,
                               @Path("commentId") commentId: String): Response<ApiResponseX>
 
     @Headers("Content-Type: application/json")

@@ -57,7 +57,7 @@ class InstructorClassPostCommentAdapter(private val context: Context,
         val item = items.getOrNull(position)
 
         item?.let { item ->
-            if (item.type == PostCommentType.POST) {
+            if (item.post != null) {
                 val post = item.post
 
                 post?.let {
@@ -65,11 +65,11 @@ class InstructorClassPostCommentAdapter(private val context: Context,
                         post = post,
                         allMemberCount = allMemberCount,
                         color = color,
-                        onDeletePostClicked = { post -> onDeletePostClicked(post) },
-                        onEditPostClicked = { post -> onEditPostClicked(post) },
-                        onImageClicked = { imageView, attachment -> onImageClicked(imageView, attachment) },
-                        onFileClicked = { attachment -> onFileClicked(attachment) },
-                        onLikeClicked = { post -> onPostLiked(post) },
+                        onDeletePostClicked = onDeletePostClicked,
+                        onEditPostClicked = onEditPostClicked,
+                        onImageClicked = onImageClicked,
+                        onFileClicked = onFileClicked,
+                        onLikeClicked = onPostLiked,
                         onCommentClicked = { onCommentClicked() },
                         onDisplayLikedUsersClicked = { onDisplayLikedUsersClicked() },
                         onDisplaySeenUsersClicked = { onDisplaySeenUsersClicked() }
@@ -85,7 +85,7 @@ class InstructorClassPostCommentAdapter(private val context: Context,
         }
     }
 
-    override fun getItemViewType(position: Int) = if (items[position].type == PostCommentType.POST) {
+    override fun getItemViewType(position: Int) = if (items[position].post != null) {
         PostCommentType.POST.type
     } else {
         PostCommentType.COMMENT.type
@@ -94,7 +94,6 @@ class InstructorClassPostCommentAdapter(private val context: Context,
     override fun getItemCount() = items.size
 
     data class PostCommentItem(
-        val type: PostCommentType,
         val post: Post? = null,
         val comment: Comment? = null
     )

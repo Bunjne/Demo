@@ -116,7 +116,7 @@
     <string name="class_post_action_title_comment">ความคิดเห็น</string>
     <string name="class_post_open_file_title">เปิดไฟล์ด้วย</string>
     <string name="class_post_author_header_new">ใหม่</string>
-    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s น.</string>
+    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s</string>
     <string name="class_post_delete">ลบ</string>
     <string name="class_post_edit">แก้ไข</string>
 
@@ -179,6 +179,7 @@
     <string name="class_group_navigation_item_advisory_title">Advisory</string>
     <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
     <string name="class_group_navigation_item_assignment_title">Assignment</string>
+    <string name="class_group_navigation_item_guardians_title">ผู้ปกครอง</string>
     <string name="class_group_navigation_item_class_schedule_title">ตารางเรียน</string>
     <string name="class_group_navigation_item_examination_title">ตารางสอบ</string>
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>

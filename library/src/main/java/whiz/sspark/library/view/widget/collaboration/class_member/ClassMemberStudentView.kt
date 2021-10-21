@@ -25,7 +25,12 @@ class ClassMemberStudentView : ConstraintLayout {
         with (member) {
             binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
-            binding.tvNickname.text = resources.getString(R.string.class_member_number_place_holder, number, nickname)
+            binding.tvNickname.text = if (number != null) {
+                resources.getString(R.string.class_member_number_place_holder, number, nickname)
+            } else {
+                resources.getString(R.string.class_member_number_place_holder, code, nickname)
+            }
+
             binding.tvName.text = if (isSelf) {
                 convertToFullName(firstName, middleName, lastName)
             } else {

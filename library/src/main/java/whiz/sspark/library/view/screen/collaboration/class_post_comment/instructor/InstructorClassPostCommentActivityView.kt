@@ -131,8 +131,8 @@ class InstructorClassPostCommentActivityView : ConstraintLayout {
         binding.rvPostComment.adapter?.notifyItemInserted(index)
     }
 
-    fun notifyRecycleViewItemRangeInserted(startIndex: Int, endIndex: Int) {
-        binding.rvPostComment.adapter?.notifyItemRangeInserted(startIndex, endIndex)
+    fun updateItem() {
+        binding.rvPostComment.adapter?.notifyDataSetChanged()
     }
 
     fun notifyRecycleViewItemRemoved(index: Int) {
