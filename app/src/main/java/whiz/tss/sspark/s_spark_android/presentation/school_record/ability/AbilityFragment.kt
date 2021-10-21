@@ -35,7 +35,7 @@ open class AbilityFragment: BaseFragment() {
         arguments?.getString("termId") ?: ""
     }
 
-    protected open val indicators: Array<String> by lazy {
+    private val indicators: Array<String> by lazy {
         resources.getStringArray(R.array.school_record_senior_indicator)
     }
 

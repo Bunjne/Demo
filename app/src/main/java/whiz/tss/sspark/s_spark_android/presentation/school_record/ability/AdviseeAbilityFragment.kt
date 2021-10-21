@@ -22,10 +22,6 @@ class AdviseeAbilityFragment: AbilityFragment() {
         arguments?.getString("studentId")!!
     }
 
-    override val indicators: Array<String> by lazy {
-        resources.getStringArray(R.array.school_record_senior_indicator)
-    }
-
     override fun getAbility() {
         viewModel.getAbility(termId, studentId)
     }

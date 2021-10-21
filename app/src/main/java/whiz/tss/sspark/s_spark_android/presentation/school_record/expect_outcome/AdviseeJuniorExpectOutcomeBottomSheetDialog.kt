@@ -33,10 +33,10 @@ class AdviseeJuniorExpectOutcomeBottomSheetDialog: JuniorExpectOutcomeBottomShee
         arguments?.getString("student")?.toObject<Student>()!!
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
+        super.initView()
 
-        val advisee = if (SSparkApp.role == RoleType.INSTRUCTOR_JUNIOR) { //TODO move to initview when basebottomsheetdialog available
+        val advisee = if (SSparkApp.role == RoleType.INSTRUCTOR_JUNIOR) {
             student.convertToJuniorAdvisee()
         } else {
             student.convertToSeniorAdvisee()

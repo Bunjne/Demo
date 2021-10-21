@@ -1,6 +1,5 @@
 package whiz.tss.sspark.s_spark_android.presentation.school_record
 
-import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.Student
 import whiz.sspark.library.data.entity.convertToJuniorAdvisee

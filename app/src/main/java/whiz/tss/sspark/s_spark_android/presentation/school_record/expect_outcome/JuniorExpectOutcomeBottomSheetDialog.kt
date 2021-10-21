@@ -23,9 +23,10 @@ import whiz.sspark.library.view.general.information_dialog.InformationDialogAdap
 import whiz.sspark.library.view.widget.school_record.expect_outcome.ExpectOutcomeAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentJuniorExpectOutcomeBinding
+import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 import whiz.tss.sspark.s_spark_android.presentation.calendar.info_dialog.InformationDialog
 
-open class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
+open class JuniorExpectOutcomeBottomSheetDialog: BaseBottomSheetDialogFragment() {
 
     companion object {
         internal const val EXPECT_OUTCOME_INFO = "ExpectOutcomeInfo"
@@ -90,9 +91,6 @@ open class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        observeView()
-        observeData()
-        observeError()
 
         dialog?.setOnShowListener {
             validateDialog()
@@ -136,7 +134,7 @@ open class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         }
     }
 
-    private fun initView() {
+    override fun initView() {
         binding.vExpectOutcome.init(
             title = courseCode,
             subTitle = courseName,
@@ -156,13 +154,13 @@ open class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         )
     }
 
-    private fun observeView() {
+    override fun observeView() {
         viewModel.viewLoading.observe(this) { isLoading ->
             binding.vExpectOutcome.setSwipeRefreshLayout(isLoading)
         }
     }
 
-    private fun observeData() {
+    override fun observeData() {
         viewModel.expectOutcomeResponse.observe(this) {
             it?.let {
                 updateAdapterItem(it)
@@ -204,7 +202,7 @@ open class JuniorExpectOutcomeBottomSheetDialog: BottomSheetDialogFragment() {
         binding.vExpectOutcome.updateItem(items)
     }
 
-    private fun observeError() {
+    override fun observeError() {
         viewModel.expectOutcomeErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(requireActivity(), it) {

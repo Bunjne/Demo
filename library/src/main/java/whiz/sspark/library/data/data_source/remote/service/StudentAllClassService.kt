@@ -6,8 +6,8 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface AbilityService {
+interface StudentAllClassService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/students/me/abilities")
-    suspend fun getAbility(@Query("termId") termId: String): Response<ApiResponseX>
+    @GET("api/v1/students/me/schedules/courses")
+    suspend fun getAllClass(@Query("termId") termId: String): Response<ApiResponseX>
 }
