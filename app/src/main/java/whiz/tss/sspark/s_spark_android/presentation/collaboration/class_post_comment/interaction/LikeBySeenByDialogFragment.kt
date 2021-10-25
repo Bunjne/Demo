@@ -144,7 +144,9 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         with(viewModel) {
             viewModel.memberErrorResponse.observe(this@LikeBySeenByDialogFragment) {
                 it?.let {
-                    showApiResponseXAlert(activity, it)
+                    showApiResponseXAlert(activity, it) {
+                        dismiss()
+                    }
                 }
             }
 
