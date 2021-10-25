@@ -90,7 +90,7 @@ open class JuniorLearningOutcomeFragment : BaseFragment() {
         )
     }
 
-    open fun showJuniorExpectOutcome(learningOutcome: LearningOutcome) {
+    protected open fun showJuniorExpectOutcome(learningOutcome: LearningOutcome) {
         JuniorExpectOutcomeBottomSheetDialog.newInstance(
             termId = termId,
             courseId = learningOutcome.courseId,

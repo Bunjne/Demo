@@ -18,7 +18,7 @@ interface SchoolRecordRepository {
 
 open class SchoolRecordRepositoryImpl(private val context: Context,
                                       private val remote: SchoolRecordService): SchoolRecordRepository {
-    open override suspend fun getTerms(): Flow<DataWrapperX<List<Term>>> {
+    override suspend fun getTerms(): Flow<DataWrapperX<List<Term>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
