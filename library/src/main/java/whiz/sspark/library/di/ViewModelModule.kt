@@ -17,7 +17,9 @@ val viewModelModule = module {
     viewModel { CourseSyllabusViewModel(get()) }
     viewModel { ExpectOutcomeViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
+    viewModel { InstructorAllClassViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
+    viewModel { InstructorClassScheduleViewModel(get()) }
     viewModel { InstructorMenuViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { LearningPathwayViewModel(get()) }

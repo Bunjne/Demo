@@ -63,6 +63,9 @@
         <activity
             android:name=".presentation.notification_inbox.NotificationInboxActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.class_schedule.InstructorClassScheduleActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -17,7 +17,9 @@ val repositoryModule = module {
     factory { CourseSyllabusRepositoryImpl(androidContext(), get()) }
     factory { ExpectOutcomeRepositoryImpl(androidContext(), get()) }
     factory { HappeningsRepositoryImpl(androidContext(), get(), get()) }
+    factory { InstructorAllClassRepositoryImpl(androidContext(), get()) }
     factory { InstructorClassActivityRepositoryImpl(androidContext(), get()) }
+    factory { InstructorClassScheduleRepositoryImpl(androidContext(), get()) }
     factory { InstructorMenuRepositoryImpl(androidContext(), get()) }
     factory { LearningOutcomeRepositoryImpl(androidContext(), get()) }
     factory { LearningPathwayRepositoryImpl(androidContext(), get()) }

@@ -26,6 +26,7 @@ import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.InstructorClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
@@ -157,8 +158,19 @@ class ClassGroupFragment : BaseFragment() {
                             //TODO wait for implementation
                         }
                         BottomNavigationId.CLASS_SCHEDULE.id -> {
-                            val intent = Intent(requireContext(), StudentClassScheduleActivity::class.java)
-                            startActivity(intent)
+                            when (SSparkApp.role) {
+                                RoleType.INSTRUCTOR_SENIOR,
+                                RoleType.INSTRUCTOR_JUNIOR -> {
+                                    val intent = Intent(requireContext(), InstructorClassScheduleActivity::class.java)
+                                    startActivity(intent)
+                                }
+                                RoleType.STUDENT_SENIOR,
+                                RoleType.STUDENT_JUNIOR -> {
+                                    val intent = Intent(requireContext(), StudentClassScheduleActivity::class.java)
+                                    startActivity(intent)
+                                }
+                                else -> { }
+                            }
                         }
                         BottomNavigationId.EXAMINATION.id -> {
                             val intent = Intent(requireContext(), StudentExamScheduleActivity::class.java)
