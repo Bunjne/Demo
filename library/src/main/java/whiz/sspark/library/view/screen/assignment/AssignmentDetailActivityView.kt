@@ -41,16 +41,16 @@ class AssignmentDetailActivityView: ConstraintLayout {
             binding.ivInstructorImage.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvInstructorName.text = instructorName
             if (attachments.isNotEmpty()) {
-                binding.vAttachment.visibility = View.VISIBLE
-                binding.vAttachment.removeAllViews()
+                binding.llAttachment.visibility = View.VISIBLE
+                binding.llAttachment.removeAllViews()
 
                 attachments.forEach {
                     if (it.type == AttachmentType.IMAGE.type) {
-                        binding.vAttachment.addView(ClassPostFileView(context).apply {
+                        binding.llAttachment.addView(ClassPostFileView(context).apply {
                             init(it, onFileClicked)
                         })
                     } else {
-                        binding.vAttachment.addView(ClassPostImageView(context).apply {
+                        binding.llAttachment.addView(ClassPostImageView(context).apply {
                             init(it, navigateToImage)
                         })
                     }

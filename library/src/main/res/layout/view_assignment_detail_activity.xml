@@ -24,8 +24,8 @@
 
     <View
         android:id="@+id/vTranslationTop"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -121,7 +121,7 @@
                     tools:text="ให้นักเรียนทำใบงานหน่วยการเรียนรู้ที่ 2 เรื่องการศึกษาพันธุศาสตร์ของเมนเดล และทำแบบทดสอบหลังเรียนหน้า 53-36 ให้เรียบร้อยพร้อมทั้งวาดรูปประกอบให้สวยงาม หากมีข้อสงสัยเพิ่มเติมสามารถสอบถามอาจารย์ได้โดยตรง" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/vAttachment"
+                    android:id="@+id/llAttachment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -140,7 +140,7 @@
                     android:textSize="13dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvDate"
-                    app:layout_constraintTop_toBottomOf="@+id/vAttachment"
+                    app:layout_constraintTop_toBottomOf="@+id/llAttachment"
                     app:ssparkFont="bold"
                     tools:text="กำหนดส่ง: 22 สิงหาคม เวลา 10:00 น." />
 

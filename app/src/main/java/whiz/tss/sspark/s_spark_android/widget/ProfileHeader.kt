@@ -71,7 +71,7 @@ class ProfileHeader : ConstraintLayout, CoroutineScope {
         }
     }
 
-    fun setBackGradientColor(startColor: Int, endColor: Int) {
+    fun setBackgroundGradientColor(startColor: Int, endColor: Int) {
         binding.cvBack.background_Gradient_Colors = intArrayOf(startColor, endColor)
         binding.cvBack.invalidate()
     }

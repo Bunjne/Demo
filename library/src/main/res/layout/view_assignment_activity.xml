@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <whiz.sspark.library.view.general.SSparkTextView
-            android:id="@+id/tvCourseCode"
+            android:id="@+id/tvAssignmentTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCourseCode"
+            app:layout_constraintTop_toBottomOf="@+id/tvAssignmentTitle"
             app:ssparkFont="regular"
             tools:text="อัปเดตล่าสุดเมื่อ 20/8/64 9:41 น." />
 

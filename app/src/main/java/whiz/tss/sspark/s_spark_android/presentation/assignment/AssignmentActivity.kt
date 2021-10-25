@@ -53,7 +53,6 @@ class AssignmentActivity : BaseActivity() {
                         initView()
 
                         viewModel.getLatestAssignments(currentTerm.id, PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
-
                     }
                 }
             }
@@ -62,10 +61,7 @@ class AssignmentActivity : BaseActivity() {
 
     override fun initView() {
         binding.vProfile.init(
-            backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_gradient_0)!!,
-            onBackPressed = {
-                finish()
-            }
+            backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_gradient_0)!!
         )
 
         binding.vAssignment.init(
