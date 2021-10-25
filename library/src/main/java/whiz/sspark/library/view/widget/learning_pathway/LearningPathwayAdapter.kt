@@ -35,9 +35,9 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
 
         return when {
             item?.courseItem != null -> {
-                val isHasNextCourse = nextItem?.courseItem != null
+                val isNextCourseExisted = nextItem?.courseItem != null
 
-                if (isHasNextCourse) {
+                if (isNextCourseExisted) {
                     COURSE_VIEW_MIDDLE_TYPE
                 } else {
                     COURSE_VIEW_BOTTOM_TYPE
@@ -117,13 +117,8 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
                 (holder.itemView as? LearningPathwayHeaderItemView)?.apply {
                     init(item.header!!, onAddCourseClicked, onShowRequiredCourseClicked)
 
-                    val isHasConcentrateCourse = nextItemViewType != HEADER_VIEW_TYPE
-
-                    background = if (isHasConcentrateCourse) {
-                        ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
-                    } else {
-                        ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_single)
-                    }
+                    val isShowBottomCornerRadius = nextItemViewType == HEADER_VIEW_TYPE
+                    showBottomCornerRadius(isShowBottomCornerRadius)
                 }
             }
         }

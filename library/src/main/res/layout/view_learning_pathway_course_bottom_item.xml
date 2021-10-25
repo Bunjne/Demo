@@ -8,8 +8,8 @@
 
     <View
         android:id="@+id/vTranslation"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -18,7 +18,7 @@
         android:id="@+id/cvBackground"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:translationY="9dp"
+        android:translationY="6dp"
         app:background_Color="@color/viewBaseSecondaryColor"
         app:cornerRadius_BottomLeft="12dp"
         app:cornerRadius_BottomRight="12dp"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/vTranslation"
         app:shadow0_Outer_Alpha="1"
-        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Blur="10dp"
         app:shadow0_Outer_Color="@color/shadowColor"
         app:shadow_Outer_Area="12dp">
 

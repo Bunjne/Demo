@@ -10,6 +10,7 @@ import whiz.sspark.library.data.entity.LearningPathwayHeaderItem
 import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.databinding.ViewLearningPathwayHeaderItemBinding
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.getHighSchoolLevel
 
@@ -44,6 +45,24 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
             binding.cvRequiredCourse.setOnClickListener {
                 onShowRequiredCourseClicked(term, requiredCourses)
             }
+        }
+    }
+
+    fun showBottomCornerRadius(isShowBottomCornerRadius: Boolean) {
+        if (isShowBottomCornerRadius) {
+            binding.cvBackground.cornerRadius_BottomLeft = 12f.toDP(context)
+            binding.cvBackground.cornerRadius_BottomRight = 12f.toDP(context)
+            val layoutParams = binding.vTranslation.layoutParams
+            layoutParams.height = 12.toDP(context)
+            binding.vTranslation.layoutParams = layoutParams
+            binding.cvBackground.translationY = 6f.toDP(context)
+        } else {
+            binding.cvBackground.cornerRadius_BottomLeft = 0f.toDP(context)
+            binding.cvBackground.cornerRadius_BottomRight = 0f.toDP(context)
+            val layoutParams = binding.vTranslation.layoutParams
+            layoutParams.height = 18.toDP(context)
+            binding.vTranslation.layoutParams = layoutParams
+            binding.cvBackground.translationY = 12f.toDP(context)
         }
     }
 }
