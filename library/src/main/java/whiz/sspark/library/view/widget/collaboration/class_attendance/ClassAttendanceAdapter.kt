@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import whiz.sspark.library.data.entity.ClassAttendance
+import whiz.sspark.library.data.entity.AttendanceDetail
 
 class ClassAttendanceAdapter(private val context: Context,
-                             private val attendanceClasses: List<ClassAttendance>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                             private val attendanceDetails: List<AttendanceDetail>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class ClassAttendanceItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -21,11 +21,11 @@ class ClassAttendanceAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val attendanceClass = attendanceClasses.getOrNull(position)
+        val attendanceClass = attendanceDetails.getOrNull(position)
         attendanceClass?.let { attendanceClass ->
             (holder.itemView as? ClassAttendanceItemView)?.init(attendanceClass)
         }
     }
 
-    override fun getItemCount() = attendanceClasses.size
+    override fun getItemCount() = attendanceDetails.size
 }

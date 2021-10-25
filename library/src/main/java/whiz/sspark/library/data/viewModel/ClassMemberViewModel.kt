@@ -31,9 +31,9 @@ class ClassMemberViewModel(private val classMemberRepository: ClassMemberReposit
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getClassMember(classId: String, isNetworkPreferred: Boolean) {
+    fun getClassMember(classgroupId: String, isNetworkPreferred: Boolean) {
         viewModelScope.launch {
-            classMemberRepository.getClassMember(classId, isNetworkPreferred)
+            classMemberRepository.getClassMember(classgroupId, isNetworkPreferred)
                 .onStart {
                     _viewLoading.value = true
                 }
