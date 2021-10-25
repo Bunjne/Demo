@@ -3,9 +3,11 @@ package whiz.sspark.library.view.screen.expect_outcome
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.databinding.ViewExpectOutcomeFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.view.widget.school_record.expect_outcome.ExpectOutcomeAdapter
@@ -48,6 +50,11 @@ class ExpectOutcomeFragmentView: ConstraintLayout {
         binding.ivClose.setOnClickListener {
             onCloseClicked()
         }
+    }
+
+    fun showAdviseeProfile(advisee: Advisee) {
+        binding.vAdviseeProfile.init(advisee)
+        binding.vAdviseeProfile.visibility = View.VISIBLE
     }
 
     fun setSwipeRefreshLayout(isLoading: Boolean) {

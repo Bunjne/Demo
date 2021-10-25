@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.databinding.ViewSchoolRecordActivityBinding
 import whiz.sspark.library.extension.show
@@ -38,6 +39,11 @@ class SchoolRecordActivityView: ConstraintLayout {
                 onSelectTerm(binding.cvTerm)
             }
         }
+    }
+
+    fun showAdviseeProfile(advisee: Advisee) {
+        binding.vAdviseeProfile.visibility = View.VISIBLE
+        binding.vAdviseeProfile.init(advisee = advisee)
     }
 
     fun setLatestUpdatedText(data: DataWrapperX<Any>?) {

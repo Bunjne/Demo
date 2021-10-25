@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.GradeSummary
-import whiz.sspark.library.data.entity.LearningOutcome
-import whiz.sspark.library.data.entity.LearningOutcomeDTO
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.LearningOutcomeViewModel
 import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -19,10 +16,10 @@ import whiz.tss.sspark.s_spark_android.databinding.FragmentSeniorLearningOutcome
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.expect_outcome.SeniorExpectOutcomeBottomSheetDialog
 
-class SeniorLearningOutcomeFragment : BaseFragment() {
+open class SeniorLearningOutcomeFragment : BaseFragment() {
 
     companion object {
-        private const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
+        internal const val EXPECT_OUTCOME_TAG = "ExpectOutcome"
 
         fun newInstance(termId: String) = SeniorLearningOutcomeFragment().apply {
             arguments = Bundle().apply {
@@ -31,9 +28,9 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
         }
     }
 
-    private val viewModel: LearningOutcomeViewModel by viewModel()
+    protected open val viewModel: LearningOutcomeViewModel by viewModel()
 
-    private val termId by lazy {
+    protected val termId by lazy {
         arguments?.getString("termId") ?: "0"
     }
 
@@ -61,38 +58,44 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
 
         if (savedInstanceState != null) {
             dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
-
-            if (dataWrapper != null) {
-                val outcomes = dataWrapper?.data?.toJson()?.toObjects(Array<LearningOutcomeDTO>::class.java) ?: listOf()
-                updateAdapterItem(outcomes)
-
-                listener?.onSetLatestUpdatedText(dataWrapper)
-            } else {
-                viewModel.getLearningOutcome(termId)
-            }
-        } else {
-            viewModel.getLearningOutcome(termId)
         }
+
+        if (dataWrapper != null) {
+            val outcomes = dataWrapper?.data?.toJson()?.toObjects(Array<LearningOutcomeDTO>::class.java) ?: listOf()
+            updateAdapterItem(outcomes)
+
+            listener?.onSetLatestUpdatedText(dataWrapper)
+        } else {
+            getLearningOutcome()
+        }
+    }
+
+    protected open fun getLearningOutcome() {
+        viewModel.getLearningOutcome(termId)
     }
 
     override fun initView() {
         binding.vLearningOutcome.init(
             onRefresh = {
-                viewModel.getLearningOutcome(termId)
+                getLearningOutcome()
             },
             onItemClicked = {
                 val isShowing = childFragmentManager.findFragmentByTag(EXPECT_OUTCOME_TAG) != null
                 if (!isShowing) {
-                    SeniorExpectOutcomeBottomSheetDialog.newInstance(
-                        termId = termId,
-                        courseId = it.courseId,
-                        courseCode = it.courseCode,
-                        courseName = it.courseName,
-                        credit = it.credit
-                    ).show(childFragmentManager, EXPECT_OUTCOME_TAG)
+                    showSeniorExpectOutcome(it)
                 }
             }
         )
+    }
+
+    protected open fun showSeniorExpectOutcome(learningOutcome: LearningOutcome) {
+        SeniorExpectOutcomeBottomSheetDialog.newInstance(
+            termId = termId,
+            courseId = learningOutcome.courseId,
+            courseCode = learningOutcome.courseCode,
+            courseName = learningOutcome.courseName,
+            credit = learningOutcome.credit
+        ).show(childFragmentManager, EXPECT_OUTCOME_TAG)
     }
 
     override fun observeView() {

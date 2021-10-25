@@ -9,8 +9,13 @@ val remoteModule = module {
     factory<AbilityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ActivityRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AddCourseService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeAbilityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeActivityRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeExpectOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeLearningOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeListService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeMenuService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeSchoolRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AssignmentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<CalendarService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassGroupService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
