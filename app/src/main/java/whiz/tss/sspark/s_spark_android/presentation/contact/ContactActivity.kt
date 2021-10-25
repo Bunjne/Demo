@@ -71,7 +71,9 @@ class ContactActivity : BaseActivity(), ContactInfoDialogFragment.DialogOnClickL
     override fun observeError() {
         viewModel.contactsErrorResponse.observe(this) {
             it?.let {
-                showApiResponseXAlert(this, it)
+                showApiResponseXAlert(this, it) {
+                    finish()
+                }
             }
         }
 

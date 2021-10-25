@@ -6,39 +6,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTitle"
+    <View
+        android:id="@+id/vTranslationTopLeft"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationTopRight"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_base_header"
-        android:paddingHorizontal="12dp"
-        android:paddingTop="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:layout_constraintEnd_toEndOf="@+id/vTranslationTopRight"
+        app:layout_constraintStart_toStartOf="@+id/vTranslationTopLeft"
+        app:layout_constraintTop_toTopOf="@+id/vTranslationTopRight"
+        app:shadow0_Outer_Alpha="0.04"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowWithoutAlphaColor"
+        app:shadow_Outer_Area="30dp">
 
-        <whiz.sspark.library.view.general.SSparkTextView
-            android:id="@+id/tvTitle"
-            style="@style/ScreenHeaderTitleStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/contact_title"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <whiz.sspark.library.view.general.SSparkTextView
-            android:id="@+id/tvLatestUpdated"
-            style="@style/ScreenHeaderSubTitleStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/screen_header_subtitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvTitle"
+                style="@style/ScreenHeaderTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvLatestUpdated"
+                style="@style/ScreenHeaderSubTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/screen_header_subtitle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    <View
+        android:id="@+id/vTranslationShadow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srlContact"
@@ -46,14 +82,14 @@
         android:layout_height="0dp"
         android:paddingHorizontal="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/clTitle"
-        app:layout_constraintStart_toStartOf="@id/clTitle"
-        app:layout_constraintTop_toBottomOf="@id/clTitle">
+        app:layout_constraintEnd_toEndOf="@id/cvHeader"
+        app:layout_constraintStart_toStartOf="@id/cvHeader"
+        app:layout_constraintTop_toTopOf="@id/cvHeader">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContact"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingTop="4dp"

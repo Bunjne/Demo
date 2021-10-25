@@ -22,7 +22,7 @@ class ContactInfoDialogFragment : DialogFragment() {
         }
     }
 
-    private var _binding: DialogContactInfoBinding?= null
+    private var _binding: DialogContactInfoBinding? = null
     private val binding get() = _binding!!
 
     private val contactInfo by lazy {
@@ -75,7 +75,7 @@ class ContactInfoDialogFragment : DialogFragment() {
             with(window) {
                 decorView.setBackgroundColor(Color.TRANSPARENT)
                 setGravity(Gravity.BOTTOM)
-                attributes.windowAnimations = R.style.DialogAnimationStyle
+                attributes.windowAnimations = R.style.VerticalSlidesAnimationStyle
                 attributes.y = 25
             }
         }
