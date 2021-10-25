@@ -78,17 +78,31 @@ class StudentClassMemberFragment : BaseFragment() {
                 val newItems = mutableListOf<ClassMemberAdapter.Item>()
                 with(newItems) {
                     if (member.instructors.isNotEmpty()) {
-                        add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_instructor_title, instructorCounts), student = null, instructor = null))
-                        addAll(member.instructors.map { instructor -> ClassMemberAdapter.Item(title = null, student = null, instructor = instructor) })
+                        add(ClassMemberAdapter.Item(
+                            title = resources.getString(R.string.class_member_instructor_title, instructorCounts)
+                        ))
+
+                        addAll(member.instructors.map { instructor ->
+                            ClassMemberAdapter.Item(
+                                instructor = instructor
+                            )
+                        })
                     }
 
                     if (member.students.isNotEmpty()) {
-                        add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_student_title, studentCounts), student = null, instructor = null))
-                        addAll(member.students.mapIndexed { index, student ->
-                            val isSelf = userId == student.userId
-                            val studentNumber = index + 1
+                        add(ClassMemberAdapter.Item(
+                            title = resources.getString(R.string.class_member_student_title, studentCounts)
+                        ))
 
-                            ClassMemberAdapter.Item(title = null, student = student, instructor = null, isSelf = isSelf, studentNumber = studentNumber)
+                        addAll(member.students.map { student ->
+                            val isSelf = userId == student.id
+
+                            ClassMemberAdapter.Item(
+                                title = null,
+                                student = student,
+                                instructor = null,
+                                isSelf = isSelf
+                            )
                         })
                     }
                 }

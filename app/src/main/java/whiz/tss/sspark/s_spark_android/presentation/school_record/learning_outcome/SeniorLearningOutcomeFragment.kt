@@ -126,59 +126,58 @@ class SeniorLearningOutcomeFragment : BaseFragment() {
         val filteredLearningOutcomes = learningOutcomes.filter { it.value != null }
 
         if (filteredLearningOutcomes.isEmpty()) {
-            binding.vLearningOutcome.updateItem()
-            return
-        }
+            binding.vLearningOutcome.updateItem(listOf())
+        } else {
+            val items: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
 
-        val items: MutableList<SeniorLearningOutcomeAdapter.Item> = mutableListOf()
-
-        val title = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
-        val gradeSummaries = filteredLearningOutcomes.map {
-            GradeSummary(
-                name = it.name,
-                startColorCode = it.colorCode1,
-                endColorCode = it.colorCode2,
-                grade = it.value!!)
-        }
-
-        items.add(title)
-        items.add(
-            SeniorLearningOutcomeAdapter.Item(
-            gradeSummaries = gradeSummaries
-        ))
-
-        filteredLearningOutcomes.forEach { learningOutcome ->
-
-            val titleListItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
-            items.add(titleListItem)
-
-            val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
-            val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
-
-            learningOutcome.courses.forEach {
-                val percentPerformance = if (it.isCompleted) {
-                    it.percentPerformance ?: 0
-                } else {
-                    null
-                }
-
-                val learningOutcomeItem = SeniorLearningOutcomeAdapter.Item(
-                    learningOutcome = LearningOutcome(
-                        courseId = it.id,
-                        startColor = startColor,
-                        endColor = endColor,
-                        credit = it.credits,
-                        percentPerformance = percentPerformance,
-                        courseCode = it.code,
-                        courseName = it.name
-                    )
-                )
-
-                items.add(learningOutcomeItem)
+            val title = SeniorLearningOutcomeAdapter.Item(title = resources.getString(R.string.school_record_grade_summary_text))
+            val gradeSummaries = filteredLearningOutcomes.map {
+                GradeSummary(
+                    name = it.name,
+                    startColorCode = it.colorCode1,
+                    endColorCode = it.colorCode2,
+                    grade = it.value!!)
             }
-        }
 
-        binding.vLearningOutcome.updateItem(items)
+            items.add(title)
+            items.add(
+                SeniorLearningOutcomeAdapter.Item(
+                    gradeSummaries = gradeSummaries
+                ))
+
+            filteredLearningOutcomes.forEach { learningOutcome ->
+
+                val titleListItem = SeniorLearningOutcomeAdapter.Item(title = learningOutcome.name)
+                items.add(titleListItem)
+
+                val startColor = learningOutcome.colorCode1.toColor(ContextCompat.getColor(requireContext(), R.color.primaryStartColor))
+                val endColor = learningOutcome.colorCode2.toColor(ContextCompat.getColor(requireContext(), R.color.primaryEndColor))
+
+                learningOutcome.courses.forEach {
+                    val percentPerformance = if (it.isCompleted) {
+                        it.percentPerformance ?: 0
+                    } else {
+                        null
+                    }
+
+                    val learningOutcomeItem = SeniorLearningOutcomeAdapter.Item(
+                        learningOutcome = LearningOutcome(
+                            courseId = it.id,
+                            startColor = startColor,
+                            endColor = endColor,
+                            credit = it.credits,
+                            percentPerformance = percentPerformance,
+                            courseCode = it.code,
+                            courseName = it.name
+                        )
+                    )
+
+                    items.add(learningOutcomeItem)
+                }
+            }
+
+            binding.vLearningOutcome.updateItem(items)
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

@@ -27,8 +27,8 @@ class TimelineViewModel(private val timelineRepository: TimelineRepositoryImpl) 
     val timelineErrorResponse: LiveData<ApiResponseX?>
         get() = _timelineErrorResponse
 
-    private val _todayDateResponse = MutableLiveData<TodayDateResponse>()
-    val todayDateResponse: LiveData<TodayDateResponse>
+    private val _todayDateResponse = MutableLiveData<Date>()
+    val todayDateResponse: LiveData<Date>
         get() = _todayDateResponse
 
     private val _todayDateErrorResponse = MutableLiveData<ApiResponseX?>()

@@ -1,7 +1,6 @@
 package whiz.sspark.library.view.widget.collaboration.class_group
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassGroupCourse
 import whiz.sspark.library.data.enum.Gender
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassGroupItemBinding
 import whiz.sspark.library.extension.*
 
@@ -34,7 +34,7 @@ class ClassGroupItemView : ConstraintLayout {
 
             if (instructors.isNotEmpty()) {
                 val mainInstructor = instructors.first()
-                binding.civInstructorImage.showClassMemberProfileCircle(mainInstructor.profileImageUrl, mainInstructor.abbreviatedName, Color.WHITE, mainInstructor.colorCode?.toColor() ?: Color.BLACK)
+                binding.civInstructorImage.showProfile(mainInstructor.imageUrl, getGender(mainInstructor.gender).type)
 
                 val otherInstructorCount = instructors.size - 1
                 if (otherInstructorCount == 0) {

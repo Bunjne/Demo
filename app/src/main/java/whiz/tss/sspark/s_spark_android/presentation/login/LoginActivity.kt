@@ -1,9 +1,7 @@
 package whiz.tss.sspark.s_spark_android.presentation.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.telephony.TelephonyManager
 import androidx.lifecycle.lifecycleScope
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import kotlinx.coroutines.launch
@@ -18,6 +16,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.data.viewModel.LoginViewModel
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLoginBinding
+import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
 import whiz.tss.sspark.s_spark_android.utility.*
 
@@ -33,14 +32,6 @@ class LoginActivity : LocalizationActivity() {
 
     private val loadingDialog by lazy {
         SSparkLoadingDialog(this)
-    }
-
-    private val operatorName by lazy {
-        try {
-            (getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).networkOperatorName
-        } catch (exception: Exception) {
-            ""
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,8 +54,10 @@ class LoginActivity : LocalizationActivity() {
             verifyAuthenticationInformation(authenticationInformation)
         } else {
             //TODO remove mock data when screen confirmed
-            val deviceID = retrieveDeviceID(this)
-            viewModel.login("test2", "123456", deviceID, operatorName)
+//            viewModel.login("sjunior", "{{password}}")
+            viewModel.login("ssenior", "{{password}}")
+//            viewModel.login("iJunior", "{{password}}")
+//            viewModel.login("iSenior", "{{password}}")
         }
     }
 
@@ -90,12 +83,25 @@ class LoginActivity : LocalizationActivity() {
             }
         }
 
-        viewModel.profileResponse.observe(this) {
+        viewModel.studentProfileResponse.observe(this) {
             it?.let {
-                saveUserID(this, it.userId)
+                saveUserID(this, it.id)
 
                 lifecycleScope.launch {
                     profileManager.saveStudent(it)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
+                }
+            }
+        }
+
+        viewModel.instructorProfileResponse.observe(this) {
+            it?.let {
+                saveUserID(this, it.id)
+
+                lifecycleScope.launch {
+                    profileManager.saveInstructor(it)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
@@ -117,7 +123,13 @@ class LoginActivity : LocalizationActivity() {
             }
         }
 
-        viewModel.profileErrorResponse.observe(this) {
+        viewModel.studentProfileErrorResponse.observe(this) {
+            it?.let {
+                showApiResponseXAlert(this, it)
+            }
+        }
+
+        viewModel.instructorProfileErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(this, it)
             }
@@ -125,26 +137,26 @@ class LoginActivity : LocalizationActivity() {
     }
 
     private fun verifyAuthenticationInformation(authenticationInformation: AuthenticationInformation) {
-        when (authenticationInformation.role) {
-            RoleType.JUNIOR.type -> {
-                SSparkApp.setJuniorApp()
+        when (authenticationInformation.getRoleType()) {
+            RoleType.STUDENT_JUNIOR -> {
+                SSparkApp.setStudentJuniorApp()
                 viewModel.getStudentProfile()
             }
-            RoleType.SENIOR.type -> {
-                SSparkApp.setSeniorApp()
+            RoleType.STUDENT_SENIOR -> {
+                SSparkApp.setStudentSeniorApp()
                 viewModel.getStudentProfile()
             }
-            RoleType.INSTRUCTOR.type -> {
-                SSparkApp.setInstructorApp()
-                //TODO wait implement instructor API
+            RoleType.INSTRUCTOR_JUNIOR -> {
+                SSparkApp.setInstructorJuniorApp()
+                viewModel.getInstructorProfile()
             }
-            RoleType.GUARDIAN.type -> {
+            RoleType.INSTRUCTOR_SENIOR -> {
+                SSparkApp.setInstructorSeniorApp()
+                viewModel.getInstructorProfile()
+            }
+            RoleType.GUARDIAN -> {
                 SSparkApp.setGuardianApp()
                 //TODO wait implement guardian API
-            }
-            else -> {
-                showAlertWithOkButton(resources.getString(R.string.general_alertmessage_cannot_specify_role))
-                clearData(this)
             }
         }
     }

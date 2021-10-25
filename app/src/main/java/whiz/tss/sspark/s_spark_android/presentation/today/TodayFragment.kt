@@ -1,15 +1,16 @@
 package whiz.tss.sspark.s_spark_android.presentation.today
 
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.TodayFragmentId
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toColor
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentTodayBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
@@ -102,7 +103,7 @@ class TodayFragment : BaseFragment(), TimelineFragment.OnUpdateAqi {
 
             binding.tvApi.text = "$aqi"
             if (color.isNotBlank()) {
-                binding.cvAqi.setCardBackgroundColor(Color.parseColor(color))
+                binding.cvAqi.setCardBackgroundColor(color.toColor(ContextCompat.getColor(requireContext(), R.color.viewBaseFourthColor)))
             }
         }
 

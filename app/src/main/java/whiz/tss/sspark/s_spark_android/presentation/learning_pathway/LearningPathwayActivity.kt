@@ -171,11 +171,11 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
         val items: MutableList<LearningPathwayAdapter.Item> = mutableListOf()
 
         learningPathways.forEach { learningPathway ->
-            val summaryCourseCredit = learningPathway.course.sumOf { it.credit }
+            val summaryCourseCredit = learningPathway.courses.sumOf { it.credit }
             val summaryRequiredCourseCredit = learningPathway.requiredCourses.sumOf { it.credit }
             val credit = summaryCourseCredit + summaryRequiredCourseCredit
 
-            val courseIds = learningPathway.course.map { it.id }
+            val courseIds = learningPathway.courses.map { it.id }
             val requiredCourseIds = learningPathway.requiredCourses.map { it.id }
 
             val selectedCourseIds = mutableListOf<String>()
@@ -192,7 +192,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
 
             items.add(LearningPathwayAdapter.Item(header = header))
 
-            learningPathway.course.forEach {
+            learningPathway.courses.forEach {
                 val course = Course(
                     id = it.id,
                     code = it.code,

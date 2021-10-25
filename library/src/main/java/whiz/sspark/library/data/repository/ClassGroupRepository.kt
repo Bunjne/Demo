@@ -13,18 +13,18 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface ClassGroupRepository {
-    fun getClassGroup(): Flow<DataWrapperX<List<ClassGroup>>>
+    fun getClassGroup(): Flow<DataWrapperX<ClassGroup>>
 }
 
 class ClassGroupRepositoryImpl(private val context: Context,
                                private val remote: ClassGroupService): ClassGroupRepository {
-    override fun getClassGroup(): Flow<DataWrapperX<List<ClassGroup>>> {
+    override fun getClassGroup(): Flow<DataWrapperX<ClassGroup>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
                     val response = remote.getClassGroup()
 
-                    fetchX(response, Array<ClassGroup>::class.java)
+                    fetchX<ClassGroup>(response)
                 } catch (e: Exception) {
                     throw e
                 }

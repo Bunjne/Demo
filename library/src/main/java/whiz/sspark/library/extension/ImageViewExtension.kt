@@ -1,8 +1,7 @@
 package whiz.sspark.library.extension
 
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.view.View
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -10,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import whiz.sspark.library.R
 import whiz.sspark.library.data.enum.Gender
-import whiz.sspark.library.view.widget.collaboration.class_member.ClassLargeMemberNameView
 import java.io.File
 
 fun ImageView.show(resId: Int) {
@@ -25,11 +23,17 @@ fun ImageView.show(resId: Int) {
 
 fun ImageView.show(url: String) {
     Glide.with(this.context)
+        .load(url)
+        .into(this)
+}
+
+fun ImageView.show(drawable: Drawable) {
+    Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
         )
-        .load(url)
+        .load(drawable)
         .into(this)
 }
 
@@ -84,21 +88,18 @@ fun ImageView.showUserProfileCircle(profileImageURL: String, gender: Long) {
         .into(this)
 }
 
-fun ImageView.showClassMemberProfileCircle(imageUrl: String, abbreviatedName: String, textColor: Int = Color.WHITE, textBackgroundColor: Int = Color.TRANSPARENT) {
-    val classMemberNameView = ClassLargeMemberNameView(context).apply {
-        init(abbreviatedName)
-        setNameColor(textColor)
-        setBackgroundColor(textBackgroundColor)
-    } as View
+fun ImageView.showProfile(imageUrl: String, gender: Long) {
+    val defaultImage = when (gender) {
+        Gender.MALE.type -> R.drawable.ic_male_circular
+        Gender.FEMALE.type -> R.drawable.ic_female_circular
+        else -> R.drawable.ic_male_circular
+    }
 
-    val defaultImage = classMemberNameView.toDrawable(context)
     val requestOptions = RequestOptions
         .diskCacheStrategyOf(DiskCacheStrategy.NONE)
         .skipMemoryCache(true)
         .placeholder(defaultImage)
-        .fitCenter()
         .error(defaultImage)
-        .circleCrop()
 
     Glide.with(this)
         .load(imageUrl)

@@ -3,8 +3,12 @@ package whiz.tss.sspark.s_spark_android.presentation.collaboration
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
+import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.enum.BottomNavigationType
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.tss.sspark.s_spark_android.R
@@ -17,8 +21,13 @@ import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.course_syllabus.CourseSyllabusBottomSheetDialog
 
 class ClassDetailActivity : BaseActivity() {
+
+    companion object {
+        private const val COURSE_SYLLABUS = "CourseSyllabus"
+    }
 
     private lateinit var binding: ActivityClassDetailBinding
 
@@ -27,7 +36,7 @@ class ClassDetailActivity : BaseActivity() {
     }
 
     private val startColor by lazy {
-        intent?.getIntExtra("color", ContextCompat.getColor(this, R.color.primaryStartColor)) ?: ContextCompat.getColor(this, R.color.primaryStartColor)
+        intent?.getIntExtra("startColor", ContextCompat.getColor(this, R.color.primaryStartColor)) ?: ContextCompat.getColor(this, R.color.primaryStartColor)
     }
 
     private val endColor by lazy {
@@ -47,13 +56,21 @@ class ClassDetailActivity : BaseActivity() {
     }
 
     private var currentFragment: Int = BottomNavigationId.NONE_SELECTED.id
+    private lateinit var currentTerm: Term
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityClassDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initView()
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    currentTerm = it
+                    initView()
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -98,10 +115,12 @@ class ClassDetailActivity : BaseActivity() {
                         currentFragment = it
                         when (it) {
                             BottomNavigationId.ACTIVITY.id -> {
-                                if (SSparkApp.role != RoleType.INSTRUCTOR) {
-                                    renderFragment(StudentClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
-                                } else {
-                                    renderFragment(InstructorClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                when (SSparkApp.role) {
+                                    RoleType.INSTRUCTOR_JUNIOR,
+                                    RoleType.INSTRUCTOR_SENIOR -> renderFragment(InstructorClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    RoleType.STUDENT_JUNIOR,
+                                    RoleType.STUDENT_SENIOR -> renderFragment(StudentClassActivityFragment.newInstance(classGroupId, startColor, allMemberCount), supportFragmentManager, currentFragment)
+                                    RoleType.GUARDIAN -> { } //TODO wait implement
                                 }
                             }
                             BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
@@ -110,7 +129,15 @@ class ClassDetailActivity : BaseActivity() {
                     }
                 },
                 onStudyPlanClicked = {
-                    // TODO wait for activity navigation
+                    val isShowing = supportFragmentManager.findFragmentByTag(COURSE_SYLLABUS) != null
+                    if (!isShowing) {
+                        CourseSyllabusBottomSheetDialog.newInstance(
+                            classGroupId =  classGroupId,
+                            termId = currentTerm.id,
+                            startColor = startColor,
+                            endColor = endColor
+                        ).show(supportFragmentManager, COURSE_SYLLABUS)
+                    }
                 }
             )
         }
