@@ -9,7 +9,7 @@
     <View
         android:id="@+id/vTranslationTop"
         android:layout_width="12dp"
-        android:layout_height="24dp"
+        android:layout_height="25dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -42,9 +42,7 @@
                 android:id="@+id/tvCourseDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="6dp"
+                android:layout_margin="10dp"
                 android:textColor="@color/textBaseSecondaryColor"
                 android:textSize="14dp"
                 app:ssparkFont="regular"

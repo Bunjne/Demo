@@ -9,7 +9,7 @@
     <View
         android:id="@+id/vTranslationTop"
         android:layout_width="12dp"
-        android:layout_height="18dp"
+        android:layout_height="19dp"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
