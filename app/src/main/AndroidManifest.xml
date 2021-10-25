@@ -66,6 +66,9 @@
         <activity
             android:name=".presentation.event.event_list.EventListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.event.event_registered.EventRegisteredActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

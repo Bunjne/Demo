@@ -222,4 +222,7 @@
     <!-- Notification Inbox -->
     <string name="notification_inbox_created_at">%1$s น.</string>
     <string name="notification_inbox_text">กล่องข้อความ</string>
+
+    <!-- Event Registered -->
+    <string name="event_registered_no_event">ไม่มีกิจกรรมที่ลงทะเบียน</string>
 </resources>

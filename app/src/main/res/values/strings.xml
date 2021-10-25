@@ -98,4 +98,11 @@
         <item>ม.5</item>
         <item>ม.6</item>
     </string-array>
+
+    <!--Event Registered-->
+    <string name="event_registered_title">กิจกรรมที่ลงทะเบียน</string>
+    <string-array name="event_registered_segment">
+        <item>เร็ว ๆ นี้</item>
+        <item>ที่ผ่านมา</item>
+    </string-array>
 </resources>
