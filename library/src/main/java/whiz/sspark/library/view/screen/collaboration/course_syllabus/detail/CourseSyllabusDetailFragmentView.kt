@@ -3,6 +3,7 @@ package whiz.sspark.library.view.screen.collaboration.course_syllabus.detail
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +47,15 @@ class CourseSyllabusDetailFragmentView: ConstraintLayout {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 
-    fun updateItem(item: List<CourseSyllabusAdapter.Item>) {
-        (binding.rvCourseDetail.adapter as? CourseSyllabusAdapter)?.submitList(item)
+    fun updateItem(items: List<CourseSyllabusAdapter.Item>) {
+        (binding.rvCourseDetail.adapter as? CourseSyllabusAdapter)?.submitList(items)
+
+        if (items.isEmpty()) {
+            binding.tvNoPlan.visibility = View.VISIBLE
+            binding.rvCourseDetail.visibility = View.INVISIBLE
+        } else {
+            binding.tvNoPlan.visibility = View.INVISIBLE
+            binding.rvCourseDetail.visibility = View.VISIBLE
+        }
     }
 }

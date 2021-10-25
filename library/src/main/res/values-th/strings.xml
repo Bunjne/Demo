@@ -222,6 +222,9 @@
     <string name="notification_inbox_created_at">%1$s น.</string>
     <string name="notification_inbox_text">กล่องข้อความ</string>
 
+    <!--Course Syllabus-->
+    <string name="course_syllabus_no_plan">ไม่มีแผนการสอน</string>
+
     <!-- Post Like By Seen By -->
     <string name="like_by_seen_by_liked_title">ถูกใจโดย</string>
     <string name="like_by_seen_by_seen_title">เห็นโดย</string>
