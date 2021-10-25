@@ -71,8 +71,7 @@ class ClassGroupAdapter(private val context: Context,
                         init(
                             title = item.headerBarTitle ?: "",
                             iconUrl = item.headerBarIcon ?: "",
-                            startColor = item.headerBarStartColor ?: ContextCompat.getColor(context, R.color.primaryStartColor),
-                            endColor = item.headerBarEndColor ?: ContextCompat.getColor(context, R.color.primaryEndColor)
+                            gradientColor = item.gradientColor ?: intArrayOf(ContextCompat.getColor(context, R.color.primaryStartColor), ContextCompat.getColor(context, R.color.primaryEndColor))
                         )
 
                         setPadding(6.toDP(context), 10.toDP(context), 6.toDP(context), 10.toDP(context))
@@ -97,8 +96,7 @@ class ClassGroupAdapter(private val context: Context,
         val navigationBarItems: List<BottomNavigationBarItem>? = null,
         val headerBarTitle: String? = null,
         val headerBarIcon: String? = null,
-        val headerBarStartColor: Int? = null,
-        val headerBarEndColor: Int? = null,
+        val gradientColor: IntArray? = null,
         val classGroupCourse: ClassGroupCourse? = null,
     )
 }

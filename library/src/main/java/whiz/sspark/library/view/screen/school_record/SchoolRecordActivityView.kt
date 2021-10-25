@@ -53,9 +53,10 @@ class SchoolRecordActivityView: ConstraintLayout {
         binding.vSegment.updateSegmentTitle(segmentTitles, currentSegment)
     }
 
-    fun setIsTermSelectable(isTermSelectable: Boolean) {
+    fun initMultipleTerm(isTermSelectable: Boolean, onInitPopupMenu: (View) -> Unit) {
         if (isTermSelectable) {
             binding.ivDropdown.visibility = View.VISIBLE
+            onInitPopupMenu(binding.cvTerm)
         } else {
             binding.ivDropdown.visibility = View.GONE
         }

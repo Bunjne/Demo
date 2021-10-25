@@ -1,6 +1,8 @@
 package whiz.tss.sspark.s_spark_android.presentation.class_schedule
 
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -17,17 +19,25 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassScheduleBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.ClassScheduleAllClassBottomSheetDialog
 import java.util.*
 
 class StudentClassScheduleActivity : BaseActivity() {
+
+    companion object {
+        private const val ALL_CLASS_DIALOG = "AllClassDialog"
+    }
 
     private val viewModel: StudentClassScheduleViewModel by viewModel()
 
     private lateinit var binding: ActivityClassScheduleBinding
     private lateinit var currentTerm: Term
 
+    private var popupMenu: PopupMenu? = null
+
     private var dataWrapperX: DataWrapperX<Any>? = null
     private var weeks = listOf<WeekOfYear>()
+    private var terms = listOf<Term>()
     private var selectedWeekId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,25 +48,33 @@ class StudentClassScheduleActivity : BaseActivity() {
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
-            initView()
 
-            if (dataWrapperX != null) {
-                val classSchedules = dataWrapperX?.data?.toJson()?.toObjects(Array<ClassScheduleDTO>::class.java) ?: listOf()
-                updateAdapterItem(classSchedules)
-            } else {
-                getClassSchedule()
+            initView()
+            val classSchedules = dataWrapperX?.data?.toJson()?.toObjects(Array<ClassScheduleDTO>::class.java) ?: listOf()
+            updateAdapterItem(classSchedules)
+            updateSelectedWeek()
+
+            val isTermSelectable = terms.size > 1
+            binding.vClassSchedule.initMultipleTerm(isTermSelectable) {
+                initPopupMenu(it)
             }
         } else {
-            lifecycleScope.launch {
-                profileManager.term.collect {
-                    it?.let {
-                        currentTerm = it
-                        weeks = getWeeksOfYear()
-                        selectedWeekId = getInitialWeek()
+            getInitialTerm()
 
-                        initView()
-                        getClassSchedule()
-                    }
+            initView()
+            getClassSchedule()
+            updateSelectedWeek()
+            viewModel.getTerms()
+        }
+    }
+
+    private fun getInitialTerm() {
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    currentTerm = it
+                    weeks = getWeeksOfYear()
+                    selectedWeekId = getInitialWeek()
                 }
             }
         }
@@ -65,6 +83,17 @@ class StudentClassScheduleActivity : BaseActivity() {
     override fun initView() {
         binding.vClassSchedule.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
+            onTermClicked = {
+                popupMenu?.show()
+            },
+            onAllClassesClicked = {
+                val isShowing = supportFragmentManager.findFragmentByTag(ALL_CLASS_DIALOG) != null
+                if (!isShowing) {
+                    ClassScheduleAllClassBottomSheetDialog.newInstance(
+                        term = currentTerm
+                    ).show(supportFragmentManager, ALL_CLASS_DIALOG)
+                }
+            },
             onPreviousWeekClicked = {
                 if (viewModel.viewLoading.value == false) {
                     selectedWeekId -= 1
@@ -90,8 +119,6 @@ class StudentClassScheduleActivity : BaseActivity() {
                 }
             },
         )
-
-        updateSelectedWeek()
     }
 
     override fun observeView() {
@@ -107,28 +134,49 @@ class StudentClassScheduleActivity : BaseActivity() {
 
     override fun observeData() {
         viewModel.classScheduleResponse.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
                 updateAdapterItem(it)
+            }
+        }
+
+        viewModel.termsResponse.observe(this) {
+            it?.getContentIfNotHandled()?.let {
+                terms = it
+
+                val isTermSelectable = terms.size > 1
+                binding.vClassSchedule.initMultipleTerm(isTermSelectable) {
+                    initPopupMenu(it)
+                }
             }
         }
     }
 
     override fun observeError() {
         viewModel.classScheduleErrorResponse.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
+                updateAdapterItem()
                 showApiResponseXAlert(this, it)
             }
         }
 
         viewModel.errorMessage.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
+                updateAdapterItem()
                 binding.vClassSchedule.setLatestUpdatedText(getNullDataWrapperX())
                 showAlertWithOkButton(it)
             }
         }
+
+        viewModel.termsErrorResponse.observe(this) {
+            it?.getContentIfNotHandled()?.let {
+                showApiResponseXAlert(this, it) {
+                    finish()
+                }
+            }
+        }
     }
 
-    private fun updateAdapterItem(classSchedulesDTO: List<ClassScheduleDTO>) {
+    private fun updateAdapterItem(classSchedulesDTO: List<ClassScheduleDTO> = listOf()) {
         val items = mutableListOf<ClassScheduleAdapter.Item>()
         val dates = weeks.find { it.id == selectedWeekId }?.dates ?: listOf()
 
@@ -165,8 +213,7 @@ class StudentClassScheduleActivity : BaseActivity() {
                         val classScheduleCourse = ClassScheduleCourse(
                             startTime = it.startTime,
                             endTime = it.endTime,
-                            code = it.code,
-                            name = it.name,
+                            title = resources.getString(R.string.class_schedule_course_code_and_name, it.code, it.name),
                             color = it.colorCode1,
                             room = it.room,
                             instructorNames = instructorNames
@@ -207,8 +254,8 @@ class StudentClassScheduleActivity : BaseActivity() {
     }
 
     private fun getInitialWeek(): Int {
-        val startedWeekOfYear = currentTerm.startDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
-        val endedWeekOfYear = currentTerm.endDate.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val startedWeekOfYear = currentTerm.startAt.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val endedWeekOfYear = currentTerm.endAt.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val currentWeekOfYear = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)
 
@@ -224,8 +271,8 @@ class StudentClassScheduleActivity : BaseActivity() {
     }
 
     private fun getWeeksOfYear(): List<WeekOfYear> {
-        val startedWeekOfYear = currentTerm.startDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
-        val endedWeekOfYear = currentTerm.endDate.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val startedWeekOfYear = currentTerm.startAt.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val endedWeekOfYear = currentTerm.endAt.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val weeksOfYear: MutableList<WeekOfYear> = mutableListOf()
 
@@ -247,12 +294,50 @@ class StudentClassScheduleActivity : BaseActivity() {
         return weeksOfYear
     }
 
+    private fun initPopupMenu(view: View) {
+        popupMenu = PopupMenu(this, view).apply {
+            setOnMenuItemClickListener {
+                val splitTerm = it.title.split("/")
+
+                val term = splitTerm.getOrNull(0)?.toIntOrNull() ?: 0
+                val year = splitTerm.getOrNull(1) ?: ""
+
+                val selectedTerm = terms.find { it.term == term && convertToLocalizeYear(it.year) == year }
+
+                if (selectedTerm != null && selectedTerm != currentTerm) {
+                    currentTerm = selectedTerm
+                    weeks = getWeeksOfYear()
+                    selectedWeekId = getInitialWeek()
+
+                    updateTerm()
+                    getClassSchedule()
+                    updateSelectedWeek()
+                }
+
+                true
+            }
+
+            menu.clear()
+
+            terms.forEach {
+                val selectAbleTerm = resources.getString(R.string.school_record_term, it.term.toString(), convertToLocalizeYear(it.year))
+                menu.add(selectAbleTerm)
+            }
+        }
+    }
+
+    private fun updateTerm() {
+        val termTitle = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year))
+        binding.vClassSchedule.updateTerm(termTitle)
+    }
+
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         dataWrapperX = savedInstanceState.getString("dataWrapperX")?.toObject()
         currentTerm = savedInstanceState.getString("currentTerm")?.toObject() ?: Term()
         weeks = savedInstanceState.getString("weeks")?.toObjects(Array<WeekOfYear>::class.java) ?: listOf()
+        terms = savedInstanceState.getString("terms")?.toObjects(Array<Term>::class.java) ?: listOf()
         selectedWeekId = savedInstanceState.getInt("selectedWeekId", 0)
     }
 
@@ -261,6 +346,7 @@ class StudentClassScheduleActivity : BaseActivity() {
         outState.putString("dataWrapperX", dataWrapperX?.toJson())
         outState.putString("currentTerm", currentTerm.toJson())
         outState.putString("weeks", weeks.toJson())
+        outState.putString("terms", terms.toJson())
         outState.putInt("selectedWeekId", selectedWeekId)
     }
 }

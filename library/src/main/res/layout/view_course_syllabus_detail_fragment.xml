@@ -25,4 +25,17 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvNoPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/course_syllabus_no_plan"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

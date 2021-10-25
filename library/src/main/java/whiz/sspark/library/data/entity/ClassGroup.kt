@@ -5,6 +5,16 @@ import whiz.sspark.library.extension.toColor
 import whiz.sspark.library.utility.localize
 
 data class ClassGroup(
+        @SerializedName("specialGroup") val specialGroup: ClassGroupCourse? = null,
+        @SerializedName("guardianGroup") val guardianGroup: ClassGroupCourse? = null,
+        @SerializedName("seniorClass") private val _seniorClasses: List<ClassGroupDetail>? = null,
+        @SerializedName("juniorClass") private val _juniorClasses: List<ClassGroupDetail>? = null
+) {
+        val seniorClasses get() = _seniorClasses ?: listOf()
+        val juniorClasses get() = _juniorClasses ?: listOf()
+}
+
+data class ClassGroupDetail(
         @SerializedName("nameEn") private val _classGroupNameEn: String = "",
         @SerializedName("nameTh") private val _classGroupNameTh: String = "",
         @SerializedName("iconImageUrl") val iconImageUrl: String = "",
@@ -24,6 +34,8 @@ data class ClassGroupCourse(
         @SerializedName("nameEn") private val _courseNameEn: String = "",
         @SerializedName("nameTh") private val _courseNameTh: String = "",
         @SerializedName("studentCount") val studentCount: Int = 0,
+        @SerializedName("memberCount") val memberCount: Int = 0,
+        @SerializedName("sectionNumber") val sectionNumber: String? = null,
         @SerializedName("instructors") val instructors: List<ClassMember> = listOf(),
         @SerializedName("notiBadge") val notificationCount: Int = 0,
 ) {

@@ -31,9 +31,9 @@ class StudentClassAttendanceViewModel(private val studentClassAttendanceReposito
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getClassAttendance(classId: String) {
+    fun getClassAttendance(classGroupId: String) {
         viewModelScope.launch {
-            studentClassAttendanceRepository.getClassAttendance(classId)
+            studentClassAttendanceRepository.getClassAttendance(classGroupId)
                 .onStart {
                     _viewLoading.value = true
                 }

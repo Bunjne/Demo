@@ -64,7 +64,7 @@ class ClassMemberAdapter(private val context: Context,
                 }
                 item.student != null -> {
                     (holder.itemView as? ClassMemberStudentView)?.apply {
-                        init(item.student, item.studentNumber, item.isSelf)
+                        init(item.student, item.isSelf)
 
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
@@ -91,7 +91,6 @@ class ClassMemberAdapter(private val context: Context,
         val title: String? = null,
         val instructor: ClassMember? = null,
         val student: ClassMember? = null,
-        val isSelf: Boolean = false,
-        val studentNumber: Int = 0,
+        val isSelf: Boolean = false
     )
 }

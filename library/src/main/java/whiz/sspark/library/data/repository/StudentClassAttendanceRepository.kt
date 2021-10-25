@@ -18,11 +18,11 @@ interface StudentAttendanceRepository {
 
 class StudentClassAttendanceRepositoryImpl(private val context: Context,
                                            private val remote: StudentClassAttendanceService) : StudentAttendanceRepository {
-    override fun getClassAttendance(classId: String): Flow<DataWrapperX<Attendance>> {
+    override fun getClassAttendance(classGroupId: String): Flow<DataWrapperX<Attendance>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getClassAttendance(classId)
+                    val response = remote.getClassAttendance(classGroupId)
                     fetchX<Attendance>(response)
                 } catch (e: Exception) {
                     throw e
