@@ -51,7 +51,6 @@ class LikeBySeenByItemAdapter(private val context: Context,
                     }
                     this is LikeBySeenByStudentItemView && item is LikeBySeenByAdapterViewType.Student -> {
                         init(item.student)
-
                         setDarkModeBackground(
                             isNextItemHeader = isNextItemTitle,
                             isPreviousItemHeader = isPreviousItemTitle

@@ -89,8 +89,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
             },
             onRefresh = {
                 when (postInteractionType) {
-                    PostInteraction.LIKE.type -> viewModel.getMembersByPostLiked(postId)
-                    PostInteraction.SEEN.type -> viewModel.getMembersByPostSeen(postId)
+                    PostInteraction.LIKE.type -> viewModel.getMembersByPostLiked(classGroupId, postId)
+                    PostInteraction.SEEN.type -> viewModel.getMembersByPostSeen(classGroupId, postId)
                 }
             }
         )
@@ -112,8 +112,8 @@ class LikeBySeenByDialogFragment : DialogFragment() {
         }
 
         when (postInteractionType) {
-            PostInteraction.LIKE.type -> viewModel.getMembersByPostLiked(postId)
-            PostInteraction.SEEN.type -> viewModel.getMembersByPostSeen(postId)
+            PostInteraction.LIKE.type -> viewModel.getMembersByPostLiked(classGroupId, postId)
+            PostInteraction.SEEN.type -> viewModel.getMembersByPostSeen(classGroupId, postId)
         }
     }
 
@@ -122,7 +122,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
             with(window) {
                 decorView.setBackgroundColor(Color.TRANSPARENT)
                 setGravity(Gravity.BOTTOM)
-                attributes.windowAnimations = R.style.DialogAnimationStyle
+                attributes.windowAnimations = R.style.VerticalSlidesAnimationStyle
             }
         }
     }
@@ -179,11 +179,11 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                         with(instructor) {
                             LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Instructor(
                                 instructor = LikeBySeenByMember(
-                                    profileImageUrl = profileImageUrl,
-                                    abbreviatedName = abbreviatedName,
+                                    profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
                                     fullName = fullName,
-                                    jobDescription = jobDescription
+                                    jobDescription = jobDescription,
+                                    gender = gender
                                 )
                             )
                         }
@@ -201,19 +201,19 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                 addAll(
                     students.map { student ->
                         with(student) {
-                            val title = if (SSparkApp.role.type == RoleType.SENIOR.type) {
-                                resources.getString(R.string.like_by_seen_by_name_with_rank, number, code)
+                            val title = if (SSparkApp.role.type == RoleType.STUDENT_SENIOR.type) {
+                                resources.getString(R.string.like_by_seen_by_name_with_rank, code, nickname)
                             } else {
-                                resources.getString(R.string.like_by_seen_by_name_with_rank, number, nickname)
+                                resources.getString(R.string.like_by_seen_by_name_with_rank, number.toString(), nickname)
                             }
 
                             LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
                                 student = LikeBySeenByMember(
                                     title = title,
-                                    profileImageUrl = profileImageUrl,
-                                    abbreviatedName = abbreviatedName,
+                                    profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
-                                    fullName = fullName
+                                    fullName = fullName,
+                                    gender = gender
                                 )
                             )
                         }

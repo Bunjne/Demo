@@ -15,18 +15,18 @@ import whiz.sspark.library.utility.fetchX
 import java.lang.Exception
 
 interface LikeBySeenByRepository {
-    suspend fun getMembersByPostLiked(postId: String): Flow<DataWrapperX<Member>>
-    suspend fun getMembersByPostSeen(postId: String): Flow<DataWrapperX<Member>>
+    suspend fun getMembersByPostLiked(classGroupId: String, postId: String): Flow<DataWrapperX<Member>>
+    suspend fun getMembersByPostSeen(classGroupId: String, postId: String): Flow<DataWrapperX<Member>>
 }
 
 class LikeBySeenByRepositoryImpl(private val context: Context,
                                  private val remote: LikeBySeenByService): LikeBySeenByRepository {
 
-    override suspend fun getMembersByPostLiked(postId: String): Flow<DataWrapperX<Member>> {
+    override suspend fun getMembersByPostLiked(classGroupId: String, postId: String): Flow<DataWrapperX<Member>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getMembersByPostLiked(postId)
+                    val response = remote.getMembersByPostLiked(classGroupId, postId)
                     fetchX<Member>(response)
                 } catch (e: Exception) {
                     throw e
@@ -37,11 +37,11 @@ class LikeBySeenByRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getMembersByPostSeen(postId: String): Flow<DataWrapperX<Member>> {
+    override suspend fun getMembersByPostSeen(classGroupId: String, postId: String): Flow<DataWrapperX<Member>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getMembersByPostSeen(postId)
+                    val response = remote.getMembersByPostSeen(classGroupId, postId)
                     fetchX<Member>(response)
                 } catch (e: Exception) {
                     throw e

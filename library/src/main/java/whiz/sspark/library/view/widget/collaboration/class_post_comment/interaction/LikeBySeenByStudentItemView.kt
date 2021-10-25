@@ -4,11 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.LikeBySeenByMember
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewLikeBySeenByStudentItemBinding
-import whiz.sspark.library.extension.showClassMemberProfileCircle
+import whiz.sspark.library.extension.showProfile
 
 class LikeBySeenByStudentItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -21,11 +20,9 @@ class LikeBySeenByStudentItemView : ConstraintLayout {
 
     fun init(student: LikeBySeenByMember) {
         with(student) {
-            binding.ivProfile.showClassMemberProfileCircle(
+            binding.ivProfile.showProfile(
                 imageUrl = profileImageUrl,
-                abbreviatedName = abbreviatedName,
-                textColor = ContextCompat.getColor(context, R.color.naturalV100),
-                textBackgroundColor = color
+                gender = getGender(gender).type
             )
 
             binding.tvNickName.text = title

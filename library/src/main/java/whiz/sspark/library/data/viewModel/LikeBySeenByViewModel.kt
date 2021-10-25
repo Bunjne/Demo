@@ -33,9 +33,9 @@ class LikeBySeenByViewModel(private val likeBySeenByRepository: LikeBySeenByRepo
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getMembersByPostLiked(postId: String) {
+    fun getMembersByPostLiked(classGroupId: String, postId: String) {
         viewModelScope.launch {
-            likeBySeenByRepository.getMembersByPostLiked(postId)
+            likeBySeenByRepository.getMembersByPostLiked(classGroupId, postId)
                 .onStart {
                     _viewLoading.value = true
                 }
@@ -57,9 +57,9 @@ class LikeBySeenByViewModel(private val likeBySeenByRepository: LikeBySeenByRepo
         }
     }
 
-    fun getMembersByPostSeen(postId: String) {
+    fun getMembersByPostSeen(classGroupId: String, postId: String) {
         viewModelScope.launch {
-            likeBySeenByRepository.getMembersByPostSeen(postId)
+            likeBySeenByRepository.getMembersByPostSeen(classGroupId, postId)
                 .onStart {
                     _viewLoading.value = true
                 }
