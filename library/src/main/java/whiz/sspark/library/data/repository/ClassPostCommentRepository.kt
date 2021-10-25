@@ -14,20 +14,23 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface ClassPostCommentRepository {
-    fun listComments(postId: String): Flow<DataWrapperX<List<Post>>>
-    fun listClassMembers(classId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>>
+    fun listComments(classGroupId: String, postId: String): Flow<DataWrapperX<List<Comment>>>
+    fun listClassMembers(classGroupId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>>
+    fun addComment(classGroupId: String, postId: String, message: String): Flow<DataWrapperX<String>>
+    fun deleteComment(classGroupId: String, postId: String, commentId: String): Flow<DataWrapperX<String>>
     fun deletePost(postId: String): Flow<DataWrapperX<String>> //TODO wait for Response confirmation from API team
 }
 
 class ClassPostCommentRepositoryImpl(private val context: Context,
                                      private val local: ClassMemberCacheImpl,
                                      private val remote: ClassPostCommentService): ClassPostCommentRepository {
-    override fun listComments(postId: String): Flow<DataWrapperX<List<Post>>> {
+    override fun listComments(classGroupId: String,
+                              postId: String): Flow<DataWrapperX<List<Comment>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.listComments(postId)
-                    fetchX(response, Array<Post>::class.java)
+                    val response = remote.listComments(classGroupId, postId)
+                    fetchX(response, Array<Comment>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }
@@ -37,10 +40,10 @@ class ClassPostCommentRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override fun listClassMembers(classId: String,
+    override fun listClassMembers(classGroupId: String,
                                   isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>> {
         return flow {
-            val localClassMembers = local.getClassMembers(classId)
+            val localClassMembers = local.getClassMembers(classGroupId)
             if (localClassMembers != null && !isNetworkPreferred) {
                 emit(DataWrapperX(
                     data = localClassMembers,
@@ -54,7 +57,7 @@ class ClassPostCommentRepositoryImpl(private val context: Context,
             } else {
                 if (NetworkManager.isOnline(context)) {
                     try {
-                        val response = remote.listClassMembers(classId)
+                        val response = remote.listClassMembers(classGroupId)
                         fetchX<Member>(response)
                     } catch (e: Exception) {
                         throw e
@@ -62,6 +65,36 @@ class ClassPostCommentRepositoryImpl(private val context: Context,
                 } else {
                     throw Exception(context.resources.getString(R.string.general_alertmessage_no_internet_connection))
                 }
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun addComment(classGroupId: String, postId: String, message: String): Flow<DataWrapperX<String>> {
+        return flow {
+            if (NetworkManager.isOnline(context)) {
+                try {
+                    val response = remote.addComment(classGroupId, postId, AddCommentAPIBody(message))
+                    fetchX<String>(response)
+                } catch (e: Exception) {
+                    throw e
+                }
+            } else {
+                throw Exception(context.resources.getString(R.string.general_alertmessage_no_internet_connection))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun deleteComment(classGroupId: String, postId: String, commentId: String): Flow<DataWrapperX<String>> {
+        return flow {
+            if (NetworkManager.isOnline(context)) {
+                try {
+                    val response = remote.deleteComment(classGroupId, postId, commentId)
+                    fetchX<String>(response)
+                } catch (e: Exception) {
+                    throw e
+                }
+            } else {
+                throw Exception(context.resources.getString(R.string.general_alertmessage_no_internet_connection))
             }
         }.flowOn(Dispatchers.IO)
     }

@@ -4,7 +4,9 @@
     <string name="general_text_ok">ตกลง</string>
     <string name="general_text_retry">ลองอีกครั้ง</string>
     <string name="general_text_cancel">ยกเลิก</string>
+    <string name="general_text_close">ปิด</string>
     <string name="general_text_discard">ละทิ้ง</string>
+    <string name="general_text_today">วันนี้</string>
 
     <!--General alert message-->
     <string name="general_alertmessage_no_internet_connection">ไม่มีอินเทอร์เน็ต</string>
@@ -19,6 +21,7 @@
     <string name="general_alertmessage_serviceerror_503_title">เกิดข้อผิดพลาดภายในระบบหลัก (503)</string>
     <string name="general_alertmessage_error_code">(รหัสข้อผิดพลาด: %1$s)</string>
     <string name="general_alertmessage_cannot_specify_role">ไม่สามารถระบุประเภทของผู้ใช้งานได้</string>
+    <string name="general_alertmessage_loading_title">รอสักครู่...</string>
 
     <!--general-->
     <string name="general_room">ห้องพัก %1$s</string>
@@ -26,13 +29,26 @@
     <string name="general_credit">%1$s หน่วยกิต</string>
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
-    <string name="general_alertmessage_loading_title">รอสักครู่...</string>
+    <string name="general_add_text">เพิ่ม</string>
+
+    <string-array name="full_day_name">
+        <item>อาทิตย์</item>
+        <item>จันทร์</item>
+        <item>อังคาร</item>
+        <item>พุธ</item>
+        <item>พฤหัส</item>
+        <item>ศุกร์</item>
+        <item>เสาร์</item>
+    </string-array>
 
     <!--Datetime-->
     <string name="screen_header_subtitle">อัปเดตล่าสุดเมื่อ %1$s น.</string>
     <string name="update_failed">อัปเดตข้อมูลผิดพลาด กรุณาลองอีกครั้ง</string>
     <string name="update_new_data">รอสักครู่...</string>
     <string name="update_just_now">สักครู่นี้</string>
+    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
+    <string name="date_time_post_at">เวลา</string>
+    <string name="date_time_place_holder">%1$s น.</string>
 
     <plurals name="date_time_hour_ago">
         <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
@@ -43,10 +59,6 @@
         <item quantity="one">%1$d นาทีที่แล้ว</item>
         <item quantity="other">%1$d นาทีที่แล้ว</item>
     </plurals>
-
-    <string name="date_time_just_now">เมื่อสักครู่นี้</string>
-
-    <string name="date_time_post_at">เวลา</string>
 
     <!-- Happenings -->
     <string name="today_happenings_see_more">เพิ่มเติม</string>
@@ -65,17 +77,35 @@
     <string name="menu_id_card_number">รหัสประจำตัว %1$s</string>
     <string name="menu_semester_start">วันเปิดภาคเรียน\n %1$s</string>
     <string name="menu_notification_inbox_text">กล่องข้อความ</string>
+    <string name="menu_contact_info_office_email_text">อีเมล</string>
+    <string name="menu_contact_info_personal_email_text">อีเมลส่วนตัว</string>
+    <string name="menu_contact_info_office_phone_text">โทรศัพท์</string>
+    <string name="menu_contact_info_personal_phone_text">โทรศัพท์ส่วนตัว</string>
+    <string name="menu_contact_info_close_text">ปิด</string>
+    <string name="menu_download_failed_text">โหลดข้อมูลไม่สำเร็จ</string>
+    <string name="menu_contact_info_text">ข้อมูลการติดต่อ</string>
 
     <!--school record-->
     <string name="school_record_under_evaluation">อยู่ระหว่างการประเมิน</string>
     <string name="school_record_no_record">ไม่มีการเรียน</string>
+    <string name="school_record_no_evaluation_record">ไม่มีผลการประเมิน</string>
+    <string name="school_record_in_progress">In Progress</string>
+    <string name="school_record_complete">Completed</string>
+    <string name="school_record_grade_summary_text">ภาพรวมพัฒนาการ</string>
+    <string name="school_record_evaluation_title">เกณฑ์การประเมิน</string>
+    <string name="school_record_overall_text">Overall</string>
+    <string name="school_record_progress_text">ความก้าวหน้าตามจุดประสงค์การเรียนรู้</string>
+    <string name="school_record_instructor_comment_text">ความคิดเห็นอาจารย์ประจำวิชา</string>
+    <string name="school_record_expect_text">ผลการเรียนรู้ที่คาดหวัง</string>
+    <string name="school_record_no_activity">ไม่มีผลประเมินกิจกรรม</string>
+    <string name="school_record_no_ability">ไม่มีผลประเมินสมรรถนะ</string>
 
     <!-- Class Detail -->
     <string name="class_detail_tab_activity">ข่าวสาร</string>
     <string name="class_detail_tab_attendance">การเข้าเรียน</string>
     <string name="class_detail_tab_student">นักเรียน</string>
     <string name="class_detail_tab_homework">ASSIGNMENT</string>
-    <string name="class_detail_study_plan_title">แผนการเรียน</string>
+    <string name="class_detail_study_plan_title">แผนการสอน</string>
 
     <!-- Class Activity -->
     <string name="class_post_create_post_title">สร้างโพสต์ใหม่</string>
@@ -120,6 +150,80 @@
         <item>คัดลอกข้อความ</item>
         <item>ยกเลิก</item>
     </string-array>
+
+    <!-- Class Member -->
+    <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="class_member_student_title">นักเรียน (%1$d)</string>
+    <string name="class_member_number_place_holder">#%1$d %2$s</string>
+
+    <!-- Class Attendance -->
+    <string name="class_attendance_summary_info_from">จาก</string>
+    <string name="class_attendance_valid_class_count">%1d คาบเรียน</string>
+    <string name="class_attendance_percentage_place_holder">%1d%%</string>
+    <string name="class_attendance_checked_item_title_place_holder">เรียนครั้งที่ %1$s</string>
+    <string name="class_attendance_present">มาเรียน</string>
+    <string name="class_attendance_absent">ขาด</string>
+    <string name="class_attendance_leave">ลา</string>
+    <string name="class_attendance_late">สาย</string>
+    <string name="class_attendance_no_record">ไม่มีบันทึก</string>
+    <string name="class_attendance_class_check_date_place_holder">%1$s %2$s น.</string>
+
+    <!-- Class Group -->
+    <string name="class_group_junior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s/%2$s</string>
+    <string name="class_group_senior_class_level_place_holder">มัธยมศึกษาปีที่ %1$s</string>
+    <string name="class_group_navigation_item_advisory_title">Advisory</string>
+    <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
+    <string name="class_group_navigation_item_assignment_title">Assignment</string>
+    <string name="class_group_navigation_item_guardians_title">ผู้ปกครอง</string>
+    <string name="class_group_navigation_item_class_schedule_title">ตารางเรียน</string>
+    <string name="class_group_navigation_item_examination_title">ตารางสอบ</string>
+    <string name="class_group_other_instructor_count_place_holder">+%1d</string>
+    <string name="class_group_no_class_group">ไม่มีกลุ่มเรียน</string>
+
+    <!--Learning pathway-->
+    <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
+    <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
+    <string name="learning_pathway_required_course_count">+ %1$s วิชาบังคับ</string>
+    <string name="learning_pathway_no_course_text">ไม่มีแผนการเรียน</string>
+    <string name="learning_pathway_required_course_text">วิชาบังคับ</string>
+    <string name="learning_pathway_add_course_text">เพิ่มวิชา</string>
+    <string name="learning_pathway_add_course_preview_credit">%1$s หน่วยกิต (ต่ำสุด = %2$s, สูงสุด = %3$s)</string>
+
+    <!--Class Schedule-->
+    <string name="class_schedule_title">ตารางเรียน</string>
+    <string name="class_schedule_day_with_short_date_title">%1$s\n%2$s</string>
+    <string name="class_schedule_range">%1$s - %2$s</string>
+    <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
+    <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
+    <string name="class_schedule_all_class_title">วิชาทั้งหมด</string>
+    <string name="class_schedule_term">ภาคเรียนที่ %1$s/%2$s</string>
+    <string name="class_schedule_no_class">ไม่มีวิชา</string>
+
+    <!--information dialog-->
+    <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
+
+    <!--Exam Schedule-->
+    <string name="exam_schedule_title">ตารางสอบ</string>
+    <string name="exam_schedule_room">ห้องสอบ %1$s</string>
+    <string name="exam_schedule_range">%1$s - %2$s</string>
+    <string name="exam_schedule_course_code_and_name">%1$s %2$s</string>
+
+    <!--Calendar-->
+    <string name="calendar_title">ปฏิทินการศึกษา</string>
+    <string name="calendar_end_date">ถึง %1$s</string>
+
+    <!--Advisee list-->
+    <string name="advisee_list_gpa_text">เกรดเฉลี่ยสะสม</string>
+    <string name="advisee_list_credit_text">หน่วยกิตสะสม</string>
+    <string name="advisee_list_code_and_name">#%1$s %2$s</string>
+    <string name="advisee_list_total_credit">/%1$s</string>
+
+    <!-- Notification Inbox -->
+    <string name="notification_inbox_created_at">%1$s น.</string>
+    <string name="notification_inbox_text">กล่องข้อความ</string>
+
+    <!--Course Syllabus-->
+    <string name="course_syllabus_no_plan">ไม่มีแผนการสอน</string>
 
     <!-- Contact -->
     <string name="contact_title">ช่องทางการติดต่อ</string>

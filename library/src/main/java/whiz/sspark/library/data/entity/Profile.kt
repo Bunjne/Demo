@@ -1,10 +1,12 @@
 package whiz.sspark.library.data.entity
 
 data class Profile(
-    val imageUrl: String? = null,
-    val gender: String? = null,
+    val imageUrl: String?,
+    val fullName: String?,
+    val gender: String?,
     val code: String? = null,
-    val firstName: String? = null,
-    val middleName: String? = null,
-    val lastName: String? = null
+    val position: String? = null,
+    val firstName: String?,
+    val middleName: String?,
+    val lastName: String?
 )

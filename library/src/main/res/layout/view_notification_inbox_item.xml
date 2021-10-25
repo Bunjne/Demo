@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:shadow0_Outer_Alpha="1"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowColor"
+    app:shadow_Outer_Area="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <com.sinaseyfi.advancedcardview.AdvancedCardView
+            android:id="@+id/cvUnread"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:background_ColorType="gradient_linear"
+            app:background_Gradient_Angle="270"
+            app:background_Gradient_Color0="@color/primaryStartColor"
+            app:background_Gradient_ColorEnd="@color/primaryEndColor"
+            app:cornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+            app:layout_constraintStart_toEndOf="@+id/cvUnread"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="bold"
+            tools:text="ฝ่ายสนับสนุนนักเรียน" />
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_arrow_right" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textBaseSecondaryColor"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:ssparkFont="regular"
+            tools:text="Club PA : การประเมินร่วมกับการเรียนรู้ของกลุ่มประสบการณ์ การเรียนรู้สุขภาพและสุขภาวะ เน้นด้านพลศึกษา (PE)" />
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/textBaseThirdColor"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetail"
+            app:layout_constraintStart_toStartOf="@+id/tvDetail"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetail"
+            app:ssparkFont="regular"
+            tools:text="7:22 น." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

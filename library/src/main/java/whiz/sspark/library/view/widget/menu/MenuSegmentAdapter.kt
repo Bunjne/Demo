@@ -12,7 +12,7 @@ class MenuSegmentAdapter(private val context: Context,
     private var selectedTab = 0
 
     companion object {
-        const val VIEW_TYPE = 1111
+        const val VIEW_TYPE = 1
     }
 
     fun resetSelectedTab() {

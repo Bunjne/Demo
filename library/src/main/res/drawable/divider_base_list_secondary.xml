@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="12dp"
+    android:insetRight="12dp">
+
+    <item>
+        <shape>
+            <size android:height="1dp" />
+            <solid android:color="@color/viewBasePrimaryColor" />
+        </shape>
+    </item>
+
+    <item
+        android:left="12dp"
+        android:right="12dp">
+        <shape>
+            <size android:height="1dp" />
+            <solid android:color="@color/viewBaseSecondaryColor" />
+        </shape>
+    </item>
+
+    <item
+        android:left="24dp"
+        android:right="24dp">
+        <shape>
+            <size android:height="1dp" />
+            <solid android:color="@color/viewBaseThirdColor" />
+        </shape>
+    </item>
+
+    <item
+        android:left="34dp"
+        android:right="34dp">
+        <shape>
+            <size android:height="1dp" />
+            <solid android:color="@color/lineBaseSecondaryWithAlphaColor" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -134,7 +134,7 @@ class InstructorClassActivityFragmentView : ConstraintLayout {
         binding.rvPost.adapter?.notifyItemChanged(index)
     }
 
-        fun setSwipeRefreshLayout(isLoading: Boolean) {
+    fun setSwipeRefreshLayout(isLoading: Boolean) {
         binding.srlContainer.isRefreshing = isLoading == true
     }
 

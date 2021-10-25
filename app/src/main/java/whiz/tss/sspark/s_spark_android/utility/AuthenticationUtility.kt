@@ -6,13 +6,14 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import kotlinx.coroutines.runBlocking
 import org.koin.java.KoinJavaComponent.inject
+import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.AuthenticationInformation
-import whiz.sspark.library.data.entity.RefreshTokenAPIBody
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
+import whiz.tss.sspark.s_spark_android.data.enum.GrantType
 import whiz.tss.sspark.s_spark_android.data.static.ConstantValue
-import whiz.tss.sspark.s_spark_android.presentation.main.MainActivity
+import whiz.tss.sspark.s_spark_android.presentation.login.LoginActivity
 import java.util.*
 
 fun retrieveAuthenticationInformation(context: Context): AuthenticationInformation? {
@@ -91,8 +92,11 @@ fun retrieveUserID(context: Context): String {
 
 fun logout(context: Context) {
     clearData(context)
+    runBlocking {
+        ProfileManager(context).clearData()
+    }
 
-    val intent = Intent(context, MainActivity::class.java)
+    val intent = Intent(context, LoginActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(intent)
 }
@@ -116,19 +120,18 @@ fun refreshToken(context: Context, onTokenRefreshed: () -> Unit) {
 
     if (!refreshToken.isNullOrBlank()) {
         val remote: LoginService by inject(LoginService::class.java)
-        val uuid = retrieveDeviceID(context)
-        val userId = retrieveUserID(context)
 
         runBlocking {
-            remote.refreshToken(RefreshTokenAPIBody(userId, uuid, refreshToken)).body()?.let {
-                val authenticationInformation = it.data.toObject<AuthenticationInformation>()
-
-                authenticationInformation?.let { authenticationInformation ->
+            remote.refreshToken(
+                client_id = SSparkLibrary.clientId,
+                client_secret = SSparkLibrary.clientSecret,
+                refreshToken = refreshToken,
+                grant_type = GrantType.REFRESH_TOKEN.type
+            ).body()?.let {authenticationInformation ->
                     saveAuthenticationInformation(context, authenticationInformation)
                     onTokenRefreshed()
-                } ?: {
-                    logout(context)
-                }
+            } ?: {
+                logout(context)
             }
         }
     } else {

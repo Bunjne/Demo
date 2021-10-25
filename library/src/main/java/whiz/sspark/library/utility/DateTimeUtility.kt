@@ -30,3 +30,11 @@ fun getLatestUpdatedDateTime(context: Context, date: Date): String {
     }
     return context.resources.getString(R.string.screen_header_subtitle, dateTimeFormat)
 }
+
+fun convertToLocalizeYear(year: Int): String {
+    return if (isThaiLanguage()) {
+        (year + 543).toString()
+    } else {
+        year.toString()
+    }
+}

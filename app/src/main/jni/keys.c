@@ -55,9 +55,9 @@ Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getApiBaseURL(JNIEnv *env, jobj
     const char * keyCPPString = (*env)->GetStringUTFChars(env, key, NULL);
 
     if (strcmp(debuggingKey, keyCPPString) == 0) {
-        return (*env)->NewStringUTF(env, "https://us-central1-sample-api-4ed08.cloudfunctions.net/api/");
+        return (*env)->NewStringUTF(env, "https://1b49596c-e3ea-44c5-a7f7-a98904e4506f.mock.pstmn.io/");
     } else if (strcmp(releaseKey, keyCPPString) == 0) {
-        return (*env)->NewStringUTF(env, "https://auusparkapi-stg.azurewebsites.net/api/");
+        return (*env)->NewStringUTF(env, "https://auusparkapi-stg.azurewebsites.net/");
     }
 
     return (*env)->NewStringUTF(env, "");
@@ -77,13 +77,26 @@ Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getApiKey(JNIEnv *env, jobject 
 }
 
 JNIEXPORT jstring JNICALL
-Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getApiBaseURLV3(JNIEnv *env, jobject instance, jstring key) {
+Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getClientId(JNIEnv *env, jobject instance, jstring key) {
     const char * keyCPPString = (*env)->GetStringUTFChars(env, key, NULL);
 
     if (strcmp(debuggingKey, keyCPPString) == 0) {
-        return (*env)->NewStringUTF(env, "https://us-central1-sample-api-4ed08.cloudfunctions.net/api/");
+        return (*env)->NewStringUTF(env, "{{client_id}}"); //TODO change when API available
     } else if (strcmp(releaseKey, keyCPPString) == 0) {
-        return (*env)->NewStringUTF(env, "https://auusparkservice-stg.azurewebsites.net/api/");
+        return (*env)->NewStringUTF(env, "{{client_id}}"); //TODO change when API available
+    }
+
+    return (*env)->NewStringUTF(env, "");
+}
+
+JNIEXPORT jstring JNICALL
+Java_whiz_tss_sspark_s_1spark_1android_SSparkApp_getClientSecret(JNIEnv *env, jobject instance, jstring key) {
+    const char * keyCPPString = (*env)->GetStringUTFChars(env, key, NULL);
+
+    if (strcmp(debuggingKey, keyCPPString) == 0) {
+        return (*env)->NewStringUTF(env, "{{client_secret}}"); //TODO change when API available
+    } else if (strcmp(releaseKey, keyCPPString) == 0) {
+        return (*env)->NewStringUTF(env, "{{client_secret}}"); //TODO change when API available
     }
 
     return (*env)->NewStringUTF(env, "");

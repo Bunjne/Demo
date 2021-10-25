@@ -1,8 +1,9 @@
 package whiz.tss.sspark.s_spark_android.data.enum
 
 enum class RoleType(val type: String) {
-    SENIOR("Senior"),
-    JUNIOR("Junior"),
-    INSTRUCTOR("I"),
-    GUARDIAN("G")
+    STUDENT_JUNIOR("STUDENT_JUNIORHIGHSCHOOL"),
+    STUDENT_SENIOR("STUDENT_SENIORHIGHSCHOOL"),
+    INSTRUCTOR_JUNIOR("INSTRUCTOR_JUNIOR"),
+    INSTRUCTOR_SENIOR("INSTRUCTOR_SENIOR"),
+    GUARDIAN("GUARDIAN")
 }

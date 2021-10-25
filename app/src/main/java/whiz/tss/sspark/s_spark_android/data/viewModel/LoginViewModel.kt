@@ -28,21 +28,29 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
     val loginErrorResponse: LiveData<ApiResponseX?>
         get() = _loginErrorResponse
 
-    private val _profileResponse = MutableLiveData<Student>()
-    val profileResponse: LiveData<Student>
-        get() = _profileResponse
+    private val _studentProfileResponse = MutableLiveData<Student>()
+    val studentProfileResponse: LiveData<Student>
+        get() = _studentProfileResponse
 
-    private val _profileErrorResponse = MutableLiveData<ApiResponseX?>()
-    val profileErrorResponse: LiveData<ApiResponseX?>
-        get() = _profileErrorResponse
+    private val _studentProfileErrorResponse = MutableLiveData<ApiResponseX?>()
+    val studentProfileErrorResponse: LiveData<ApiResponseX?>
+        get() = _studentProfileErrorResponse
+
+    private val _instructorProfileResponse = MutableLiveData<Instructor>()
+    val instructorProfileResponse: LiveData<Instructor>
+        get() = _instructorProfileResponse
+
+    private val _instructorProfileErrorResponse = MutableLiveData<ApiResponseX?>()
+    val instructorProfileErrorResponse: LiveData<ApiResponseX?>
+        get() = _instructorProfileErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun login(username: String, password: String, uuid: String, operatorName: String) {
+    fun login(username: String, password: String) {
         viewModelScope.launch {
-            loginRepository.login(username, password, uuid, operatorName)
+            loginRepository.login(username, password)
                 .onStart { _viewLoading.value = true }
                 .onCompletion { _viewLoading.value = false }
                 .catch {
@@ -72,9 +80,29 @@ class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
                     val data = it.data
 
                     data?.let {
-                        _profileResponse.value = it
+                        _studentProfileResponse.value = it
                     } ?: run {
-                        _profileErrorResponse.value = it.error
+                        _studentProfileErrorResponse.value = it.error
+                    }
+                }
+        }
+    }
+
+    fun getInstructorProfile() {
+        viewModelScope.launch {
+            profileRepository.getInstructorProfile()
+                .onStart { _viewLoading.value = true }
+                .onCompletion { _viewLoading.value = false }
+                .catch {
+                    _errorMessage.value = it.localizedMessage
+                }
+                .collect {
+                    val data = it.data
+
+                    data?.let {
+                        _instructorProfileResponse.value = it
+                    } ?: run {
+                        _instructorProfileErrorResponse.value = it.error
                     }
                 }
         }

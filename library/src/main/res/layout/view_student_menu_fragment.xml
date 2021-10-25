@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewBasePrimaryColor">
+
+    <View
+        android:id="@+id/vGradientTop"
+        android:layout_width="0dp"
+        android:layout_height="94dp"
+        android:background="@drawable/bg_primary_gradient_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vTranslation"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlMenu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vTranslation">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMenu"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vTranslation" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="24dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                app:civ_border_color="@color/viewBaseThirdColor"
+                app:civ_border_width="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <com.sinaseyfi.advancedcardview.AdvancedCardView
+                android:id="@+id/cvCamera"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="64dp"
+                app:background_Color="@color/shadowColor"
+                app:cornerRadius="18dp"
+                app:layout_constraintStart_toStartOf="@+id/ivProfile"
+                app:layout_constraintTop_toTopOf="@+id/ivProfile"
+                app:shadow0_Outer_Alpha="1"
+                app:shadow0_Outer_Blur="30dp"
+                app:shadow0_Outer_Color="@color/shadowColor"
+                app:shadow_Outer_Area="2dp">
+
+                <ImageView
+                    android:id="@+id/ivCamera"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    tools:src="@drawable/ic_camera" />
+
+            </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvFirstname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:maxLines="1"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvLastname"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:ssparkFont="bold"
+                tools:text="POOM" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvLastname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:maxLines="1"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvIDCardNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintTop_toBottomOf="@+id/tvFirstname"
+                app:ssparkFont="regular"
+                tools:text="PENGHIRAN" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvIDCardNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/textBaseThirdColor"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivProfile"
+                app:layout_constraintVertical_bias="1"
+                app:ssparkFont="regular"
+                tools:text="รหัสประจำตัว 6319006018" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

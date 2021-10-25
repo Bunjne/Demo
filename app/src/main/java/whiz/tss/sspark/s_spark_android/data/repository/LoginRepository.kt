@@ -5,31 +5,40 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import whiz.sspark.library.SSparkLibrary
+import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.AuthenticationInformation
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.LoginAPIBody
-import whiz.sspark.library.data.entity.RefreshTokenAPIBody
+import whiz.sspark.library.data.enum.DataSource
 import whiz.sspark.library.utility.NetworkManager
-import whiz.sspark.library.utility.fetchX
-import whiz.sspark.library.utility.transformToDataWrapperX
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.data.dataSource.remote.service.LoginService
+import whiz.tss.sspark.s_spark_android.data.enum.GrantType
 
 interface LoginRepository {
-    suspend fun login(username: String, password: String, uuid: String, operator: String): Flow<DataWrapperX<AuthenticationInformation>>
-    suspend fun refreshToken(userId: String, uuid: String, refreshToken: String): Flow<DataWrapperX<AuthenticationInformation>>
+    suspend fun login(username: String, password: String): Flow<DataWrapperX<AuthenticationInformation>>
+    suspend fun refreshToken(refreshToken: String): Flow<DataWrapperX<AuthenticationInformation>>
 }
 
 class LoginRepositoryImpl(private val context: Context,
                           private val remote: LoginService): LoginRepository {
-    override suspend fun login(username: String, password: String, uuid: String, operator: String): Flow<DataWrapperX<AuthenticationInformation>> {
+    override suspend fun login(username: String, password: String): Flow<DataWrapperX<AuthenticationInformation>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getLogin(LoginAPIBody(username, password, uuid, operator))
+                    val response = remote.getLogin(
+                        client_id = SSparkLibrary.clientId,
+                        client_secret = SSparkLibrary.clientSecret,
+                        username = username,
+                        password = password,
+                        grant_type = GrantType.LOGIN.type
+                    )
 
-                    val dataWrapperX = transformToDataWrapperX<AuthenticationInformation>(response)
-                    emit(dataWrapperX)
+                    emit(DataWrapperX(
+                        data = response.body(),
+                        error = ApiResponseX(statusCode = response.code()),
+                        dataSource = DataSource.NETWORK
+                    ))
                 } catch (e: Exception) {
                     throw e
                 }
@@ -39,14 +48,24 @@ class LoginRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun refreshToken(userId: String, uuid: String, refreshToken: String): Flow<DataWrapperX<AuthenticationInformation>> {
+    override suspend fun refreshToken(refreshToken: String): Flow<DataWrapperX<AuthenticationInformation>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.refreshToken(RefreshTokenAPIBody(userId, uuid, refreshToken))
+                    val response = remote.refreshToken(
+                        client_id = SSparkLibrary.clientId,
+                        client_secret = SSparkLibrary.clientSecret,
+                        refreshToken = refreshToken,
+                        grant_type = GrantType.REFRESH_TOKEN.type
+                    )
+
                     when {
                         response.isSuccessful -> {
-                            fetchX<AuthenticationInformation>(response)
+                            emit(DataWrapperX(
+                                data = response.body(),
+                                error = ApiResponseX(statusCode = response.code()),
+                                dataSource = DataSource.NETWORK
+                            ))
                         }
                         else -> throw Exception(response.toString())
                     }

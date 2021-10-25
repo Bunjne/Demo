@@ -14,9 +14,14 @@
     <string name="menu_junior_segment_instructor_text">อาจารย์ประจำชั้น</string>
     <string name="menu_senior_segment_instructor_text">อาจารย์ที่ปรึกษา</string>
     <string name="menu_segment_guardian_text">ผู้ปกครอง</string>
+    <string name="menu_widget_notification_inbox_text">กล่องข้อความ</string>
+    <string name="menu_widget_advising_text">ปรึกษาอาจารย์</string>
+    <string name="menu_widget_grade_summary_text">ผลการเรียน</string>
 
     <!--general-->
     <string name="general_back_text">ย้อนกลับ</string>
+    <string name="general_confirm_to_delete_text">ยืนยันการลบ</string>
+    <string name="general_delete_text">ลบ</string>
 
     <!--Learning outcome-->
     <string-array name="junior_school_record_segment">
@@ -33,4 +38,73 @@
 
     <!-- Image -->
     <string name="image_transition_name" translatable="false">image_transition</string>
+
+    <!--Expect outcome info-->
+    <string name="school_record_beginning_text">Beginning</string>
+    <string name="school_record_developing_text">Developing</string>
+    <string name="school_record_proficient_text">Proficient</string>
+    <string name="school_record_advance_text">Advanced</string>
+    <string name="school_record_beginning_description_text">เริ่มต้น</string>
+    <string name="school_record_developing_description_text">กำลังพัฒนา</string>
+    <string name="school_record_proficient_description_text">อยู่ในระดับที่ทำได้ดี</string>
+    <string name="school_record_advance_description_text">อยู่ในระดับที่ทำได้ดีมาก</string>
+    <string name="school_record_zero_score_description_text">ไม่สามารถประเมินได้</string>
+    <string name="school_record_one_score_description_text">จำเป็นต้องได้รับการพัฒนาอย่างยิ่ง</string>
+    <string name="school_record_two_score_description_text">กำลังพัฒนา</string>
+    <string name="school_record_three_score_description_text">อยู่ในระดับที่ทำได้</string>
+    <string name="school_record_four_score_description_text">อยู่ในระดับที่ทำได้ดี</string>
+    <string name="school_record_five_score_description_text">อยู่ในระดับที่ทำได้ดีมาก</string>
+
+    <string-array name="school_record_senior_indicator">
+        <item>Beginning</item>
+        <item>Developing</item>
+        <item>Proficient</item>
+        <item>Advanced</item>
+    </string-array>
+
+    <string-array name="school_record_junior_indicator">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <!--School record-->
+    <string name="school_record_title">ผลการเรียน ม.%1$s</string>
+    <string name="school_record_term">%1$s/%2$s</string>
+
+    <!--Class Schedule-->
+    <string name="class_schedule_no_class">ไม่มีวิชาเรียน</string>
+
+    <!--Exam Schedule-->
+    <string name="class_schedule_no_exam">ไม่มีตารางสอบ</string>
+
+    <string-array name="exam_schedule_segment">
+        <item>กลางภาค</item>
+        <item>ปลายภาค</item>
+    </string-array>
+
+    <!--Calendar-->
+    <string name="calendar_no_event">ไม่มีกิจกรรม</string>
+    <string name="calendar_no_calendar">ไม่มีปฏิทิน</string>
+
+    <!--Advisee list-->
+    <string name="advisee_list_no_advisee">ไม่มีนักเรียน</string>
+    <string-array name="advisee_list_segment">
+        <item>ทั้งหมด</item>
+        <item>ม.4</item>
+        <item>ม.5</item>
+        <item>ม.6</item>
+    </string-array>
+
+    <!--Course syllabus-->
+    <string name="course_syllabus_description_text">คำอธิบายรายวิชา</string>
+    <string name="course_syllabus_expect_outcome_text">ผลการเรียนรู้ที่คาดหวัง</string>
+    <string name="course_syllabus_week">สัปดาห์ที่ %1$s</string>
+    <string-array name="course_syllabus_segment">
+        <item>รายละเอียดวิชา</item>
+        <item>กำหนดการ</item>
+    </string-array>
 </resources>
