@@ -203,11 +203,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                 addAll(
                     students.map { student ->
                         with(student) {
-                            val title = if (SSparkApp.role.type == RoleType.STUDENT_SENIOR.type) {
-                                resources.getString(R.string.like_by_seen_by_name_with_rank, code, nickname)
-                            } else {
-                                resources.getString(R.string.like_by_seen_by_name_with_rank, number.toString(), nickname)
-                            }
+                            val title = resources.getString(R.string.like_by_seen_by_name_with_rank, number ?: code, nickname)
 
                             LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
                                 student = LikeBySeenByMember(
