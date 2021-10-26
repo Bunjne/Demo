@@ -19,6 +19,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityAdviseeMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.AdviseeClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.school_record.AdviseeSchoolRecordActivity
 
 class AdviseeMenuActivity : BaseActivity() {
@@ -85,6 +86,14 @@ class AdviseeMenuActivity : BaseActivity() {
                     MenuCode.LEARNING_OUTCOME.code -> {
                         val intent = Intent(this, AdviseeSchoolRecordActivity::class.java).apply {
                             putExtra("student", student?.toJson())
+                        }
+                        startActivity(intent)
+                    }
+
+                    MenuCode.ADVISEE_CLASS_SCHEDULE.code -> {
+                        val intent = Intent(this, AdviseeClassScheduleActivity::class.java).apply {
+                            putExtra("student", student?.toJson())
+                            putExtra("title", title)
                         }
                         startActivity(intent)
                     }

@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.WeekSelection
 import whiz.sspark.library.databinding.ViewClassScheduleActivityBinding
@@ -31,12 +33,14 @@ class ClassScheduleActivityView: ConstraintLayout {
     private var classScheduleAdapter: ClassScheduleAdapter? = null
 
     fun init(term: String,
+             title: String,
              onTermClicked: () -> Unit,
              onAllClassesClicked: () -> Unit,
              onPreviousWeekClicked: () -> Unit,
              onNextWeekClicked: () -> Unit,
              onRefresh: () -> Unit) {
         binding.tvTerm.text = term
+        binding.tvTitle.text = title
         binding.ivDropdown.show(R.drawable.ic_dropdown)
 
         with(binding.ivAllClasses) {
@@ -93,6 +97,11 @@ class ClassScheduleActivityView: ConstraintLayout {
         }
     }
 
+    fun showAdviseeProfile(advisee: Advisee) {
+        binding.vAdviseeProfile.isVisible = true
+        binding.vAdviseeProfile.init(advisee = advisee)
+    }
+    
     fun setSwipeRefreshLayout(isLoading: Boolean) {
         binding.srlContainer.isRefreshing = isLoading == true
     }

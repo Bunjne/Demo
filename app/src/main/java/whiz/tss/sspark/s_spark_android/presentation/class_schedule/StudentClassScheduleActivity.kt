@@ -22,22 +22,26 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.ClassScheduleAllClassBottomSheetDialog
 import java.util.*
 
-class StudentClassScheduleActivity : BaseActivity() {
+open class StudentClassScheduleActivity : BaseActivity() {
 
     companion object {
         private const val ALL_CLASS_DIALOG = "AllClassDialog"
     }
 
-    private val viewModel: StudentClassScheduleViewModel by viewModel()
+    protected open val viewModel: StudentClassScheduleViewModel by viewModel()
 
-    private lateinit var binding: ActivityClassScheduleBinding
-    private lateinit var currentTerm: Term
+    protected lateinit var binding: ActivityClassScheduleBinding
+    protected open lateinit var currentTerm: Term
+
+    protected open val title: String by lazy {
+        resources.getString(R.string.class_schedule_title)
+    }
 
     private var popupMenu: PopupMenu? = null
 
     private var dataWrapperX: DataWrapperX<Any>? = null
     private var weeks = listOf<WeekOfYear>()
-    private var terms = listOf<Term>()
+    protected open var terms = listOf<Term>()
     private var selectedWeekId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +68,12 @@ class StudentClassScheduleActivity : BaseActivity() {
             initView()
             getClassSchedule()
             updateSelectedWeek()
-            viewModel.getTerms()
+            getTerms()
         }
+    }
+
+    protected open fun getTerms() {
+        viewModel.getTerms()
     }
 
     private fun getInitialTerm() {
@@ -83,6 +91,7 @@ class StudentClassScheduleActivity : BaseActivity() {
     override fun initView() {
         binding.vClassSchedule.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
+            title = title,
             onTermClicked = {
                 popupMenu?.show()
             },
@@ -117,7 +126,7 @@ class StudentClassScheduleActivity : BaseActivity() {
                     getClassSchedule()
                     updateSelectedWeek()
                 }
-            },
+            }
         )
     }
 
