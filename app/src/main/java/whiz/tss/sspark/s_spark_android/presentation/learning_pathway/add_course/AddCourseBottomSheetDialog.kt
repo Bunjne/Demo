@@ -123,7 +123,7 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
             minCredit = minCredit,
             maxCredit = maxCredit,
             onAddClicked = { courseId ->
-                listener?.onAddCourseClicked(term.id, courseId)
+                listener?.onAddCourseClicked(term.term, term.academicGrade ?: 0, courseId)
                 dismiss()
             },
             onSearch = {
@@ -212,6 +212,6 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     interface OnClickListener {
-        fun onAddCourseClicked(termId: String, courseId: String)
+        fun onAddCourseClicked(term: Int, academicGrade: Int, courseId: String)
     }
 }
