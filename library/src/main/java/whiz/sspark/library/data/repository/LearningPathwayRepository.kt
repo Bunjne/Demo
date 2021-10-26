@@ -13,8 +13,8 @@ import whiz.sspark.library.utility.fetchX
 
 interface LearningPathwayRepository {
     suspend fun getLearningPathway(): Flow<DataWrapperX<List<LearningPathwayDTO>>>
-    suspend fun addCourse(termId: String, courseId: String): Flow<DataWrapperX<String>>
-    suspend fun deleteCourse(termId: String, courseId: String): Flow<DataWrapperX<String>>
+    suspend fun addCourse(term: Int, academicGrade: Int, courseId: String): Flow<DataWrapperX<String>>
+    suspend fun deleteCourse(term: Int, academicGrade: Int, courseId: String): Flow<DataWrapperX<String>>
 }
 
 class LearningPathwayRepositoryImpl(private val context: Context,
@@ -34,11 +34,11 @@ class LearningPathwayRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun addCourse(termId: String, courseId: String): Flow<DataWrapperX<String>> {
+    override suspend fun addCourse(term: Int, academicGrade: Int, courseId: String): Flow<DataWrapperX<String>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.addCourse(LearningPathwayAddCourseAPIBody(termId, courseId))
+                    val response = remote.addCourse(LearningPathwayCourseAPIBody(term, academicGrade, courseId))
                     fetchX<String>(response)
                 } catch (e: Exception) {
                     throw e
@@ -49,11 +49,11 @@ class LearningPathwayRepositoryImpl(private val context: Context,
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun deleteCourse(termId: String, courseId: String): Flow<DataWrapperX<String>> {
+    override suspend fun deleteCourse(term: Int, academicGrade: Int, courseId: String): Flow<DataWrapperX<String>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.deleteCourse(termId, courseId)
+                    val response = remote.deleteCourse(LearningPathwayCourseAPIBody(term, academicGrade, courseId))
                     fetchX<String>(response)
                 } catch (e: Exception) {
                     throw e
