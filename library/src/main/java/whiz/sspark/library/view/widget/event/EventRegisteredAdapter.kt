@@ -3,13 +3,17 @@ package whiz.sspark.library.view.widget.event
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.EventList
+import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 import whiz.sspark.library.view.widget.event.item.EventRegisteredEventItemView
 
 class EventRegisteredAdapter(private val context: Context,
-                             private val items: List<EventRegisteredAdapterViewType>): RecyclerView.Adapter<EventRegisteredAdapter.ViewHolder>() {
+                             private val items: List<EventRegisteredAdapterViewType>,
+                             private val onEventClicked: (String, String) -> Unit): RecyclerView.Adapter<EventRegisteredAdapter.ViewHolder>() {
 
     companion object {
         const val TITLE_TYPE = 1
@@ -36,17 +40,19 @@ class EventRegisteredAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items.getOrNull(position)
-        val isNextItemTitle = getItemViewType(position + 1) == TITLE_TYPE
-        val isPreviousItemTitle = getItemViewType(position - 1) == TITLE_TYPE
-
         item?.let {
             with (holder.itemView) {
                 when {
                     this is ItemListTitleView && item is EventRegisteredAdapterViewType.Header -> {
                         init(item.title)
+
+                        if (position != 0) {
+                            setPadding(0, 14.toDP(context), 0,4.toDP(context))
+                        }
                     }
                     this is EventRegisteredEventItemView && item is EventRegisteredAdapterViewType.Event -> {
-                        init(item.event)
+                        init(item.event, onEventClicked)
+                        setPadding(6.toDP(context), 0, 6.toDP(context),0)
                     }
                 }
             }
