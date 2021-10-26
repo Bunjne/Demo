@@ -12,13 +12,13 @@ import whiz.sspark.library.data.entity.LikeBySeenByMember
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.enum.PostInteraction
 import whiz.sspark.library.data.viewModel.LikeBySeenByViewModel
+import whiz.sspark.library.extension.getFirstConsonant
 import whiz.sspark.library.extension.toColor
+import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.interaction.LikeBySeenByItemAdapter
 import whiz.tss.sspark.s_spark_android.R
-import whiz.tss.sspark.s_spark_android.SSparkApp
-import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.DialogLikeBySeenByBinding
 
 class LikeBySeenByDialogFragment : DialogFragment() {
@@ -183,7 +183,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                                 instructor = LikeBySeenByMember(
                                     profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
-                                    fullName = fullName,
+                                    fullName = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}."),
                                     jobDescription = jobDescription,
                                     gender = gender
                                 )
@@ -210,7 +210,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                                     title = title,
                                     profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
-                                    fullName = fullName,
+                                    fullName = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}."),
                                     gender = gender
                                 )
                             )
