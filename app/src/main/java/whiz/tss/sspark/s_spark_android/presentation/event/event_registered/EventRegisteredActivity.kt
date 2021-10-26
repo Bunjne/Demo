@@ -33,11 +33,11 @@ class EventRegisteredActivity : BaseActivity() {
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
-            initView()
-        } else {
-            initView()
-            viewModel.getRegisteredEvents()
         }
+
+        initView()
+
+        viewModel.getRegisteredEvents()
     }
 
     override fun initView() {
