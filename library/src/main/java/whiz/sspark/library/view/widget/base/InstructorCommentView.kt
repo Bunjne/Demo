@@ -24,7 +24,6 @@ class InstructorCommentView: ConstraintLayout {
             binding.ivProfile.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvName.text = name
             binding.tvComment.text = comment
-            binding.tvCreatedAt.text = createdAt.toPostTime(context)
         }
     }
 }

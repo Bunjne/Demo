@@ -14,25 +14,25 @@ import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.repository.ActivityRecordRepositoryImpl
 
-class ActivityRecordViewModel(private val activityRecordRepositoryImpl: ActivityRecordRepositoryImpl): ViewModel() {
+open class ActivityRecordViewModel(private val activityRecordRepositoryImpl: ActivityRecordRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
+    protected val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _activityRecordResponse = MutableLiveData<List<ActivityDTO>>()
+    protected val _activityRecordResponse = MutableLiveData<List<ActivityDTO>>()
     val activityRecordResponse: LiveData<List<ActivityDTO>>
         get() = _activityRecordResponse
 
-    private val _activityRecordErrorResponse = MutableLiveData<ApiResponseX?>()
+    protected val _activityRecordErrorResponse = MutableLiveData<ApiResponseX?>()
     val activityRecordErrorResponse: LiveData<ApiResponseX?>
         get() = _activityRecordErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
+    protected val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 

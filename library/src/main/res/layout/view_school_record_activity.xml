@@ -120,14 +120,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                 tools:text="ผลการเรียน ม.3" />
 
+            <whiz.sspark.library.view.widget.base.AdviseeProfileView
+                android:id="@+id/vAdviseeProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLatestUpdated" />
+
             <whiz.sspark.library.view.general.segment.SegmentTabView
                 android:id="@+id/vSegment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLatestUpdated" />
+                app:layout_constraintTop_toBottomOf="@+id/vAdviseeProfile" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

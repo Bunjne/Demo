@@ -1,16 +1,15 @@
 package whiz.sspark.library.view.widget.collaboration.class_member
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassMemberStudentBinding
 import whiz.sspark.library.extension.getFirstConsonant
-import whiz.sspark.library.extension.showClassMemberProfileCircle
+import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.utility.convertToFullName
 
 class ClassMemberStudentView : ConstraintLayout {
@@ -24,18 +23,12 @@ class ClassMemberStudentView : ConstraintLayout {
 
     fun init(member: ClassMember, isSelf: Boolean) {
         with (member) {
-            val color = if (colorCode.isNullOrBlank()) {
-                Color.BLACK
-            } else {
-                colorCode.toColorInt()
-            }
+            binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
-            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
-
-            binding.tvNickname.text = if (number.isNullOrBlank()) {
-                resources.getString(R.string.class_member_number_place_holder, code, nickname)
-            } else {
+            binding.tvNickname.text = if (number != null) {
                 resources.getString(R.string.class_member_number_place_holder, number, nickname)
+            } else {
+                resources.getString(R.string.class_member_number_place_holder, code, nickname)
             }
 
             binding.tvName.text = if (isSelf) {

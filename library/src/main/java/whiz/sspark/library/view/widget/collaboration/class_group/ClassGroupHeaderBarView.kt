@@ -19,8 +19,7 @@ class ClassGroupHeaderBarView : ConstraintLayout {
 
     fun init(title: String,
              iconUrl: String,
-             startColor: Int,
-             endColor: Int) {
+             gradientColor: IntArray) {
         binding.tvClassGroupTitle.text = title
 
         if (iconUrl.isBlank()) {
@@ -30,7 +29,7 @@ class ClassGroupHeaderBarView : ConstraintLayout {
             binding.ivClassGroupIcon.show(iconUrl)
         }
 
-        binding.cvHeaderBar.background_Gradient_Colors = intArrayOf(startColor, endColor)
+        binding.cvHeaderBar.background_Gradient_Colors = gradientColor
         binding.cvHeaderBar.invalidate()
     }
 }

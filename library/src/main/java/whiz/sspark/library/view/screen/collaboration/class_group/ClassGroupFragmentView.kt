@@ -42,7 +42,6 @@ class ClassGroupFragmentView : ConstraintLayout {
         binding.ivSchoolLogo.show(schoolLogoUrl)
 
         binding.srlClassGroup.setOnRefreshListener {
-            clearData(items)
             onRefresh()
         }
 
@@ -76,7 +75,7 @@ class ClassGroupFragmentView : ConstraintLayout {
 
         binding.rvClassGroup.adapter?.updateItem(items, newItems)
 
-        if (newItems.isEmpty()) {
+        if (newItems.size == 1) {
             setNoClassGroupVisibility(true)
         } else {
             setNoClassGroupVisibility(false)
@@ -89,11 +88,5 @@ class ClassGroupFragmentView : ConstraintLayout {
         } else {
             binding.tvNoClassGroup.visibility = View.INVISIBLE
         }
-    }
-
-    private fun clearData(items: MutableList<ClassGroupAdapter.Item>) {
-        items.removeAll { it.navigationBarItems == null }
-
-        binding.rvClassGroup.adapter?.notifyDataSetChanged()
     }
 }

@@ -4,6 +4,7 @@
     <string name="general_text_ok">ตกลง</string>
     <string name="general_text_retry">ลองอีกครั้ง</string>
     <string name="general_text_cancel">ยกเลิก</string>
+    <string name="general_text_close">ปิด</string>
     <string name="general_text_discard">ละทิ้ง</string>
     <string name="general_text_today">วันนี้</string>
 
@@ -26,6 +27,7 @@
     <string name="general_room">ห้องพัก %1$s</string>
     <string name="general_triple_text_format">%1$s %2$s %3$s</string>
     <string name="general_credit">%1$s หน่วยกิต</string>
+    <string name="general_code_and_nickname_placeholder">#%1$s %2$s</string>
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_add_text">เพิ่ม</string>
@@ -47,6 +49,7 @@
     <string name="update_just_now">สักครู่นี้</string>
     <string name="date_time_just_now">เมื่อสักครู่นี้</string>
     <string name="date_time_post_at">เวลา</string>
+    <string name="date_time_place_holder">%1$s น.</string>
 
     <plurals name="date_time_hour_ago">
         <item quantity="one">%1$d ชั่วโมงที่แล้ว</item>
@@ -164,8 +167,7 @@
     <string name="class_attendance_present">มาเรียน</string>
     <string name="class_attendance_absent">ขาด</string>
     <string name="class_attendance_leave">ลา</string>
-    <string name="class_attendance_late">เข้าร่วมช้า</string>
-    <string name="class_attendance_item_late">มาสาย</string>
+    <string name="class_attendance_late">สาย</string>
     <string name="class_attendance_no_record">ไม่มีบันทึก</string>
     <string name="class_attendance_class_check_date_place_holder">%1$s %2$s น.</string>
 
@@ -175,6 +177,7 @@
     <string name="class_group_navigation_item_advisory_title">Advisory</string>
     <string name="class_group_navigation_item_homeroom_title">Homeroom</string>
     <string name="class_group_navigation_item_assignment_title">Assignment</string>
+    <string name="class_group_navigation_item_guardians_title">ผู้ปกครอง</string>
     <string name="class_group_navigation_item_class_schedule_title">ตารางเรียน</string>
     <string name="class_group_navigation_item_examination_title">ตารางสอบ</string>
     <string name="class_group_other_instructor_count_place_holder">+%1d</string>
@@ -184,10 +187,12 @@
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
     <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
     <string name="learning_pathway_required_course_count">+ %1$s วิชาบังคับ</string>
+    <string name="learning_pathway_concentrate_course_count">%1$s วิชาเฉพาะทาง</string>
     <string name="learning_pathway_no_course_text">ไม่มีแผนการเรียน</string>
     <string name="learning_pathway_required_course_text">วิชาบังคับ</string>
     <string name="learning_pathway_add_course_text">เพิ่มวิชา</string>
     <string name="learning_pathway_add_course_preview_credit">%1$s หน่วยกิต (ต่ำสุด = %2$s, สูงสุด = %3$s)</string>
+    <string name="learning_pathway_term_credit">ต่ำสุด = %1$s หน่วยกิต, สูงสุด = %2$s หน่วยกิต</string>
 
     <!--Class Schedule-->
     <string name="class_schedule_title">ตารางเรียน</string>
@@ -195,6 +200,9 @@
     <string name="class_schedule_range">%1$s - %2$s</string>
     <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
     <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
+    <string name="class_schedule_all_class_title">วิชาทั้งหมด</string>
+    <string name="class_schedule_term">ภาคเรียนที่ %1$s/%2$s</string>
+    <string name="class_schedule_no_class">ไม่มีวิชา</string>
 
     <!--information dialog-->
     <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
@@ -218,4 +226,7 @@
     <!-- Notification Inbox -->
     <string name="notification_inbox_created_at">%1$s น.</string>
     <string name="notification_inbox_text">กล่องข้อความ</string>
+
+    <!--Course Syllabus-->
+    <string name="course_syllabus_no_plan">ไม่มีแผนการสอน</string>
 </resources>

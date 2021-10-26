@@ -1,17 +1,16 @@
 package whiz.sspark.library.view.widget.homeroom.member
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewHomeroomMemberInstructorBinding
 import whiz.sspark.library.extension.show
-import whiz.sspark.library.extension.showClassMemberProfileCircle
+import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.utility.convertToFullName
 
 class HomeroomMemberInstructorView : ConstraintLayout {
@@ -28,14 +27,11 @@ class HomeroomMemberInstructorView : ConstraintLayout {
              onChatMemberClicked: (ClassMember) -> Unit) {
         binding.ivChat.show(R.drawable.ic_chat)
 
-        with (member) {
-            val color = if (colorCode.isNullOrBlank()) {
-                Color.BLACK
-            } else {
-                colorCode.toColorInt()
-            }
-
-            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
+        with(member) {
+            binding.cvProfileImage.showProfile(
+                imageUrl = imageUrl,
+                gender = getGender(gender).type
+            )
 
             binding.tvName.text = convertToFullName(firstName, middleName, lastName, position)
             binding.tvDetail.text = jobPosition

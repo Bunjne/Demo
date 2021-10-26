@@ -8,12 +8,18 @@ val repositoryModule = module {
     factory { AbilityRepositoryImpl(androidContext(), get()) }
     factory { ActivityRecordRepositoryImpl(androidContext(), get()) }
     factory { AddCourseRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeAbilityRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeActivityRecordRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeExpectOutcomeRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeLearningOutcomeRepositoryImpl(androidContext(), get()) }
     factory { AdviseeListRepositoryImpl(androidContext(), get()) }
     factory { AdviseeMenuRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeSchoolRecordRepositoryImpl(androidContext(), get()) }
     factory { CalendarRepositoryImpl(androidContext(), get()) }
     factory { ClassGroupRepositoryImpl(androidContext(), get()) }
     factory { ClassMemberRepositoryImpl(androidContext(), get(), get()) }
     factory { ClassPostCommentRepositoryImpl(androidContext(), get(), get()) }
+    factory { CourseSyllabusRepositoryImpl(androidContext(), get()) }
     factory { ExpectOutcomeRepositoryImpl(androidContext(), get()) }
     factory { HappeningsRepositoryImpl(androidContext(), get(), get()) }
     factory { InstructorClassActivityRepositoryImpl(androidContext(), get()) }
@@ -22,6 +28,7 @@ val repositoryModule = module {
     factory { LearningPathwayRepositoryImpl(androidContext(), get()) }
     factory { NotificationInboxRepositoryImpl(androidContext(), get()) }
     factory { SchoolRecordRepositoryImpl(androidContext(), get()) }
+    factory { StudentAllClassRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
     factory { StudentClassAttendanceRepositoryImpl(androidContext(), get()) }
     factory { StudentClassScheduleRepositoryImpl(androidContext(), get()) }

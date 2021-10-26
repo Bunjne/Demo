@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/vTranslation"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:translationY="12dp"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vTranslation"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="10dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="12dp">
+
+        <com.sinaseyfi.advancedcardview.AdvancedCardView
+            android:id="@+id/cvCourseBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            app:background_Color="@color/viewBaseThirdColor"
+            app:cornerRadius_TopLeft="12dp"
+            app:cornerRadius_TopRight="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvCourseCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="13dp"
+                app:layout_constrainedWidth="true"
+                app:ssparkFont="bold"
+                tools:text="AC007" />
+
+        </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

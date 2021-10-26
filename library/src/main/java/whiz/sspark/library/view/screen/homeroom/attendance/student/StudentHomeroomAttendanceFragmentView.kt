@@ -7,6 +7,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.data.entity.Attendance
+import whiz.sspark.library.data.entity.AttendanceSummary
 import whiz.sspark.library.databinding.ViewStudentClassAttendanceFragmentBinding
 import whiz.sspark.library.view.widget.collaboration.class_attendance.ClassAttendanceAdapter
 
@@ -27,18 +28,20 @@ class StudentHomeroomAttendanceFragmentView : ConstraintLayout {
         binding.vSummary.init()
     }
 
-    fun renderAttendance(attendance: Attendance) {
-        binding.vSummary.renderSummaryAttendance(attendance)
+    fun renderAttendanceSummary(attendanceSummary: AttendanceSummary) {
+        binding.vSummary.renderSummaryAttendance(attendanceSummary)
+    }
 
+    fun renderAttendance(attendance: Attendance) {
         with (binding.rvAttendance) {
             layoutManager = LinearLayoutManager(context)
             adapter = ClassAttendanceAdapter(
                 context = context,
-                attendanceClasses = attendance.classes
+                attendanceDetails = attendance.attendanceDetails
             )
         }
 
-        if (attendance.classes.isNotEmpty()) {
+        if (attendance.attendanceDetails.isNotEmpty()) {
             setNoAttendanceVisibility(false)
         } else {
             setNoAttendanceVisibility(true)

@@ -1,18 +1,17 @@
 package whiz.sspark.library.view.widget.homeroom.member
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewHomeroomMemberStudentBinding
 import whiz.sspark.library.extension.getFirstConsonant
 import whiz.sspark.library.extension.show
-import whiz.sspark.library.extension.showClassMemberProfileCircle
+import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.utility.convertToFullName
 
 class HomeroomMemberStudentView : ConstraintLayout {
@@ -30,19 +29,16 @@ class HomeroomMemberStudentView : ConstraintLayout {
              onChatMemberClicked: (ClassMember) -> Unit) {
         binding.ivChat.show(R.drawable.ic_chat)
 
-        with (member) {
-            val color = if (colorCode.isNullOrBlank()) {
-                Color.BLACK
-            } else {
-                colorCode.toColorInt()
-            }
+        with(member) {
+            binding.cvProfileImage.showProfile(
+                imageUrl = imageUrl,
+                gender = getGender(gender).type
+            )
 
-            binding.cvProfileImage.showClassMemberProfileCircle(profileImageUrl, abbreviatedName, Color.WHITE, color)
-
-            binding.tvNickname.text = if (number.isNullOrBlank()) {
+            binding.tvNickname.text = if (number == null) {
                 resources.getString(R.string.class_member_number_place_holder, member.code, nickname)
             } else {
-                resources.getString(R.string.class_member_number_place_holder, member.number, nickname)
+                resources.getString(R.string.class_member_number_place_holder, member.number.toString(), nickname)
             }
 
             binding.tvName.text = if (isSelf) {
