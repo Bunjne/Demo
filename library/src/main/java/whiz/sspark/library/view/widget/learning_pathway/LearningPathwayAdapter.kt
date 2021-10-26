@@ -2,14 +2,16 @@ package whiz.sspark.library.view.widget.learning_pathway
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.*
+import whiz.sspark.library.data.entity.Course
+import whiz.sspark.library.data.entity.LearningPathwayCourseItem
+import whiz.sspark.library.data.entity.LearningPathwayHeaderItem
+import whiz.sspark.library.data.entity.Term
 
-class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
+class LearningPathwayAdapter(private val isPlanEditable: Boolean,
+                             private val onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
                              private val onDeleteCourseClicked: (Int, Int, String) -> Unit,
                              private val onShowRequiredCourseClicked: (Term, List<Course>) -> Unit): ListAdapter<LearningPathwayAdapter.Item, RecyclerView.ViewHolder>(LearningPathwayDiffCallback()) {
 
@@ -108,14 +110,14 @@ class LearningPathwayAdapter(private val onAddCourseClicked: (Term, Int, Int, In
                 (holder.itemView as? LearningPathwayCourseCountItemView)?.init(item.courseCount!!)
             }
             COURSE_VIEW_MIDDLE_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseMiddleItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
+                (holder.itemView as? LearningPathwayCourseMiddleItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
             }
             COURSE_VIEW_BOTTOM_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.courseItem!!, onDeleteCourseClicked)
+                (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
             }
             else -> {
                 (holder.itemView as? LearningPathwayHeaderItemView)?.apply {
-                    init(item.header!!, onAddCourseClicked, onShowRequiredCourseClicked)
+                    init(item.header!!, isPlanEditable, onAddCourseClicked, onShowRequiredCourseClicked)
 
                     val isShowBottomCornerRadius = nextItemViewType == HEADER_VIEW_TYPE
                     showBottomCornerRadius(isShowBottomCornerRadius)

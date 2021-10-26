@@ -66,6 +66,9 @@
         <activity
             android:name=".presentation.school_record.AdviseeSchoolRecordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.learning_pathway.AdviseeLearningPathwayActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

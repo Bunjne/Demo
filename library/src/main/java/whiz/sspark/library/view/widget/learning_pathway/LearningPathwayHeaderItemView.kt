@@ -3,6 +3,7 @@ package whiz.sspark.library.view.widget.learning_pathway
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Course
@@ -24,15 +25,21 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
     }
 
     fun init(header: LearningPathwayHeaderItem,
+             isPlanEditable: Boolean,
              onAddClicked: (Term, Int, Int, Int, List<String>) -> Unit,
              onShowRequiredCourseClicked: (Term, List<Course>) -> Unit) {
         binding.ivLock.show(R.drawable.ic_lock)
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
         with(binding.ivAdd) {
-            show(R.drawable.ic_add)
-            setOnClickListener {
-                onAddClicked(header.term, header.currentCredit, header.minCredit, header.maxCredit, header.selectedCourseIds)
+            if (isPlanEditable) {
+                show(R.drawable.ic_add)
+                setOnClickListener {
+                    onAddClicked(header.term, header.currentCredit, header.minCredit, header.maxCredit, header.selectedCourseIds)
+                }
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
             }
         }
 
@@ -40,10 +47,15 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
             binding.tvTerm.text = resources.getString(R.string.learning_pathway_header, getHighSchoolLevel(term.academicGrade).toString(), term.term.toString(), convertToLocalizeYear(term.year))
             binding.tvCredit.text = resources.getString(R.string.general_credit, currentCredit.toString())
             binding.tvMinMaxCredit.text = resources.getString(R.string.learning_pathway_term_credit, minCredit.toString(), maxCredit.toString())
-            binding.tvCourseCount.text = resources.getString(R.string.learning_pathway_required_course_count, requiredCourses.size.toString())
 
-            binding.cvRequiredCourse.setOnClickListener {
-                onShowRequiredCourseClicked(term, requiredCourses)
+            if (requiredCourses.isNotEmpty()) {
+                binding.tvCourseCount.text = resources.getString(R.string.learning_pathway_required_course_count, requiredCourses.size.toString())
+                binding.cvRequiredCourse.setOnClickListener {
+                    onShowRequiredCourseClicked(term, requiredCourses)
+                }
+                binding.cvRequiredCourse.visibility = View.VISIBLE
+            } else {
+                binding.cvRequiredCourse.visibility = View.GONE
             }
         }
     }
