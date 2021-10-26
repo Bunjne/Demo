@@ -17,6 +17,7 @@ import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
+import whiz.sspark.library.view.widget.assignment.AssignmentAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityAssignmentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
@@ -83,8 +84,12 @@ class AssignmentActivity : BaseActivity() {
     }
 
     override fun observeView() {
-        viewModel.viewLoading.observe(this) { isLoading ->
+        viewModel.newAssignmentLoading.observe(this) { isLoading ->
             binding.vAssignment.setSwipeRefreshLayout(isLoading)
+        }
+
+        viewModel.oldAssignmentLoading.observe(this) { isLoading ->
+            binding.vAssignment.setIsLoading(isLoading)
         }
 
         viewModel.viewRendering.observe(this) {
@@ -136,8 +141,17 @@ class AssignmentActivity : BaseActivity() {
     }
 
     private fun updateAdapterItem() {
-        val convertedAssignments = assignments.map { it.convertToAssignment() }
-        binding.vAssignment.updateItem(convertedAssignments)
+        val items = mutableListOf<AssignmentAdapter.AssignmentItem>()
+        val isLastPage = currentPage >= totalPage
+
+        val convertedAssignments = assignments.map { AssignmentAdapter.AssignmentItem.Item(it.convertToAssignment()) }
+        items.addAll(convertedAssignments)
+
+        if (!isLastPage) {
+            items.add(AssignmentAdapter.AssignmentItem.Loading(false))
+        }
+
+        binding.vAssignment.updateItem(items)
     }
 
     private fun checkIsLastPage() {

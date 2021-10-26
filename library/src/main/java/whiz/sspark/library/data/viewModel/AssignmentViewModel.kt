@@ -15,9 +15,13 @@ import whiz.sspark.library.utility.toEventWrapper
 
 class AssignmentViewModel(private val assignmentRepository: AssignmentRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
-    val viewLoading: LiveData<Boolean>
-        get() = _viewLoading
+    private val _newAssignmentLoading = MutableLiveData<Boolean>()
+    val newAssignmentLoading: LiveData<Boolean>
+        get() = _newAssignmentLoading
+
+    private val _oldAssignmentLoading = MutableLiveData<Boolean>()
+    val oldAssignmentLoading: LiveData<Boolean>
+        get() = _oldAssignmentLoading
 
     private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
@@ -44,10 +48,10 @@ class AssignmentViewModel(private val assignmentRepository: AssignmentRepository
             assignmentRepository.getAssignment(termId, page, pageSize)
                 .onStart {
                     _viewRendering.value = null
-                    _viewLoading.value = true
+                    _newAssignmentLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _newAssignmentLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage?.toEventWrapper()
@@ -70,18 +74,15 @@ class AssignmentViewModel(private val assignmentRepository: AssignmentRepository
         viewModelScope.launch {
             assignmentRepository.getAssignment(termId, page, pageSize)
                 .onStart {
-                    _viewRendering.value = null
-                    _viewLoading.value = true
+                    _oldAssignmentLoading.value = true
                 }
                 .onCompletion {
-                    _viewLoading.value = false
+                    _oldAssignmentLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage?.toEventWrapper()
                 }
                 .collect {
-                    _viewRendering.value = it
-
                     val data = it.data
 
                     data?.let {
