@@ -7,8 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.entity.Term
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.SchoolRecordViewModel
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
@@ -16,6 +15,7 @@ import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.getHighSchoolLevel
+import whiz.sspark.library.utility.isPrimaryHighSchool
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivitySchoolRecordBinding
@@ -25,26 +25,26 @@ import whiz.tss.sspark.s_spark_android.presentation.school_record.activity_recor
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.JuniorLearningOutcomeFragment
 import whiz.tss.sspark.s_spark_android.presentation.school_record.learning_outcome.SeniorLearningOutcomeFragment
 
-class SchoolRecordActivity : BaseActivity(),
+open class SchoolRecordActivity : BaseActivity(),
     JuniorLearningOutcomeFragment.OnRefresh,
     SeniorLearningOutcomeFragment.OnRefresh,
     ActivityRecordFragment.OnRefresh,
     AbilityFragment.OnRefresh {
 
     companion object {
-        val LEARNING_OUTCOME_FRAGMENT = 0
-        val ACTIVITY_AND_ABILITY_FRAGMENT = 1
+        const val LEARNING_OUTCOME_FRAGMENT = 0
+        const val ACTIVITY_AND_ABILITY_FRAGMENT = 1
     }
 
-    private val viewModel: SchoolRecordViewModel by viewModel()
+    protected open val viewModel: SchoolRecordViewModel by viewModel()
 
-    private lateinit var binding: ActivitySchoolRecordBinding
+    protected lateinit var binding: ActivitySchoolRecordBinding
     private var popupMenu: PopupMenu? = null
 
-    private var currentSegment = -1
+    protected var currentSegment = -1
     private var savedFragment = -1
 
-    private lateinit var currentTerm: Term
+    protected lateinit var currentTerm: Term
     private var terms: MutableList<Term> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,21 +57,33 @@ class SchoolRecordActivity : BaseActivity(),
             onRestoreInstanceState(savedInstanceState)
             initView()
 
+            if (savedFragment != -1) {
+                binding.vSchoolRecord.setSelectedTab(savedFragment)
+            }
+
             val isTermSelectable = terms.size > 1
             binding.vSchoolRecord.initMultipleTerm(isTermSelectable) {
                 initPopupMenu(it)
             }
         } else {
-            lifecycleScope.launch {
-                profileManager.term.collect {
-                    it?.let {
-                        currentTerm = it
-                        initView()
-                        viewModel.getTerms()
-                    }
+            getInitialTerm()
+            initView()
+            getTerms()
+        }
+    }
+
+    protected open fun getInitialTerm() {
+        lifecycleScope.launch {
+            profileManager.term.collect {
+                it?.let {
+                    currentTerm = it
                 }
             }
         }
+    }
+
+    protected open fun getTerms() {
+        viewModel.getTerms()
     }
 
     override fun initView() {
@@ -95,10 +107,6 @@ class SchoolRecordActivity : BaseActivity(),
                     renderFragment(fragmentId = it)
                 }
             )
-
-            if (savedFragment != -1) {
-                setSelectedTab(savedFragment)
-            }
         }
     }
 
@@ -151,7 +159,7 @@ class SchoolRecordActivity : BaseActivity(),
         forceRenderNewFragment(currentSegment)
     }
 
-    private fun renderFragment(fragmentId: Int) {
+    protected open fun renderFragment(fragmentId: Int) {
         currentSegment = fragmentId
         when(currentSegment) {
             LEARNING_OUTCOME_FRAGMENT -> {
@@ -172,7 +180,7 @@ class SchoolRecordActivity : BaseActivity(),
         }
     }
 
-    private fun forceRenderNewFragment(fragmentId: Int) {
+    protected open fun forceRenderNewFragment(fragmentId: Int) {
         currentSegment = fragmentId
         when(currentSegment) {
             LEARNING_OUTCOME_FRAGMENT -> {
@@ -246,9 +254,5 @@ class SchoolRecordActivity : BaseActivity(),
         outState.putString("terms", terms.toJson())
         outState.putString("currentTerm", currentTerm.toJson())
         viewModelStore.clear()
-    }
-
-    private fun isPrimaryHighSchool(academicGrade: Int): Boolean {
-        return academicGrade in 7..9
     }
 }

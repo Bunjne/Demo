@@ -1,9 +1,10 @@
 package whiz.tss.sspark.s_spark_android.presentation.menu
 
+import android.content.Intent
 import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.*
-import whiz.sspark.library.data.enum.MenuItemType
+import whiz.sspark.library.data.enum.MenuCode
 import whiz.sspark.library.data.viewModel.AdviseeMenuViewModel
 import whiz.sspark.library.extension.setGradientDrawable
 import whiz.sspark.library.extension.toJson
@@ -18,6 +19,7 @@ import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityAdviseeMenuBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.school_record.AdviseeSchoolRecordActivity
 
 class AdviseeMenuActivity : BaseActivity() {
 
@@ -49,18 +51,14 @@ class AdviseeMenuActivity : BaseActivity() {
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
-            initView()
+        }
 
-            if (student != null) {
-                updateAdviseeInfo()
-                updateMenuItem()
-            } else {
-                viewModel.getAdviseeInfo(studentId)
-                viewModel.getAdviseeMenu(studentId)
-            }
+        initView()
+
+        if (student != null) {
+            updateAdviseeInfo()
+            updateMenuItem()
         } else {
-            initView()
-
             viewModel.getAdviseeInfo(studentId)
             viewModel.getAdviseeMenu(studentId)
         }
@@ -83,7 +81,14 @@ class AdviseeMenuActivity : BaseActivity() {
                 }
             },
             onMenuClicked = { code, title ->
-                            //TODO wait implement advisee screen
+                when (code) {
+                    MenuCode.LEARNING_OUTCOME.code -> {
+                        val intent = Intent(this, AdviseeSchoolRecordActivity::class.java).apply {
+                            putExtra("student", student?.toJson())
+                        }
+                        startActivity(intent)
+                    }
+                }
             },
             onRefresh = {
                 viewModel.getAdviseeInfo(studentId)
@@ -123,7 +128,9 @@ class AdviseeMenuActivity : BaseActivity() {
 
         viewModel.studentErrorResponse.observe(this) {
             it?.let {
-                showApiResponseXAlert(this, it)
+                showApiResponseXAlert(this, it) {
+                    finish()
+                }
             }
         }
 
