@@ -34,5 +34,5 @@ data class ClassMember(
     val lastName: String get() = localize(_lastNameEn, _lastNameTh, _lastNameEn, true)
     val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, false)
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
-    val fullName: String get() = convertToFullName(firstName, middleName, lastName, position)
+    val fullName: String get() = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
 }
