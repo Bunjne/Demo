@@ -52,6 +52,7 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
         if (isShowBottomCornerRadius) {
             binding.cvBackground.cornerRadius_BottomLeft = 12f.toDP(context)
             binding.cvBackground.cornerRadius_BottomRight = 12f.toDP(context)
+
             val layoutParams = binding.vTranslation.layoutParams
             layoutParams.height = 12.toDP(context)
             binding.vTranslation.layoutParams = layoutParams
@@ -59,6 +60,7 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
         } else {
             binding.cvBackground.cornerRadius_BottomLeft = 0f.toDP(context)
             binding.cvBackground.cornerRadius_BottomRight = 0f.toDP(context)
+
             val layoutParams = binding.vTranslation.layoutParams
             layoutParams.height = 18.toDP(context)
             binding.vTranslation.layoutParams = layoutParams
