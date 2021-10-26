@@ -6,23 +6,24 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import whiz.sspark.library.R
-import whiz.sspark.library.data.data_source.remote.service.ActivityRecordService
+import whiz.sspark.library.data.data_source.remote.service.AbilityService
+import whiz.sspark.library.data.data_source.remote.service.AdviseeAbilityService
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
-interface ActivityRecordRepository {
-    suspend fun getActivityRecord(termId: String): Flow<DataWrapperX<List<ActivityDTO>>>
+interface AdviseeAbilityRepository {
+    suspend fun getAbility(termId: String, studentId: String): Flow<DataWrapperX<List<AbilityDTO>>>
 }
 
-open class ActivityRecordRepositoryImpl(private val context: Context,
-                                        private val remote: ActivityRecordService): ActivityRecordRepository {
-    override suspend fun getActivityRecord(termId: String): Flow<DataWrapperX<List<ActivityDTO>>> {
+class AdviseeAbilityRepositoryImpl(private val context: Context,
+                                   private val remote: AdviseeAbilityService): AdviseeAbilityRepository, AbilityRepositoryImpl(context, remote) {
+    override suspend fun getAbility(termId: String, studentId: String): Flow<DataWrapperX<List<AbilityDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {
-                    val response = remote.getActivityRecord(termId)
-                    fetchX(response, Array<ActivityDTO>::class.java)
+                    val response = remote.getAbility(studentId, termId)
+                    fetchX(response, Array<AbilityDTO>::class.java)
                 } catch (e: Exception) {
                     throw e
                 }

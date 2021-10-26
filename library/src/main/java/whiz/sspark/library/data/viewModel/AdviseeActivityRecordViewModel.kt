@@ -13,32 +13,13 @@ import whiz.sspark.library.data.entity.ActivityDTO
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.repository.ActivityRecordRepositoryImpl
+import whiz.sspark.library.data.repository.AdviseeActivityRecordRepositoryImpl
 
-open class ActivityRecordViewModel(private val activityRecordRepositoryImpl: ActivityRecordRepositoryImpl): ViewModel() {
+class AdviseeActivityRecordViewModel(private val adviseeActivityRecordRepository: AdviseeActivityRecordRepositoryImpl): ActivityRecordViewModel(adviseeActivityRecordRepository) {
 
-    protected val _viewLoading = MutableLiveData<Boolean>()
-    val viewLoading: LiveData<Boolean>
-        get() = _viewLoading
-
-    protected val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
-    val viewRendering: LiveData<DataWrapperX<Any>>
-        get() = _viewRendering
-
-    protected val _activityRecordResponse = MutableLiveData<List<ActivityDTO>>()
-    val activityRecordResponse: LiveData<List<ActivityDTO>>
-        get() = _activityRecordResponse
-
-    protected val _activityRecordErrorResponse = MutableLiveData<ApiResponseX?>()
-    val activityRecordErrorResponse: LiveData<ApiResponseX?>
-        get() = _activityRecordErrorResponse
-
-    protected val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
-
-    fun getActivityRecord(termId: String) {
+    fun getActivityRecord(termId: String, studentId: String) {
         viewModelScope.launch {
-            activityRecordRepositoryImpl.getActivityRecord(termId)
+            adviseeActivityRecordRepository.getActivityRecord(termId, studentId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true
