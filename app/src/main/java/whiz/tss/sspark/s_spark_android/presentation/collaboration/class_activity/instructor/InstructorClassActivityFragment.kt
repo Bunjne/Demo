@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -17,15 +18,18 @@ import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.data.enum.PostInteraction
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.InstructorClassActivityViewModel
 import whiz.sspark.library.extension.isUrlValid
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.instructor.InstructorClassPostAdapter
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentInstructorClassActivityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.instructor.InstructorClassPostCommentActivity
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.interaction.LikeBySeenByDialogFragment
 import whiz.tss.sspark.s_spark_android.utility.refreshToken
 import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
 import whiz.tss.sspark.s_spark_android.utility.retrieveUserID
@@ -35,10 +39,11 @@ import java.net.URISyntaxException
 class InstructorClassActivityFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(classGroupId: String, color: Int, allMemberCount: Int) = InstructorClassActivityFragment().apply {
+        fun newInstance(classGroupId: String, startColor: Int, endColor: Int, allMemberCount: Int) = InstructorClassActivityFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
-                putInt("color", color)
+                putInt("startColor", startColor)
+                putInt("endColor", endColor)
                 putInt("allMemberCount", allMemberCount)
             }
         }
@@ -60,8 +65,12 @@ class InstructorClassActivityFragment : BaseFragment() {
         arguments?.getString("classGroupId") ?: ""
     }
 
-    private val color by lazy {
-        arguments?.getInt("color", Color.BLACK) ?: Color.BLACK
+    private val startColor by lazy {
+        arguments?.getInt("startColor", ContextCompat.getColor(requireContext(), R.color.primaryEndColor)) ?: ContextCompat.getColor(requireContext(), R.color.primaryEndColor)
+    }
+
+    private val endColor by lazy {
+        arguments?.getInt("endColor", ContextCompat.getColor(requireContext(), R.color.primaryEndColor)) ?: ContextCompat.getColor(requireContext(), R.color.primaryEndColor)
     }
 
     private val allMemberCount by lazy {
@@ -271,7 +280,7 @@ class InstructorClassActivityFragment : BaseFragment() {
     override fun initView() {
         binding.vClassActivity.init(
             allMemberCount = allMemberCount,
-            color = color,
+            color = startColor,
             onRefresh = {
                 viewModel.listOnlineClasses(classGroupId)
             },
@@ -297,12 +306,12 @@ class InstructorClassActivityFragment : BaseFragment() {
                 readPost(postId)
             },
             onPostLikedUsersClicked = { postId ->
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId, color, PostInteraction.LIKE.type)
-//                dialog.show(childFragmentManager, "")
+                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, postId, startColor, endColor, PostInteraction.LIKE.type)
+                dialog.show(childFragmentManager, "")
             },
             onPostSeenUsersClicked = { postId ->
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, postId, color, PostInteraction.SEEN.type)
-//                dialog.show(childFragmentManager, "")
+                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, postId, startColor, endColor, PostInteraction.SEEN.type)
+                dialog.show(childFragmentManager, "")
             },
             onShowAllOnlineClassPlatformsClicked = {
                    // TODO waiting for Design
@@ -321,7 +330,8 @@ class InstructorClassActivityFragment : BaseFragment() {
         val intent = Intent(requireContext(), InstructorClassPostCommentActivity::class.java).apply {
             putExtra("classGroupId", classGroupId)
             putExtra("post", post.toJson())
-            putExtra("color", color)
+            putExtra("startColor", startColor)
+            putExtra("endColor", endColor)
             putExtra("allMemberCount", allMemberCount)
             putExtra("isKeyboardShown", isKeyboardShown)
         }

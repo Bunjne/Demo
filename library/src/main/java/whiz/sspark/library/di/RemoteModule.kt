@@ -16,6 +16,7 @@ val remoteModule = module {
     factory<AdviseeListService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeMenuService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeSchoolRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AssignmentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<CalendarService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassGroupService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
@@ -23,10 +24,13 @@ val remoteModule = module {
     factory<CourseSyllabusService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ExpectOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<HappeningsService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<InstructorAllClassService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<InstructorClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<InstructorClassScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<InstructorMenuService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<LearningOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<LearningPathwayService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<LikeBySeenByService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<NotificationInboxService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<SchoolRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentAllClassService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }

@@ -12,10 +12,8 @@ import st.lowlevel.storo.Storo
 import st.lowlevel.storo.StoroBuilder
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.ProjectType
-import whiz.sspark.library.di.localModule
+import whiz.sspark.library.di.*
 import whiz.sspark.library.di.remoteModule
-import whiz.sspark.library.di.repositoryModule
-import whiz.sspark.library.di.viewModelModule
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.di.networkModule
 import whiz.tss.sspark.s_spark_android.extension.getRoleType

@@ -28,6 +28,7 @@
     <string name="general_triple_text_format">%1$s %2$s %3$s</string>
     <string name="general_credit">%1$s หน่วยกิต</string>
     <string name="general_code_and_nickname_placeholder">#%1$s %2$s</string>
+    <string name="general_class_room">ห้องเรียน %1$s</string>
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_add_text">เพิ่ม</string>
@@ -105,6 +106,7 @@
     <string name="class_detail_tab_activity">ข่าวสาร</string>
     <string name="class_detail_tab_attendance">การเข้าเรียน</string>
     <string name="class_detail_tab_student">นักเรียน</string>
+    <string name="class_detail_tab_member">สมาชิก</string>
     <string name="class_detail_tab_homework">ASSIGNMENT</string>
     <string name="class_detail_study_plan_title">แผนการสอน</string>
 
@@ -195,14 +197,18 @@
     <string name="learning_pathway_term_credit">ต่ำสุด = %1$s หน่วยกิต, สูงสุด = %2$s หน่วยกิต</string>
 
     <!--Class Schedule-->
-    <string name="class_schedule_title">ตารางเรียน</string>
+    <string name="class_schedule_student_title">ตารางเรียน</string>
+    <string name="class_schedule_instructor_title">ตารางสอน</string>
     <string name="class_schedule_day_with_short_date_title">%1$s\n%2$s</string>
     <string name="class_schedule_range">%1$s - %2$s</string>
     <string name="class_schedule_course_code_and_name">%1$s %2$s</string>
+    <string name="class_schedule_instructor_course_title">%1$s (%2$s) %3$s</string>
     <string name="class_schedule_instructor_and_room">%1$s ห้องเรียน %2$s</string>
     <string name="class_schedule_all_class_title">วิชาทั้งหมด</string>
     <string name="class_schedule_term">ภาคเรียนที่ %1$s/%2$s</string>
     <string name="class_schedule_no_class">ไม่มีวิชา</string>
+    <string name="class_schedule_student_no_class">ไม่มีวิชาเรียน</string>
+    <string name="class_schedule_instructor_no_class">ไม่มีวิชาสอน</string>
 
     <!--information dialog-->
     <string name="information_dialog_calendar_information_color_header">ความหมายของสี</string>
@@ -229,4 +235,17 @@
 
     <!--Course Syllabus-->
     <string name="course_syllabus_no_plan">ไม่มีแผนการสอน</string>
+
+    <!-- Post Like By Seen By -->
+    <string name="like_by_seen_by_liked_title">ถูกใจโดย</string>
+    <string name="like_by_seen_by_seen_title">เห็นโดย</string>
+    <string name="like_by_seen_by_name_with_rank">#%1$s %2$s</string>
+    <string name="like_by_seen_by_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="like_by_seen_by_student_title">นักเรียน (%1$d)</string>
+
+    <!--Assignment-->
+    <string name="assignment_no_assignment">ไม่มี ASSIGNMENT</string>
+    <string name="assignment_deadline">กำหนดส่ง: %1$s</string>
+    <string name="assignment_student_title">%1$s %2$s</string>
+    <string name="assignment_instructor_title">%1$s (%2$s) %3$s</string>
 </resources>

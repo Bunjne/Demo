@@ -17,6 +17,7 @@ import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.entity.Post
+import whiz.sspark.library.data.enum.PostInteraction
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.data.static.SocketPath
 import whiz.sspark.library.data.viewModel.ClassPostCommentViewModel
@@ -29,6 +30,7 @@ import whiz.sspark.library.view.widget.collaboration.class_post_comment.student.
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityStudentClassPostCommentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_comment.interaction.LikeBySeenByDialogFragment
 import whiz.tss.sspark.s_spark_android.utility.*
 import java.net.URISyntaxException
 import java.util.*
@@ -63,8 +65,12 @@ class StudentClassPostCommentActivity : BaseActivity() {
         intent?.getStringExtra("post")?.toObject<Post>() ?: Post()
     }
 
-    private val color by lazy {
-        intent?.getIntExtra("color", Color.BLACK) ?: Color.BLACK
+    private val startColor by lazy {
+        intent?.getIntExtra("startColor", ContextCompat.getColor(this, R.color.primaryStartColor)) ?: ContextCompat.getColor(this, R.color.primaryStartColor)
+    }
+
+    private val endColor by lazy {
+        intent?.getIntExtra("endColor", ContextCompat.getColor(this, R.color.primaryEndColor)) ?: ContextCompat.getColor(this, R.color.primaryEndColor)
     }
 
     private val allMemberCount by lazy {
@@ -280,7 +286,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
         postCommentItems.add(StudentClassPostCommentAdapter.PostCommentItem(post = post))
 
         binding.vPostDetailSheetDialog.init(
-            color = color,
+            color = startColor,
             postCommentItems = postCommentItems,
             allMemberCount = allMemberCount,
             onImageClicked = { imageView, url ->
@@ -296,12 +302,12 @@ class StudentClassPostCommentActivity : BaseActivity() {
                 addComment(message)
             },
             onDisplayLikedUsersClicked = {
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id, color, PostInteraction.LIKE.type)
-//                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
+                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, post.id, startColor, endColor, PostInteraction.LIKE.type)
+                dialog.show(supportFragmentManager, "")
             },
             onDisplaySeenUsersClicked = {
-//                val dialog = ClassPostInteractionDialogFragment.newInstance(classGroupId, post.id, color, PostInteraction.SEEN.type)
-//                dialog.show(childFragmentManager, "") TODO waiting for PostInteraction Dialog implementation
+                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, post.id, startColor, endColor, PostInteraction.SEEN.type)
+                dialog.show(supportFragmentManager, "")
             }
         )
 

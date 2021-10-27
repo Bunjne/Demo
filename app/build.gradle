@@ -127,6 +127,7 @@ dependencies {
     //UI
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    implementation 'com.github.sina-seyfi:AdvancedCardView:1.0.1'
 
     testImplementation 'junit:junit:4.+'
 
