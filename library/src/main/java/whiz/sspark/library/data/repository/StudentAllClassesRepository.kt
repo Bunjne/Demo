@@ -15,8 +15,8 @@ interface StudentAllClassesRepository {
     fun getAllClass(termId: String): Flow<DataWrapperX<List<ClassScheduleAllClassDTO>>>
 }
 
-class StudentAllClassRepositoryImpl(private val context: Context,
-                                    private val remote: StudentAllClassService): StudentAllClassesRepository {
+open class StudentAllClassRepositoryImpl(private val context: Context,
+                                         private val remote: StudentAllClassService): StudentAllClassesRepository {
     override fun getAllClass(termId: String): Flow<DataWrapperX<List<ClassScheduleAllClassDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

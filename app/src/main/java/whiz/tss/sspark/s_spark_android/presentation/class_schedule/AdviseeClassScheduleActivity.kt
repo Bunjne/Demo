@@ -6,6 +6,8 @@ import whiz.sspark.library.data.viewModel.AdviseeClassScheduleViewModel
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.AdviseeScheduleAllClassBottomSheetDialog
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.ClassScheduleAllClassBottomSheetDialog
 
 class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
 
@@ -31,9 +33,18 @@ class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
         binding.vClassSchedule.showAdviseeProfile(advisee = advisee)
     }
 
-    override val title: String = menuTitle
+    override val title: String by lazy {
+        menuTitle
+    }
 
     override fun getTerms() {
         viewModel.getTerms(studentId = student.id)
+    }
+
+    override fun showClassScheduleAllBottomSheetDialog() {
+        AdviseeScheduleAllClassBottomSheetDialog.newInstance(
+            term = currentTerm,
+            studentId = student.id
+        ).show(supportFragmentManager, ALL_CLASS_DIALOG)
     }
 }

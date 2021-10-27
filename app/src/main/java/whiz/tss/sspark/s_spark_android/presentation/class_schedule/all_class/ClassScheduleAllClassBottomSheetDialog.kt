@@ -18,7 +18,7 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassScheduleAllClassBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 
-class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
+open class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
 
     companion object {
         fun newInstance(term: Term) = ClassScheduleAllClassBottomSheetDialog().apply {
@@ -33,7 +33,7 @@ class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
     private var _binding: FragmentClassScheduleAllClassBinding? = null
     private val binding get() = _binding!!
 
-    private val term by lazy {
+    protected val term by lazy {
         arguments?.getString("term")!!.toObject<Term>()!!
     }
 
@@ -47,6 +47,10 @@ class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
 
         initView()
 
+        getAllClasses()
+    }
+
+    protected open fun getAllClasses() {
         viewModel.getAllClasses(term.id)
     }
 
@@ -57,7 +61,7 @@ class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
                 dismiss()
             },
             onRefresh = {
-                viewModel.getAllClasses(term.id)
+                getAllClasses()
             }
         )
     }

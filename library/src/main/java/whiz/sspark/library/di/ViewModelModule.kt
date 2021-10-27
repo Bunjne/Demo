@@ -16,6 +16,7 @@ val viewModelModule = module {
     viewModel { AdviseeListViewModel(get()) }
     viewModel { AdviseeMenuViewModel(get()) }
     viewModel { AdviseeSchoolRecordViewModel(get()) }
+    viewModel { AdviseeAllStudentClassViewModel(get()) }
     viewModel { CalendarViewModel(get()) }
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }

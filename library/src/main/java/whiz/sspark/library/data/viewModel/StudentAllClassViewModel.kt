@@ -13,21 +13,21 @@ import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.ClassScheduleAllClassDTO
 import whiz.sspark.library.data.repository.StudentAllClassRepositoryImpl
 
-class StudentAllClassViewModel(private val studentAllClassRepository: StudentAllClassRepositoryImpl): ViewModel() {
+open class StudentAllClassViewModel(private val studentAllClassRepository: StudentAllClassRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _allClassResponse = MutableLiveData<List<ClassScheduleAllClassDTO>>()
+    protected val _allClassResponse = MutableLiveData<List<ClassScheduleAllClassDTO>>()
     val allClassResponse: LiveData<List<ClassScheduleAllClassDTO>>
         get() = _allClassResponse
 
-    private val _allClassErrorResponse = MutableLiveData<ApiResponseX?>()
+    protected val _allClassErrorResponse = MutableLiveData<ApiResponseX?>()
     val allClassErrorResponse: LiveData<ApiResponseX?>
         get() = _allClassErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
+    protected val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 

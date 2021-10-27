@@ -25,7 +25,7 @@ import java.util.*
 open class StudentClassScheduleActivity : BaseActivity() {
 
     companion object {
-        private const val ALL_CLASS_DIALOG = "AllClassDialog"
+        const val ALL_CLASS_DIALOG = "AllClassDialog"
     }
 
     protected open val viewModel: StudentClassScheduleViewModel by viewModel()
@@ -41,7 +41,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
 
     private var dataWrapperX: DataWrapperX<Any>? = null
     private var weeks = listOf<WeekOfYear>()
-    protected open var terms = listOf<Term>()
+    private var terms = listOf<Term>()
     private var selectedWeekId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +88,12 @@ open class StudentClassScheduleActivity : BaseActivity() {
         }
     }
 
+    open protected fun showClassScheduleAllBottomSheetDialog() {
+        ClassScheduleAllClassBottomSheetDialog.newInstance(
+            term = currentTerm
+        ).show(supportFragmentManager, ALL_CLASS_DIALOG)
+    }
+
     override fun initView() {
         binding.vClassSchedule.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
@@ -98,9 +104,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
             onAllClassesClicked = {
                 val isShowing = supportFragmentManager.findFragmentByTag(ALL_CLASS_DIALOG) != null
                 if (!isShowing) {
-                    ClassScheduleAllClassBottomSheetDialog.newInstance(
-                        term = currentTerm
-                    ).show(supportFragmentManager, ALL_CLASS_DIALOG)
+                    showClassScheduleAllBottomSheetDialog()
                 }
             },
             onPreviousWeekClicked = {
