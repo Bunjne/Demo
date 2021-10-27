@@ -171,7 +171,6 @@ class ClassGroupFragment : BaseFragment() {
                                     val intent = Intent(requireContext(), StudentClassScheduleActivity::class.java)
                                     startActivity(intent)
                                 }
-                                else -> { }
                             }
                         }
                         BottomNavigationId.EXAMINATION.id -> {

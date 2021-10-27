@@ -243,7 +243,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
 
     protected open fun getCourseDescription(classScheduleDTO: ClassScheduleDTO): String {
         val instructorNames = classScheduleDTO.instructors.map { it.fullName }
-        val convertedInstructorName = instructorNames.joinToString(",") { it }
+        val convertedInstructorName = instructorNames.joinToString(",")
         return resources.getString(R.string.class_schedule_instructor_and_room, convertedInstructorName, classScheduleDTO.room)
     }
 

@@ -8,6 +8,6 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface InstructorAllClassService: StudentAllClassService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/students/me/schedules/courses")
+    @GET("api/v1/instructors/me/schedules/courses")
     override suspend fun getAllClass(@Query("termId") termId: String): Response<ApiResponseX>
 }

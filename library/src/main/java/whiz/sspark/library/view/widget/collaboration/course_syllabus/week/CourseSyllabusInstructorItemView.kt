@@ -18,7 +18,7 @@ class CourseSyllabusInstructorItemView: ConstraintLayout {
     }
 
     fun init(instructors: List<String>) {
-        val convertedInstructor = instructors.joinToString(", ") { it }
+        val convertedInstructor = instructors.joinToString(", ")
         binding.tvInstructor.text = convertedInstructor
         binding.ivInstructor.show(R.drawable.ic_human)
     }
