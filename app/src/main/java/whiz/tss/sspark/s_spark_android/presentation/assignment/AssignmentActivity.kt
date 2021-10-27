@@ -84,7 +84,7 @@ class AssignmentActivity : BaseActivity() {
     }
 
     override fun observeView() {
-        viewModel.newAssignmentLoading.observe(this) { isLoading ->
+        viewModel.latestAssignmentLoading.observe(this) { isLoading ->
             binding.vAssignment.setSwipeRefreshLayout(isLoading)
         }
 
@@ -144,7 +144,7 @@ class AssignmentActivity : BaseActivity() {
         val items = mutableListOf<AssignmentAdapter.AssignmentItem>()
         val isLastPage = currentPage >= totalPage
 
-        val convertedAssignments = assignments.map { AssignmentAdapter.AssignmentItem.Item(it.convertToAssignment()) }
+        val convertedAssignments = convertToAdapterItem()
         items.addAll(convertedAssignments)
 
         if (!isLastPage) {
@@ -152,6 +152,27 @@ class AssignmentActivity : BaseActivity() {
         }
 
         binding.vAssignment.updateItem(items)
+    }
+
+    private fun convertToAdapterItem(): List<AssignmentAdapter.AssignmentItem.Item> {
+        return assignments.map {
+            AssignmentAdapter.AssignmentItem.Item(
+                Assignment(
+                    startColor = it.classGroup.colorCode1,
+                    endColor = it.classGroup.colorCode2,
+                    courseTitle = resources.getString(R.string.assignment_student_title, it.classGroup.code, it.classGroup.name),
+                    createdAt = it.createdAt,
+                    updatedAt = it.updatedAt,
+                    deadlineAt = it.deadlineAt,
+                    title = it.title,
+                    description = it.message,
+                    instructorName = it.instructor.fullName,
+                    imageUrl = it.instructor.imageUrl,
+                    gender = it.instructor.gender,
+                    attachments = it.attachments
+                )
+            )
+        }
     }
 
     private fun checkIsLastPage() {

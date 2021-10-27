@@ -24,26 +24,11 @@ data class AssignmentItemDTO(
     @SerializedName("classGroup") val classGroup: AssignmentClassGroupDTO
 ) {
     val attachments get() = _attachments ?: listOf()
-
-    fun convertToAssignment() = Assignment(
-        startColor = classGroup.colorCode1,
-        endColor = classGroup.colorCode2,
-        courseName = classGroup.name,
-        courseCode = classGroup.code,
-        createdAt = createdAt,
-        updatedAt = updatedAt,
-        deadlineAt = deadlineAt,
-        title = title,
-        description = message,
-        instructorName = instructor.fullName,
-        imageUrl = instructor.imageUrl,
-        gender = instructor.gender,
-        attachments = attachments
-    )
 }
 
 data class AssignmentClassGroupDTO(
     @SerializedName("classGroupId") val classGroupId: String,
+    @SerializedName("sectionNumber") val sectionNumber: String,
     @SerializedName("colorCode1") val colorCode1: String,
     @SerializedName("colorCode2") val colorCode2: String,
     @SerializedName("code") val code: String,

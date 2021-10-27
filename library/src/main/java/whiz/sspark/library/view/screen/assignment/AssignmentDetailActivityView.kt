@@ -33,13 +33,14 @@ class AssignmentDetailActivityView: ConstraintLayout {
              navigateToImage: (ImageView, Attachment) -> Unit) {
         with(assignment) {
             binding.cvVerticalBar.setCardBackgroundColor(startColor.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor)))
-            binding.tvCourseName.text = courseName
+            binding.tvCourseName.text = courseTitle
             binding.tvDate.text = createdAt.toPostTime(context)
             binding.tvTitle.text = title
             binding.tvDescription.text = description
             binding.tvDeadline.text = context.resources.getString(R.string.assignment_deadline, deadlineAt.toPostTime(context))
             binding.ivInstructorImage.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvInstructorName.text = instructorName
+
             if (attachments.isNotEmpty()) {
                 binding.llAttachment.visibility = View.VISIBLE
                 binding.llAttachment.removeAllViews()
