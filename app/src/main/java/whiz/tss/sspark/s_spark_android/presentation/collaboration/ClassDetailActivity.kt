@@ -126,7 +126,7 @@ class ClassDetailActivity : BaseActivity() {
                             }
                             BottomNavigationId.ATTENDANCE.id -> renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
                             BottomNavigationId.MEMBER.id -> renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
-                            BottomNavigationId.ASSIGNMENT.id -> renderFragment(StudentClassAssignmentFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+                            BottomNavigationId.ASSIGNMENT.id -> renderFragment(StudentClassAssignmentFragment.newInstance(classGroupId, startColor), supportFragmentManager, currentFragment)
                         }
                     }
                 },

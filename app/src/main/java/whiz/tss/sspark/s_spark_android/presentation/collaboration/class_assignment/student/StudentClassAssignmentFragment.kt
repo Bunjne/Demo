@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.Assignment
 import whiz.sspark.library.data.entity.AssignmentItemDTO
@@ -23,9 +24,10 @@ import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentDetailA
 class StudentClassAssignmentFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(classGroupId: String) = StudentClassAssignmentFragment().apply {
+        fun newInstance(classGroupId: String, startColor: Int) = StudentClassAssignmentFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
+                putInt("startColor", startColor)
             }
         }
     }
@@ -34,6 +36,10 @@ class StudentClassAssignmentFragment : BaseFragment() {
 
     private val classGroupId by lazy {
         arguments?.getString("classGroupId") ?: ""
+    }
+
+    private val startColor by lazy {
+        arguments?.getInt("startColor") ?: ContextCompat.getColor(requireContext(), R.color.primaryStartColor)
     }
 
     private var _binding: FragmentStudentClassAssignmentBinding? = null
@@ -65,6 +71,7 @@ class StudentClassAssignmentFragment : BaseFragment() {
 
     override fun initView() {
         binding.vAssignment.init(
+            progressbarColor = startColor,
             onAssignmentClicked = { assignment ->
                 val intent = Intent(requireContext(), AssignmentDetailActivity::class.java).apply {
                     putExtra("assignment", assignment.toJson())
