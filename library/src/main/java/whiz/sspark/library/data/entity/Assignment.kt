@@ -5,8 +5,7 @@ import java.util.*
 data class Assignment(
     val startColor: String,
     val endColor: String,
-    val courseName: String,
-    val courseCode: String,
+    val courseTitle: String,
     val createdAt: Date,
     val updatedAt: Date,
     val deadlineAt: Date,

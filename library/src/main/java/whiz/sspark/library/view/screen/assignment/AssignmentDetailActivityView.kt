@@ -33,7 +33,7 @@ class AssignmentDetailActivityView: ConstraintLayout {
              navigateToImage: (ImageView, Attachment) -> Unit) {
         with(assignment) {
             binding.cvVerticalBar.setCardBackgroundColor(startColor.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor)))
-            binding.tvCourseName.text = courseName
+            binding.tvCourseName.text = courseTitle
             binding.tvDate.text = createdAt.toPostTime(context)
             binding.tvTitle.text = title
             binding.tvDescription.text = description
