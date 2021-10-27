@@ -88,7 +88,7 @@ class AssignmentActivity : BaseActivity() {
             binding.vAssignment.setSwipeRefreshLayout(isLoading)
         }
 
-        viewModel.oldAssignmentLoading.observe(this) { isLoading ->
+        viewModel.previousAssignmentLoading.observe(this) { isLoading ->
             binding.vAssignment.setIsLoading(isLoading)
         }
 
