@@ -1,6 +1,8 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
+import whiz.sspark.library.extension.getFirstConsonant
+import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 
 data class ClassMember(
@@ -21,14 +23,16 @@ data class ClassMember(
     @SerializedName("imageUrl") val imageUrl: String = "",
     @SerializedName("colorCode") val colorCode: String? = null,
     @SerializedName("gender") val gender: String = "",
-    @SerializedName("number") val number: Int? = 0,
+    @SerializedName("number") val number: Int? = null,
     @SerializedName("jobPosition") val jobPosition: String = "",
     @SerializedName("personalPhoneNumber") val personalPhoneNumber: String = "",
-    @SerializedName("personalEmail") val personalEmail: String = ""
+    @SerializedName("personalEmail") val personalEmail: String = "",
+    @SerializedName("jobDescription") val jobDescription: String? = null,
 ) {
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)
     val lastName: String get() = localize(_lastNameEn, _lastNameTh, _lastNameEn, true)
-    val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, true)
+    val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, false)
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
+    val fullName: String get() = convertToFullName(firstName, middleName, lastName)
 }

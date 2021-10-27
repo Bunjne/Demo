@@ -16,7 +16,6 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.login.LoginActivity"
-            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,6 +61,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.notification_inbox.NotificationInboxActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.school_record.AdviseeSchoolRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.assignment.AssignmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.assignment.AssignmentDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.class_schedule.InstructorClassScheduleActivity"

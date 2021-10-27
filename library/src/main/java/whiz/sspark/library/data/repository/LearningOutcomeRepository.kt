@@ -16,8 +16,8 @@ interface LearningOutcomeRepository {
     suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>>
 }
 
-class LearningOutcomeRepositoryImpl(private val context: Context,
-                                    private val remote: LearningOutcomeService): LearningOutcomeRepository {
+open class LearningOutcomeRepositoryImpl(private val context: Context,
+                                         private val remote: LearningOutcomeService): LearningOutcomeRepository {
     override suspend fun getLearningOutcome(termId: String): Flow<DataWrapperX<List<LearningOutcomeDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

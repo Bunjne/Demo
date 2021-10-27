@@ -14,29 +14,29 @@ import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.repository.LearningOutcomeRepositoryImpl
 
-class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: LearningOutcomeRepositoryImpl): ViewModel() {
+open class LearningOutcomeViewModel(private val learningOutcomeRepositoryImpl: LearningOutcomeRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
+    protected val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _learningOutcomeResponse = MutableLiveData<List<LearningOutcomeDTO>>()
+    protected val _learningOutcomeResponse = MutableLiveData<List<LearningOutcomeDTO>>()
     val learningOutcomeResponse: LiveData<List<LearningOutcomeDTO>>
         get() = _learningOutcomeResponse
 
-    private val _learningOutcomeErrorResponse = MutableLiveData<ApiResponseX?>()
+    protected val _learningOutcomeErrorResponse = MutableLiveData<ApiResponseX?>()
     val learningOutcomeErrorResponse: LiveData<ApiResponseX?>
         get() = _learningOutcomeErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
+    protected val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getLearningOutcome(termId: String) {
+    open fun getLearningOutcome(termId: String) {
         viewModelScope.launch {
             learningOutcomeRepositoryImpl.getLearningOutcome(termId)
                 .onStart {
