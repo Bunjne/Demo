@@ -10,15 +10,28 @@
     android:paddingTop="8dp"
     android:paddingBottom="4dp">
 
-    <ImageView
-        android:id="@+id/ivBack"
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvBack"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:scaleType="fitCenter"
+        app:background_ColorType="gradient_linear"
+        app:background_Gradient_Angle="270"
+        app:background_Gradient_Color0="@color/primaryStartColor"
+        app:background_Gradient_ColorEnd="@color/primaryEndColor"
+        app:cornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_navigation_back" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_back" />
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvBack"
@@ -29,7 +42,7 @@
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBack"
+        app:layout_constraintStart_toEndOf="@+id/cvBack"
         app:layout_constraintTop_toTopOf="parent"
         app:ssparkFont="bold" />
 

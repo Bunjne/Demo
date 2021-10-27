@@ -240,4 +240,11 @@
     <string name="like_by_seen_by_name_with_rank">#%1$s %2$s</string>
     <string name="like_by_seen_by_instructor_title">อาจารย์ (%1$d)</string>
     <string name="like_by_seen_by_student_title">นักเรียน (%1$d)</string>
+
+    <!--Assignment-->
+    <string name="assignment_no_assignment">ไม่มี ASSIGNMENT</string>
+    <string name="assignment_deadline">กำหนดส่ง: %1$s</string>
+    <string name="assignment_student_title">%1$s %2$s</string>
+    <string name="assignment_instructor_title">%1$s (%2$s) %3$s</string>
+    <string name="assignment_text" translatable="false">ASSIGNMENT</string>
 </resources>

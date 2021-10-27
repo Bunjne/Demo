@@ -27,6 +27,7 @@ import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
+import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
 import java.util.*
@@ -154,7 +155,8 @@ class ClassGroupFragment : BaseFragment() {
                             //TODO wait for implementation
                         }
                         BottomNavigationId.ASSIGNMENT.id -> {
-                            //TODO wait for implementation
+                            val intent = Intent(requireContext(), AssignmentActivity::class.java)
+                            startActivity(intent)
                         }
                         BottomNavigationId.CLASS_SCHEDULE.id -> {
                             val intent = Intent(requireContext(), StudentClassScheduleActivity::class.java)

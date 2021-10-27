@@ -2,6 +2,7 @@ package whiz.tss.sspark.s_spark_android.widget.collaboration
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -32,7 +33,7 @@ class CollaborationProfileHeader : ConstraintLayout, CoroutineScope {
         ProfileManager(context)
     }
 
-    fun init(backgroundDrawable: GradientDrawable,
+    fun init(backgroundDrawable: Drawable,
              onBackPressed: () -> Unit = {
                  (context as Activity).onBackPressed()
              }) {
