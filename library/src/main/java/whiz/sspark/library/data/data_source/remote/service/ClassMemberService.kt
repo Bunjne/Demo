@@ -8,6 +8,6 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface ClassMemberService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/classgroups/{classGroupId}/members")
-    suspend fun getClassMember(@Path("classGroupId") classGroupId: String): Response<ApiResponseX>
+    @GET("api/v1/classgroups/{classgroupId}/members")
+    suspend fun getClassMember(@Path("classgroupId") classgroupId: String): Response<ApiResponseX>
 }

@@ -89,8 +89,8 @@ class ClassDetailActivity : BaseActivity() {
         with (binding.vClassDetail) {
             init(
                 backgroundDrawable = gradientDrawable,
-                courseName = courseName,
-                courseCode = courseCode,
+                title = courseName,
+                subTitle = courseCode,
                 color = startColor,
                 bottomNavigationBarItems =  bottomNavigationBarItems,
                 onNavigationItemSelected = {

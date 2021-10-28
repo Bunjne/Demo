@@ -24,7 +24,7 @@ class LearningPathwayActivityView: ConstraintLayout {
     }
 
     fun init(onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
-             onDeleteCourseClicked: (String, String) -> Unit,
+             onDeleteCourseClicked: (Int, Int, String) -> Unit,
              onShowRequiredCourseClicked: (Term, List<Course>) -> Unit,
              onRefresh: () -> Unit) {
         with(binding.rvCourse) {
@@ -32,7 +32,7 @@ class LearningPathwayActivityView: ConstraintLayout {
                 addItemDecoration(
                     CustomDividerMultiItemDecoration(
                         divider = ContextCompat.getDrawable(context, R.drawable.divider_base_list_secondary)!!,
-                        dividerViewType = LearningPathwayAdapter.courseViewTypes
+                        dividerViewType = listOf(LearningPathwayAdapter.COURSE_VIEW_MIDDLE_TYPE, LearningPathwayAdapter.COURSE_VIEW_BOTTOM_TYPE)
                     )
                 )
             }

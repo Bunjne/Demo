@@ -16,15 +16,15 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface ClassMemberRepository {
-    fun getClassMember(classGroupId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>>
+    fun getClassMember(classgroupId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>>
 }
 
 class ClassMemberRepositoryImpl(private val context: Context,
                                 private val local: ClassMemberCacheImpl,
                                 private val remote: ClassMemberService): ClassMemberRepository {
-    override fun getClassMember(classGroupId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>> {
+    override fun getClassMember(classgroupId: String, isNetworkPreferred: Boolean): Flow<DataWrapperX<Member>> {
         return flow {
-            val localMember = local.getClassMembers(classGroupId)
+            val localMember = local.getClassMembers(classgroupId)
             if (localMember != null && !isNetworkPreferred) {
                 emit(DataWrapperX(
                     data = localMember,
@@ -38,11 +38,11 @@ class ClassMemberRepositoryImpl(private val context: Context,
             } else {
                 if (NetworkManager.isOnline(context)) {
                     try {
-                        val response = remote.getClassMember(classGroupId)
+                        val response = remote.getClassMember(classgroupId)
                         val member = response.body()?.data?.toObject<Member>()
 
                         member?.let {
-                            local.saveClassMembers(classGroupId, member)
+                            local.saveClassMembers(classgroupId, member)
                         }
 
                         fetchX<Member>(response)

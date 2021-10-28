@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
 class AdvisoryMemberAdapter(private val context: Context,
-                            private val items: List<Item>,
+                            private val items: List<ClassMemberItem>,
                             private val onChatMemberClicked: (ClassMember) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class AdvisoryMemberAdapterViewType(val type: Int) {
@@ -71,7 +72,6 @@ class AdvisoryMemberAdapter(private val context: Context,
                     (holder.itemView as? AdvisoryMemberStudentView)?.apply {
                         init(
                             member = item.student,
-                            isSelf = item.isSelf,
                             isChatEnable = item.isChatEnable,
                             onChatMemberClicked = onChatMemberClicked
                         )
@@ -96,12 +96,4 @@ class AdvisoryMemberAdapter(private val context: Context,
             else -> AdvisoryMemberAdapterViewType.TITLE.type
         }
     }
-
-    data class Item(
-        val title: String? = null,
-        val instructor: ClassMember? = null,
-        val student: ClassMember? = null,
-        val isSelf: Boolean = false,
-        val isChatEnable: Boolean = false
-    )
 }

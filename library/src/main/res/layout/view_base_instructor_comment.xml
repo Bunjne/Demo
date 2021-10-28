@@ -26,33 +26,19 @@
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivProfile"
         app:layout_constraintTop_toTopOf="parent"
         app:ssparkFont="regular"
         tools:text="อ.สมชาย เจริญสุข" />
 
-    <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvCreatedAt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/textBaseThirdColor"
-        android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivProfile"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
-        app:ssparkFont="regular"
-        tools:text="12 กรกฏาคม เวลา 15:00" />
-
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/vBarrierTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="ivProfile, tvCreatedAt" />
+        app:constraint_referenced_ids="ivProfile, tvName" />
 
     <whiz.sspark.library.view.general.SSparkTextView
         android:id="@+id/tvComment"

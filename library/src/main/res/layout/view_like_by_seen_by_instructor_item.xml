@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clStudent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:civ_border_color="@color/viewBaseThirdColor"
+        app:civ_border_width="1.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvFullName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="17dp"
+        app:autoSizeMaxTextSize="17dp"
+        app:autoSizeMinTextSize="14dp"
+        app:autoSizeStepGranularity="1dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@id/tvPosition"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivProfile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ssparkFont="regular"
+        tools:text="อ.สมชาย เจริญสุข" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvPosition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="13dp"
+        android:visibility="gone"
+        app:autoSizeMaxTextSize="13dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="1dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvFullName"
+        app:layout_constraintTop_toBottomOf="@id/tvFullName"
+        app:ssparkFont="regular"
+        tools:text="อาจารย์ประจำ" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

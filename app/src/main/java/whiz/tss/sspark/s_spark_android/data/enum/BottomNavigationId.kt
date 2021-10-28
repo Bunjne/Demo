@@ -14,5 +14,6 @@ enum class BottomNavigationId(val id: Int) {
     ADVISORY(9),
     CLASS_SCHEDULE(10),
     EXAMINATION(11),
-    APPOINTMENT(12)
+    GUARDIANS(12),
+    APPOINTMENT(13)
 }

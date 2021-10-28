@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.ClassMemberItem
+import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.viewModel.ClassMemberViewModel
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.collaboration.class_member.ClassMemberAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassMemberBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
-import whiz.tss.sspark.s_spark_android.utility.retrieveUserID
 
-class StudentClassMemberFragment : BaseFragment() {
+open class StudentClassMemberFragment : BaseFragment() {
 
     companion object {
         fun newInstance(classGroupId: String) = StudentClassMemberFragment().apply {
@@ -25,7 +25,7 @@ class StudentClassMemberFragment : BaseFragment() {
     }
 
     private var _binding: FragmentStudentClassMemberBinding? = null
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
     private val viewModel: ClassMemberViewModel by viewModel()
 
@@ -33,11 +33,9 @@ class StudentClassMemberFragment : BaseFragment() {
         arguments?.getString("classGroupId") ?: ""
     }
 
-    private val userId by lazy {
-        retrieveUserID(requireContext())
-    }
+    protected val items = mutableListOf<ClassMemberItem>()
 
-    val items = mutableListOf<ClassMemberAdapter.Item>()
+    protected open val isChatEnable = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentStudentClassMemberBinding.inflate(layoutInflater)
@@ -56,11 +54,12 @@ class StudentClassMemberFragment : BaseFragment() {
 
     override fun initView() {
         binding.vClassMember.init(
-            items = items,
             onRefresh = {
                 viewModel.getClassMember(classGroupId, true)
             }
         )
+
+        binding.vClassMember.setClassMemberAdapter(items)
     }
 
     override fun observeView() {
@@ -72,27 +71,7 @@ class StudentClassMemberFragment : BaseFragment() {
     override fun observeData() {
         viewModel.memberResponse.observe(this, Observer {
             it?.let { member ->
-                val instructorCounts = member.instructors.size
-                val studentCounts = member.students.size
-
-                val newItems = mutableListOf<ClassMemberAdapter.Item>()
-                with(newItems) {
-                    if (member.instructors.isNotEmpty()) {
-                        add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_instructor_title, instructorCounts), student = null, instructor = null))
-                        addAll(member.instructors.map { instructor -> ClassMemberAdapter.Item(title = null, student = null, instructor = instructor) })
-                    }
-
-                    if (member.students.isNotEmpty()) {
-                        add(ClassMemberAdapter.Item(title = resources.getString(R.string.class_member_student_title, studentCounts), student = null, instructor = null))
-                        addAll(member.students.map { student ->
-                            val isSelf = userId == student.userId
-
-                            ClassMemberAdapter.Item(title = null, student = student, instructor = null, isSelf = isSelf)
-                        })
-                    }
-                }
-
-                binding.vClassMember.updateRecyclerViewItems(items, newItems)
+                renderData(member)
             }
         })
     }
@@ -104,4 +83,50 @@ class StudentClassMemberFragment : BaseFragment() {
             }
         })
     }
+
+    private fun renderData(member: Member) {
+        val instructorCounts = member.instructors.size
+        val studentCounts = member.students.size
+
+        val newItems = mutableListOf<ClassMemberItem>()
+        with(newItems) {
+            if (member.instructors.isNotEmpty()) {
+                val instructorTitle = ClassMemberItem(
+                    title = getInstructorTitle(instructorCounts)
+                )
+
+                add(instructorTitle)
+
+                val instructors = member.instructors.map { instructor ->
+                    ClassMemberItem(
+                        instructor = instructor,
+                        isChatEnable = isChatEnable
+                    )
+                }
+
+                addAll(instructors)
+            }
+
+            if (member.students.isNotEmpty()) {
+                val studentTitle = ClassMemberItem(
+                    title = resources.getString(R.string.class_member_student_title, studentCounts)
+                )
+
+                add(studentTitle)
+
+                val students = member.students.map { student ->
+                    ClassMemberItem(
+                        student = student,
+                        isChatEnable = !isChatEnable
+                    )
+                }
+
+                addAll(students)
+            }
+        }
+
+        binding.vClassMember.updateMemberRecyclerViewItems(items, newItems)
+    }
+
+    protected open fun getInstructorTitle(instructorCount: Int) = resources.getString(R.string.class_member_instructor_title, instructorCount)
 }

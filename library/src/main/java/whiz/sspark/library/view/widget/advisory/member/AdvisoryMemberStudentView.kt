@@ -1,12 +1,10 @@
 package whiz.sspark.library.view.widget.advisory.member
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.toColorInt
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.enum.getGender
@@ -26,13 +24,12 @@ class AdvisoryMemberStudentView : ConstraintLayout {
     }
 
     fun init(member: ClassMember,
-             isSelf: Boolean,
              isChatEnable: Boolean,
              onChatMemberClicked: (ClassMember) -> Unit) {
         binding.ivChat.show(R.drawable.ic_chat)
 
         with(member) {
-            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
+            binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
             binding.tvNickname.text = if (number != null) {
                 resources.getString(R.string.class_member_number_place_holder, member.number.toString(), nickname)
@@ -40,11 +37,7 @@ class AdvisoryMemberStudentView : ConstraintLayout {
                 resources.getString(R.string.class_member_number_place_holder, member.code, nickname)
             }
 
-            binding.tvName.text = if (isSelf) {
-                convertToFullName(firstName, middleName, lastName)
-            } else {
-                convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
-            }
+            binding.tvName.text = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
         }
 
         if (isChatEnable) {

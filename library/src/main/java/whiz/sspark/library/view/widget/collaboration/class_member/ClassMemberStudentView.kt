@@ -21,21 +21,17 @@ class ClassMemberStudentView : ConstraintLayout {
         ViewClassMemberStudentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(member: ClassMember, isSelf: Boolean) {
+    fun init(member: ClassMember) {
         with(member) {
-            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
+            binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
             binding.tvNickname.text = if (number != null) {
-                resources.getString(R.string.class_member_number_place_holder, member.number.toString(), nickname)
+                resources.getString(R.string.class_member_number_place_holder, number.toString(), nickname)
             } else {
-                resources.getString(R.string.class_member_number_place_holder, member.code, nickname)
+                resources.getString(R.string.class_member_number_place_holder, code, nickname)
             }
 
-            binding.tvName.text = if (isSelf) {
-                convertToFullName(firstName, middleName, lastName)
-            } else {
-                convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
-            }
+            binding.tvName.text = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
         }
     }
 }

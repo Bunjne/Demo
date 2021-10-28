@@ -7,9 +7,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.databinding.ViewStudentClassMemberFragmentBinding
 import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
+import whiz.sspark.library.view.widget.advisory.member.AdvisoryMemberAdapter
 import whiz.sspark.library.view.widget.collaboration.class_member.ClassMemberAdapter
 
 class StudentClassMemberFragmentView : ConstraintLayout {
@@ -21,8 +24,7 @@ class StudentClassMemberFragmentView : ConstraintLayout {
         ViewStudentClassMemberFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(items: List<ClassMemberAdapter.Item>,
-             onRefresh: () -> Unit) {
+    fun init(onRefresh: () -> Unit) {
 
         binding.srlMember.setOnRefreshListener {
             onRefresh()
@@ -36,15 +38,25 @@ class StudentClassMemberFragmentView : ConstraintLayout {
                     dividerViewType = listOf(ClassMemberAdapter.ClassMemberAdapterViewType.STUDENT_MEMBER.type, ClassMemberAdapter.ClassMemberAdapterViewType.INSTRUCTOR_MEMBER.type)
                 )
             )
-
-            adapter = ClassMemberAdapter(
-                context = context,
-                items = items
-            )
         }
     }
 
-    fun updateRecyclerViewItems(currentItems: MutableList<ClassMemberAdapter.Item>, newItems: List<ClassMemberAdapter.Item>) {
+    fun setClassMemberAdapter(items: MutableList<ClassMemberItem>) {
+        binding.rvMember.adapter = ClassMemberAdapter(
+            context = context,
+            items = items
+        )
+    }
+
+    fun setAdvisoryMemberAdapter(items: MutableList<ClassMemberItem>, onChatMemberClicked: (ClassMember) -> Unit) {
+        binding.rvMember.adapter = AdvisoryMemberAdapter(
+            context = context,
+            items = items,
+            onChatMemberClicked = onChatMemberClicked
+        )
+    }
+
+    fun updateMemberRecyclerViewItems(currentItems: MutableList<ClassMemberItem>, newItems: List<ClassMemberItem>) {
         binding.rvMember.adapter?.updateItem(currentItems, newItems)
     }
 

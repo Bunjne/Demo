@@ -30,7 +30,7 @@ class AdvisoryMemberInstructorView : ConstraintLayout {
         binding.ivChat.show(R.drawable.ic_chat)
 
         with (member) {
-            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
+            binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
             binding.tvName.text = convertToFullName(firstName, middleName, lastName, position)
             binding.tvDetail.text = jobPosition

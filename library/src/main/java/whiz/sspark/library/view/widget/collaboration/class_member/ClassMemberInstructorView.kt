@@ -21,7 +21,7 @@ class ClassMemberInstructorView : ConstraintLayout {
 
     fun init(member: ClassMember) {
         with (member) {
-            binding.cvProfileImage.showProfile(profileImageUrl, getGender(gender).type)
+            binding.ivProfileImage.showProfile(imageUrl, getGender(gender).type)
 
             binding.tvName.text = convertToFullName(firstName, middleName, lastName, position)
             binding.tvDetail.text = jobPosition
