@@ -1,15 +1,13 @@
-package whiz.tss.sspark.s_spark_android.data.dataSource.remote
+package whiz.sspark.library.data.data_source.remote
 
-import android.content.Context
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import whiz.sspark.library.BuildConfig
-import whiz.tss.sspark.s_spark_android.extension.getAuthorizationToken
-import whiz.tss.sspark.s_spark_android.utility.retrieveAuthenticationInformation
+import whiz.sspark.library.SSparkLibrary
 import java.util.concurrent.TimeUnit
 
-class OkHttpBuilder(private val context: Context) {
+class LibraryOkHttpBuilder {
 
     private val logging = HttpLoggingInterceptor().apply {
         if (BuildConfig.DEBUG) {
@@ -31,23 +29,11 @@ class OkHttpBuilder(private val context: Context) {
         .addInterceptor(logging)
         .build()
 
-    fun baseAPI(authenticator: Authenticator, apiKey: String): OkHttpClient = OkHttpClient.Builder()
+    fun baseAPI(authenticator: Authenticator): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .authenticator(authenticator)
-        .addInterceptor { chain ->
-            val request = chain.request().newBuilder()
-            val token = retrieveAuthenticationInformation(context)?.getAuthorizationToken()
-
-            if (!token.isNullOrBlank()) {
-//                request.addHeader("Authorization", token) //TODO uncomment when API available
-//                    .addHeader("x-api-key", apiKey) //TODO uncomment when API available
-            } else {
-//                request.addHeader("x-api-key", apiKey) //TODO uncomment when API available
-            }
-
-            chain.proceed(request.build())
-        }
+        .addInterceptor(SSparkLibrary.baseInterceptor)
         .addInterceptor(logging)
         .build()
 }
