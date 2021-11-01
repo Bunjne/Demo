@@ -217,7 +217,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
                 val courses = classSchedulesDTO.filter { it.day == day }
 
                 if (courses.isNotEmpty()) {
-                    val title = date.toLocalDate()!!.convertToDateString(DateTimePattern.fullDayNameWithDayFormat)
+                    val title = date.convertToDateString(DateTimePattern.fullDayNameWithDayFormat)
                     items.add(ClassScheduleAdapter.Item(title = title))
 
                     courses.forEach {
