@@ -53,6 +53,7 @@ class LoginActivity : LocalizationActivity() {
         if (authenticationInformation != null) {
             verifyAuthenticationInformation(authenticationInformation)
         } else {
+            clearData(this)
             //TODO remove mock data when screen confirmed
 //            viewModel.login("sjunior", "{{password}}")
             viewModel.login("ssenior", "{{password}}")

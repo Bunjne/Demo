@@ -18,8 +18,8 @@ interface StudentClassScheduleRepository {
     fun getTerms(): Flow<DataWrapperX<List<Term>>>
 }
 
-class StudentClassScheduleRepositoryImpl(private val context: Context,
-                                         private val remote: StudentClassScheduleService): StudentClassScheduleRepository {
+open class StudentClassScheduleRepositoryImpl(private val context: Context,
+                                              private val remote: StudentClassScheduleService): StudentClassScheduleRepository {
     override fun getClassSchedule(termId: String, fromDate: String, toDate: String): Flow<DataWrapperX<List<ClassScheduleDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

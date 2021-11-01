@@ -21,12 +21,10 @@ class ClassScheduleCourseItemView: ConstraintLayout {
 
     fun init(classScheduleCourse: ClassScheduleCourse) {
         with(classScheduleCourse) {
-            val convertedInstructorName = instructorNames.joinToString(",") { it }
-
             binding.cvVerticalBar.setCardBackgroundColor(color.toColor())
             binding.tvTimeRange.text = resources.getString(R.string.class_schedule_range, startTime.convertToTime(), endTime.convertToTime())
             binding.tvCourse.text = title
-            binding.tvInstructorAndRoom.text = resources.getString(R.string.class_schedule_instructor_and_room, convertedInstructorName, room)
+            binding.tvCourseDescription.text = courseDescription
         }
     }
 }

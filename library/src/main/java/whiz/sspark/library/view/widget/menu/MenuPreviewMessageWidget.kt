@@ -11,6 +11,7 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewMenuPreviewMessageWidgetBinding
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toLocalDate
 
 class MenuPreviewMessageWidget: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -28,7 +29,7 @@ class MenuPreviewMessageWidget: ConstraintLayout {
             binding.tvTitle.text = this.title
             binding.tvDescription.text = description
             binding.ivNotificationCountGradientBackground.show(R.drawable.bg_primary_oval_gradient_0)
-            binding.tvLastUpdate.text = date?.convertToDateString(
+            binding.tvLastUpdate.text = date?.toLocalDate()!!.convertToDateString(
                 defaultPattern = DateTimePattern.todayAbbreviatedDateFormatEn,
                 dayMonthThPattern = DateTimePattern.todayAbbreviatedDayMonthFormatTh,
                 yearThPattern = DateTimePattern.generalYear

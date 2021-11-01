@@ -31,12 +31,14 @@ class ClassScheduleActivityView: ConstraintLayout {
     private var classScheduleAdapter: ClassScheduleAdapter? = null
 
     fun init(term: String,
+             title: String,
              onTermClicked: () -> Unit,
              onAllClassesClicked: () -> Unit,
              onPreviousWeekClicked: () -> Unit,
              onNextWeekClicked: () -> Unit,
              onRefresh: () -> Unit) {
         binding.tvTerm.text = term
+        binding.tvTitle.text = title
         binding.ivDropdown.show(R.drawable.ic_dropdown)
 
         with(binding.ivAllClasses) {

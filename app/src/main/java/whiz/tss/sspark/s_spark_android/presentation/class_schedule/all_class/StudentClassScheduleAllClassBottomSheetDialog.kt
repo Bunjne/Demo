@@ -18,17 +18,17 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassScheduleAllClassBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 
-class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
+open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(term: Term) = ClassScheduleAllClassBottomSheetDialog().apply {
+        fun newInstance(term: Term) = StudentClassScheduleAllClassBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())
             }
         }
     }
 
-    private val viewModel: StudentAllClassViewModel by viewModel()
+    protected open val viewModel: StudentAllClassViewModel by viewModel()
 
     private var _binding: FragmentClassScheduleAllClassBinding? = null
     private val binding get() = _binding!!
@@ -92,8 +92,9 @@ class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
 
     private fun updateAdapterItem(allClasses: List<ClassScheduleAllClassDTO>) {
         val classes = allClasses.map {
+            val courseTitle = getCourseTitle(it)
             ClassScheduleAllClass(
-                title = resources.getString(R.string.class_schedule_course_code_and_name, it.code, it.name),
+                title = courseTitle,
                 startDate = it.startAt,
                 endDate = it.endAt
             )
@@ -101,6 +102,8 @@ class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
 
         binding.vAllClass.updateItem(classes)
     }
+
+    protected open fun getCourseTitle(classScheduleAllClassDTO: ClassScheduleAllClassDTO) = resources.getString(R.string.class_schedule_course_code_and_name, classScheduleAllClassDTO.code, classScheduleAllClassDTO.name)
 
     override fun onDestroyView() {
         super.onDestroyView()

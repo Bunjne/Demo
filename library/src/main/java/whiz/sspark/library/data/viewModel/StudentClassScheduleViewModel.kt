@@ -20,37 +20,37 @@ import whiz.sspark.library.utility.EventWrapper
 import whiz.sspark.library.utility.toEventWrapper
 import java.util.*
 
-class StudentClassScheduleViewModel(private val classScheduleRepository: StudentClassScheduleRepositoryImpl): ViewModel() {
+open class StudentClassScheduleViewModel(private val classScheduleRepository: StudentClassScheduleRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
+    protected val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _classScheduleResponse = MutableLiveData<EventWrapper<List<ClassScheduleDTO>>>()
+    protected val _classScheduleResponse = MutableLiveData<EventWrapper<List<ClassScheduleDTO>>>()
     val classScheduleResponse: LiveData<EventWrapper<List<ClassScheduleDTO>>>
         get() = _classScheduleResponse
 
-    private val _classScheduleErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
+    protected val _classScheduleErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
     val classScheduleErrorResponse: LiveData<EventWrapper<ApiResponseX?>>
         get() = _classScheduleErrorResponse
 
-    private val _termsResponse = MutableLiveData<EventWrapper<List<Term>>>()
+    protected val _termsResponse = MutableLiveData<EventWrapper<List<Term>>>()
     val termsResponse: LiveData<EventWrapper<List<Term>>>
         get() = _termsResponse
 
-    private val _termsErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
+    protected val _termsErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
     val termsErrorResponse: LiveData<EventWrapper<ApiResponseX?>>
         get() = _termsErrorResponse
 
-    private val _errorMessage = MutableLiveData<EventWrapper<String>>()
+    protected val _errorMessage = MutableLiveData<EventWrapper<String>>()
     val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
 
-    fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
+    open fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
         val convertedFromDate = fromDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
         val convertedToDate = toDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
 
@@ -79,7 +79,7 @@ class StudentClassScheduleViewModel(private val classScheduleRepository: Student
         }
     }
 
-    fun getTerms() {
+    open fun getTerms() {
         viewModelScope.launch {
             classScheduleRepository.getTerms()
                 .onStart {
