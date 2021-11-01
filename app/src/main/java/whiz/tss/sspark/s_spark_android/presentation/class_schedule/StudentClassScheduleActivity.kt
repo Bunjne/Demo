@@ -277,8 +277,8 @@ open class StudentClassScheduleActivity : BaseActivity() {
     }
 
     private fun getInitialWeek(): Int {
-        val startedWeekOfYear = currentTerm.startAt.toCalendar().get(Calendar.WEEK_OF_YEAR)
-        val endedWeekOfYear = currentTerm.endAt.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val startedWeekOfYear = currentTerm.startAt.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
+        val endedWeekOfYear = currentTerm.endAt.toLocalDate()!!.toCalendar().get(Calendar.WEEK_OF_YEAR)
 
         val currentWeekOfYear = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)
 
