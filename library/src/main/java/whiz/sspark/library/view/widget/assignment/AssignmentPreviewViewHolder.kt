@@ -20,10 +20,10 @@ class AssignmentPreviewViewHolder(
         with(assignment) {
             binding.cvVerticalBar.setCardBackgroundColor(startColor.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor)))
             binding.tvCourseName.text = courseTitle
-            binding.tvDate.text = createdAt.toPostTime(context)
+            binding.tvDate.text = createdAt.toLocalDate()?.toPostTime(context)
             binding.tvTitle.text = title
             binding.tvDescription.text = description
-            binding.tvDeadline.text = context.resources.getString(R.string.assignment_deadline, deadlineAt.toPostFullDateTime(context))
+            binding.tvDeadline.text = context.resources.getString(R.string.assignment_deadline, deadlineAt.toLocalDate()?.toPostFullDateTime(context))
             binding.ivInstructorImage.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvInstructorName.text = instructorName
         }

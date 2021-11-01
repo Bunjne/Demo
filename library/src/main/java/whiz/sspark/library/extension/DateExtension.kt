@@ -28,7 +28,7 @@ fun Date.toCalendar() = Calendar.getInstance().apply {
 }
 
 fun Date.toPostTime(context: Context): String {
-    val timeDifferences = Calendar.getInstance().time.time - this.toLocalDate()!!.time
+    val timeDifferences = Calendar.getInstance().time.time - this.time
     val timeDifferencesInMinutes = (timeDifferences / (1000 * 60))
     val timeDifferencesInHours = timeDifferencesInMinutes / 60
 
@@ -41,7 +41,7 @@ fun Date.toPostTime(context: Context): String {
 }
 
 fun Date.toPostFullDateTime(context: Context): String {
-    val date = SimpleDateFormat(DateTimePattern.dayFullMonthFormatTh, Locale.getDefault()).format(this.toLocalDate()!!) + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat(DateTimePattern.generalShortTime, Locale.getDefault()).format(this.toLocalDate()!!)
+    val date = SimpleDateFormat(DateTimePattern.dayFullMonthFormatTh, Locale.getDefault()).format(this) + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat(DateTimePattern.generalShortTime, Locale.getDefault()).format(this)
     return context.resources.getString(R.string.date_time_place_holder, date)
 }
 
