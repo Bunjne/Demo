@@ -8,10 +8,10 @@ import whiz.sspark.library.data.viewModel.AdviseeAllStudentClassViewModel
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 
-class AdviseeScheduleAllClassBottomSheetDialog: ClassScheduleAllClassBottomSheetDialog() {
+class AdviseeScheduleAllClassBottomSheetDialogStudent: StudentClassScheduleAllClassBottomSheetDialog() {
 
     companion object {
-        fun newInstance(term: Term, studentId: String, advisee: Advisee) = AdviseeScheduleAllClassBottomSheetDialog().apply {
+        fun newInstance(term: Term, studentId: String, advisee: Advisee) = AdviseeScheduleAllClassBottomSheetDialogStudent().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())
                 putString("studentId", studentId)

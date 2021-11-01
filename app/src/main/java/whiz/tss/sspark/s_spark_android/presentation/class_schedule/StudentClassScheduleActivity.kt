@@ -19,7 +19,6 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassScheduleBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
-import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.ClassScheduleAllClassBottomSheetDialog
 import java.util.*
 
 open class StudentClassScheduleActivity : BaseActivity() {
@@ -87,12 +86,6 @@ open class StudentClassScheduleActivity : BaseActivity() {
             }
         }
     }
-
-//    protected open fun showClassScheduleAllBottomSheetDialog() {
-//        ClassScheduleAllClassBottomSheetDialog.newInstance(
-//            term = currentTerm
-//        ).show(supportFragmentManager, ALL_CLASS_DIALOG)
-//    }
 
     override fun initView() {
         binding.vClassSchedule.init(

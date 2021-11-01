@@ -18,10 +18,10 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassScheduleAllClassBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 
-open class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
+open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
 
     companion object {
-        fun newInstance(term: Term) = ClassScheduleAllClassBottomSheetDialog().apply {
+        fun newInstance(term: Term) = StudentClassScheduleAllClassBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())
             }
