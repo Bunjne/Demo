@@ -6,7 +6,6 @@ import whiz.sspark.library.data.entity.AuthenticationInformation
 
 interface LoginService {
     @FormUrlEncoded
-    @Headers("x-mock-match-request-body: true")
     @POST("connect/token")
     suspend fun getLogin(@Field("client_id") client_id: String,
                          @Field("client_secret") client_secret: String,
