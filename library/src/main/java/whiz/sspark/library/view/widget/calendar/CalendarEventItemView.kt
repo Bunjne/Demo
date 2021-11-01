@@ -34,16 +34,16 @@ class CalendarEventItemView: ConstraintLayout {
 
             if (endDate != null) {
                 if (startEventMonth == endEventMonth) {
-                    binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.singleDayFormat)
-                    binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.convertToDateString(DateTimePattern.singleDayFormat))
+                    binding.tvStartDate.text = startDate.toLocalDate()!!.convertToDateString(DateTimePattern.singleDayFormat)
+                    binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.toLocalDate()!!.convertToDateString(DateTimePattern.singleDayFormat))
                     binding.tvEndDate.visibility = View.VISIBLE
                 } else {
-                    binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.dayFullMonthFormatTh)
-                    binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.convertToDateString(DateTimePattern.dayFullMonthFormatTh))
+                    binding.tvStartDate.text = startDate.toLocalDate()!!.convertToDateString(DateTimePattern.dayFullMonthFormatTh)
+                    binding.tvEndDate.text = resources.getString(R.string.calendar_end_date, endDate.toLocalDate()!!.convertToDateString(DateTimePattern.dayFullMonthFormatTh))
                     binding.tvEndDate.visibility = View.VISIBLE
                 }
             } else {
-                binding.tvStartDate.text = startDate.convertToDateString(DateTimePattern.singleDayFormat)
+                binding.tvStartDate.text = startDate.toLocalDate()!!.convertToDateString(DateTimePattern.singleDayFormat)
                 binding.tvEndDate.visibility = View.GONE
             }
         }
