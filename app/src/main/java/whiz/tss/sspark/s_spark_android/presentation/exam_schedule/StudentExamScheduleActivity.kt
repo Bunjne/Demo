@@ -143,7 +143,7 @@ class StudentExamScheduleActivity : BaseActivity() {
                 val month = monthYearSplit[0].toInt()
                 val year = monthYearSplit[1].toInt()
 
-                val monthYearTitle = it.value.first().date.convertToDateString(
+                val monthYearTitle = it.value.first().date.toLocalDate()!!.convertToDateString(
                     defaultPattern = DateTimePattern.fullMonthYearFormat,
                     dayMonthThPattern = DateTimePattern.fullMonthFormatTh,
                     yearThPattern = DateTimePattern.generalYear
@@ -151,7 +151,7 @@ class StudentExamScheduleActivity : BaseActivity() {
 
                 items.add(ExamScheduleAdapter.Item(title = monthYearTitle))
 
-                val groupExamByDay = it.value.groupBy { it.date.convertToDateString(DateTimePattern.fullDayNameWithDayFormat) }
+                val groupExamByDay = it.value.groupBy { it.date.toLocalDate()!!.convertToDateString(DateTimePattern.fullDayNameWithDayFormat) }
 
                 val calendarEntries = groupExamByDay.map {
                     val daySplit = it.key.split(" ")

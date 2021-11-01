@@ -15,6 +15,7 @@ import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewAssignmentDetailActivityBinding
 import whiz.sspark.library.extension.showUserProfileCircle
 import whiz.sspark.library.extension.toColor
+import whiz.sspark.library.extension.toLocalDate
 import whiz.sspark.library.extension.toPostTime
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostFileView
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostImageView
@@ -34,12 +35,13 @@ class AssignmentDetailActivityView: ConstraintLayout {
         with(assignment) {
             binding.cvVerticalBar.setCardBackgroundColor(startColor.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor)))
             binding.tvCourseName.text = courseTitle
-            binding.tvDate.text = createdAt.toPostTime(context)
+            binding.tvDate.text = createdAt.toLocalDate()?.toPostTime(context)
             binding.tvTitle.text = title
             binding.tvDescription.text = description
-            binding.tvDeadline.text = context.resources.getString(R.string.assignment_deadline, deadlineAt.toPostTime(context))
+            binding.tvDeadline.text = context.resources.getString(R.string.assignment_deadline, deadlineAt.toLocalDate()?.toPostTime(context))
             binding.ivInstructorImage.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvInstructorName.text = instructorName
+
             if (attachments.isNotEmpty()) {
                 binding.llAttachment.visibility = View.VISIBLE
                 binding.llAttachment.removeAllViews()

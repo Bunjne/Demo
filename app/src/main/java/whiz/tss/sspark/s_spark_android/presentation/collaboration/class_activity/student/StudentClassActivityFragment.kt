@@ -1,7 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student
 
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,6 +39,9 @@ import java.net.URISyntaxException
 class StudentClassActivityFragment : BaseFragment() {
 
     companion object {
+        const val LIKE_BY_DIALOG = "LIKE_BY_DIALOG"
+        const val SEEN_BY_DIALOG = "SEEN_BY_DIALOG"
+
         fun newInstance(classGroupId: String, startColor: Int, endColor: Int, allMemberCount: Int) = StudentClassActivityFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
@@ -301,12 +303,20 @@ class StudentClassActivityFragment : BaseFragment() {
                 readPost(postId)
             },
             onPostLikedUsersClicked = { postId ->
-                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, postId, startColor, endColor, PostInteraction.LIKE.type)
-                dialog.show(childFragmentManager, "")
+                val isLikeByDialogNotShown = childFragmentManager.findFragmentByTag(LIKE_BY_DIALOG) == null
+
+                if (isLikeByDialogNotShown) {
+                    val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, postId, startColor, endColor, PostInteraction.LIKE.type)
+                    dialog.show(childFragmentManager, LIKE_BY_DIALOG)
+                }
             },
             onPostSeenUsersClicked = { postId ->
-                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, postId, startColor, endColor, PostInteraction.SEEN.type)
-                dialog.show(childFragmentManager, "")
+                val isSeenByDialogNotShown = childFragmentManager.findFragmentByTag(SEEN_BY_DIALOG) == null
+
+                if (isSeenByDialogNotShown) {
+                    val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, postId, startColor, endColor, PostInteraction.SEEN.type)
+                    dialog.show(childFragmentManager, SEEN_BY_DIALOG)
+                }
             },
             onOnlineClassPlatformClicked = { url ->
                 if (url.isUrlValid() && (url.contains("http://") || url.contains("https://"))) {

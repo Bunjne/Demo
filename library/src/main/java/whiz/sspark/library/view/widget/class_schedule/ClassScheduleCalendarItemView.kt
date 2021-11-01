@@ -9,6 +9,7 @@ import whiz.sspark.library.data.entity.ClassScheduleCalendar
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewClassScheduleCalendarItemBinding
 import whiz.sspark.library.extension.convertToDateString
+import whiz.sspark.library.extension.toLocalDate
 
 class ClassScheduleCalendarItemView: LinearLayout {
     constructor(context: Context) : super(context)
@@ -37,7 +38,7 @@ class ClassScheduleCalendarItemView: LinearLayout {
         scheduleDays.forEachIndexed { index, day ->
             val dayKey = index + 1
             val scheduleSlots = dayGroup.getOrElse(dayKey) { listOf() }
-            val convertedDate = classScheduleCalendar.dates.getOrNull(index)?.convertToDateString(DateTimePattern.shortDayAndMonthNoYearFormatTh) ?: ""
+            val convertedDate = classScheduleCalendar.dates.getOrNull(index)?.toLocalDate()!!.convertToDateString(DateTimePattern.shortDayAndMonthNoYearFormatTh) ?: ""
             val dayTitle = resources.getString(R.string.class_schedule_day_with_short_date_title, day, convertedDate)
 
             binding.llScheduleRow.addView(ScheduleRowView(context).apply {

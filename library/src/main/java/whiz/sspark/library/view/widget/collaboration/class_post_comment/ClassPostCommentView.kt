@@ -9,6 +9,7 @@ import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassPostCommentBinding
 import whiz.sspark.library.extension.showProfile
+import whiz.sspark.library.extension.toLocalDate
 import whiz.sspark.library.extension.toPostTime
 import whiz.sspark.library.utility.convertToFullName
 
@@ -43,7 +44,7 @@ class ClassPostCommentView : ConstraintLayout {
             }
 
             binding.tvName.text = commentAuthorName
-            binding.tvDate.text = datetime.toPostTime(context)
+            binding.tvDate.text = datetime.toLocalDate()?.toPostTime(context)
             with(binding.tvMessage) {
                 text = message
                 setLinkTextColor(color)
