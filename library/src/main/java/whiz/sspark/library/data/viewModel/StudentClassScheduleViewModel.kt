@@ -30,11 +30,11 @@ open class StudentClassScheduleViewModel(private val classScheduleRepository: St
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _classScheduleResponse = MutableLiveData<EventWrapper<List<ClassScheduleDTO>>>()
+    protected val _classScheduleResponse = MutableLiveData<EventWrapper<List<ClassScheduleDTO>>>()
     val classScheduleResponse: LiveData<EventWrapper<List<ClassScheduleDTO>>>
         get() = _classScheduleResponse
 
-    private val _classScheduleErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
+    protected val _classScheduleErrorResponse = MutableLiveData<EventWrapper<ApiResponseX?>>()
     val classScheduleErrorResponse: LiveData<EventWrapper<ApiResponseX?>>
         get() = _classScheduleErrorResponse
 
@@ -50,7 +50,7 @@ open class StudentClassScheduleViewModel(private val classScheduleRepository: St
     val errorMessage: LiveData<EventWrapper<String>>
         get() = _errorMessage
 
-    fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
+    open fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
         val convertedFromDate = fromDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
         val convertedToDate = toDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
 
@@ -79,7 +79,7 @@ open class StudentClassScheduleViewModel(private val classScheduleRepository: St
         }
     }
 
-    fun getTerms() {
+    open fun getTerms() {
         viewModelScope.launch {
             classScheduleRepository.getTerms()
                 .onStart {

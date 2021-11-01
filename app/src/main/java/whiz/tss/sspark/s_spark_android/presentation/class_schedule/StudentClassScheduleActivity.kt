@@ -19,21 +19,22 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.databinding.ActivityClassScheduleBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.StudentClassScheduleAllClassBottomSheetDialog
 import java.util.*
 
 open class StudentClassScheduleActivity : BaseActivity() {
 
     companion object {
-        const val ALL_CLASS_DIALOG = "AllClassDialog"
+        internal const val ALL_CLASS_DIALOG = "AllClassDialog"
     }
 
     protected open val viewModel: StudentClassScheduleViewModel by viewModel()
 
-    protected lateinit var binding: ActivityClassScheduleBinding
-    protected open lateinit var currentTerm: Term
+    internal lateinit var binding: ActivityClassScheduleBinding
+    protected lateinit var currentTerm: Term
 
-    protected open val title: String by lazy {
-        resources.getString(R.string.class_schedule_title)
+    protected open val title by lazy {
+        resources.getString(R.string.class_schedule_student_title)
     }
 
     private var popupMenu: PopupMenu? = null
@@ -67,6 +68,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
             initView()
             getClassSchedule()
             updateSelectedWeek()
+            updateAdapterItem()
             getTerms()
         }
     }
@@ -97,7 +99,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
             onAllClassesClicked = {
                 val isShowing = supportFragmentManager.findFragmentByTag(ALL_CLASS_DIALOG) != null
                 if (!isShowing) {
-//                    showClassScheduleAllBottomSheetDialog()
+                    showAllClassDialog()
                 }
             },
             onPreviousWeekClicked = {
@@ -106,6 +108,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
 
                     getClassSchedule()
                     updateSelectedWeek()
+                    updateAdapterItem()
                 }
             },
             onNextWeekClicked = {
@@ -114,6 +117,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
 
                     getClassSchedule()
                     updateSelectedWeek()
+                    updateAdapterItem()
                 }
             },
             onRefresh = {
@@ -182,6 +186,12 @@ open class StudentClassScheduleActivity : BaseActivity() {
         }
     }
 
+    protected open fun showAllClassDialog() {
+        StudentClassScheduleAllClassBottomSheetDialog.newInstance(
+            term = currentTerm
+        ).show(supportFragmentManager, ALL_CLASS_DIALOG)
+    }
+
     private fun updateAdapterItem(classSchedulesDTO: List<ClassScheduleDTO> = listOf()) {
         val items = mutableListOf<ClassScheduleAdapter.Item>()
         val dates = weeks.find { it.id == selectedWeekId }?.dates ?: listOf()
@@ -203,7 +213,8 @@ open class StudentClassScheduleActivity : BaseActivity() {
         items.add(ClassScheduleAdapter.Item(classScheduleCalendar = classScheduleCalendar))
 
         if (classSchedulesDTO.isEmpty()) {
-            items.add(ClassScheduleAdapter.Item(noClassTitle = resources.getString(R.string.class_schedule_no_class)))
+            val noClassTitle = getNoClassTitle()
+            items.add(ClassScheduleAdapter.Item(noClassTitle = noClassTitle))
             binding.vClassSchedule.updateSchedule(items)
         } else {
             dates.forEachIndexed { index, date ->
@@ -215,14 +226,15 @@ open class StudentClassScheduleActivity : BaseActivity() {
                     items.add(ClassScheduleAdapter.Item(title = title))
 
                     courses.forEach {
-                        val instructorNames = it.instructors.map { it.fullName }
+                        val courseTitle = getCourseTitle(it)
+                        val courseDescription = getCourseDescription(it)
+
                         val classScheduleCourse = ClassScheduleCourse(
                             startTime = it.startTime,
                             endTime = it.endTime,
-                            title = resources.getString(R.string.class_schedule_course_code_and_name, it.code, it.name),
+                            title = courseTitle,
                             color = it.colorCode1,
-                            room = it.room,
-                            instructorNames = instructorNames
+                            courseDescription = courseDescription
                         )
 
                         items.add(ClassScheduleAdapter.Item(classScheduleCourse = classScheduleCourse))
@@ -233,6 +245,16 @@ open class StudentClassScheduleActivity : BaseActivity() {
             binding.vClassSchedule.updateSchedule(items)
         }
     }
+
+    protected open fun getCourseDescription(classScheduleDTO: ClassScheduleDTO): String {
+        val instructorNames = classScheduleDTO.instructors.map { it.fullName }
+        val convertedInstructorName = instructorNames.joinToString(",")
+        return resources.getString(R.string.class_schedule_instructor_and_room, convertedInstructorName, classScheduleDTO.room)
+    }
+
+    protected open fun getNoClassTitle() = resources.getString(R.string.class_schedule_student_no_class)
+
+    protected open fun getCourseTitle(classScheduleDTO: ClassScheduleDTO) = resources.getString(R.string.class_schedule_course_code_and_name, classScheduleDTO.code, classScheduleDTO.name)
 
     private fun getClassSchedule() {
         val currentWeek = weeks.find { it.id == selectedWeekId }?.dates ?: listOf()

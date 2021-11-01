@@ -18,7 +18,7 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassScheduleAllClassBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 
-open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment(){
+open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment() {
 
     companion object {
         fun newInstance(term: Term) = StudentClassScheduleAllClassBottomSheetDialog().apply {
@@ -96,8 +96,9 @@ open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogF
 
     private fun updateAdapterItem(allClasses: List<ClassScheduleAllClassDTO>) {
         val classes = allClasses.map {
+            val courseTitle = getCourseTitle(it)
             ClassScheduleAllClass(
-                title = resources.getString(R.string.class_schedule_course_code_and_name, it.code, it.name),
+                title = courseTitle,
                 startDate = it.startAt,
                 endDate = it.endAt
             )
@@ -105,6 +106,8 @@ open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogF
 
         binding.vAllClass.updateItem(classes)
     }
+
+    protected open fun getCourseTitle(classScheduleAllClassDTO: ClassScheduleAllClassDTO) = resources.getString(R.string.class_schedule_course_code_and_name, classScheduleAllClassDTO.code, classScheduleAllClassDTO.name)
 
     override fun onDestroyView() {
         super.onDestroyView()

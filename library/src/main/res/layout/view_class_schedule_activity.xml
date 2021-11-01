@@ -55,10 +55,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="@string/class_schedule_title"
                 app:layout_constraintEnd_toStartOf="@+id/cvTerm"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ตารางเรียน" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvTerm"

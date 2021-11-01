@@ -31,7 +31,7 @@ open class StudentAllClassViewModel(private val studentAllClassRepository: Stude
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getAllClasses(termId: String) {
+    open fun getAllClasses(termId: String) {
         viewModelScope.launch {
             studentAllClassRepository.getAllClass(termId)
                 .onStart {

@@ -3,10 +3,13 @@ package whiz.sspark.library
 import android.content.Context
 import android.graphics.Typeface
 import androidx.core.content.res.ResourcesCompat
+import okhttp3.Interceptor
+import okhttp3.Response
 import whiz.sspark.library.data.enum.ProjectType
 
 object SSparkLibrary {
     lateinit var onSessionExpired: () -> Unit
+    lateinit var baseInterceptor: (chain: Interceptor.Chain) -> Response
     lateinit var boldTypeface: Typeface
     lateinit var boldSerifTypeface: Typeface
     lateinit var regularTypeface: Typeface
@@ -44,5 +47,9 @@ object SSparkLibrary {
 
     fun setOnSessionExpireCallback(onSessionExpired: () -> Unit) {
         this.onSessionExpired = onSessionExpired
+    }
+
+    fun setInterceptor(baseInterceptor: (chain: Interceptor.Chain) -> Response) {
+        this.baseInterceptor = baseInterceptor
     }
 }

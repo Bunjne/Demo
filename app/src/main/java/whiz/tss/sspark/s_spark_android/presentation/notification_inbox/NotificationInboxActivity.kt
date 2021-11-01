@@ -6,6 +6,7 @@ import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.Inbox
 import whiz.sspark.library.data.entity.InboxItemDTO
 import whiz.sspark.library.data.static.DateTimePattern
+import whiz.sspark.library.data.static.PagingConfiguration
 import whiz.sspark.library.data.viewModel.NotificationInboxViewModel
 import whiz.sspark.library.extension.*
 import whiz.sspark.library.utility.showAlertWithOkButton
@@ -17,13 +18,6 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
 class NotificationInboxActivity : BaseActivity() {
 
-    companion object {
-        private const val PAGE_SIZE = 10
-        private const val PAGE_INCREASE_STEP = 1
-        private const val INITIAL_PAGE = 1
-        private const val INITIAL_TOTAL_PAGE = 0
-    }
-
     private val viewModel: NotificationInboxViewModel by viewModel()
 
     private lateinit var binding: ActivityNotificationInboxBinding
@@ -31,8 +25,8 @@ class NotificationInboxActivity : BaseActivity() {
     private var dataWrapper: DataWrapperX<Any>? = null
     private var inboxes: MutableList<InboxItemDTO> = mutableListOf()
 
-    private var currentPage = INITIAL_PAGE
-    private var totalPage = INITIAL_TOTAL_PAGE
+    private var currentPage = PagingConfiguration.INITIAL_PAGE
+    private var totalPage = PagingConfiguration.INITIAL_TOTAL_PAGE
     private var isLoadMoreData = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,24 +43,24 @@ class NotificationInboxActivity : BaseActivity() {
                 binding.vInbox.setLatestUpdatedText(dataWrapper)
                 updateAdapterItem()
             } else {
-                viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
+                viewModel.getLatestNotification(PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
             }
         } else {
             initView()
-            viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
+            viewModel.getLatestNotification(PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
         }
     }
 
     override fun initView() {
         binding.vInbox.init(
             onRefresh = {
-                viewModel.getLatestNotification(INITIAL_PAGE, PAGE_SIZE)
+                viewModel.getLatestNotification(PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
             },
             onLoadMore = {
                 if (!isLoadMoreData) {
                     isLoadMoreData = true
-                    val nextPage = currentPage + PAGE_INCREASE_STEP
-                    viewModel.getNotifications(nextPage, PAGE_SIZE)
+                    val nextPage = currentPage + PagingConfiguration.PAGE_INCREASE_STEP
+                    viewModel.getNotifications(nextPage, PagingConfiguration.PAGE_SIZE)
                 }
             }
         )
@@ -86,7 +80,7 @@ class NotificationInboxActivity : BaseActivity() {
     override fun observeData() {
         viewModel.notificationResponse.observe(this) {
             it.getContentIfNotHandled()?.let {
-                currentPage += PAGE_INCREASE_STEP
+                currentPage += PagingConfiguration.PAGE_INCREASE_STEP
                 inboxes.addAll(it.item)
                 checkIsLastPage()
                 updateAdapterItem()
@@ -96,7 +90,7 @@ class NotificationInboxActivity : BaseActivity() {
 
         viewModel.latestNotificationResponse.observe(this) {
             it.getContentIfNotHandled()?.let {
-                currentPage = INITIAL_PAGE
+                currentPage = PagingConfiguration.INITIAL_PAGE
                 totalPage = it.totalPage
 
                 with(inboxes) {
