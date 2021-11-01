@@ -88,11 +88,11 @@ open class StudentClassScheduleActivity : BaseActivity() {
         }
     }
 
-    open protected fun showClassScheduleAllBottomSheetDialog() {
-        ClassScheduleAllClassBottomSheetDialog.newInstance(
-            term = currentTerm
-        ).show(supportFragmentManager, ALL_CLASS_DIALOG)
-    }
+//    protected open fun showClassScheduleAllBottomSheetDialog() {
+//        ClassScheduleAllClassBottomSheetDialog.newInstance(
+//            term = currentTerm
+//        ).show(supportFragmentManager, ALL_CLASS_DIALOG)
+//    }
 
     override fun initView() {
         binding.vClassSchedule.init(
@@ -104,7 +104,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
             onAllClassesClicked = {
                 val isShowing = supportFragmentManager.findFragmentByTag(ALL_CLASS_DIALOG) != null
                 if (!isShowing) {
-                    showClassScheduleAllBottomSheetDialog()
+//                    showClassScheduleAllBottomSheetDialog()
                 }
             },
             onPreviousWeekClicked = {

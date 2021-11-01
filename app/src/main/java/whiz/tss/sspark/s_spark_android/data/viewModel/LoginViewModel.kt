@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.repository.ProfileRepositoryImpl
 import whiz.tss.sspark.s_spark_android.data.repository.LoginRepositoryImpl
-import whiz.tss.sspark.s_spark_android.utility.ProfileManager
 
 class LoginViewModel(private val loginRepository: LoginRepositoryImpl,
                      private val profileRepository: ProfileRepositoryImpl) : ViewModel() {

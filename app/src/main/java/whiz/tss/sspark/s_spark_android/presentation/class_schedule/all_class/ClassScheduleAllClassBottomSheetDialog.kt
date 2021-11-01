@@ -28,10 +28,10 @@ open class ClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment
         }
     }
 
-    private val viewModel: StudentAllClassViewModel by viewModel()
+    protected open val viewModel: StudentAllClassViewModel by viewModel()
 
     private var _binding: FragmentClassScheduleAllClassBinding? = null
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
     protected val term by lazy {
         arguments?.getString("term")!!.toObject<Term>()!!

@@ -9,7 +9,7 @@ import whiz.sspark.library.data.entity.ApiResponseX
 
 interface AdviseeAllStudentClassService: StudentAllClassService {
     @Headers("Content-Type: application/json")
-    @GET("api/v1/students/studentId/schedules/courses")
+    @GET("api/v1/students/studentId/{schedules}/courses")
     suspend fun getAllClass(@Path("studentId") studentId: String,
                             @Query("termId") termId: String): Response<ApiResponseX>
 }
