@@ -183,7 +183,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                                 instructor = LikeBySeenByMember(
                                     profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
-                                    fullName = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}."),
+                                    fullName = convertToFullName(firstName, middleName, lastName),
                                     jobDescription = jobDescription,
                                     gender = gender
                                 )
@@ -203,14 +203,14 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                 addAll(
                     students.map { student ->
                         with(student) {
-                            val title = resources.getString(R.string.like_by_seen_by_name_with_rank, number ?: code, nickname)
+                            val title = resources.getString(R.string.like_by_seen_by_name_with_rank, number ?: code, collaborationDisplayName)
 
                             LikeBySeenByItemAdapter.LikeBySeenByAdapterViewType.Student(
                                 student = LikeBySeenByMember(
                                     title = title,
                                     profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
-                                    fullName = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}."),
+                                    fullName = convertToFullName(firstName, middleName, lastName),
                                     gender = gender
                                 )
                             )
