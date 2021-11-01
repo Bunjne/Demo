@@ -2,6 +2,7 @@ package whiz.sspark.library.extension
 
 import android.content.Context
 import whiz.sspark.library.R
+import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.utility.isThaiLanguage
 import whiz.sspark.library.utility.toThaiYear
 import java.text.SimpleDateFormat
@@ -40,7 +41,7 @@ fun Date.toPostTime(context: Context): String {
 }
 
 fun Date.toPostFullDateTime(context: Context): String {
-    val date = SimpleDateFormat("d MMMM", Locale.getDefault()).format(this.toLocalDate()!!) + " " + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat("HH:mm", Locale.getDefault()).format(this.toLocalDate()!!)
+    val date = SimpleDateFormat(DateTimePattern.dayFullMonthFormatTh, Locale.getDefault()).format(this.toLocalDate()!!) + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat(DateTimePattern.generalShortTime, Locale.getDefault()).format(this.toLocalDate()!!)
     return context.resources.getString(R.string.date_time_place_holder, date)
 }
 
