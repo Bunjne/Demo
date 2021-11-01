@@ -16,6 +16,7 @@ import whiz.sspark.library.data.entity.Term
 import whiz.sspark.library.data.repository.StudentClassScheduleRepositoryImpl
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.extension.convertToDateString
+import whiz.sspark.library.extension.toLocalDate
 import whiz.sspark.library.utility.EventWrapper
 import whiz.sspark.library.utility.toEventWrapper
 import java.util.*
@@ -51,8 +52,8 @@ open class StudentClassScheduleViewModel(private val classScheduleRepository: St
         get() = _errorMessage
 
     open fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
-        val convertedFromDate = fromDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
-        val convertedToDate = toDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
+        val convertedFromDate = fromDate.toLocalDate()!!.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
+        val convertedToDate = toDate.toLocalDate()!!.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
 
         viewModelScope.launch {
             classScheduleRepository.getClassSchedule(termId, convertedFromDate, convertedToDate)

@@ -10,6 +10,7 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewCalendarMonthSelectionItemBinding
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toLocalDate
 
 class CalendarMonthSelectionItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -24,7 +25,7 @@ class CalendarMonthSelectionItemView: ConstraintLayout {
              onNextMonthClicked: () -> Unit,
              onPreviousMonthClicked: () -> Unit) {
         with(monthSelection) {
-            binding.tvMonthYear.text = date.convertToDateString(
+            binding.tvMonthYear.text = date.toLocalDate()!!.convertToDateString(
                 defaultPattern = DateTimePattern.fullMonthYearFormat,
                 dayMonthThPattern = DateTimePattern.fullMonthFormatTh,
                 yearThPattern = DateTimePattern.generalYear

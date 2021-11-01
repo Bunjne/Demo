@@ -11,6 +11,7 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewClassScheduleWeekSelectionItemBinding
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toLocalDate
 
 class ClassScheduleWeekSelectionItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -27,13 +28,13 @@ class ClassScheduleWeekSelectionItemView : ConstraintLayout {
         binding.ivPreviousPage.show(R.drawable.ic_previous_page)
         binding.ivNextPage.show(R.drawable.ic_next_page)
 
-        val convertedStartDate = weekSelection.startDate.convertToDateString(
+        val convertedStartDate = weekSelection.startDate.toLocalDate()!!.convertToDateString(
             defaultPattern = DateTimePattern.shortDayAndMonthFormatEn,
             dayMonthThPattern = DateTimePattern.shortDayAndMonthFormatTh,
             yearThPattern = DateTimePattern.twoPositionYear
         )
 
-        val convertedEndDate = weekSelection.endDate.convertToDateString(
+        val convertedEndDate = weekSelection.endDate.toLocalDate()!!.convertToDateString(
             defaultPattern = DateTimePattern.shortDayAndMonthFormatEn,
             dayMonthThPattern = DateTimePattern.shortDayAndMonthFormatTh,
             yearThPattern = DateTimePattern.twoPositionYear
