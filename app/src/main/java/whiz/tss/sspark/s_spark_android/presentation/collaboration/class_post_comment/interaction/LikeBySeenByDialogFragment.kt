@@ -210,7 +210,7 @@ class LikeBySeenByDialogFragment : DialogFragment() {
                                     title = title,
                                     profileImageUrl = imageUrl,
                                     color = colorCode?.toColor() ?: Color.BLACK,
-                                    fullName = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}."),
+                                    fullName = convertToFullName(firstName, middleName, lastName),
                                     gender = gender
                                 )
                             )
