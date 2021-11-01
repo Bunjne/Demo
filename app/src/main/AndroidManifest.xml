@@ -74,6 +74,9 @@
         <activity
             android:name=".presentation.class_schedule.InstructorClassScheduleActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.HomeroomActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

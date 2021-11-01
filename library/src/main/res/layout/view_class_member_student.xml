@@ -16,9 +16,11 @@
         android:maxLines="1"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cvProfileImage"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         app:ssparkFont="regular"
         tools:text="#1 แชมป์" />
 
@@ -30,6 +32,7 @@
         android:maxLines="1"
         android:textColor="@color/textBasePrimaryColor"
         android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvNickname"
         app:layout_constraintTop_toBottomOf="@+id/tvNickname"

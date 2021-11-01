@@ -31,6 +31,7 @@ import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassS
 import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.HomeroomActivity
 import java.util.*
 
 class ClassGroupFragment : BaseFragment() {
@@ -138,8 +139,8 @@ class ClassGroupFragment : BaseFragment() {
                       putExtra("startColor", classGroupCourse.colorCode1.toColor())
                       putExtra("endColor", classGroupCourse.colorCode2.toColor())
                       putExtra("allMemberCount", classGroupCourse.memberCount)
-                      putExtra("courseCode", classGroupCourse.courseCode)
-                      putExtra("courseName", classGroupCourse.courseName)
+                      putExtra("title", classGroupCourse.courseCode)
+                      putExtra("subTitle", classGroupCourse.courseName)
                     }
 
                     startActivity(intent)
@@ -150,10 +151,14 @@ class ClassGroupFragment : BaseFragment() {
                             //TODO wait for implementation
                         }
                         BottomNavigationId.HOMEROOM.id -> {
-                            //TODO wait for implementation
-                        }
-                        BottomNavigationId.GUARDIANS.id -> {
-                            //TODO wait for implementation
+                            val intent = Intent(requireContext(), HomeroomActivity::class.java).apply {
+                                putExtra("classGroupId", specialClassGroup?.classGroupId)
+                                putExtra("allMemberCount", specialClassGroup?.memberCount)
+                                putExtra("title", specialClassGroup?.courseCode)
+                                putExtra("subTitle", specialClassGroup?.courseName)
+                            }
+
+                            startActivity(intent)
                         }
                         BottomNavigationId.ASSIGNMENT.id -> {
                             val intent = Intent(requireContext(), AssignmentActivity::class.java)

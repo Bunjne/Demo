@@ -1,7 +1,6 @@
 package whiz.sspark.library.data.entity
 
 import com.google.gson.annotations.SerializedName
-import whiz.sspark.library.extension.getFirstConsonant
 import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 
@@ -32,7 +31,14 @@ data class ClassMember(
     val firstName: String get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, true)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)
     val lastName: String get() = localize(_lastNameEn, _lastNameTh, _lastNameEn, true)
-    val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, false)
+
+    private val nickname: String get() = localize(_nicknameEn, _nicknameTh, _nicknameEn, false)
+    val collaborationDisplayName: String get() = if (nickname.isNotEmpty()) {
+        nickname
+    } else {
+        firstName
+    }
+
     val position: String get() = localize(positionEn, positionTh, positionEn, false)
     val fullName: String get() = convertToFullName(firstName, middleName, lastName)
 }
