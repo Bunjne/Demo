@@ -306,6 +306,10 @@ open class StudentClassScheduleActivity : BaseActivity() {
                 val date = Calendar.getInstance().apply {
                     set(Calendar.WEEK_OF_YEAR, weekOfYear)
                     set(Calendar.DAY_OF_WEEK, index)
+                    set(Calendar.HOUR, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
                 }.time
 
                 dateInWeek.add(date)

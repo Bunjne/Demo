@@ -9,15 +9,14 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.repository.InstructorClassScheduleRepositoryImpl
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.extension.convertToDateString
-import whiz.sspark.library.extension.toLocalDate
 import whiz.sspark.library.utility.toEventWrapper
 import java.util.*
 
 class InstructorClassScheduleViewModel(private val instructorClassScheduleRepository: InstructorClassScheduleRepositoryImpl): StudentClassScheduleViewModel(instructorClassScheduleRepository) {
 
     override fun getClassSchedule(termId: String, fromDate: Date, toDate: Date) {
-        val convertedFromDate = fromDate.toLocalDate()!!.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
-        val convertedToDate = toDate.toLocalDate()!!.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
+        val convertedFromDate = fromDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
+        val convertedToDate = toDate.convertToDateString(DateTimePattern.classScheduleServiceDateFormat)
 
         viewModelScope.launch {
             instructorClassScheduleRepository.getClassSchedule(termId, convertedFromDate, convertedToDate)
