@@ -8,7 +8,7 @@ enum class BottomNavigationId(val id: Int) {
     MENU(3),
     ACTIVITY(4),
     ATTENDANCE(5),
-    STUDENT(6),
+    MEMBER(6),
     ASSIGNMENT(7),
     HOMEROOM(8),
     ADVISORY(9),

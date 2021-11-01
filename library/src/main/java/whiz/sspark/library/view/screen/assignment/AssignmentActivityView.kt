@@ -19,10 +19,12 @@ class AssignmentActivityView: ConstraintLayout {
         ViewAssignmentActivityBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(onAssignmentClicked: (Assignment) -> Unit,
+    fun init(progressbarColor: Int,
+             onAssignmentClicked: (Assignment) -> Unit,
              onRefresh: () -> Unit,
              onLoadMore: () -> Unit) {
         binding.vAssignment.init(
+            progressbarColor = progressbarColor,
             onAssignmentClicked = onAssignmentClicked,
             onRefresh = onRefresh,
             onLoadMore = onLoadMore

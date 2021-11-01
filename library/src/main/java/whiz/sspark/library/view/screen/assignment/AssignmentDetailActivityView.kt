@@ -41,6 +41,7 @@ class AssignmentDetailActivityView: ConstraintLayout {
             binding.tvDeadline.text = context.resources.getString(R.string.assignment_deadline, deadlineAt.toLocalDate()?.toPostTime(context))
             binding.ivInstructorImage.showUserProfileCircle(imageUrl, getGender(gender).type)
             binding.tvInstructorName.text = instructorName
+
             if (attachments.isNotEmpty()) {
                 binding.llAttachment.visibility = View.VISIBLE
                 binding.llAttachment.removeAllViews()

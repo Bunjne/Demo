@@ -23,14 +23,19 @@ class AssignmentContainerView: ConstraintLayout {
     private var isLastPage = false
     private var isLoading = false
 
-    fun init(onAssignmentClicked: (Assignment) -> Unit,
+    fun init(progressbarColor: Int,
+             onAssignmentClicked: (Assignment) -> Unit,
              onRefresh: () -> Unit,
              onLoadMore: () -> Unit) {
         val layoutManager =  LinearLayoutManager(context)
 
         with(binding.rvAssignment) {
             this.layoutManager = layoutManager
-            adapter = AssignmentAdapter(onAssignmentClicked)
+            adapter = AssignmentAdapter(
+                progressbarColor = progressbarColor,
+                onAssignmentClicked = onAssignmentClicked
+            )
+
             addOnScrollListener(paginationScrollListener(layoutManager, onLoadMore))
         }
 
