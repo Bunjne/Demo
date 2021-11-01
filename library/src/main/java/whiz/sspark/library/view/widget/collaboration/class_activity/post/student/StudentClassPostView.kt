@@ -42,48 +42,42 @@ class StudentClassPostView : ConstraintLayout {
              onFileClicked: (Attachment) -> Unit,
              onDisplayLikedUsersClicked: (String) -> Unit,
              onDisplaySeenUsersClicked: (String) -> Unit) {
-        binding.vAuthor.init(post.author, post.createdAt, post.updatedAt, post.isRead, color)
+        binding.vAuthor.init(post.instructor, post.createdAt, post.updatedAt, post.isRead, color)
         with(binding.tvPostText) {
             text = post.message
             setLinkTextColor(color)
         }
 
-        if (post.attachments.isNotBlank()) {
-            val attachments = post.attachments.toObjects(Array<Attachment>::class.java)
-            val images = attachments.toAttachmentImages()
+        val images = post.attachments.toAttachmentImages()
 
-            binding.llPostImage.removeAllViews()
-            if (images.isEmpty()) {
-                binding.llPostImage.visibility = View.GONE
-            } else {
-                binding.llPostImage.visibility = View.VISIBLE
-                images.forEach { image ->
-                    binding.llPostImage.addView(
-                        ClassPostImageView(context).apply {
-                            init(image, onImageClicked)
-                        }
-                    )
-                }
-            }
-
-            binding.llPostFile.removeAllViews()
-            val files = attachments.toAttachmentFiles()
-
-            if (files.isEmpty()) {
-                binding.llPostFile.visibility = View.GONE
-            } else {
-                binding.llPostFile.visibility = View.VISIBLE
-                files.forEach { file ->
-                    binding.llPostFile.addView(
-                        ClassPostFileView(context).apply {
-                            init(file, onFileClicked)
-                        }
-                    )
-                }
-            }
-        } else {
+        binding.llPostImage.removeAllViews()
+        if (images.isEmpty()) {
             binding.llPostImage.visibility = View.GONE
+        } else {
+            binding.llPostImage.visibility = View.VISIBLE
+            images.forEach { image ->
+                binding.llPostImage.addView(
+                    ClassPostImageView(context).apply {
+                        init(image, onImageClicked)
+                    }
+                )
+            }
+        }
+
+        binding.llPostFile.removeAllViews()
+        val files = post.attachments.toAttachmentFiles()
+
+        if (files.isEmpty()) {
             binding.llPostFile.visibility = View.GONE
+        } else {
+            binding.llPostFile.visibility = View.VISIBLE
+            files.forEach { file ->
+                binding.llPostFile.addView(
+                    ClassPostFileView(context).apply {
+                        init(file, onFileClicked)
+                    }
+                )
+            }
         }
 
         binding.ivLike.show(R.drawable.ic_like)

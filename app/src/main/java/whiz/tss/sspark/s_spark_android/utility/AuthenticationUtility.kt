@@ -6,6 +6,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import kotlinx.coroutines.runBlocking
 import org.koin.java.KoinJavaComponent.inject
+import st.lowlevel.storo.Storo
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.entity.AuthenticationInformation
 import whiz.sspark.library.extension.toJson
@@ -92,9 +93,6 @@ fun retrieveUserID(context: Context): String {
 
 fun logout(context: Context) {
     clearData(context)
-    runBlocking {
-        ProfileManager(context).clearData()
-    }
 
     val intent = Intent(context, LoginActivity::class.java)
     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -113,6 +111,12 @@ fun clearData(context: Context) {
             apply()
         }
     }
+
+    runBlocking {
+        ProfileManager(context).clearData()
+    }
+
+    Storo.clear()
 }
 
 fun refreshToken(context: Context, onTokenRefreshed: () -> Unit) {

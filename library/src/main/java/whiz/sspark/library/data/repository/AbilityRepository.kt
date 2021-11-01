@@ -15,8 +15,8 @@ interface AbilityRepository {
     suspend fun getAbility(termId: String): Flow<DataWrapperX<List<AbilityDTO>>>
 }
 
-class AbilityRepositoryImpl(private val context: Context,
-                            private val remote: AbilityService): AbilityRepository {
+open class AbilityRepositoryImpl(private val context: Context,
+                                 private val remote: AbilityService): AbilityRepository {
     override suspend fun getAbility(termId: String): Flow<DataWrapperX<List<AbilityDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

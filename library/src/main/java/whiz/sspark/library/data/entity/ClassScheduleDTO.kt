@@ -6,6 +6,7 @@ import whiz.sspark.library.utility.localize
 
 data class ClassScheduleDTO(
         @SerializedName("code") val code: String = "",
+        @SerializedName("sectionNumber") val sectionNumber: String = "",
         @SerializedName("nameEn") val nameEn: String = "",
         @SerializedName("nameTh") val nameTh: String = "",
         @SerializedName("day") val day: Int = 0,

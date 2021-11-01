@@ -15,8 +15,8 @@ interface ActivityRecordRepository {
     suspend fun getActivityRecord(termId: String): Flow<DataWrapperX<List<ActivityDTO>>>
 }
 
-class ActivityRecordRepositoryImpl(private val context: Context,
-                                   private val remote: ActivityRecordService): ActivityRecordRepository {
+open class ActivityRecordRepositoryImpl(private val context: Context,
+                                        private val remote: ActivityRecordService): ActivityRecordRepository {
     override suspend fun getActivityRecord(termId: String): Flow<DataWrapperX<List<ActivityDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {

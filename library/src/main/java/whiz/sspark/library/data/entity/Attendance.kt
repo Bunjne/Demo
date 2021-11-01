@@ -4,29 +4,29 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class Attendance(
-        @SerializedName("id") val id: Long = 0L,
-        @SerializedName("validClassCount") val validClassCount: Int = 0,
-        @SerializedName("pastClassCount") val pastClassCount: Int = 0,
-        @SerializedName("presentPercent") val presentPercent: Double = 0.0,
-        @SerializedName("leavePercent") val leavePercent: Double = 0.0,
-        @SerializedName("latePercent") val latePercent: Double = 0.0,
-        @SerializedName("absentPercent") val absentPercent: Double = 0.0,
-        @SerializedName("classes") private val _classes: List<ClassAttendance>? = listOf()
+        @SerializedName("summary") val summary: AttendanceSummary = AttendanceSummary(),
+        @SerializedName("attendance") private val _attendanceDetails: List<AttendanceDetail>? = listOf(),
+        @SerializedName("sessions") private val _sessions: List<AttendanceDetail>? = listOf()
 ) {
-    val classes: List<ClassAttendance> get() = _classes ?: listOf()
+        val sessions: List<AttendanceDetail> get() = _sessions ?: listOf()
+        val attendanceDetails: List<AttendanceDetail> get() = _attendanceDetails ?: listOf()
 }
 
-data class ClassAttendance(
-        @SerializedName("id") val _id: String = "",
-        @SerializedName("name") val name: String = "",
-        @SerializedName("createdAt") val createdAt: Date = Date(),
-        @SerializedName("startTime") val startTime: String = "",
-        @SerializedName("endTime") val endTime: String = "",
-        @SerializedName("checkedAt") val checkedAt: Date = Date(),
+data class AttendanceSummary(
+        @SerializedName("totalAttendance") val totalAttendance: Int = 0,
+        @SerializedName("checkCount") val checkCount: Double = 0.0,
+        @SerializedName("leaveCount") val leaveCount: Double = 0.0,
+        @SerializedName("lateCount") val lateCount: Double = 0.0,
+        @SerializedName("absentCount") val absentCount: Double = 0.0,
+)
+
+data class AttendanceDetail(
+        @SerializedName("id") val id: String = "",
+        @SerializedName("index") val index: Int = 0,
         @SerializedName("status") val status: String = "",
-        @SerializedName("presentCount") val presentCount: Int = 0,
-        @SerializedName("absentCount") val absentCount: Int = 0,
-        @SerializedName("lateCount") val lateCount: Int = 0
-) {
-        val id get() = _id.toLongOrNull() ?: _id
-}
+        @SerializedName("dateTime") val dateTime: Date = Date(),
+        @SerializedName("checkCount") val checkCount: Double = 0.0,
+        @SerializedName("leaveCount") val leaveCount: Double = 0.0,
+        @SerializedName("lateCount") val lateCount: Double = 0.0,
+        @SerializedName("absentCount") val absentCount: Double = 0.0,
+)

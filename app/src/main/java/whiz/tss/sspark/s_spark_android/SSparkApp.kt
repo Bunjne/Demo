@@ -12,12 +12,11 @@ import st.lowlevel.storo.Storo
 import st.lowlevel.storo.StoroBuilder
 import whiz.sspark.library.SSparkLibrary
 import whiz.sspark.library.data.enum.ProjectType
-import whiz.sspark.library.di.localModule
+import whiz.sspark.library.di.*
 import whiz.sspark.library.di.remoteModule
-import whiz.sspark.library.di.repositoryModule
-import whiz.sspark.library.di.viewModelModule
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.di.networkModule
+import whiz.tss.sspark.s_spark_android.extension.getAuthorizationToken
 import whiz.tss.sspark.s_spark_android.extension.getRoleType
 import whiz.tss.sspark.s_spark_android.utility.getAPKSignedSignature
 import whiz.tss.sspark.s_spark_android.utility.logout
@@ -101,6 +100,20 @@ class SSparkApp: Application() {
 
             setOnSessionExpireCallback {
                 logout(applicationContext)
+            }
+
+            setInterceptor { chain ->
+                    val request = chain.request().newBuilder()
+                    val token = retrieveAuthenticationInformation(this@SSparkApp)?.getAuthorizationToken()
+
+//                    if (!token.isNullOrBlank()) { //TODO uncomment when API available
+//                        request.addHeader("Authorization", token)
+//                            .addHeader("x-api-key", apiKey)
+//                    } else {
+//                        request.addHeader("x-api-key", apiKey)
+//                    }
+
+                    chain.proceed(request.build())
             }
         }
 

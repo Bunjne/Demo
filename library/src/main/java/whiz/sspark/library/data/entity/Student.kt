@@ -26,7 +26,7 @@ data class Student(
     @SerializedName("term") val term: Term = Term(),
     @SerializedName("credit") val credit: Int = 0,
     @SerializedName("totalCredit") val totalCredit: Int = 0,
-    @SerializedName("GPA") val GPA: Float = 0f
+    @SerializedName("GPA") val gpa: Float = 0f
 ) {
     val firstName get() = localize(_firstNameEn, _firstNameTh, _firstNameEn, false)
     val middleName get() = localize(_middleNameEn, _middleNameTh, _middleNameEn, false)
@@ -46,7 +46,7 @@ fun Student.convertToJuniorAdvisee(): Advisee {
         name = fullName,
         imageUrl = imageUrl,
         gender = gender,
-        gpa = GPA,
+        gpa = gpa,
         credit = credit,
         totalCredit = totalCredit
     )
@@ -60,7 +60,7 @@ fun Student.convertToSeniorAdvisee(): Advisee {
         name = fullName,
         imageUrl = imageUrl,
         gender = gender,
-        gpa = GPA,
+        gpa = gpa,
         credit = credit,
         totalCredit = totalCredit
     )

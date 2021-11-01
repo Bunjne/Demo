@@ -6,11 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
-import whiz.sspark.library.data.entity.ClassAttendance
+import whiz.sspark.library.data.entity.AttendanceDetail
 import whiz.sspark.library.data.enum.ClassAttendanceStatus
 import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewClassAttendanceItemBinding
 import whiz.sspark.library.extension.convertToDateString
+import whiz.sspark.library.extension.toLocalDate
 
 class ClassAttendanceItemView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -21,9 +22,9 @@ class ClassAttendanceItemView : ConstraintLayout {
         ViewClassAttendanceItemBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(attendanceClass: ClassAttendance) {
-        with(attendanceClass) {
-            binding.tvTitle.text = resources.getString(R.string.class_attendance_checked_item_title_place_holder, name)
+    fun init(attendanceDetail: AttendanceDetail) {
+        with(attendanceDetail) {
+            binding.tvTitle.text = resources.getString(R.string.class_attendance_checked_item_title_place_holder, index.toString())
             binding.tvStatus.text = status
 
             when (status) {
@@ -37,7 +38,7 @@ class ClassAttendanceItemView : ConstraintLayout {
                 }
                 ClassAttendanceStatus.LATE.status -> {
                     binding.cvStatus.setCardBackgroundColor(ContextCompat.getColor(context, R.color.accentOrangeV500))
-                    binding.tvStatus.text = resources.getString(R.string.class_attendance_item_late)
+                    binding.tvStatus.text = resources.getString(R.string.class_attendance_late)
                 }
                 else -> {
                     binding.cvStatus.setCardBackgroundColor(ContextCompat.getColor(context, R.color.accentRedV500))
@@ -45,13 +46,13 @@ class ClassAttendanceItemView : ConstraintLayout {
                 }
             }
 
-            val checkedDate = checkedAt.convertToDateString(
+            val checkedDate = dateTime.toLocalDate()?.convertToDateString(
                 defaultPattern = DateTimePattern.attendanceClassDateFormatEn,
                 dayMonthThPattern = DateTimePattern.attendanceClassDayMonthFormatTh,
                 yearThPattern = DateTimePattern.attendanceClassYearFormatTh
             )
 
-            val checkedTime = checkedAt.convertToDateString(
+            val checkedTime = dateTime.toLocalDate()?.convertToDateString(
                 defaultPattern = DateTimePattern.attendanceClassTimeFormat
             )
 
