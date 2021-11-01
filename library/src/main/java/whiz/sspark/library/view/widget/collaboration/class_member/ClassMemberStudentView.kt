@@ -26,12 +26,12 @@ class ClassMemberStudentView : ConstraintLayout {
             binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
             binding.tvNickname.text = if (number != null) {
-                resources.getString(R.string.class_member_number_place_holder, number.toString(), nickname)
+                resources.getString(R.string.class_member_number_place_holder, number.toString(), collaborationDisplayName)
             } else {
-                resources.getString(R.string.class_member_number_place_holder, code, nickname)
+                resources.getString(R.string.class_member_number_place_holder, code, collaborationDisplayName)
             }
 
-            binding.tvName.text = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
+            binding.tvName.text = convertToFullName(firstName, middleName, lastName)
         }
     }
 }

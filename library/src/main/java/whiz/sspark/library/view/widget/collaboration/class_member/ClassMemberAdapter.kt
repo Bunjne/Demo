@@ -31,14 +31,16 @@ class ClassMemberAdapter(private val context: Context,
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             ClassMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> ClassMemberInstructorViewHolder(
                 ClassMemberInstructorView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             else -> ClassMemberStudentViewHolder(ClassMemberStudentView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.MATCH_PARENT,
@@ -69,9 +71,7 @@ class ClassMemberAdapter(private val context: Context,
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
-                else -> {
-                    (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
-                }
+                else -> (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }

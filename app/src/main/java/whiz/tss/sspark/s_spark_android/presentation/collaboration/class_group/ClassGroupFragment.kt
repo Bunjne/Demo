@@ -139,8 +139,8 @@ class ClassGroupFragment : BaseFragment() {
                       putExtra("startColor", classGroupCourse.colorCode1.toColor())
                       putExtra("endColor", classGroupCourse.colorCode2.toColor())
                       putExtra("allMemberCount", classGroupCourse.memberCount)
-                      putExtra("courseCode", classGroupCourse.courseCode)
-                      putExtra("courseName", classGroupCourse.courseName)
+                      putExtra("title", classGroupCourse.courseCode)
+                      putExtra("subTitle", classGroupCourse.courseName)
                     }
 
                     startActivity(intent)
@@ -154,6 +154,8 @@ class ClassGroupFragment : BaseFragment() {
                             val intent = Intent(requireContext(), HomeroomActivity::class.java).apply {
                                 putExtra("classGroupId", specialClassGroup?.classGroupId)
                                 putExtra("allMemberCount", specialClassGroup?.memberCount)
+                                putExtra("title", specialClassGroup?.courseCode)
+                                putExtra("subTitle", specialClassGroup?.courseName)
                             }
 
                             startActivity(intent)

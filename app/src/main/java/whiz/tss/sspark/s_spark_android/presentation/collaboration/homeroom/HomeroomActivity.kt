@@ -2,7 +2,6 @@ package whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom
 
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
 import whiz.sspark.library.data.enum.BottomNavigationType
-import whiz.sspark.library.utility.getHighSchoolLevel
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
@@ -15,22 +14,11 @@ import whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.membe
 
 class HomeroomActivity : ClassDetailActivity() {
 
-    override val title by lazy {
-        resources.getString(R.string.class_group_navigation_item_homeroom_title).uppercase()
-    }
-
-    override val subTitle by lazy {
-        resources.getString(R.string.class_group_junior_class_level_place_holder,
-            getHighSchoolLevel(currentTerm.academicGrade).toString(),
-            currentTerm.roomNumber?.toString() ?: ""
-        )
-    }
-
     override val bottomNavigationBarItems by lazy {
         listOf(
             BottomNavigationBarItem(id = BottomNavigationId.ACTIVITY.id, title = resources.getString(R.string.class_detail_tab_activity), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_activity, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.ATTENDANCE.id, title = resources.getString(R.string.class_detail_tab_attendance), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_attendance, colors = colors.toList()),
-            BottomNavigationBarItem(id = BottomNavigationId.STUDENT.id, title = resources.getString(R.string.class_detail_tab_member), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_member, colors = colors.toList()),
+            BottomNavigationBarItem(id = BottomNavigationId.MEMBER.id, title = resources.getString(R.string.class_detail_tab_member), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_member, colors = colors.toList()),
         )
     }
 
@@ -49,7 +37,7 @@ class HomeroomActivity : ClassDetailActivity() {
                 }
             }
             BottomNavigationId.ATTENDANCE.id -> binding.vClassDetail.renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
-            BottomNavigationId.STUDENT.id -> binding.vClassDetail.renderFragment(StudentHomeroomMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+            BottomNavigationId.MEMBER.id -> binding.vClassDetail.renderFragment(StudentHomeroomMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
         }
     }
 }

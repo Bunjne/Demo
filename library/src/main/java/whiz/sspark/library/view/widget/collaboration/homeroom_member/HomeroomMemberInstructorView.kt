@@ -39,11 +39,11 @@ class HomeroomMemberInstructorView : ConstraintLayout {
 
         if (isChatEnable) {
             binding.ivChat.visibility = View.VISIBLE
-        } else {
-            binding.ivChat.visibility = View.GONE
             binding.ivChat.setOnClickListener {
                 onChatMemberClicked(member)
             }
+        } else {
+            binding.ivChat.visibility = View.GONE
         }
     }
 }

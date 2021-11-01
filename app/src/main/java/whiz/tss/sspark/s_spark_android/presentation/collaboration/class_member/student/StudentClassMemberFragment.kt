@@ -9,6 +9,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.data.entity.Member
 import whiz.sspark.library.data.viewModel.ClassMemberViewModel
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassMemberBinding
@@ -35,7 +36,8 @@ open class StudentClassMemberFragment : BaseFragment() {
 
     protected val items = mutableListOf<ClassMemberItem>()
 
-    protected open val isChatEnable = true
+    protected open val isInstructorChatEnable = false
+    protected open val isStudentChatEnable = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentStudentClassMemberBinding.inflate(layoutInflater)
@@ -59,7 +61,7 @@ open class StudentClassMemberFragment : BaseFragment() {
             }
         )
 
-        binding.vClassMember.setClassMemberAdapter(items)
+        setMemberAdapter()
     }
 
     override fun observeView() {
@@ -82,6 +84,12 @@ open class StudentClassMemberFragment : BaseFragment() {
                 showApiResponseXAlert(activity, it)
             }
         })
+
+        viewModel.errorMessage.observe(this, Observer {
+            it?.let {
+                requireContext().showAlertWithOkButton(it)
+            }
+        })
     }
 
     private fun renderData(member: Member) {
@@ -100,7 +108,7 @@ open class StudentClassMemberFragment : BaseFragment() {
                 val instructors = member.instructors.map { instructor ->
                     ClassMemberItem(
                         instructor = instructor,
-                        isChatEnable = isChatEnable
+                        isChatEnable = isInstructorChatEnable
                     )
                 }
 
@@ -117,7 +125,7 @@ open class StudentClassMemberFragment : BaseFragment() {
                 val students = member.students.map { student ->
                     ClassMemberItem(
                         student = student,
-                        isChatEnable = !isChatEnable
+                        isChatEnable = isStudentChatEnable
                     )
                 }
 
@@ -126,6 +134,10 @@ open class StudentClassMemberFragment : BaseFragment() {
         }
 
         binding.vClassMember.updateMemberRecyclerViewItems(items, newItems)
+    }
+
+    protected open fun setMemberAdapter() {
+        binding.vClassMember.setClassMemberAdapter(items)
     }
 
     protected open fun getInstructorTitle(instructorCount: Int) = resources.getString(R.string.class_member_instructor_title, instructorCount)

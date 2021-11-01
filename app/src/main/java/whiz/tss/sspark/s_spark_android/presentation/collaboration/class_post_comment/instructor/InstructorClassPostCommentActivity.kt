@@ -3,7 +3,6 @@ package whiz.tss.sspark.s_spark_android.presentation.collaboration.class_post_co
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -24,6 +23,7 @@ import whiz.sspark.library.data.viewModel.ClassPostCommentViewModel
 import whiz.sspark.library.extension.convertToDate
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.utility.showAlertWithMultipleItems
+import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.collaboration.class_post_comment.instructor.InstructorClassPostCommentAdapter
 import whiz.tss.sspark.s_spark_android.R
@@ -35,6 +35,11 @@ import java.net.URISyntaxException
 import java.util.*
 
 class InstructorClassPostCommentActivity : BaseActivity() {
+
+    companion object {
+        const val LIKE_BY_DIALOG = "LIKE_BY_DIALOG"
+        const val SEEN_BY_DIALOG = "SEEN_BY_DIALOG"
+    }
 
     private val socket by lazy {
         try {
@@ -282,6 +287,8 @@ class InstructorClassPostCommentActivity : BaseActivity() {
             window?.statusBarColor = ContextCompat.getColor(this, R.color.viewBaseSecondaryColor)
         }
 
+        binding.vProfile.setBackgroundGradientColor(startColor, endColor)
+
         postCommentItems.add(InstructorClassPostCommentAdapter.PostCommentItem(post = post))
 
         binding.vPostDetailSheetDialog.init(
@@ -301,12 +308,20 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                 addComment(message)
             },
             onDisplayLikedUsersClicked = {
-                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, post.id, startColor, endColor, PostInteraction.LIKE.type)
-                dialog.show(supportFragmentManager, "")
+                val isLikeByDialogNotShown = supportFragmentManager.findFragmentByTag(LIKE_BY_DIALOG) == null
+
+                if (isLikeByDialogNotShown) {
+                    val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, post.id, startColor, endColor, PostInteraction.LIKE.type)
+                    dialog.show(supportFragmentManager, LIKE_BY_DIALOG)
+                }
             },
             onDisplaySeenUsersClicked = {
-                val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, post.id, startColor, endColor, PostInteraction.SEEN.type)
-                dialog.show(supportFragmentManager, "")
+                val isSeenByDialogNotShown = supportFragmentManager.findFragmentByTag(SEEN_BY_DIALOG) == null
+
+                if (isSeenByDialogNotShown) {
+                    val dialog = LikeBySeenByDialogFragment.newInstance(classGroupId, post.id, startColor, endColor, PostInteraction.SEEN.type)
+                    dialog.show(supportFragmentManager, SEEN_BY_DIALOG)
+                }
             }
         )
 
@@ -429,6 +444,12 @@ class InstructorClassPostCommentActivity : BaseActivity() {
                     }
                 })
             }
+
+            errorMessage.observe(this@InstructorClassPostCommentActivity, Observer {
+                it?.let {
+                    showAlertWithOkButton(it)
+                }
+            })
         }
     }
 

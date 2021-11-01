@@ -16,9 +16,11 @@
         android:maxLines="1"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="13dp"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintEnd_toStartOf="@id/ivChat"
         app:layout_constraintStart_toEndOf="@+id/cvProfileImage"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvName"
         app:ssparkFont="regular"
         tools:text="#1 แชมป์" />
 
@@ -34,6 +36,7 @@
         app:layout_constraintEnd_toStartOf="@id/ivChat"
         app:layout_constraintStart_toStartOf="@id/tvNickname"
         app:layout_constraintTop_toBottomOf="@+id/tvNickname"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:ssparkFont="regular"
         tools:text="วีรเดช เฝดสูงเนิน" />
 
@@ -54,6 +57,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:visibility="gone"
+        android:scaleType="fitCenter"
         app:tint="@color/textBaseThirdColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -47,15 +47,15 @@ open class ClassDetailActivity : BaseActivity() {
         intent?.getIntExtra("allMemberCount", 0) ?: 0
     }
 
-    protected open val title by lazy {
-        intent?.getStringExtra("courseCode") ?: ""
+    private val title by lazy {
+        intent?.getStringExtra("title") ?: ""
     }
 
-    protected open val subTitle by lazy {
-        intent?.getStringExtra("courseName") ?: ""
+    private val subTitle by lazy {
+        intent?.getStringExtra("subTitle") ?: ""
     }
 
-    protected open val colors by lazy {
+    protected val colors by lazy {
         intArrayOf(
             startColor,
             ContextCompat.getColor(this, R.color.textBaseThirdColor)
@@ -66,7 +66,7 @@ open class ClassDetailActivity : BaseActivity() {
         listOf(
             BottomNavigationBarItem(id = BottomNavigationId.ACTIVITY.id, title = resources.getString(R.string.class_detail_tab_activity), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_activity, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.ATTENDANCE.id, title = resources.getString(R.string.class_detail_tab_attendance), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_attendance, colors = colors.toList()),
-            BottomNavigationBarItem(id = BottomNavigationId.STUDENT.id, title = resources.getString(R.string.class_detail_tab_student), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_member, colors = colors.toList()),
+            BottomNavigationBarItem(id = BottomNavigationId.MEMBER.id, title = resources.getString(R.string.class_detail_tab_student), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_member, colors = colors.toList()),
             BottomNavigationBarItem(id = BottomNavigationId.ASSIGNMENT.id, title = resources.getString(R.string.class_detail_tab_homework), type = BottomNavigationType.CLASS_COLLABORATION.id, imageResource = R.drawable.ic_homework, colors = colors.toList())
         )
     }
@@ -148,7 +148,7 @@ open class ClassDetailActivity : BaseActivity() {
                 }
             }
             BottomNavigationId.ATTENDANCE.id -> binding.vClassDetail.renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
-            BottomNavigationId.STUDENT.id -> binding.vClassDetail.renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+            BottomNavigationId.MEMBER.id -> binding.vClassDetail.renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
         }
     }
 }

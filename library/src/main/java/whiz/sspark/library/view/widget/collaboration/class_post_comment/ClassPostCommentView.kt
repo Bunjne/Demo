@@ -36,9 +36,9 @@ class ClassPostCommentView : ConstraintLayout {
                 )
             } else {
                 if (author.number != null) {
-                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.number.toString(), author.nickname)
+                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.number.toString(), author.collaborationDisplayName)
                 } else {
-                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.code, author.nickname)
+                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.code, author.collaborationDisplayName)
                 }
             }
 

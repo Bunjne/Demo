@@ -35,12 +35,12 @@ class HomeroomMemberStudentView : ConstraintLayout {
             )
 
             binding.tvNickname.text = if (number == null) {
-                resources.getString(R.string.class_member_number_place_holder, member.code, nickname)
+                resources.getString(R.string.class_member_number_place_holder, member.code, collaborationDisplayName)
             } else {
-                resources.getString(R.string.class_member_number_place_holder, member.number.toString(), nickname)
+                resources.getString(R.string.class_member_number_place_holder, member.number.toString(), collaborationDisplayName)
             }
 
-            binding.tvName.text = convertToFullName(firstName, middleName, "${lastName.getFirstConsonant()}.")
+            binding.tvName.text = convertToFullName(firstName, middleName, lastName)
         }
 
         if (isChatEnable) {

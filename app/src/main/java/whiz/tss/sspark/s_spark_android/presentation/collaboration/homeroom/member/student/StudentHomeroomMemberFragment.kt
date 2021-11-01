@@ -14,9 +14,9 @@ class StudentHomeroomMemberFragment : StudentClassMemberFragment() {
         }
     }
 
-    override fun initView() {
-        super.initView()
+    override val isInstructorChatEnable = true
 
+    override fun setMemberAdapter() {
         binding.vClassMember.setHomeroomMemberAdapter(
             items = items,
             onChatMemberClicked = {

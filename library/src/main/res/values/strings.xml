@@ -120,8 +120,7 @@
     <string name="class_post_action_title_comment">ความคิดเห็น</string>
     <string name="class_post_open_file_title">เปิดไฟล์ด้วย</string>
     <string name="class_post_author_header_new">ใหม่</string>
-    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s น.</string>
-    <string name="class_post_time_unit_place_holder">%1$s น.</string>
+    <string name="class_post_updated_at">แก้ไขเมื่อ: %1$s</string>
     <string name="class_post_delete">ลบ</string>
     <string name="class_post_edit">แก้ไข</string>
 

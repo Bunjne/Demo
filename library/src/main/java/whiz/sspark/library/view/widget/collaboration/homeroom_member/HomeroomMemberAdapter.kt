@@ -33,14 +33,16 @@ class HomeroomMemberAdapter(private val context: Context,
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             HomeroomMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> HomeroomMemberInstructorViewHolder(
                 HomeroomMemberInstructorView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             else -> HomeroomMemberStudentViewHolder(HomeroomMemberStudentView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.MATCH_PARENT,
@@ -79,9 +81,7 @@ class HomeroomMemberAdapter(private val context: Context,
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
-                else -> {
-                    (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
-                }
+                else -> (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }
