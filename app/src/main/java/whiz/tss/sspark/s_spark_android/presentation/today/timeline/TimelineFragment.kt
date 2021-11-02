@@ -74,8 +74,8 @@ class TimelineFragment : BaseFragment() {
 //                                } else {
 //                                    context?.startActivity<ClassDetailActivity>(
 //                                        "id" to id,
-//                                        "courseCode" to courseCode,
-//                                        "courseName" to courseName,
+//                                        "title" to courseCode,
+//                                        "subTitle" to courseName,
 //                                        "sectionNumber" to sectionNumber,
 //                                        "classIconUrl" to classIconUrl,
 //                                        "color" to colorCode.toColor()

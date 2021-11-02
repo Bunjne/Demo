@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.ClassMember
+import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
 class ClassMemberAdapter(private val context: Context,
-                         private val items: List<Item>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                         private val items: List<ClassMemberItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class ClassMemberAdapterViewType(val type: Int) {
         TITLE(0),
@@ -31,14 +31,16 @@ class ClassMemberAdapter(private val context: Context,
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             ClassMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> ClassMemberInstructorViewHolder(
                 ClassMemberInstructorView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             else -> ClassMemberStudentViewHolder(ClassMemberStudentView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.MATCH_PARENT,
@@ -64,14 +66,12 @@ class ClassMemberAdapter(private val context: Context,
                 }
                 item.student != null -> {
                     (holder.itemView as? ClassMemberStudentView)?.apply {
-                        init(item.student, item.studentNumber, item.isSelf)
+                        init(item.student)
 
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
-                else -> {
-                    (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
-                }
+                else -> (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }
@@ -86,12 +86,4 @@ class ClassMemberAdapter(private val context: Context,
             else -> ClassMemberAdapterViewType.TITLE.type
         }
     }
-
-    data class Item(
-        val title: String? = null,
-        val instructor: ClassMember? = null,
-        val student: ClassMember? = null,
-        val isSelf: Boolean = false,
-        val studentNumber: Int = 0,
-    )
 }

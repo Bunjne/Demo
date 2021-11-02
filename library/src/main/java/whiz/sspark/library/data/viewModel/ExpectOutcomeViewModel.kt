@@ -12,35 +12,33 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.ExpectOutcomeDTO
-import whiz.sspark.library.data.entity.LearningOutcomeDTO
 import whiz.sspark.library.data.repository.ExpectOutcomeRepositoryImpl
-import whiz.sspark.library.data.repository.LearningOutcomeRepositoryImpl
 
-class ExpectOutcomeViewModel(private val learningOutcomeRepositoryImpl: ExpectOutcomeRepositoryImpl): ViewModel() {
+open class ExpectOutcomeViewModel(private val expectOutcomeRepositoryImpl: ExpectOutcomeRepositoryImpl): ViewModel() {
 
-    private val _viewLoading = MutableLiveData<Boolean>()
+    protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
+    protected val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _expectOutcomeResponse = MutableLiveData<ExpectOutcomeDTO>()
+    protected val _expectOutcomeResponse = MutableLiveData<ExpectOutcomeDTO>()
     val expectOutcomeResponse: LiveData<ExpectOutcomeDTO>
         get() = _expectOutcomeResponse
 
-    private val _expectOutcomeErrorResponse = MutableLiveData<ApiResponseX?>()
+    protected val _expectOutcomeErrorResponse = MutableLiveData<ApiResponseX?>()
     val expectOutcomeErrorResponse: LiveData<ApiResponseX?>
         get() = _expectOutcomeErrorResponse
 
-    private val _errorMessage = MutableLiveData<String>()
+    protected val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getExpectOutcome(courseId: String, termId: String) {
+    open fun getExpectOutcome(courseId: String, termId: String) {
         viewModelScope.launch {
-            learningOutcomeRepositoryImpl.getExpectOutcome(courseId, termId)
+            expectOutcomeRepositoryImpl.getExpectOutcome(courseId, termId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true

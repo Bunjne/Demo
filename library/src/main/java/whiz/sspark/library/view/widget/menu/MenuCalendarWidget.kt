@@ -10,6 +10,7 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewMenuCalendarWidgetBinding
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toLocalDate
 
 class MenuCalendarWidget: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -30,8 +31,8 @@ class MenuCalendarWidget: ConstraintLayout {
             resources.getString(R.string.general_no_activity_text)
         }
 
-        binding.tvDay.text = calendarWidgetInfo.date.convertToDateString(DateTimePattern.fullDayNameFormat)
-        binding.tvDate.text = calendarWidgetInfo.date.convertToDateString(DateTimePattern.singleDayFormat)
+        binding.tvDay.text = calendarWidgetInfo.date.toLocalDate()!!.convertToDateString(DateTimePattern.fullDayNameFormat)
+        binding.tvDate.text = calendarWidgetInfo.date.toLocalDate()!!.convertToDateString(DateTimePattern.singleDayFormat)
         binding.tvActivity.text = activity
     }
 }

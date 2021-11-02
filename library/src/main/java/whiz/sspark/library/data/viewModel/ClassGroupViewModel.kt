@@ -19,8 +19,8 @@ class ClassGroupViewModel(private val classGroupRepository: ClassGroupRepository
     val viewLoading: LiveData<Boolean>
         get() = _viewLoading
 
-    private val _classGroupResponse = MutableLiveData<List<ClassGroup>>()
-    val classGroupResponse: LiveData<List<ClassGroup>>
+    private val _classGroupResponse = MutableLiveData<ClassGroup>()
+    val classGroupResponse: LiveData<ClassGroup>
         get() = _classGroupResponse
 
     private val _classGroupErrorResponse = MutableLiveData<ApiResponseX>()

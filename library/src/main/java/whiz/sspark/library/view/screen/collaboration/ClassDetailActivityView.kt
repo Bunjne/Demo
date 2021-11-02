@@ -1,7 +1,6 @@
 package whiz.sspark.library.view.screen.collaboration
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -25,13 +24,13 @@ class ClassDetailActivityView : ConstraintLayout {
     }
 
     fun init(backgroundDrawable: GradientDrawable,
-             courseName: String,
-             courseCode: String,
+             title: String,
+             subTitle: String,
              color: Int,
              bottomNavigationBarItems: List<BottomNavigationBarItem>,
              onNavigationItemSelected: (Int) -> Unit,
              onStudyPlanClicked: () -> Unit) {
-        renderDetail(backgroundDrawable, courseName, courseCode)
+        renderDetail(backgroundDrawable, title, subTitle)
 
         with(binding.bnvActivity) {
             init(context, bottomNavigationBarItems) {
@@ -48,6 +47,14 @@ class ClassDetailActivityView : ConstraintLayout {
 
         binding.cvStudyPlan.setOnClickListener {
             onStudyPlanClicked()
+        }
+    }
+
+    fun setStudyPlanVisibility(isVisible: Boolean) {
+        binding.cvStudyPlan.visibility = if (isVisible) {
+            VISIBLE
+        } else {
+            GONE
         }
     }
 
@@ -75,20 +82,20 @@ class ClassDetailActivityView : ConstraintLayout {
     }
 
     private fun renderDetail(backgroundDrawable: GradientDrawable,
-                             courseName: String,
-                             courseCode: String) {
+                             title: String,
+                             subTitle: String) {
 
         if (SSparkLibrary.isDarkModeEnabled) {
             binding.clHeader.setBackgroundColor(ContextCompat.getColor(context, R.color.viewBaseSecondaryColor))
-            binding.tvCourseCode.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
-            binding.tvCourseName.setTextColor(ContextCompat.getColor(context, R.color.textBaseSecondaryColor))
+            binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+            binding.tvSubTitle.setTextColor(ContextCompat.getColor(context, R.color.textBaseSecondaryColor))
         } else {
             binding.clHeader.background = backgroundDrawable
-            binding.tvCourseCode.setTextColor(Color.WHITE)
-            binding.tvCourseName.setTextColor(Color.WHITE)
+            binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
+            binding.tvSubTitle.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
         }
 
-        binding.tvCourseName.text = courseName
-        binding.tvCourseCode.text = courseCode
+        binding.tvSubTitle.text = subTitle
+        binding.tvTitle.text = title
     }
 }

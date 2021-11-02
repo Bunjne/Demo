@@ -13,13 +13,13 @@ import whiz.sspark.library.utility.NetworkManager
 import whiz.sspark.library.utility.fetchX
 
 interface ExpectOutcomeRepository {
-    suspend fun getExpectOutcome(courseId: String, termId :String): Flow<DataWrapperX<ExpectOutcomeDTO>>
+    suspend fun getExpectOutcome(courseId: String, termId: String): Flow<DataWrapperX<ExpectOutcomeDTO>>
 }
 
-class ExpectOutcomeRepositoryImpl(private val context: Context,
-                                  private val remote: ExpectOutcomeService): ExpectOutcomeRepository {
+open class ExpectOutcomeRepositoryImpl(private val context: Context,
+                                       private val remote: ExpectOutcomeService): ExpectOutcomeRepository {
 
-    override suspend fun getExpectOutcome(courseId: String, termId :String): Flow<DataWrapperX<ExpectOutcomeDTO>> {
+    override suspend fun getExpectOutcome(courseId: String, termId: String): Flow<DataWrapperX<ExpectOutcomeDTO>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
                 try {

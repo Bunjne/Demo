@@ -11,6 +11,7 @@ import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.databinding.ViewNotificationInboxItemBinding
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
+import whiz.sspark.library.extension.toLocalDate
 
 class NotificationInboxItemView: ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -25,7 +26,7 @@ class NotificationInboxItemView: ConstraintLayout {
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
         with(inbox) {
-            binding.tvCreatedAt.text = resources.getString(R.string.notification_inbox_created_at, date.convertToDateString(DateTimePattern.generalShortTime))
+            binding.tvCreatedAt.text = resources.getString(R.string.notification_inbox_created_at, date.toLocalDate()!!.convertToDateString(DateTimePattern.generalShortTime))
             binding.tvDetail.text = detail
             binding.tvTitle.text = title
 

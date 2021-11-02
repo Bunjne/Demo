@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/vTranslationTop"
+        android:layout_width="12dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:translationY="12dp"
+        app:background_Color="@color/viewBaseSecondaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vTranslationTop"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="30dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="12dp">
+
+        <com.sinaseyfi.advancedcardview.AdvancedCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            app:background_Color="@color/viewBaseThirdColor"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vTranslationTop">
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvCourseDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/textBaseSecondaryColor"
+                android:textSize="14dp"
+                app:ssparkFont="regular"
+                tools:text="อาณาจักรโบราณในเอเชียตะวันออกเฉียงใต้ : อารยธรรมโบราณในเอเชียตะวันออกเฉียงใต้ ครั้งที่ 1" />
+
+        </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

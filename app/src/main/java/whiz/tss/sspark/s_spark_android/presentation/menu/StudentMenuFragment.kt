@@ -126,7 +126,7 @@ class StudentMenuFragment : BaseFragment() {
                         }
                         startActivity(intent)
                     }
-                    MenuCode.GRADE_SUMMARY.code -> {
+                    MenuCode.LEARNING_OUTCOME.code -> {
                         val intent = Intent(requireContext(), SchoolRecordActivity::class.java)
                         startActivity(intent)
                     }
