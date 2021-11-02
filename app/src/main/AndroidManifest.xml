@@ -78,7 +78,10 @@
             android:name="whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.HomeroomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.contact.ContactActivity"
+            android:name=".presentation.contact.ContactListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.contact.ContactListMemberActivity"
             android:screenOrientation="portrait" />
     </application>
 

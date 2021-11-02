@@ -249,6 +249,6 @@
     <string name="assignment_instructor_title">%1$s (%2$s) %3$s</string>
 
     <!-- Contact -->
-    <string name="contact_title">ช่องทางการติดต่อ</string>
-    <string name="contact_info_close">ปืด</string>
+    <string name="contact_no_contact_channel">ไม่มีช่องทางการติดต่อ</string>
+    <string name="contact_info_close">ปิด</string>
 </resources>

@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <whiz.sspark.library.view.screen.contact.ContactListActivityView
+    <whiz.sspark.library.view.screen.contact.ContactListMemberActivityView
         android:id="@+id/vContact"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -20,6 +20,7 @@ val repositoryModule = module {
     factory { ClassGroupRepositoryImpl(androidContext(), get()) }
     factory { ClassMemberRepositoryImpl(androidContext(), get(), get()) }
     factory { ClassPostCommentRepositoryImpl(androidContext(), get(), get()) }
+    factory { ContactRepositoryImpl(androidContext(), get()) }
     factory { CourseSyllabusRepositoryImpl(androidContext(), get()) }
     factory { ExpectOutcomeRepositoryImpl(androidContext(), get()) }
     factory { HappeningsRepositoryImpl(androidContext(), get(), get()) }
@@ -41,5 +42,4 @@ val repositoryModule = module {
     factory { StudentExamScheduleRepositoryImpl(androidContext(), get()) }
     factory { StudentMenuRepositoryImpl(androidContext(), get()) }
     factory { TimelineRepositoryImpl(androidContext(), get(), get()) }
-    factory { ContactRepositoryImpl(androidContext(), get(), get()) }
 }

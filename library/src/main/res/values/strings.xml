@@ -256,6 +256,6 @@
     <string name="assignment_text" translatable="false">ASSIGNMENT</string>
 
     <!-- Contact -->
-    <string name="contact_title">Contact</string>
-    <string name="contact_info_close">Close</string>
+    <string name="contact_no_contact_channel">ไม่มีช่องทางการติดต่อ</string>
+    <string name="contact_info_close">ปิด</string>
 </resources>

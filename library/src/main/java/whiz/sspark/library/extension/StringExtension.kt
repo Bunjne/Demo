@@ -68,7 +68,7 @@ fun String?.convertToDate(pattern: String) = if (this.isNullOrBlank()) {
     SimpleDateFormat(pattern, Locale.getDefault()).parse(this)
 }
 
-fun String.isPhoneNumber(): Boolean = run {
+fun String.isPhoneNumber(): Boolean  {
     if (this.first() != '0') {
         return false
     } else if (this.length == 9 && this.take(2) != "02") {

@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
-import whiz.sspark.library.data.entity.Contact
 import whiz.sspark.library.data.entity.DataWrapperX
+import whiz.sspark.library.data.entity.StudentInstructorDTO
 import whiz.sspark.library.data.repository.ContactRepositoryImpl
 
-class ContactViewModel(private val contactRepository: ContactRepositoryImpl) : ViewModel() {
+class ContactMemberViewModel(private val contactRepository: ContactRepositoryImpl) : ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -24,21 +24,21 @@ class ContactViewModel(private val contactRepository: ContactRepositoryImpl) : V
     val viewRendering: LiveData<DataWrapperX<Any>>
         get() = _viewRendering
 
-    private val _contactsResponse = MutableLiveData<List<Contact>>()
-    val contactsResponse: LiveData<List<Contact>>
-        get() = _contactsResponse
+    private val _contactMembersResponse = MutableLiveData<List<StudentInstructorDTO>>()
+    val contactsResponse: LiveData<List<StudentInstructorDTO>>
+        get() = _contactMembersResponse
 
-    private val _contactsErrorResponse = MutableLiveData<ApiResponseX?>()
+    private val _contactMembersErrorResponse = MutableLiveData<ApiResponseX?>()
     val contactsErrorResponse: LiveData<ApiResponseX?>
-        get() = _contactsErrorResponse
+        get() = _contactMembersErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    fun getContacts() {
+    fun getContactMembers(contactGroupId: String) {
         viewModelScope.launch {
-            contactRepository.getContacts()
+            contactRepository.getContactMembers(contactGroupId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true
@@ -54,9 +54,9 @@ class ContactViewModel(private val contactRepository: ContactRepositoryImpl) : V
                     val data = it.data
 
                     data?.let {
-                        _contactsResponse.value = it
+                        _contactMembersResponse.value = it
                     } ?: run {
-                        _contactsErrorResponse.value = it.error
+                        _contactMembersErrorResponse.value = it.error
                     }
                 }
         }

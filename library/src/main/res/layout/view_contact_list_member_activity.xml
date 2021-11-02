@@ -48,7 +48,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/contact_title" />
+                tools:text="กลุ่มวิทยาศาสตร์และคณิตศาสตร์" />
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvLatestUpdated"
@@ -59,7 +59,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                tools:text="@string/screen_header_subtitle" />
+                tools:text="อัปเดตล่าสุดเมื่อ 20/8/64 9:41 น." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,24 +89,9 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingVertical="10dp"
-            tools:listitem="@layout/view_contact_list_item" />
+            android:paddingTop="6dp"
+            tools:listitem="@layout/view_contact_list_member_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvNoAnnouncement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/contact_no_contact_channel"
-        android:textColor="@color/textBaseThirdColor"
-        android:textSize="16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/vTranslationShadow"
-        app:ssparkFont="regular" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

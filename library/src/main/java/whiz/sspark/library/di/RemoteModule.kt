@@ -21,6 +21,7 @@ val remoteModule = module {
     factory<ClassGroupService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassPostCommentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ContactService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<CourseSyllabusService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ExpectOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<HappeningsService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
@@ -42,5 +43,4 @@ val remoteModule = module {
     factory<StudentExamScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentMenuService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<TimelineService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
-    factory<ContactService> { RetrofitBuilder(get(), get()).build("https://sqlvaahtki34pd6xlc.blob.core.windows.net/") }
 }

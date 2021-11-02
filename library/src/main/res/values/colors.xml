@@ -116,7 +116,4 @@
     <color name="onlineClassStrokeColor">#F0F0F0</color>
     <color name="onlineClassMoodleColor">#F48020</color>
     <color name="onlineClassNormalColor">#787878</color>
-
-    <!-- Contact -->
-    <color name="contactInfoCloseColor">#FF1903</color>
 </resources>
