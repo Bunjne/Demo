@@ -33,6 +33,8 @@ open class BasicCourseBottomSheetDialog: BaseBottomSheetDialogFragment() {
         arguments?.getString("courses")?.toObjects(Array<Course>::class.java) ?: listOf()
     }
 
+    override val isForceFullScreen = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentBasicCourseBinding.inflate(inflater, container, false)
         return binding.root
