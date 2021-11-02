@@ -9,7 +9,7 @@ import whiz.sspark.library.extension.toObject
 
 class AdviseeBasicCourseBottomSheetDialog: BasicCourseBottomSheetDialog() {
     companion object {
-        fun newInstance(term: Term, courses: List<Course>, advisee: Advisee) = BasicCourseBottomSheetDialog().apply {
+        fun newInstance(term: Term, courses: List<Course>, advisee: Advisee) = AdviseeBasicCourseBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())
                 putString("courses", courses.toJson())
