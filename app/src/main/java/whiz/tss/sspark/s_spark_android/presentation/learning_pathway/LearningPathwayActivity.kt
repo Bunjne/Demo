@@ -177,17 +177,17 @@ open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.
 
         learningPathways.forEach { learningPathway ->
             val summaryCourseCredit = learningPathway.courses.sumOf { it.credit }
-            val summaryRequiredCourseCredit = learningPathway.basicCourses.sumOf { it.credit }
-            val credit = summaryCourseCredit + summaryRequiredCourseCredit
+            val summaryBasicCourseCredit = learningPathway.basicCourses.sumOf { it.credit }
+            val credit = summaryCourseCredit + summaryBasicCourseCredit
 
             val courseIds = learningPathway.courses.map { it.id }
-            val requiredCourseIds = learningPathway.basicCourses.map { it.id }
+            val basicCourseIds = learningPathway.basicCourses.map { it.id }
 
             val selectedCourseIds = mutableListOf<String>()
             selectedCourseIds.addAll(courseIds)
-            selectedCourseIds.addAll(requiredCourseIds)
+            selectedCourseIds.addAll(basicCourseIds)
 
-            val requiredCourses = learningPathway.basicCourses.map {
+            val basicCourses = learningPathway.basicCourses.map {
                 Course(
                     id = it.id,
                     code = it.code,
@@ -202,7 +202,7 @@ open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.
                 maxCredit = learningPathway.maxCredit,
                 minCredit = learningPathway.minCredit,
                 selectedCourseIds = selectedCourseIds,
-                requiredCourses = requiredCourses
+                basicCourses = basicCourses
             )
 
             items.add(LearningPathwayAdapter.Item(header = header))

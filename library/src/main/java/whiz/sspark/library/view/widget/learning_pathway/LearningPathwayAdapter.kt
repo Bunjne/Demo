@@ -106,15 +106,9 @@ class LearningPathwayAdapter(private val isPlanEditable: Boolean,
         val nextItemViewType = getItemViewType(position + 1)
 
         when(viewType) {
-            COURSE_COUNT_VIEW_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseCountItemView)?.init(item.courseCount!!)
-            }
-            COURSE_VIEW_MIDDLE_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseMiddleItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
-            }
-            COURSE_VIEW_BOTTOM_TYPE -> {
-                (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
-            }
+            COURSE_COUNT_VIEW_TYPE -> (holder.itemView as? LearningPathwayCourseCountItemView)?.init(item.courseCount!!)
+            COURSE_VIEW_MIDDLE_TYPE -> (holder.itemView as? LearningPathwayCourseMiddleItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
+            COURSE_VIEW_BOTTOM_TYPE -> (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
             else -> {
                 (holder.itemView as? LearningPathwayHeaderItemView)?.apply {
                     init(item.header!!, isPlanEditable, onAddCourseClicked, onShowRequiredCourseClicked)
@@ -144,10 +138,10 @@ class LearningPathwayAdapter(private val isPlanEditable: Boolean,
                 !(oldItem.header?.selectedCourseIds != null || newItem.header?.selectedCourseIds != null)
             }
 
-            val isSameRequiredCourses = if (oldItem.header?.requiredCourses != null && newItem.header?.requiredCourses != null) {
-                oldItem.header.requiredCourses.containsAll(newItem.header.requiredCourses) && newItem.header.requiredCourses.containsAll(oldItem.header.requiredCourses)
+            val isSameRequiredCourses = if (oldItem.header?.basicCourses != null && newItem.header?.basicCourses != null) {
+                oldItem.header.basicCourses.containsAll(newItem.header.basicCourses) && newItem.header.basicCourses.containsAll(oldItem.header.basicCourses)
             } else {
-                !(oldItem.header?.requiredCourses != null || newItem.header?.requiredCourses != null)
+                !(oldItem.header?.basicCourses != null || newItem.header?.basicCourses != null)
             }
 
             return oldItem.header == newItem.header &&

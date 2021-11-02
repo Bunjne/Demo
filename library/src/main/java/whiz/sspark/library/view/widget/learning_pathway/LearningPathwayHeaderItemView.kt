@@ -48,10 +48,10 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
             binding.tvCredit.text = resources.getString(R.string.general_credit, currentCredit.toString())
             binding.tvMinMaxCredit.text = resources.getString(R.string.learning_pathway_term_credit, minCredit.toString(), maxCredit.toString())
 
-            if (requiredCourses.isNotEmpty()) {
-                binding.tvCourseCount.text = resources.getString(R.string.learning_pathway_required_course_count, requiredCourses.size.toString())
+            if (basicCourses.isNotEmpty()) {
+                binding.tvCourseCount.text = resources.getString(R.string.learning_pathway_required_course_count, basicCourses.size.toString())
                 binding.cvRequiredCourse.setOnClickListener {
-                    onShowRequiredCourseClicked(term, requiredCourses)
+                    onShowRequiredCourseClicked(term, basicCourses)
                 }
                 binding.cvRequiredCourse.visibility = View.VISIBLE
             } else {
