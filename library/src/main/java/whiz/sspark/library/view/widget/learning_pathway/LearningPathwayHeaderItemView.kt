@@ -27,7 +27,7 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
     fun init(header: LearningPathwayHeaderItem,
              isPlanEditable: Boolean,
              onAddClicked: (Term, Int, Int, Int, List<String>) -> Unit,
-             onShowRequiredCourseClicked: (Term, List<Course>) -> Unit) {
+             onShowBasicCourseClicked: (Term, List<Course>) -> Unit) {
         binding.ivLock.show(R.drawable.ic_lock)
         binding.ivArrow.show(R.drawable.ic_arrow_right)
 
@@ -50,12 +50,12 @@ class LearningPathwayHeaderItemView: ConstraintLayout {
 
             if (basicCourses.isNotEmpty()) {
                 binding.tvCourseCount.text = resources.getString(R.string.learning_pathway_required_course_count, basicCourses.size.toString())
-                binding.cvRequiredCourse.setOnClickListener {
-                    onShowRequiredCourseClicked(term, basicCourses)
+                binding.cvBasicCourse.setOnClickListener {
+                    onShowBasicCourseClicked(term, basicCourses)
                 }
-                binding.cvRequiredCourse.visibility = View.VISIBLE
+                binding.cvBasicCourse.visibility = View.VISIBLE
             } else {
-                binding.cvRequiredCourse.visibility = View.GONE
+                binding.cvBasicCourse.visibility = View.GONE
             }
         }
     }

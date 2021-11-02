@@ -16,13 +16,13 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLearningPathwayBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.add_course.AddCourseBottomSheetDialog
-import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.required_course.RequiredCourseBottomSheetDialog
+import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.basic_course.BasicCourseBottomSheetDialog
 
 open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnClickListener {
 
     companion object {
-        private val ADD_COURSE_DIALOG = "AddCourseDialog"
-        private val REQUIRED_COURSE_DIALOG = "RequiredCourseDialog"
+        internal const val ADD_COURSE_DIALOG = "AddCourseDialog"
+        internal const val BASIC_COURSE_DIALOG = "BasicCourseDialog"
     }
 
     protected open val viewModel: LearningPathwayViewModel by viewModel()
@@ -95,15 +95,12 @@ open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.
                     )
                 }
             },
-            onShowRequiredCourseClicked = { term, courses ->
+            onShowBasicCourseClicked = { term, courses ->
                 if (viewModel.viewLoading.value == false) {
-                    val isShowing = supportFragmentManager.findFragmentByTag(REQUIRED_COURSE_DIALOG) != null
+                    val isShowing = supportFragmentManager.findFragmentByTag(BASIC_COURSE_DIALOG) != null
 
                     if (!isShowing) {
-                        RequiredCourseBottomSheetDialog.newInstance(
-                            term = term,
-                            courses = courses
-                        ).show(supportFragmentManager, REQUIRED_COURSE_DIALOG)
+                        showBasicCoursesDialog(term, courses)
                     }
                 }
             },
@@ -170,6 +167,13 @@ open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.
                 showAlertWithOkButton(it)
             }
         }
+    }
+
+    protected open fun showBasicCoursesDialog(term: Term, courses: List<Course>) {
+        BasicCourseBottomSheetDialog.newInstance(
+            term = term,
+            courses = courses
+        ).show(supportFragmentManager, BASIC_COURSE_DIALOG)
     }
 
     private fun updateAdapterItem(learningPathways: List<LearningPathwayDTO>) {

@@ -13,7 +13,7 @@ import whiz.sspark.library.data.entity.Term
 class LearningPathwayAdapter(private val isPlanEditable: Boolean,
                              private val onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
                              private val onDeleteCourseClicked: (Int, Int, String) -> Unit,
-                             private val onShowRequiredCourseClicked: (Term, List<Course>) -> Unit): ListAdapter<LearningPathwayAdapter.Item, RecyclerView.ViewHolder>(LearningPathwayDiffCallback()) {
+                             private val onShowBasicCourseClicked: (Term, List<Course>) -> Unit): ListAdapter<LearningPathwayAdapter.Item, RecyclerView.ViewHolder>(LearningPathwayDiffCallback()) {
 
     companion object {
         const val HEADER_VIEW_TYPE = 1111
@@ -54,13 +54,13 @@ class LearningPathwayAdapter(private val isPlanEditable: Boolean,
         }
     }
 
-    class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class CourseMiddleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class CourseMiddleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class CourseBottomViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private  class CourseBottomViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class CourseCountViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class CourseCountViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -111,7 +111,7 @@ class LearningPathwayAdapter(private val isPlanEditable: Boolean,
             COURSE_VIEW_BOTTOM_TYPE -> (holder.itemView as? LearningPathwayCourseBottomItemView)?.init(item.courseItem!!, isPlanEditable, onDeleteCourseClicked)
             else -> {
                 (holder.itemView as? LearningPathwayHeaderItemView)?.apply {
-                    init(item.header!!, isPlanEditable, onAddCourseClicked, onShowRequiredCourseClicked)
+                    init(item.header!!, isPlanEditable, onAddCourseClicked, onShowBasicCourseClicked)
 
                     val isShowBottomCornerRadius = nextItemViewType == HEADER_VIEW_TYPE
                     showBottomCornerRadius(isShowBottomCornerRadius)
@@ -138,7 +138,7 @@ class LearningPathwayAdapter(private val isPlanEditable: Boolean,
                 !(oldItem.header?.selectedCourseIds != null || newItem.header?.selectedCourseIds != null)
             }
 
-            val isSameRequiredCourses = if (oldItem.header?.basicCourses != null && newItem.header?.basicCourses != null) {
+            val isSameBasicCourses = if (oldItem.header?.basicCourses != null && newItem.header?.basicCourses != null) {
                 oldItem.header.basicCourses.containsAll(newItem.header.basicCourses) && newItem.header.basicCourses.containsAll(oldItem.header.basicCourses)
             } else {
                 !(oldItem.header?.basicCourses != null || newItem.header?.basicCourses != null)
@@ -147,7 +147,7 @@ class LearningPathwayAdapter(private val isPlanEditable: Boolean,
             return oldItem.header == newItem.header &&
                     oldItem.courseCount == newItem.courseCount &&
                     oldItem.courseItem == newItem.courseItem &&
-                    isSameRequiredCourses &&
+                    isSameBasicCourses &&
                     isSameSelectedCourseIds
         }
     }

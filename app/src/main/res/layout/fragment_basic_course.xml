@@ -6,8 +6,8 @@
     android:background="@drawable/bg_bottom_sheet_dialog"
     android:orientation="vertical">
 
-    <whiz.sspark.library.view.screen.learning_pathway.required_course.RequiredCourseFragmentView
-        android:id="@+id/vRequiredCourse"
+    <whiz.sspark.library.view.screen.learning_pathway.basic_course.BasicCourseFragmentView
+        android:id="@+id/vBasicCourse"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

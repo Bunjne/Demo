@@ -1,27 +1,28 @@
 package whiz.tss.sspark.s_spark_android.presentation.learning_pathway
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import whiz.sspark.library.data.entity.Student
-import whiz.sspark.library.data.entity.convertToJuniorAdvisee
-import whiz.sspark.library.data.entity.convertToSeniorAdvisee
+import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.AdviseeLearningPathwayViewModel
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.utility.isPrimaryHighSchool
+import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.basic_course.AdviseeBasicCourseBottomSheetDialog
 
 open class AdviseeLearningPathwayActivity : LearningPathwayActivity() {
+
+    override val viewModel: AdviseeLearningPathwayViewModel by viewModel()
 
     private val student by lazy {
         intent?.getStringExtra("student")!!.toObject<Student>()!!
     }
 
-    override val viewModel: AdviseeLearningPathwayViewModel by viewModel()
+    private lateinit var advisee: Advisee
 
     override val isPlanEditable = false
 
     override fun initView() {
         super.initView()
 
-        val advisee = if (isPrimaryHighSchool(student.term.academicGrade ?: 0)) {
+        advisee = if (isPrimaryHighSchool(student.term.academicGrade ?: 0)) {
             student.convertToJuniorAdvisee()
         } else {
             student.convertToSeniorAdvisee()
@@ -32,5 +33,13 @@ open class AdviseeLearningPathwayActivity : LearningPathwayActivity() {
 
     override fun getLearningPathway() {
         viewModel.getLearningPathway(student.id)
+    }
+
+    override fun showBasicCoursesDialog(term: Term, courses: List<Course>) {
+        AdviseeBasicCourseBottomSheetDialog.newInstance(
+            term = term,
+            courses = courses,
+            advisee = advisee
+        ).show(supportFragmentManager, BASIC_COURSE_DIALOG)
     }
 }

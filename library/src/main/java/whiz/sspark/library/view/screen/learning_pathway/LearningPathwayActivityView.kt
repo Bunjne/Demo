@@ -26,7 +26,7 @@ class LearningPathwayActivityView: ConstraintLayout {
     fun init(isPlanEditable: Boolean,
              onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
              onDeleteCourseClicked: (Int, Int, String) -> Unit,
-             onShowRequiredCourseClicked: (Term, List<Course>) -> Unit,
+             onShowBasicCourseClicked: (Term, List<Course>) -> Unit,
              onRefresh: () -> Unit) {
         with(binding.rvCourse) {
             if (itemDecorationCount == 0) {
@@ -43,7 +43,7 @@ class LearningPathwayActivityView: ConstraintLayout {
                 isPlanEditable = isPlanEditable,
                 onAddCourseClicked = onAddCourseClicked,
                 onDeleteCourseClicked = onDeleteCourseClicked,
-                onShowRequiredCourseClicked = onShowRequiredCourseClicked
+                onShowBasicCourseClicked = onShowBasicCourseClicked
             )
         }
 

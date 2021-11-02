@@ -38,8 +38,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="12dp"
-            android:paddingBottom="16dp">
+            android:paddingHorizontal="12dp">
 
             <ImageView
                 android:id="@+id/ivClose"
@@ -67,11 +66,24 @@
                 style="@style/ScreenHeaderSubTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/vAdviseeProfile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:layout_goneMarginBottom="16dp"
                 tools:text="ม.4 (2/2564)" />
+
+            <whiz.sspark.library.view.widget.base.AdviseeProfileView
+                android:id="@+id/vAdviseeProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTerm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

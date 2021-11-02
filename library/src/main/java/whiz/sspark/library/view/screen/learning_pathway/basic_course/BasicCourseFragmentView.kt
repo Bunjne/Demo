@@ -1,28 +1,30 @@
-package whiz.sspark.library.view.screen.learning_pathway.required_course
+package whiz.sspark.library.view.screen.learning_pathway.basic_course
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.Course
 import whiz.sspark.library.data.entity.Term
-import whiz.sspark.library.databinding.ViewRequiredCourseFragmentBinding
+import whiz.sspark.library.databinding.ViewBasicCourseFragmentBinding
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.getHighSchoolLevel
 import whiz.sspark.library.view.general.custom_divider.CustomDividerItemDecoration
-import whiz.sspark.library.view.widget.learning_pathway.requiredCourse.RequiredCourseAdapter
+import whiz.sspark.library.view.widget.learning_pathway.basic_course.BasicCourseAdapter
 
-class RequiredCourseFragmentView: ConstraintLayout {
+class BasicCourseFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewRequiredCourseFragmentBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewBasicCourseFragmentBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(term: Term,
@@ -48,7 +50,12 @@ class RequiredCourseFragmentView: ConstraintLayout {
             }
 
             layoutManager = LinearLayoutManager(context)
-            adapter = RequiredCourseAdapter(courses)
+            adapter = BasicCourseAdapter(courses)
         }
+    }
+
+    fun showAdviseeProfile(advisee: Advisee) {
+        binding.vAdviseeProfile.init(advisee)
+        binding.vAdviseeProfile.visibility = View.VISIBLE
     }
 }

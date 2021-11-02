@@ -1,14 +1,9 @@
 package whiz.tss.sspark.s_spark_android.presentation.learning_pathway.add_course
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.ConcentrateCourseDTO
 import whiz.sspark.library.data.entity.Course
@@ -20,10 +15,10 @@ import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.sspark.library.view.widget.learning_pathway.add_course.AddCourseAdapter
-import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentAddCourseBinding
+import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 
-class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
+class AddCourseBottomSheetDialog: BaseBottomSheetDialogFragment() {
     companion object {
         fun newInstance(term: Term, currentCredit: Int, minCredit: Int, maxCredit: Int, selectedCourseIds: List<String>) = AddCourseBottomSheetDialog().apply {
             arguments = Bundle().apply {
@@ -81,42 +76,11 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
         }
 
         initView()
-        observeView()
-        observeData()
-        observeError()
-
-        dialog?.setOnShowListener {
-            validateDialog()
-        }
 
         viewModel.getConcentrateCourse()
     }
 
-    private fun validateDialog() {
-        val bottomSheetDialog = dialog as? BottomSheetDialog
-        bottomSheetDialog?.let {
-            val bottomSheet = dialog!!.findViewById<FrameLayout>(R.id.design_bottom_sheet)
-            bottomSheet.setBackgroundColor(Color.TRANSPARENT)
-            BottomSheetBehavior.from(bottomSheet).run {
-
-                state = BottomSheetBehavior.STATE_EXPANDED
-
-                addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onSlide(p0: View, p1: Float) { }
-
-                    override fun onStateChanged(bottomSheet: View, state: Int) {
-                        if (state == BottomSheetBehavior.STATE_COLLAPSED) {
-                            dismiss()
-                        }
-                    }
-                })
-            }
-
-            view?.requestLayout()
-        }
-    }
-
-    private fun initView() {
+    override fun initView() {
         binding.vAddCourse.init(
             term = term,
             currentCredit = currentCredit,
@@ -136,13 +100,13 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
         )
     }
 
-    private fun observeView() {
+    override fun observeView() {
         viewModel.viewLoading.observe(this) { isLoading ->
             binding.vAddCourse.setSwipeRefreshLoading(isLoading)
         }
     }
 
-    private fun observeData() {
+    override fun observeData() {
         viewModel.concentrateCourseResponse.observe(this) {
             it?.let {
                 with(concentrateCourses) {
@@ -155,7 +119,7 @@ class AddCourseBottomSheetDialog: BottomSheetDialogFragment() {
         }
     }
 
-    private fun observeError() {
+    override fun observeError() {
         viewModel.concentrateCourseErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(requireActivity(), it)
