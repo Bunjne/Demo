@@ -34,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="2dp"
             app:background_Color="@color/viewBaseThirdColor"
             app:cornerRadius_TopLeft="12dp"
             app:cornerRadius_TopRight="12dp"
