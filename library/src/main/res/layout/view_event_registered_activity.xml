@@ -54,7 +54,6 @@
                 style="@style/ScreenHeaderTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +64,6 @@
                 style="@style/ScreenHeaderSubTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
@@ -75,7 +73,7 @@
                 android:id="@+id/vSegment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="18dp"
+                android:layout_marginVertical="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +104,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingVertical="14dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
             tools:listitem="@layout/view_event_registered_event_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

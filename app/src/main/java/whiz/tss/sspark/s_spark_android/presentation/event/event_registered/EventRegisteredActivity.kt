@@ -2,10 +2,14 @@ package whiz.tss.sspark.s_spark_android.presentation.event.event_registered
 
 import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.EventList
 import whiz.sspark.library.data.entity.EventRegisteredDTO
 import whiz.sspark.library.data.enum.EventType
 import whiz.sspark.library.data.viewModel.EventRegisteredViewModel
+import whiz.sspark.library.extension.toJson
+import whiz.sspark.library.extension.toObject
+import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
@@ -20,7 +24,8 @@ class EventRegisteredActivity : BaseActivity() {
 
     private lateinit var binding: ActivityEventRegisteredBinding
 
-    private val items = mutableListOf<EventRegisteredAdapter.EventRegisteredAdapterViewType>()
+    private var items = mutableListOf<EventRegisteredAdapter.EventRegisteredAdapterViewType>()
+    private var dataWrapperX: DataWrapperX<Any>? = null
 
     private var currentSegment = -1
     private var savedFragment = -1
@@ -33,11 +38,20 @@ class EventRegisteredActivity : BaseActivity() {
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState)
+            initView()
+
+            if (dataWrapperX != null) {
+                val events = dataWrapperX?.data?.toJson()?.toObject<EventRegisteredDTO>() ?: EventRegisteredDTO()
+                val transformedRegisteredEvents = transformData(events, segmentType)
+                binding.vEventRegistered.renderEvents(items, transformedRegisteredEvents)
+            } else {
+                viewModel.getRegisteredEvents()
+            }
+        } else {
+            initView()
+            viewModel.getRegisteredEvents()
+
         }
-
-        initView()
-
-        viewModel.getRegisteredEvents()
     }
 
     override fun initView() {
@@ -67,6 +81,7 @@ class EventRegisteredActivity : BaseActivity() {
         }
 
         viewModel.viewRendering.observe(this) {
+            dataWrapperX = it
             binding.vEventRegistered.setLatestUpdatedText(it)
         }
     }
@@ -92,17 +107,6 @@ class EventRegisteredActivity : BaseActivity() {
                 showAlertWithOkButton(it)
             }
         }
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedFragment = savedInstanceState.getInt("savedFragment", -1)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("savedFragment", currentSegment)
-        viewModelStore.clear()
     }
 
     private fun renderSelectedTab(tab: Int) {
@@ -145,5 +149,19 @@ class EventRegisteredActivity : BaseActivity() {
         }
 
         return transformedEvents
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedFragment = savedInstanceState.getInt("savedFragment", -1)
+        dataWrapperX = savedInstanceState.getString("dataWrapperX")?.toObject()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("savedFragment", currentSegment)
+        outState.putString("items", items.toJson())
+        outState.putString("dataWrapperX", dataWrapperX?.toJson())
+        viewModelStore.clear()
     }
 }

@@ -1,58 +1,52 @@
 package whiz.sspark.library.view.widget.event
 
 import android.content.Context
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.EventList
+import whiz.sspark.library.databinding.ViewEventListEventItemBinding
+import whiz.sspark.library.databinding.ViewItemListTitleBinding
 import whiz.sspark.library.extension.toDP
 import whiz.sspark.library.view.widget.base.ItemListTitleView
-import whiz.sspark.library.view.widget.event.item.EventRegisteredEventItemView
+import whiz.sspark.library.view.widget.base.ItemListTitleViewHolder
 
 class EventRegisteredAdapter(private val context: Context,
                              private val items: List<EventRegisteredAdapterViewType>,
-                             private val onEventClicked: (String, String) -> Unit): RecyclerView.Adapter<EventRegisteredAdapter.ViewHolder>() {
+                             private val onEventClicked: (String, String) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TITLE_TYPE = 1
         const val EVENT_TYPE = 2
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutParams = RecyclerView.LayoutParams(
-            RecyclerView.LayoutParams.MATCH_PARENT,
-            RecyclerView.LayoutParams.WRAP_CONTENT
-        )
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            TITLE_TYPE -> ViewHolder(ItemListTitleView(context).apply {
-                this.layoutParams = layoutParams
-            })
-            else -> ViewHolder(EventRegisteredEventItemView(context).apply {
-                this.layoutParams = layoutParams
-            })
+            TITLE_TYPE -> ItemListTitleViewHolder(ViewItemListTitleBinding.inflate(LayoutInflater.from(context), parent, false))
+            else -> EventListEventViewHolder(ViewEventListEventItemBinding.inflate(LayoutInflater.from(context), parent, false))
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items.getOrNull(position)
         item?.let {
-            with (holder.itemView) {
+            with (holder) {
                 when {
-                    this is ItemListTitleView && item is EventRegisteredAdapterViewType.Header -> {
+                    this is ItemListTitleViewHolder && item is EventRegisteredAdapterViewType.Header -> {
                         init(item.title)
 
                         if (position != 0) {
-                            setPadding(0, 14.toDP(context), 0,4.toDP(context))
+                            itemView.setPadding(0, 6.toDP(context), 0, 4.toDP(context))
                         }
                     }
-                    this is EventRegisteredEventItemView && item is EventRegisteredAdapterViewType.Event -> {
+                    this is EventListEventViewHolder && item is EventRegisteredAdapterViewType.Event -> {
                         init(item.event, onEventClicked)
-                        setPadding(6.toDP(context), 0, 6.toDP(context),0)
+
+                        if (position == 0) {
+                            itemView.setPadding(6.toDP(context), 4.toDP(context), 6.toDP(context),0)
+                        } else {
+                            itemView.setPadding(6.toDP(context), 0, 6.toDP(context),0)
+                        }
                     }
                 }
             }
