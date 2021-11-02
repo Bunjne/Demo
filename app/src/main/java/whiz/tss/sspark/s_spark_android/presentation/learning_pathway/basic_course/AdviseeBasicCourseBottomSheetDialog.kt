@@ -19,7 +19,7 @@ class AdviseeBasicCourseBottomSheetDialog: BasicCourseBottomSheetDialog() {
     }
 
     private val advisee by lazy {
-        arguments?.getString("term")?.toObject<Advisee>()!!
+        arguments?.getString("advisee")?.toObject<Advisee>()!!
     }
 
     override fun initView() {
