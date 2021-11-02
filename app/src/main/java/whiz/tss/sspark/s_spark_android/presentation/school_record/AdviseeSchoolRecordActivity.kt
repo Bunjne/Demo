@@ -25,7 +25,7 @@ open class AdviseeSchoolRecordActivity : SchoolRecordActivity() {
     override fun initView() {
         super.initView()
 
-        val advisee = if (SSparkApp.role == RoleType.INSTRUCTOR_JUNIOR) {
+        val advisee = if (isPrimaryHighSchool(student.term.academicGrade ?: 0)) {
             student.convertToJuniorAdvisee()
         } else {
             student.convertToSeniorAdvisee()
