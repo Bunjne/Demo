@@ -3,6 +3,7 @@ package whiz.sspark.library.view.widget.learning_pathway
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.LearningPathwayCourseItem
@@ -19,11 +20,17 @@ class LearningPathwayCourseBottomItemView: ConstraintLayout {
     }
 
     fun init(courseItem: LearningPathwayCourseItem,
+             isPlanEditable: Boolean,
              onDeleteClicked: (Int, Int, String) -> Unit) {
         with(binding.ivDelete) {
-            show(R.drawable.ic_bin)
-            setOnClickListener {
-                onDeleteClicked(courseItem.term.term, courseItem.term.academicGrade ?: 0, courseItem.course.id)
+            if (isPlanEditable) {
+                show(R.drawable.ic_bin)
+                setOnClickListener {
+                    onDeleteClicked(courseItem.term.term, courseItem.term.academicGrade ?: 0, courseItem.course.id)
+                }
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
             }
         }
 
