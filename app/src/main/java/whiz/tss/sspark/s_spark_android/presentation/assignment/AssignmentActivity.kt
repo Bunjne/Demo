@@ -66,6 +66,7 @@ class AssignmentActivity : BaseActivity() {
         )
 
         binding.vAssignment.init(
+            progressbarColor = ContextCompat.getColor(this, R.color.primaryColor),
             onAssignmentClicked = { assignment ->
                 val intent = Intent(this, AssignmentDetailActivity::class.java).apply {
                     putExtra("assignment", assignment.toJson())

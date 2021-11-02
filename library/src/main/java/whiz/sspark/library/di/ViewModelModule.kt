@@ -35,6 +35,7 @@ val viewModelModule = module {
     viewModel { StudentAdvisoryAppointmentViewModel(get()) }
     viewModel { StudentAllClassViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
+    viewModel { StudentClassAssignmentViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { StudentExamScheduleViewModel(get()) }

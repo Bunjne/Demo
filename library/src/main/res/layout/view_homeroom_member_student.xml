@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clStudent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBaseThirdColor"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toTopOf="@id/tvName"
+        app:layout_constraintEnd_toStartOf="@id/ivChat"
+        app:layout_constraintStart_toEndOf="@+id/cvProfileImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:ssparkFont="regular"
+        tools:text="#1 แชมป์" />
+
+    <whiz.sspark.library.view.general.SSparkTextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/textBasePrimaryColor"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivChat"
+        app:layout_constraintStart_toStartOf="@id/tvNickname"
+        app:layout_constraintTop_toBottomOf="@+id/tvNickname"
+        app:ssparkFont="regular"
+        tools:text="วีรเดช เฝดสูงเนิน" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cvProfileImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        app:civ_border_color="@color/viewBaseThirdColor"
+        app:civ_border_width="1.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/ivChat"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/textBaseThirdColor"
+        tools:src="@drawable/ic_chat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

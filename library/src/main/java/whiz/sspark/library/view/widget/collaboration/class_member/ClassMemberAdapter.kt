@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
@@ -32,14 +31,16 @@ class ClassMemberAdapter(private val context: Context,
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             ClassMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> ClassMemberInstructorViewHolder(
                 ClassMemberInstructorView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
+                }
+            )
             else -> ClassMemberStudentViewHolder(ClassMemberStudentView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.MATCH_PARENT,
@@ -70,9 +71,7 @@ class ClassMemberAdapter(private val context: Context,
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
-                else -> {
-                    (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
-                }
+                else -> (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }

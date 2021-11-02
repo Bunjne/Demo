@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.advisory.appointment.student
+package whiz.tss.sspark.s_spark_android.presentation.collaboration.advisory.appointment.student
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package whiz.tss.sspark.s_spark_android.presentation.advisory.member
+package whiz.tss.sspark.s_spark_android.presentation.collaboration.advisory.member
 
 import android.os.Bundle
 import whiz.tss.sspark.s_spark_android.R
@@ -13,6 +13,8 @@ class AdvisoryMemberFragment : StudentClassMemberFragment() {
             }
         }
     }
+
+    override val isInstructorChatEnable = true
 
     override fun initView() {
         super.initView()

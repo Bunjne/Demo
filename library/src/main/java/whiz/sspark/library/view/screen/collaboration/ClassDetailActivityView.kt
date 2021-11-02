@@ -1,7 +1,8 @@
 package whiz.sspark.library.view.screen.collaboration
 
 import android.content.Context
-import android.graphics.Color
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -51,6 +52,26 @@ class ClassDetailActivityView : ConstraintLayout {
         }
     }
 
+    fun initSegment(segmentTabTitles: List<String>,
+                    textColorStateList: ColorStateList?,
+                    segmentBackgroundDrawable: Drawable?,
+                    onSegmentTabClicked: (Int) -> Unit) {
+        binding.vSegment.init(
+            titles = segmentTabTitles,
+            onTabClicked = onSegmentTabClicked,
+            textColorStateList = textColorStateList,
+            backgroundDrawable = segmentBackgroundDrawable
+        )
+    }
+
+    fun setSegmentVisibility(isVisible: Boolean) {
+        binding.vSegment.visibility = if (isVisible) {
+            VISIBLE
+        } else {
+            GONE
+        }
+    }
+
     fun setStudyPlanVisibility(isVisible: Boolean) {
         binding.cvStudyPlan.visibility = if (isVisible) {
             VISIBLE
@@ -92,8 +113,8 @@ class ClassDetailActivityView : ConstraintLayout {
             binding.tvSubTitle.setTextColor(ContextCompat.getColor(context, R.color.textBaseSecondaryColor))
         } else {
             binding.clHeader.background = backgroundDrawable
-            binding.tvTitle.setTextColor(Color.WHITE)
-            binding.tvSubTitle.setTextColor(Color.WHITE)
+            binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
+            binding.tvSubTitle.setTextColor(ContextCompat.getColor(context, R.color.naturalV100))
         }
 
         binding.tvSubTitle.text = subTitle

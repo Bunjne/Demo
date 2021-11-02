@@ -94,6 +94,7 @@
     <string name="class_detail_tab_activity">ข่าวสาร</string>
     <string name="class_detail_tab_attendance">การเข้าเรียน</string>
     <string name="class_detail_tab_student">นักเรียน</string>
+    <string name="class_detail_tab_member">สมาชิก</string>
     <string name="class_detail_tab_homework">ASSIGNMENT</string>
     <string name="class_detail_study_plan_title">แผนการสอน</string>
 
@@ -161,6 +162,7 @@
 
     <!-- Class Member -->
     <string name="class_member_instructor_title">อาจารย์ (%1$d)</string>
+    <string name="class_member_instructor_homeroom_title">อาจารย์ประจำชั้น (%1$d)</string>
     <string name="class_member_student_title">นักเรียน (%1$d)</string>
     <string name="class_member_number_place_holder">#%1$s %2$s</string>
 

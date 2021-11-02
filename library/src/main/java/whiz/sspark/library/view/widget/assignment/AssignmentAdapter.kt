@@ -10,7 +10,8 @@ import whiz.sspark.library.databinding.ViewAssignmentPreviewItemBinding
 import whiz.sspark.library.databinding.ViewLoadingBinding
 import whiz.sspark.library.view.widget.base.LoadingViewHolder
 
-class AssignmentAdapter(private val onAssignmentClicked: (Assignment) -> Unit): ListAdapter<AssignmentAdapter.AssignmentItem, RecyclerView.ViewHolder>(DiffCallBack()) {
+class AssignmentAdapter(private val progressbarColor: Int,
+                        private val onAssignmentClicked: (Assignment) -> Unit): ListAdapter<AssignmentAdapter.AssignmentItem, RecyclerView.ViewHolder>(DiffCallBack()) {
 
     companion object {
         private const val ASSIGNMENT_VIEW_TYPE = 1111
@@ -44,7 +45,7 @@ class AssignmentAdapter(private val onAssignmentClicked: (Assignment) -> Unit): 
                     onAssignmentClicked(item.assignment)
                 }
             }
-            is AssignmentItem.Loading -> (holder as LoadingViewHolder).init(item.isShowing)
+            is AssignmentItem.Loading -> (holder as LoadingViewHolder).init(item.isShowing, progressbarColor)
         }
     }
 

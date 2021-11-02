@@ -31,10 +31,12 @@ val repositoryModule = module {
     factory { LearningPathwayRepositoryImpl(androidContext(), get()) }
     factory { LikeBySeenByRepositoryImpl(androidContext(), get()) }
     factory { NotificationInboxRepositoryImpl(androidContext(), get()) }
+    factory { ProfileRepositoryImpl(androidContext(), get()) }
     factory { SchoolRecordRepositoryImpl(androidContext(), get()) }
     factory { StudentAdvisoryAppointmentRepositoryImpl(androidContext(), get()) }
     factory { StudentAllClassRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
+    factory { StudentClassAssignmentRepositoryImpl(androidContext(), get()) }
     factory { StudentClassAttendanceRepositoryImpl(androidContext(), get()) }
     factory { StudentClassScheduleRepositoryImpl(androidContext(), get()) }
     factory { StudentExamScheduleRepositoryImpl(androidContext(), get()) }
