@@ -9,12 +9,11 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.AssignmentDTO
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.repository.AssignmentRepositoryImpl
-import whiz.sspark.library.data.repository.StudentClassAssignmentRepositoryImpl
+import whiz.sspark.library.data.repository.ClassAssignmentRepositoryImpl
 import whiz.sspark.library.utility.EventWrapper
 import whiz.sspark.library.utility.toEventWrapper
 
-class StudentClassAssignmentViewModel(private val assignmentRepository: StudentClassAssignmentRepositoryImpl): ViewModel() {
+class ClassAssignmentViewModel(private val assignmentRepository: ClassAssignmentRepositoryImpl): ViewModel() {
 
     private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>

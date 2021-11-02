@@ -22,12 +22,12 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityAssignmentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
-class AssignmentActivity : BaseActivity() {
+open class AssignmentActivity : BaseActivity() {
 
-    private val viewModel: AssignmentViewModel by viewModel { parametersOf() }
+    protected val viewModel: AssignmentViewModel by viewModel { parametersOf() }
 
     private lateinit var binding: ActivityAssignmentBinding
-    private lateinit var currentTerm: Term
+    protected lateinit var currentTerm: Term
 
     private var dataWrapper: DataWrapperX<Any>? = null
     private var currentPage = PagingConfiguration.INITIAL_PAGE
@@ -68,11 +68,7 @@ class AssignmentActivity : BaseActivity() {
         binding.vAssignment.init(
             progressbarColor = ContextCompat.getColor(this, R.color.primaryColor),
             onAssignmentClicked = { assignment ->
-                val intent = Intent(this, AssignmentDetailActivity::class.java).apply {
-                    putExtra("assignment", assignment.toJson())
-                }
-
-                startActivity(intent)
+                onNavigateToAssignmentDetail(assignment)
             },
             onRefresh = {
                 viewModel.getLatestAssignments(currentTerm.id, PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
@@ -102,16 +98,18 @@ class AssignmentActivity : BaseActivity() {
     override fun observeData() {
         viewModel.latestAssignmentResponse.observe(this) {
             it?.getContentIfNotHandled()?.let {
-                currentPage = PagingConfiguration.INITIAL_PAGE
-                totalPage = it.totalPage
+                binding.vAssignment.clearOldItem {
+                    currentPage = PagingConfiguration.INITIAL_PAGE
+                    totalPage = it.totalPage
 
-                with(assignments) {
-                    clear()
-                    addAll(it.items)
+                    with(assignments) {
+                        clear()
+                        addAll(it.items)
+                    }
+
+                    checkIsLastPage()
+                    updateAdapterItem()
                 }
-
-                checkIsLastPage()
-                updateAdapterItem()
             }
         }
 
@@ -141,6 +139,14 @@ class AssignmentActivity : BaseActivity() {
         }
     }
 
+    protected open fun onNavigateToAssignmentDetail(assignment: Assignment) {
+        val intent = Intent(this, AssignmentDetailActivity::class.java).apply {
+            putExtra("assignment", assignment.toJson())
+        }
+
+        startActivity(intent)
+    }
+
     private fun updateAdapterItem() {
         val items = mutableListOf<AssignmentAdapter.AssignmentItem>()
         val isLastPage = currentPage >= totalPage
@@ -159,15 +165,18 @@ class AssignmentActivity : BaseActivity() {
         return assignments.map {
             AssignmentAdapter.AssignmentItem.Item(
                 Assignment(
+                    id = it.id,
                     startColor = it.classGroup.colorCode1,
                     endColor = it.classGroup.colorCode2,
                     courseTitle = resources.getString(R.string.assignment_student_title, it.classGroup.code, it.classGroup.name),
+                    classGroupId = it.classGroup.classGroupId,
                     createdAt = it.createdAt,
                     updatedAt = it.updatedAt,
                     deadlineAt = it.deadlineAt,
                     title = it.title,
                     description = it.message,
                     instructorName = it.instructor.fullName,
+                    instructorId = it.instructor.id,
                     imageUrl = it.instructor.imageUrl,
                     gender = it.instructor.gender,
                     attachments = it.attachments

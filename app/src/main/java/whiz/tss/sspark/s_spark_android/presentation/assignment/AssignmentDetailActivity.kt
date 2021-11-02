@@ -10,11 +10,11 @@ import whiz.tss.sspark.s_spark_android.databinding.ActivityAssignmentDetailBindi
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.utility.showImage
 
-class AssignmentDetailActivity : BaseActivity() {
+open class AssignmentDetailActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityAssignmentDetailBinding
+    protected lateinit var binding: ActivityAssignmentDetailBinding
 
-    private val assignment by lazy {
+    protected val assignment by lazy {
         intent.getStringExtra("assignment")!!.toObject<Assignment>()!!
     }
 

@@ -17,6 +17,7 @@ val viewModelModule = module {
     viewModel { AdviseeSchoolRecordViewModel(get()) }
     viewModel { AssignmentViewModel(get()) }
     viewModel { CalendarViewModel(get()) }
+    viewModel { ClassAssignmentViewModel(get()) }
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
@@ -25,6 +26,7 @@ val viewModelModule = module {
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorAllClassViewModel(get()) }
     viewModel { InstructorClassActivityViewModel(get()) }
+    viewModel { InstructorClassAssignmentDetailViewModel(get()) }
     viewModel { InstructorClassScheduleViewModel(get()) }
     viewModel { InstructorMenuViewModel(get()) }
     viewModel { LearningOutcomeViewModel(get()) }
@@ -34,7 +36,6 @@ val viewModelModule = module {
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentAllClassViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
-    viewModel { StudentClassAssignmentViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { StudentExamScheduleViewModel(get()) }
