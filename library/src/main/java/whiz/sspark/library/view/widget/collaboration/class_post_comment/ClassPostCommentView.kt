@@ -9,6 +9,7 @@ import whiz.sspark.library.data.entity.Comment
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassPostCommentBinding
 import whiz.sspark.library.extension.showProfile
+import whiz.sspark.library.extension.toLocalDate
 import whiz.sspark.library.extension.toPostTime
 import whiz.sspark.library.utility.convertToFullName
 
@@ -36,14 +37,14 @@ class ClassPostCommentView : ConstraintLayout {
                 )
             } else {
                 if (author.number != null) {
-                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.number.toString(), author.nickname)
+                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.number.toString(), author.collaborationDisplayName)
                 } else {
-                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.code, author.nickname)
+                    resources.getString(R.string.class_post_comment_author_name_place_holder, author.code, author.collaborationDisplayName)
                 }
             }
 
             binding.tvName.text = commentAuthorName
-            binding.tvDate.text = datetime.toPostTime(context)
+            binding.tvDate.text = datetime.toLocalDate()?.toPostTime(context)
             with(binding.tvMessage) {
                 text = message
                 setLinkTextColor(color)

@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -117,6 +118,15 @@ fun Window.setGradientDrawable(drawable: Drawable) {
     this.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     this.statusBarColor = Color.TRANSPARENT
     this.setBackgroundDrawable(drawable)
+}
+
+fun Window.setLightStatusBar() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        this.insetsController?.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+        this.statusBarColor = ContextCompat.getColor(context, R.color.viewBaseSecondaryColor)
+    } else {
+        this.decorView.systemUiVisibility = this.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
 }
 
 fun EditText.showKeyboard() {

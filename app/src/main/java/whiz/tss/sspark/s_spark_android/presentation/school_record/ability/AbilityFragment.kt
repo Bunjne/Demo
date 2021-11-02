@@ -19,7 +19,7 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentAbilityBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 
-class AbilityFragment: BaseFragment() {
+open class AbilityFragment: BaseFragment() {
 
     companion object {
         fun newInstance(termId: String) = AbilityFragment().apply {
@@ -29,9 +29,9 @@ class AbilityFragment: BaseFragment() {
         }
     }
 
-    private val viewModel: AbilityViewModel by viewModel()
+    protected open val viewModel: AbilityViewModel by viewModel()
 
-    private val termId by lazy {
+    protected val termId by lazy {
         arguments?.getString("termId") ?: ""
     }
 
@@ -63,23 +63,25 @@ class AbilityFragment: BaseFragment() {
 
         if (savedInstanceState != null) {
             dataWrapper = savedInstanceState.getString("dataWrapper")?.toObject()
-
-            if (dataWrapper != null) {
-                val abilities = dataWrapper?.data?.toJson()?.toObjects(Array<AbilityDTO>::class.java) ?: listOf()
-                updateAdapterItem(abilities)
-
-                listener?.onSetLatestUpdatedText(dataWrapper)
-            } else {
-                viewModel.getAbility(termId)
-            }
-        } else {
-            viewModel.getAbility(termId)
         }
+
+        if (dataWrapper != null) {
+            val abilities = dataWrapper?.data?.toJson()?.toObjects(Array<AbilityDTO>::class.java) ?: listOf()
+            updateAdapterItem(abilities)
+
+            listener?.onSetLatestUpdatedText(dataWrapper)
+        } else {
+            getAbility()
+        }
+    }
+
+    protected open fun getAbility() {
+        viewModel.getAbility(termId)
     }
 
     override fun initView() {
         binding.vAbility.init {
-            viewModel.getAbility(termId)
+            getAbility()
         }
     }
 

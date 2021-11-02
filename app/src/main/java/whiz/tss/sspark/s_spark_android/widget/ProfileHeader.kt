@@ -10,7 +10,10 @@ import kotlinx.coroutines.flow.collect
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.extension.show
 import whiz.sspark.library.extension.showUserProfileCircle
+import whiz.sspark.library.utility.convertToFullName
 import whiz.tss.sspark.s_spark_android.R
+import whiz.tss.sspark.s_spark_android.SSparkApp
+import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ViewProfileHeaderBinding
 import whiz.tss.sspark.s_spark_android.utility.ProfileManager
 import kotlin.coroutines.CoroutineContext
@@ -41,8 +44,19 @@ class ProfileHeader : ConstraintLayout, CoroutineScope {
         launch {
             profileManager.profile.collect {
                 it?.let {
-                    binding.tvName.text = it.firstName
-                    binding.tvCode.text = it.code
+                    when (SSparkApp.role) {
+                        RoleType.STUDENT_JUNIOR,
+                        RoleType.STUDENT_SENIOR -> {
+                            binding.tvName.text = it.firstName
+                            binding.tvCode.text = it.code
+                        }
+                        RoleType.INSTRUCTOR_JUNIOR,
+                        RoleType.INSTRUCTOR_SENIOR -> {
+                            binding.tvName.text = convertToFullName(it.firstName, null, null, it.position)
+                            binding.tvCode.text = it.lastName
+                        }
+                    }
+
                     binding.ivProfile.post {
                         binding.ivProfile.showUserProfileCircle(it.imageUrl ?: "", getGender(it.gender).type)
                     }
@@ -50,11 +64,16 @@ class ProfileHeader : ConstraintLayout, CoroutineScope {
             }
         }
 
-        binding.ivBack.show(R.drawable.ic_navigation_back)
+        binding.ivBack.show(R.drawable.ic_back)
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    fun setBackgroundGradientColor(startColor: Int, endColor: Int) {
+        binding.cvBack.background_Gradient_Colors = intArrayOf(startColor, endColor)
+        binding.cvBack.invalidate()
     }
 
     override fun onDetachedFromWindow() {
