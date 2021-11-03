@@ -8,14 +8,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.ClassScheduleAllClass
 import whiz.sspark.library.data.entity.ClassScheduleAllClassDTO
 import whiz.sspark.library.data.entity.Term
-import whiz.sspark.library.data.viewModel.StudentAllClassViewModel
+import whiz.sspark.library.data.viewModel.StudentClassScheduleAllClassViewModel
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.utility.convertToLocalizeYear
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
-import whiz.tss.sspark.s_spark_android.databinding.FragmentClassScheduleAllClassBinding
+import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassScheduleAllClassBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 
 open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogFragment() {
@@ -28,9 +28,9 @@ open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogF
         }
     }
 
-    protected open val viewModel: StudentAllClassViewModel by viewModel()
+    protected open val viewModel: StudentClassScheduleAllClassViewModel by viewModel()
 
-    private var _binding: FragmentClassScheduleAllClassBinding? = null
+    private var _binding: FragmentStudentClassScheduleAllClassBinding? = null
     protected val binding get() = _binding!!
 
     protected val term by lazy {
@@ -38,7 +38,7 @@ open class StudentClassScheduleAllClassBottomSheetDialog: BaseBottomSheetDialogF
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentClassScheduleAllClassBinding.inflate(layoutInflater)
+        _binding = FragmentStudentClassScheduleAllClassBinding.inflate(layoutInflater)
         return binding.root
     }
 

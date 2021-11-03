@@ -1,30 +1,21 @@
 package whiz.tss.sspark.s_spark_android.presentation.main
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.BottomNavigationBarItem
 import whiz.sspark.library.data.enum.BottomNavigationType
 import whiz.sspark.library.extension.setGradientDrawable
-import whiz.sspark.library.extension.toJson
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.BottomNavigationId
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.ActivityMainBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
-import whiz.tss.sspark.s_spark_android.presentation.class_schedule.AdviseeClassScheduleActivity
-import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_group.ClassGroupFragment
 import whiz.tss.sspark.s_spark_android.presentation.menu.InstructorMenuFragment
 import whiz.tss.sspark.s_spark_android.presentation.menu.StudentMenuFragment
 import whiz.tss.sspark.s_spark_android.presentation.today.TodayFragment
-import whiz.tss.sspark.s_spark_android.utility.ProfileManager
 
 class MainActivity : BaseActivity() {
 

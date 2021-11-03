@@ -6,8 +6,7 @@ import whiz.sspark.library.data.viewModel.AdviseeClassScheduleViewModel
 import whiz.sspark.library.extension.toObject
 import whiz.tss.sspark.s_spark_android.SSparkApp
 import whiz.tss.sspark.s_spark_android.data.enum.RoleType
-import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.AdviseeScheduleAllClassBottomSheetDialogStudent
-import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.StudentClassScheduleAllClassBottomSheetDialog
+import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.AdviseeClassScheduleAllClassBottomSheetDialog
 
 class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
 
@@ -36,7 +35,7 @@ class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
     }
 
     override fun showAllClassDialog() {
-        AdviseeScheduleAllClassBottomSheetDialogStudent.newInstance(
+        AdviseeClassScheduleAllClassBottomSheetDialog.newInstance(
             term = currentTerm,
             studentId = student.id,
             advisee = advisee

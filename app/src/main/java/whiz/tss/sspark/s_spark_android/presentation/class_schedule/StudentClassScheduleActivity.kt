@@ -30,7 +30,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
 
     protected open val viewModel: StudentClassScheduleViewModel by viewModel()
 
-    internal lateinit var binding: ActivityClassScheduleBinding
+    protected lateinit var binding: ActivityClassScheduleBinding
     protected lateinit var currentTerm: Term
 
     protected open val title by lazy {

@@ -4,14 +4,14 @@ import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.Term
-import whiz.sspark.library.data.viewModel.AdviseeAllStudentClassViewModel
+import whiz.sspark.library.data.viewModel.AdviseeClassScheduleAllClassViewModel
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 
-class AdviseeScheduleAllClassBottomSheetDialogStudent: StudentClassScheduleAllClassBottomSheetDialog() {
+class AdviseeClassScheduleAllClassBottomSheetDialog: StudentClassScheduleAllClassBottomSheetDialog() {
 
     companion object {
-        fun newInstance(term: Term, studentId: String, advisee: Advisee) = AdviseeScheduleAllClassBottomSheetDialogStudent().apply {
+        fun newInstance(term: Term, studentId: String, advisee: Advisee) = AdviseeClassScheduleAllClassBottomSheetDialog().apply {
             arguments = Bundle().apply {
                 putString("term", term.toJson())
                 putString("studentId", studentId)
@@ -20,7 +20,7 @@ class AdviseeScheduleAllClassBottomSheetDialogStudent: StudentClassScheduleAllCl
         }
     }
 
-    override val viewModel: AdviseeAllStudentClassViewModel by viewModel()
+    override val viewModel: AdviseeClassScheduleAllClassViewModel by viewModel()
 
     private val studentId: String by lazy {
         arguments?.getString("studentId") ?: ""

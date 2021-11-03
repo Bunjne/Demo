@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import whiz.sspark.library.data.repository.InstructorAllClassRepositoryImpl
 
-class InstructorAllClassViewModel(private val instructorAllClassesRepositoryImpl: InstructorAllClassRepositoryImpl): StudentAllClassViewModel(instructorAllClassesRepositoryImpl) {
+class InstructorAllClassViewModel(private val instructorAllClassesRepositoryImpl: InstructorAllClassRepositoryImpl): StudentClassScheduleAllClassViewModel(instructorAllClassesRepositoryImpl) {
     override fun getAllClasses(termId: String) {
         viewModelScope.launch {
             instructorAllClassesRepositoryImpl.getAllClass(termId)
