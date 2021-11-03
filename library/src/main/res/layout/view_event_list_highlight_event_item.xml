@@ -56,7 +56,6 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="24dp"
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="11dp"
                 app:layout_constraintBottom_toBottomOf="parent"
