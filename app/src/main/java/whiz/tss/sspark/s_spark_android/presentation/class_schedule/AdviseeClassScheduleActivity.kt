@@ -4,8 +4,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.*
 import whiz.sspark.library.data.viewModel.AdviseeClassScheduleViewModel
 import whiz.sspark.library.extension.toObject
-import whiz.tss.sspark.s_spark_android.SSparkApp
-import whiz.tss.sspark.s_spark_android.data.enum.RoleType
+import whiz.sspark.library.utility.isPrimaryHighSchool
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.all_class.AdviseeClassScheduleAllClassBottomSheetDialog
 
 class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
@@ -25,7 +24,7 @@ class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
     override fun initView() {
         super.initView()
 
-        advisee = if (SSparkApp.role == RoleType.INSTRUCTOR_JUNIOR) {
+        advisee = if (isPrimaryHighSchool(currentTerm.academicGrade!!)) {
             student.convertToJuniorAdvisee()
         } else {
             student.convertToSeniorAdvisee()
