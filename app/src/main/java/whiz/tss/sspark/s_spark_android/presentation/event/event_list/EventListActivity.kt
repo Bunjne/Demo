@@ -15,7 +15,7 @@ class EventListActivity: BaseActivity() {
     private lateinit var binding: ActivityEventListBinding
 
     private val title by lazy {
-        intent?.getStringExtra("title") ?: "กิจกรรม"
+        intent?.getStringExtra("title") ?: ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
