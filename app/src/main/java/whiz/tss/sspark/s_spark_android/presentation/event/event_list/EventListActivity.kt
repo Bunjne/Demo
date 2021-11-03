@@ -35,7 +35,7 @@ class EventListActivity: BaseActivity() {
             onEventClicked = { id, imageUrl ->
                 //TODO wait implement event detail
             },
-            onHistoryClicked = {
+            onRegisteredEventClicked = {
                 //TODO wait implement event history
             },
             onRefresh = {
