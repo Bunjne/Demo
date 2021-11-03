@@ -17,8 +17,8 @@ interface LearningPathwayRepository {
     suspend fun deleteCourse(term: Int, academicGrade: Int, courseId: String): Flow<DataWrapperX<String>>
 }
 
-class LearningPathwayRepositoryImpl(private val context: Context,
-                                    private val remote: LearningPathwayService): LearningPathwayRepository {
+open class LearningPathwayRepositoryImpl(private val context: Context,
+                                         private val remote: LearningPathwayService): LearningPathwayRepository {
     override suspend fun getLearningPathway(): Flow<DataWrapperX<List<LearningPathwayDTO>>> {
         return flow {
             if (NetworkManager.isOnline(context)) {
