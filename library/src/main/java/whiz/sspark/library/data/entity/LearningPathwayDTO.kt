@@ -7,8 +7,8 @@ data class LearningPathwayDTO(
     @SerializedName("minCredit") val minCredit: Int = 0,
     @SerializedName("maxCredit") val maxCredit: Int = 0,
     @SerializedName("courses") private val _courses: List<CourseDTO>?,
-    @SerializedName("requiredCourses") private val _requiredCourses: List<CourseDTO>?,
+    @SerializedName("basicCourses") private val _basicCourses: List<CourseDTO>?,
 ) {
     val courses get() = _courses ?: listOf()
-    val requiredCourses get() = _requiredCourses ?: listOf()
+    val basicCourses get() = _basicCourses ?: listOf()
 }

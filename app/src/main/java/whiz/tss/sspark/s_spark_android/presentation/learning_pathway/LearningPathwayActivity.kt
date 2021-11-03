@@ -16,18 +16,20 @@ import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.ActivityLearningPathwayBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.add_course.AddCourseBottomSheetDialog
-import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.required_course.RequiredCourseBottomSheetDialog
+import whiz.tss.sspark.s_spark_android.presentation.learning_pathway.basic_course.BasicCourseBottomSheetDialog
 
-class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnClickListener {
+open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnClickListener {
 
     companion object {
-        private val ADD_COURSE_DIALOG = "AddCourseDialog"
-        private val REQUIRED_COURSE_DIALOG = "RequiredCourseDialog"
+        internal const val ADD_COURSE_DIALOG = "AddCourseDialog"
+        internal const val BASIC_COURSE_DIALOG = "BasicCourseDialog"
     }
 
-    private val viewModel: LearningPathwayViewModel by viewModel()
+    protected open val viewModel: LearningPathwayViewModel by viewModel()
 
-    private lateinit var binding: ActivityLearningPathwayBinding
+    protected lateinit var binding: ActivityLearningPathwayBinding
+
+    protected open val isPlanEditable = false // this flag is depend on requirement
 
     private var dataWrapper: DataWrapperX<Any>? = null
 
@@ -48,66 +50,62 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 binding.vLearningPathway.setLatestUpdatedText(dataWrapper)
                 updateAdapterItem(learningPathwaysDTO)
             } else {
-                viewModel.getLearningPathway()
+                getLearningPathway()
             }
         } else {
-            viewModel.getLearningPathway()
+            getLearningPathway()
         }
+    }
+
+    protected open fun getLearningPathway() {
+        viewModel.getLearningPathway()
     }
 
     override fun initView() {
         binding.vLearningPathway.init(
+            isPlanEditable = isPlanEditable,
             onAddCourseClicked = { term, currentCredit, minCredit, maxCredit, selectedCourseIds ->
-                if (viewModel.viewLoading.value == true) {
-                    return@init
-                }
+                if (viewModel.viewLoading.value == false) {
+                    val isShowing = supportFragmentManager.findFragmentByTag(ADD_COURSE_DIALOG) != null
 
-                val isShowing = supportFragmentManager.findFragmentByTag(ADD_COURSE_DIALOG) != null
-
-                if (!isShowing) {
-                    AddCourseBottomSheetDialog.newInstance(
-                        term = term,
-                        currentCredit = currentCredit,
-                        minCredit = minCredit,
-                        maxCredit = maxCredit,
-                        selectedCourseIds = selectedCourseIds
-                    ).show(supportFragmentManager, ADD_COURSE_DIALOG)
+                    if (!isShowing) {
+                        AddCourseBottomSheetDialog.newInstance(
+                            term = term,
+                            currentCredit = currentCredit,
+                            minCredit = minCredit,
+                            maxCredit = maxCredit,
+                            selectedCourseIds = selectedCourseIds
+                        ).show(supportFragmentManager, ADD_COURSE_DIALOG)
+                    }
                 }
             },
             onDeleteCourseClicked = { term, academicGrade, courseId ->
-                if (viewModel.viewLoading.value == true) {
-                    return@init
+                if (viewModel.viewLoading.value == false) {
+                    showAlert(
+                        title = resources.getString(R.string.general_confirm_to_delete_text),
+                        positiveTitle = resources.getString(R.string.general_delete_text),
+                        onPositiveClicked = {
+                            viewModel.deleteCourse(
+                                term = term,
+                                academicGrade = academicGrade,
+                                courseId = courseId
+                            )
+                        },
+                        negativeTitle = resources.getString(R.string.general_text_cancel)
+                    )
                 }
-
-                showAlert(
-                    title = resources.getString(R.string.general_confirm_to_delete_text),
-                    positiveTitle = resources.getString(R.string.general_delete_text),
-                    onPositiveClicked = {
-                        viewModel.deleteCourse(
-                            term = term,
-                            academicGrade = academicGrade,
-                            courseId = courseId
-                        )
-                    },
-                    negativeTitle = resources.getString(R.string.general_text_cancel)
-                )
             },
-            onShowRequiredCourseClicked = { term, courses ->
-                if (viewModel.viewLoading.value == true) {
-                    return@init
-                }
+            onShowBasicCourseClicked = { term, courses ->
+                if (viewModel.viewLoading.value == false) {
+                    val isShowing = supportFragmentManager.findFragmentByTag(BASIC_COURSE_DIALOG) != null
 
-                val isShowing = supportFragmentManager.findFragmentByTag(REQUIRED_COURSE_DIALOG) != null
-
-                if (!isShowing) {
-                    RequiredCourseBottomSheetDialog.newInstance(
-                        term = term,
-                        courses = courses
-                    ).show(supportFragmentManager, REQUIRED_COURSE_DIALOG)
+                    if (!isShowing) {
+                        showBasicCoursesDialog(term, courses)
+                    }
                 }
             },
             onRefresh = {
-                viewModel.getLearningPathway()
+                getLearningPathway()
             }
         )
     }
@@ -133,20 +131,20 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
 
     override fun observeData() {
         viewModel.learningPathwayResponse.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
                 updateAdapterItem(it)
             }
         }
 
         viewModel.addCourseResponse.observe(this) {
-            it?.let {
-                viewModel.getLearningPathway()
+            it?.getContentIfNotHandled()?.let {
+                getLearningPathway()
             }
         }
 
         viewModel.deleteCourseResponse.observe(this) {
-            it?.let {
-                viewModel.getLearningPathway()
+            it?.getContentIfNotHandled()?.let {
+                getLearningPathway()
             }
         }
     }
@@ -158,17 +156,24 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
             viewModel.deleteCourseErrorResponse
         ).forEach {
             it.observe(this) {
-                it?.let {
+                it?.getContentIfNotHandled()?.let {
                     showApiResponseXAlert(this, it)
                 }
             }
         }
 
         viewModel.errorMessage.observe(this) {
-            it?.let {
+            it?.getContentIfNotHandled()?.let {
                 showAlertWithOkButton(it)
             }
         }
+    }
+
+    protected open fun showBasicCoursesDialog(term: Term, courses: List<Course>) {
+        BasicCourseBottomSheetDialog.newInstance(
+            term = term,
+            courses = courses
+        ).show(supportFragmentManager, BASIC_COURSE_DIALOG)
     }
 
     private fun updateAdapterItem(learningPathways: List<LearningPathwayDTO>) {
@@ -176,17 +181,17 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
 
         learningPathways.forEach { learningPathway ->
             val summaryCourseCredit = learningPathway.courses.sumOf { it.credit }
-            val summaryRequiredCourseCredit = learningPathway.requiredCourses.sumOf { it.credit }
-            val credit = summaryCourseCredit + summaryRequiredCourseCredit
+            val summaryBasicCourseCredit = learningPathway.basicCourses.sumOf { it.credit }
+            val credit = summaryCourseCredit + summaryBasicCourseCredit
 
             val courseIds = learningPathway.courses.map { it.id }
-            val requiredCourseIds = learningPathway.requiredCourses.map { it.id }
+            val basicCourseIds = learningPathway.basicCourses.map { it.id }
 
             val selectedCourseIds = mutableListOf<String>()
             selectedCourseIds.addAll(courseIds)
-            selectedCourseIds.addAll(requiredCourseIds)
+            selectedCourseIds.addAll(basicCourseIds)
 
-            val requiredCourses = learningPathway.requiredCourses.map {
+            val basicCourses = learningPathway.basicCourses.map {
                 Course(
                     id = it.id,
                     code = it.code,
@@ -201,7 +206,7 @@ class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.OnCli
                 maxCredit = learningPathway.maxCredit,
                 minCredit = learningPathway.minCredit,
                 selectedCourseIds = selectedCourseIds,
-                requiredCourses = requiredCourses
+                basicCourses = basicCourses
             )
 
             items.add(LearningPathwayAdapter.Item(header = header))

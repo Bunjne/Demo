@@ -6,5 +6,5 @@ data class LearningPathwayHeaderItem(
     val minCredit: Int,
     val maxCredit: Int,
     val selectedCourseIds: List<String>,
-    val requiredCourses: List<Course>
+    val basicCourses: List<Course>
 )

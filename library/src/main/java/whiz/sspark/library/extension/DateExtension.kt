@@ -2,6 +2,7 @@ package whiz.sspark.library.extension
 
 import android.content.Context
 import whiz.sspark.library.R
+import whiz.sspark.library.data.static.DateTimePattern
 import whiz.sspark.library.utility.isThaiLanguage
 import whiz.sspark.library.utility.toThaiYear
 import java.text.SimpleDateFormat
@@ -27,19 +28,21 @@ fun Date.toCalendar() = Calendar.getInstance().apply {
 }
 
 fun Date.toPostTime(context: Context): String {
-    val timeDifferences = Calendar.getInstance().time.time - this.toLocalDate()!!.time
+    val timeDifferences = Calendar.getInstance().time.time - this.time
     val timeDifferencesInMinutes = (timeDifferences / (1000 * 60))
     val timeDifferencesInHours = timeDifferencesInMinutes / 60
 
     return when {
-        timeDifferencesInHours > 20 -> {
-            val date = SimpleDateFormat("d MMMM", Locale.getDefault()).format(this.toLocalDate()!!) + " " + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat("HH:mm", Locale.getDefault()).format(this.toLocalDate()!!)
-            context.resources.getString(R.string.date_time_place_holder, date)
-        }
+        timeDifferencesInHours > 20 -> this.toPostFullDateTime(context)
         timeDifferencesInHours in 1L..20 -> context.resources.getQuantityString(R.plurals.date_time_hour_ago, timeDifferencesInHours.toInt(), timeDifferencesInHours.toInt())
         timeDifferencesInMinutes in 1L..59 -> context.resources.getQuantityString(R.plurals.date_time_minute_ago, timeDifferencesInMinutes.toInt(), timeDifferencesInMinutes.toInt())
         else -> context.getString(R.string.date_time_just_now)
     }
+}
+
+fun Date.toPostFullDateTime(context: Context): String {
+    val date = SimpleDateFormat(DateTimePattern.dayFullMonthFormatTh, Locale.getDefault()).format(this) + context.resources.getString(R.string.date_time_post_at) + " " + SimpleDateFormat(DateTimePattern.generalShortTime, Locale.getDefault()).format(this)
+    return context.resources.getString(R.string.date_time_place_holder, date)
 }
 
 /*

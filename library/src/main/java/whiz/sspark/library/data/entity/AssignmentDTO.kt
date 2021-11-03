@@ -28,6 +28,7 @@ data class AssignmentItemDTO(
 
 data class AssignmentClassGroupDTO(
     @SerializedName("classGroupId") val classGroupId: String,
+    @SerializedName("sectionNumber") val sectionNumber: String,
     @SerializedName("colorCode1") val colorCode1: String,
     @SerializedName("colorCode2") val colorCode2: String,
     @SerializedName("code") val code: String,
