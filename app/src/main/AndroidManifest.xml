@@ -81,6 +81,9 @@
             android:name=".presentation.learning_pathway.AdviseeLearningPathwayActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presentation.event.event_list.EventListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="whiz.tss.sspark.s_spark_android.presentation.assignment.InstructorAssignmentActivity"
             android:screenOrientation="portrait" />
         <activity

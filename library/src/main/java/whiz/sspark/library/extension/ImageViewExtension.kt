@@ -37,6 +37,17 @@ fun ImageView.show(drawable: Drawable) {
         .into(this)
 }
 
+fun ImageView.show(url: String, defaultImage: Int) {
+    val requestOptions = RequestOptions()
+        .placeholder(defaultImage)
+        .error(defaultImage)
+
+    Glide.with(this.context)
+        .load(url)
+        .apply(requestOptions)
+        .into(this)
+}
+
 fun ImageView.show(file: File) {
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions

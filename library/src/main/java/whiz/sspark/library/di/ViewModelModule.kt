@@ -23,6 +23,7 @@ val viewModelModule = module {
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
     viewModel { CourseSyllabusViewModel(get()) }
+    viewModel { EventListViewModel(get()) }
     viewModel { ExpectOutcomeViewModel(get()) }
     viewModel { HappeningsViewModel(get()) }
     viewModel { InstructorAllClassViewModel(get()) }
