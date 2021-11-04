@@ -36,10 +36,10 @@ val viewModelModule = module {
     viewModel { LikeBySeenByViewModel(get()) }
     viewModel { NotificationInboxViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
-    viewModel { StudentClassScheduleAllClassViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAssignmentViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
+    viewModel { StudentClassScheduleAllClassViewModel(get()) }
     viewModel { StudentClassScheduleViewModel(get()) }
     viewModel { StudentExamScheduleViewModel(get()) }
     viewModel { StudentMenuViewModel(get()) }

@@ -2,7 +2,7 @@ package whiz.sspark.library.data.enum
 
 enum class MenuCode(val code: String) {
     ADVISEE("ADVISEE"),
-    ADVISEE_CLASS_SCHEDULE("ADVISEECLASSSCHEDULE"),
+    ADVISEE_CLASS_SCHEDULE("STUDENT_CLASS_SCHEDULES"),
     CALENDAR("CALENDAR"),
     EVENT("EVENT"),
     GRADE_SUMMARY("GRADESUMMARY"),

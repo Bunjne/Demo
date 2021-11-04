@@ -17,10 +17,6 @@ class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
 
     private lateinit var advisee: Advisee
 
-    private val menuTitle by lazy {
-        intent?.getStringExtra("title") ?: ""
-    }
-
     override fun initView() {
         super.initView()
 
@@ -42,7 +38,7 @@ class AdviseeClassScheduleActivity: StudentClassScheduleActivity() {
     }
 
     override val title: String by lazy {
-        menuTitle
+        intent?.getStringExtra("title") ?: ""
     }
 
     override fun getTerms() {
