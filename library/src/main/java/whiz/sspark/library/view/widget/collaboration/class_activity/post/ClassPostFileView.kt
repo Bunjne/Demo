@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.databinding.ViewClassPostFileBinding
@@ -23,11 +24,15 @@ class ClassPostFileView : LinearLayout {
         binding.ivFile.show(R.drawable.ic_post_file)
         with(attachment) {
             binding.tvFileName.text = name
-            binding.tvFileType.text = extension.substring(1)
+            binding.tvFileType.text = extension
 
             setOnClickListener {
                 onFileClicked(attachment)
             }
         }
+    }
+
+    fun setContainerBackground(resourceId: Int) {
+        binding.clContainer.background = ContextCompat.getDrawable(context, resourceId)
     }
 }

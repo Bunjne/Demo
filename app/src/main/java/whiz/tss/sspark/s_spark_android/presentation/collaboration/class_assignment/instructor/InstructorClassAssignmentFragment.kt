@@ -9,11 +9,14 @@ import whiz.sspark.library.data.entity.Assignment
 import whiz.sspark.library.data.static.PagingConfiguration
 import whiz.sspark.library.extension.toJson
 import whiz.tss.sspark.s_spark_android.presentation.assignment.InstructorAssignmentDetailActivity
+import whiz.tss.sspark.s_spark_android.presentation.assignment.ManageAssignmentBottomSheetDialog
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_assignment.student.StudentClassAssignmentFragment
 
-class InstructorClassAssignmentFragment: StudentClassAssignmentFragment() {
+class InstructorClassAssignmentFragment: StudentClassAssignmentFragment(), ManageAssignmentBottomSheetDialog.OnSaveSuccessfully {
 
     companion object {
+        private const val EDIT_ASSIGNMENT_DIALOG = "EditAssignmentDialog"
+
         fun newInstance(classGroupId: String, startColor: Int) = InstructorClassAssignmentFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
@@ -33,8 +36,14 @@ class InstructorClassAssignmentFragment: StudentClassAssignmentFragment() {
 
         with(binding.vCreateAssignment) {
             visibility = View.VISIBLE
-            setOnClickListener {
-                // TODO wait create assignment screen
+            init {
+                val isShowing = childFragmentManager.findFragmentByTag(EDIT_ASSIGNMENT_DIALOG) != null
+
+                if (!isShowing) {
+                    ManageAssignmentBottomSheetDialog.newInstance(
+                        classGroupId = classGroupId
+                    ).show(childFragmentManager, EDIT_ASSIGNMENT_DIALOG)
+                }
             }
         }
     }
@@ -45,5 +54,9 @@ class InstructorClassAssignmentFragment: StudentClassAssignmentFragment() {
         }
 
         resultLauncher.launch(intent)
+    }
+
+    override fun onSaveSuccessfully() {
+        viewModel.getLatestAssignments(classGroupId, PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
     }
 }

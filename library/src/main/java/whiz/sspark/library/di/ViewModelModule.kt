@@ -34,6 +34,7 @@ val viewModelModule = module {
     viewModel { LearningOutcomeViewModel(get()) }
     viewModel { LearningPathwayViewModel(get()) }
     viewModel { LikeBySeenByViewModel(get()) }
+    viewModel { ManageAssignmentViewModel(get()) }
     viewModel { NotificationInboxViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentAllClassViewModel(get()) }

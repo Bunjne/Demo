@@ -73,7 +73,9 @@ open class StudentClassAssignmentFragment : BaseFragment() {
         binding.vAssignment.init(
             progressbarColor = startColor,
             onAssignmentClicked = { assignment ->
-                onNavigateToAssignmentDetail(assignment)
+                if (viewModel.latestAssignmentLoading.value == false || viewModel.previousAssignmentLoading.value == false) {
+                    onNavigateToAssignmentDetail(assignment)
+                }
             },
             onRefresh = {
                 viewModel.getLatestAssignments(classGroupId, PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
@@ -98,7 +100,7 @@ open class StudentClassAssignmentFragment : BaseFragment() {
             binding.vAssignment.setSwipeRefreshLayout(isLoading)
         }
 
-        viewModel.oldAssignmentLoading.observe(this) { isLoading ->
+        viewModel.previousAssignmentLoading.observe(this) { isLoading ->
             binding.vAssignment.setIsLoading(isLoading)
         }
     }

@@ -23,9 +23,9 @@ class ClassAssignmentViewModel(private val assignmentRepository: ClassAssignment
     val latestAssignmentLoading: LiveData<Boolean>
         get() = _latestAssignmentLoading
 
-    private val _oldAssignmentLoading = MutableLiveData<Boolean>()
-    val oldAssignmentLoading: LiveData<Boolean>
-        get() = _oldAssignmentLoading
+    private val _previousAssignmentLoading = MutableLiveData<Boolean>()
+    val previousAssignmentLoading: LiveData<Boolean>
+        get() = _previousAssignmentLoading
 
     private val _latestAssignmentResponse = MutableLiveData<EventWrapper<AssignmentDTO>>()
     val latestAssignmentResponse: LiveData<EventWrapper<AssignmentDTO>>
@@ -74,10 +74,10 @@ class ClassAssignmentViewModel(private val assignmentRepository: ClassAssignment
         viewModelScope.launch {
             assignmentRepository.getAssignment(termId, page, pageSize)
                 .onStart {
-                    _oldAssignmentLoading.value = true
+                    _previousAssignmentLoading.value = true
                 }
                 .onCompletion {
-                    _oldAssignmentLoading.value = false
+                    _previousAssignmentLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage?.toEventWrapper()

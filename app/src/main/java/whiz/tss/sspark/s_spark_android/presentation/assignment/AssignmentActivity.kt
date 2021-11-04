@@ -68,7 +68,9 @@ open class AssignmentActivity : BaseActivity() {
         binding.vAssignment.init(
             progressbarColor = ContextCompat.getColor(this, R.color.primaryColor),
             onAssignmentClicked = { assignment ->
-                onNavigateToAssignmentDetail(assignment)
+                if (viewModel.latestAssignmentLoading.value == false || viewModel.previousAssignmentLoading.value == false) {
+                    onNavigateToAssignmentDetail(assignment)
+                }
             },
             onRefresh = {
                 viewModel.getLatestAssignments(currentTerm.id, PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)

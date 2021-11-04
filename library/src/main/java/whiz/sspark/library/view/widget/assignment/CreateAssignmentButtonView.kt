@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import whiz.sspark.library.R
 import whiz.sspark.library.databinding.ViewClassCreateAssignmentButtonBinding
+import whiz.sspark.library.extension.show
 
 class CreateAssignmentButtonView: FrameLayout {
     constructor(context: Context) : super(context)
@@ -16,6 +18,7 @@ class CreateAssignmentButtonView: FrameLayout {
     }
 
     fun init(onCreateAssignmentClicked: () -> Unit) {
+        binding.ivActivity.show(R.drawable.ic_create_post)
         binding.root.setOnClickListener {
             onCreateAssignmentClicked()
         }

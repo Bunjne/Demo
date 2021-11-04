@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/cvHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:background_ColorType="gradient_linear"
+        app:background_Gradient_Angle="270"
+        app:background_Gradient_Color0="@color/primaryStartColor"
+        app:background_Gradient_ColorEnd="@color/primaryEndColor"
+        app:cornerRadius_TopLeft="12dp"
+        app:cornerRadius_TopRight="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="14dp">
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_text_cancel"
+                android:textColor="@color/naturalV100"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="regular" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/assignment_create_assignment"
+                android:textAlignment="center"
+                android:textColor="@color/naturalV100"
+                android:textSize="17dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvCreate"
+                app:layout_constraintStart_toEndOf="@+id/tvCancel"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="bold" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_create_text"
+                android:textColor="@color/naturalV100"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="regular" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/svContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/vTranslationShadow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="16dp">
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvAssignmentTitleText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/assignment_create_assignment_title_text"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="bold" />
+
+            <whiz.sspark.library.view.general.SSparkEditText
+                android:id="@+id/etTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_editable_text"
+                android:inputType="text"
+                android:lines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAssignmentTitleText"
+                app:ssparkFont="regular" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvAssignmentDescriptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/assignment_create_assignment_title_text"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTitle"
+                app:ssparkFont="bold" />
+
+            <whiz.sspark.library.view.general.SSparkEditText
+                android:id="@+id/etDescription"
+                android:layout_width="0dp"
+                android:layout_height="192dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_editable_text"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:overScrollMode="ifContentScrolls"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAssignmentDescriptionText" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvAssignmentDeadlineText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/assignment_create_assignment_deadline_text"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAssignmentDeadline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvAssignmentDeadline"
+                app:ssparkFont="bold" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvAssignmentDeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_editable_text"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="@string/assignment_create_assignment_select_date_time_text"
+                android:textAlignment="center"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvAssignmentDeadlineText"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription"
+                app:ssparkFont="regular" />
+
+            <ImageView
+                android:id="@+id/ivDeleteImage"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/vAttachmentImage"
+                app:layout_constraintVertical_bias="0" />
+
+            <whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostImageView
+                android:id="@+id/vAttachmentImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivDeleteImage"
+                app:layout_constraintTop_toBottomOf="@+id/tvAssignmentDeadline" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="vAttachmentImage, ivDeleteImage" />
+
+            <ImageView
+                android:id="@+id/ivDeleteFile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/vAttachmentFile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/vAttachmentFile" />
+
+            <whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostFileView
+                android:id="@+id/vAttachmentFile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivDeleteFile"
+                app:layout_constraintTop_toBottomOf="@+id/vAttachmentImage" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="vAttachmentFile, ivDeleteFile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/vTranslationShadow"
+        android:layout_width="10dp"
+        android:layout_height="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/clAction" />
+
+    <com.sinaseyfi.advancedcardview.AdvancedCardView
+        android:id="@+id/clAction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/vTranslationLeft"
+        app:layout_constraintEnd_toEndOf="@+id/vTranslationRight"
+        app:layout_constraintStart_toStartOf="@+id/vTranslationLeft"
+        app:shadow0_Outer_Alpha="1"
+        app:shadow0_Outer_Blur="10dp"
+        app:shadow0_Outer_Color="@color/shadowColor"
+        app:shadow_Outer_Area="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/viewBaseSecondaryColor"
+            android:paddingTop="16dp"
+            android:paddingBottom="37dp">
+
+            <ImageView
+                android:id="@+id/ivAddImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvAddImage"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_human" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvAddImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="@string/general_attach_image_text"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/vSeparator"
+                app:layout_constraintStart_toEndOf="@+id/ivAddImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="bold" />
+
+            <View
+                android:id="@+id/vAddImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/vSeparator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/vSeparator"
+                android:layout_width="1.5dp"
+                android:layout_height="0dp"
+                android:background="@color/viewBaseFourthColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivAddFile"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvAddFile"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/vSeparator"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_human" />
+
+            <whiz.sspark.library.view.general.SSparkTextView
+                android:id="@+id/tvAddFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="@string/general_attach_file_text"
+                android:textColor="@color/textBasePrimaryColor"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivAddFile"
+                app:layout_constraintTop_toTopOf="parent"
+                app:ssparkFont="bold" />
+
+            <View
+                android:id="@+id/vAddFile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/vSeparator"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+    <View
+        android:id="@+id/vTranslationLeft"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <View
+        android:id="@+id/vTranslationRight"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

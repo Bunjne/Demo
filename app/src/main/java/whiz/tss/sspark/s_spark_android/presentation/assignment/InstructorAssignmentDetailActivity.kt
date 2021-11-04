@@ -9,7 +9,11 @@ import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.utility.retrieveUserID
 
-class InstructorAssignmentDetailActivity : AssignmentDetailActivity() {
+class InstructorAssignmentDetailActivity : AssignmentDetailActivity(), ManageAssignmentBottomSheetDialog.OnSaveSuccessfully {
+
+    companion object {
+        private const val EDIT_ASSIGNMENT_DIALOG = "EditAssignmentDialog"
+    }
 
     private val viewModel: InstructorClassAssignmentDetailViewModel by viewModel()
 
@@ -42,7 +46,14 @@ class InstructorAssignmentDetailActivity : AssignmentDetailActivity() {
                             when (it.title) {
                                 resources.getString(R.string.general_delete_text) -> viewModel.deleteAssignment(assignment.classGroupId, assignment.id)
                                 resources.getString(R.string.general_edit_text) -> {
-                                //TODO wait create assignment screen
+                                    val isShowing = supportFragmentManager.findFragmentByTag(EDIT_ASSIGNMENT_DIALOG) != null
+
+                                    if (!isShowing) {
+                                        ManageAssignmentBottomSheetDialog.newInstance(
+                                            classGroupId = assignment.classGroupId,
+                                            oldAssignment = assignment
+                                        ).show(supportFragmentManager, EDIT_ASSIGNMENT_DIALOG)
+                                    }
                                 }
                             }
 
@@ -93,5 +104,10 @@ class InstructorAssignmentDetailActivity : AssignmentDetailActivity() {
                 showAlertWithOkButton(it)
             }
         }
+    }
+
+    override fun onSaveSuccessfully() {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 }

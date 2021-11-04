@@ -19,12 +19,14 @@ fun Date?.toLocalDate(): Date? {
     return newFormatter.parse(convertedDateString)
 }
 
-fun Date.toCalendar() = Calendar.getInstance().apply {
+fun Date.toCalendar(isResetTime: Boolean = false) = Calendar.getInstance().apply {
     time = this@toCalendar
-    set(Calendar.HOUR_OF_DAY, 0)
-    set(Calendar.MINUTE, 0)
-    set(Calendar.SECOND, 0)
-    set(Calendar.MILLISECOND, 0)
+    if (isResetTime) {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }
 }
 
 fun Date.toPostTime(context: Context): String {

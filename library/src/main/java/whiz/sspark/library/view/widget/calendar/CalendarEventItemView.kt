@@ -25,8 +25,8 @@ class CalendarEventItemView: ConstraintLayout {
     }
 
     fun init(event: CalendarAdapter.CalendarItem.Event) {
-        val startEventMonth = event.startDate.toLocalDate()?.toCalendar()?.get(Calendar.MONTH)
-        val endEventMonth = event.endDate.toLocalDate()?.toCalendar()?.get(Calendar.MONTH)
+        val startEventMonth = event.startDate.toLocalDate()?.toCalendar(true)?.get(Calendar.MONTH)
+        val endEventMonth = event.endDate.toLocalDate()?.toCalendar(true)?.get(Calendar.MONTH)
 
         with(event) {
             binding.cvVerticalBar.setCardBackgroundColor(color.toColor(ContextCompat.getColor(context, R.color.viewBaseFourthColor)))
