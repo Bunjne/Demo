@@ -32,7 +32,7 @@ import java.util.*
 class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
 
     companion object {
-        private const val CREATE_ASSIGNMENT_DIRECTORY = "CreateAssignmentDialog"
+        private const val CREATE_ASSIGNMENT_DIRECTORY = "CreateAssignment"
 
         fun newInstance(classGroupId: String, oldAssignment: Assignment? = null) = ManageAssignmentBottomSheetDialog().apply {
             arguments = Bundle().apply {
@@ -90,6 +90,7 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
     private lateinit var assignment: CreateAssignment
 
     private var listener: OnSaveSuccessfully? = null
+
     override val isForceFullScreen = true
     override val isDraggable = false
 

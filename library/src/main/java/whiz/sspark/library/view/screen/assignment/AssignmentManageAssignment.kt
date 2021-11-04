@@ -38,9 +38,11 @@ class AssignmentManageAssignment: ConstraintLayout {
              onAddFileClicked: () -> Unit,
              onDeleteFileClicked: () -> Unit,
              onFileClicked: (Attachment) -> Unit) {
-
         this.onImageClicked = onImageClicked
         this.onFileClicked = onFileClicked
+
+        binding.ivAddFile.show(R.drawable.ic_add_file)
+        binding.ivAddImage.show(R.drawable.ic_add_photo)
 
         if (isEditAssignment) {
             binding.tvTitle.text = resources.getString(R.string.assignment_edit_assignment)

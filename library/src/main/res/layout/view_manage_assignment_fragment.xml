@@ -69,11 +69,11 @@
 
     </com.sinaseyfi.advancedcardview.AdvancedCardView>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/svContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:overScrollMode="ifContentScrolls"
+        android:overScrollMode="never"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/vTranslationShadow"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +120,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/assignment_create_assignment_title_text"
+                android:text="@string/assignment_create_assignment_description_text"
                 android:textColor="@color/textBasePrimaryColor"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +136,7 @@
                 android:background="@drawable/bg_editable_text"
                 android:gravity="start"
                 android:inputType="textMultiLine"
-                android:overScrollMode="ifContentScrolls"
+                android:overScrollMode="always"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="6dp"
                 android:scrollbarStyle="insideInset"
@@ -231,7 +231,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
     <View
         android:id="@+id/vTranslationShadow"
@@ -270,7 +270,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_human" />
+                tools:src="@drawable/ic_add_photo" />
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvAddImage"
@@ -316,7 +316,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/vSeparator"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_human" />
+                tools:src="@drawable/ic_add_file" />
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvAddFile"
