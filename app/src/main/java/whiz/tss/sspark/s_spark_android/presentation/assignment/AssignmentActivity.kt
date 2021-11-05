@@ -62,7 +62,8 @@ open class AssignmentActivity : BaseActivity() {
 
     override fun initView() {
         binding.vProfile.init(
-            backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_gradient_0)!!
+            lifecycle = lifecycle,
+            backgroundDrawable = ContextCompat.getDrawable(this@AssignmentActivity, R.drawable.bg_primary_gradient_0)!!
         )
 
         binding.vAssignment.init(

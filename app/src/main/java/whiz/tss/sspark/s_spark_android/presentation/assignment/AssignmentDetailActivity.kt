@@ -28,7 +28,11 @@ open class AssignmentDetailActivity : BaseActivity() {
     }
 
     override fun initView() {
-        binding.vProfile.setBackgroundGradientColor(assignment.startColor.toColor(), assignment.endColor.toColor())
+        with(binding.vProfile) {
+            init(lifecycle)
+            setBackgroundGradientColor(assignment.startColor.toColor(), assignment.endColor.toColor())
+        }
+
         binding.vAssignment.init(
             assignment = assignment,
             onFileClicked = {

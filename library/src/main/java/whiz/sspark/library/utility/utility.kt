@@ -1,5 +1,8 @@
 package whiz.sspark.library.utility
 
+import android.app.Activity
+import android.content.Context
+
 fun isPrimaryHighSchool(academicGrade: Int): Boolean {
     return academicGrade in 7..9
 }
@@ -10,4 +13,18 @@ fun getHighSchoolLevel(academicGrade: Int?): Int {
     } else {
         1
     }
+}
+
+fun isValidContextForGlide(context: Context?): Boolean {
+    if (context == null) {
+        return false
+    }
+
+    if (context is Activity) {
+        if (context.isDestroyed || context.isFinishing) {
+            return false
+        }
+    }
+
+    return true
 }

@@ -30,6 +30,7 @@ class EventListActivity: BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.init(lifecycle)
         binding.vEventList.init(
             title = title,
             onEventClicked = { id, imageUrl ->
