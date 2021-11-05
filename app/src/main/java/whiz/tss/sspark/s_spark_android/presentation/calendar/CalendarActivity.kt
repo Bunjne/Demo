@@ -271,9 +271,8 @@ class CalendarActivity : BaseActivity() {
             val events = calendar.events.sortedBy { it.fromDate.toLocalDate() }
 
             while(initialCalendar.get(Calendar.MONTH) == month) {
-                val date = initialCalendar.time
                 val existingEvents = events.filter {
-                    it.fromDate.toLocalDate()!!.toCalendar() <= date.toCalendar() && it.toDate.toLocalDate()!!.toCalendar() >= date.toCalendar()
+                    it.fromDate.toLocalDate()!!.toCalendar() <= initialCalendar && it.toDate.toLocalDate()!!.toCalendar() >= initialCalendar
                 }
 
                 if (existingEvents.any()) {
