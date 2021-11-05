@@ -68,7 +68,7 @@ class StudentExamScheduleActivity : BaseActivity() {
     }
 
     override fun initView() {
-        binding.vProfile.registerLifecycleOwner(lifecycle)
+        binding.vProfile.init(lifecycle)
         binding.vExamSchedule.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             segmentTitles = segmentTitles,

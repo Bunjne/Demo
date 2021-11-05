@@ -61,12 +61,10 @@ class AssignmentActivity : BaseActivity() {
     }
 
     override fun initView() {
-        with(binding.vProfile) {
-            registerLifecycleOwner(lifecycle)
-            init(
-                backgroundDrawable = ContextCompat.getDrawable(this@AssignmentActivity, R.drawable.bg_primary_gradient_0)!!
-            )
-        }
+        binding.vProfile.init(
+            lifecycle = lifecycle,
+            backgroundDrawable = ContextCompat.getDrawable(this@AssignmentActivity, R.drawable.bg_primary_gradient_0)!!
+        )
 
         binding.vAssignment.init(
             progressbarColor = ContextCompat.getColor(this, R.color.primaryColor),

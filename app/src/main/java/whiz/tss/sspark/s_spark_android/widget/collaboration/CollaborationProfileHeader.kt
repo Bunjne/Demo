@@ -34,10 +34,14 @@ class CollaborationProfileHeader : ConstraintLayout, LifecycleObserver {
         ProfileManager(context)
     }
 
-    fun init(backgroundDrawable: Drawable,
+    fun init(lifecycle: Lifecycle,
+             backgroundDrawable: Drawable,
              onBackPressed: () -> Unit = {
                  (context as Activity).onBackPressed()
              }) {
+        lifecycle.addObserver(this)
+        scope = lifecycle.coroutineScope
+
         scope.launch {
             profileManager.profile.collect {
                 it?.let {
@@ -57,10 +61,5 @@ class CollaborationProfileHeader : ConstraintLayout, LifecycleObserver {
                 onBackPressed()
             }
         }
-    }
-
-    fun registerLifecycleOwner(lifecycle: Lifecycle){
-        lifecycle.addObserver(this)
-        scope = lifecycle.coroutineScope
     }
 }

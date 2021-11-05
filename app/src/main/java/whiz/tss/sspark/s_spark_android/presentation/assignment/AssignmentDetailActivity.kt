@@ -29,7 +29,7 @@ class AssignmentDetailActivity : BaseActivity() {
 
     override fun initView() {
         with(binding.vProfile) {
-            registerLifecycleOwner(lifecycle)
+            init(lifecycle)
             setBackgroundGradientColor(assignment.startColor.toColor(), assignment.endColor.toColor())
         }
 

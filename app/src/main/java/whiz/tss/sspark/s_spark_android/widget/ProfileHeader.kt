@@ -36,9 +36,13 @@ class ProfileHeader : ConstraintLayout, LifecycleObserver {
         ProfileManager(context)
     }
 
-    fun init(onBackPressed: () -> Unit = {
-        (context as Activity).onBackPressed()
-    }) {
+    fun init(lifecycle: Lifecycle,
+             onBackPressed: () -> Unit = {
+                 (context as Activity).onBackPressed()
+             }) {
+        lifecycle.addObserver(this)
+        scope = lifecycle.coroutineScope
+
         scope.launch {
             profileManager.profile.collect {
                 it?.let {
@@ -72,12 +76,5 @@ class ProfileHeader : ConstraintLayout, LifecycleObserver {
     fun setBackgroundGradientColor(startColor: Int, endColor: Int) {
         binding.cvBack.background_Gradient_Colors = intArrayOf(startColor, endColor)
         binding.cvBack.invalidate()
-    }
-
-    fun registerLifecycleOwner(lifecycle: Lifecycle){
-        lifecycle.addObserver(this)
-        scope = lifecycle.coroutineScope
-
-        init()
     }
 }

@@ -288,7 +288,7 @@ class StudentClassPostCommentActivity : BaseActivity() {
         }
 
         with(binding.vProfile) {
-            registerLifecycleOwner(lifecycle)
+            init(lifecycle)
             setBackgroundGradientColor(startColor, endColor)
         }
 

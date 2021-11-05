@@ -62,7 +62,7 @@ open class LearningPathwayActivity : BaseActivity(), AddCourseBottomSheetDialog.
     }
 
     override fun initView() {
-        binding.vProfile.registerLifecycleOwner(lifecycle)
+        binding.vProfile.init(lifecycle)
         binding.vLearningPathway.init(
             isPlanEditable = isPlanEditable,
             onAddCourseClicked = { term, currentCredit, minCredit, maxCredit, selectedCourseIds ->
