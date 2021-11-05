@@ -9,9 +9,14 @@ import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import whiz.sspark.library.R
 import whiz.sspark.library.data.enum.Gender
+import whiz.sspark.library.utility.isValidContextForGlide
 import java.io.File
 
 fun ImageView.show(resId: Int) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
@@ -22,12 +27,20 @@ fun ImageView.show(resId: Int) {
 }
 
 fun ImageView.show(url: String) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     Glide.with(this.context)
         .load(url)
         .into(this)
 }
 
 fun ImageView.show(drawable: Drawable) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
@@ -38,6 +51,10 @@ fun ImageView.show(drawable: Drawable) {
 }
 
 fun ImageView.show(url: String, defaultImage: Int) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     val requestOptions = RequestOptions()
         .placeholder(defaultImage)
         .error(defaultImage)
@@ -49,6 +66,10 @@ fun ImageView.show(url: String, defaultImage: Int) {
 }
 
 fun ImageView.show(file: File) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
@@ -59,6 +80,10 @@ fun ImageView.show(file: File) {
 }
 
 fun ImageView.show(bitmap: Bitmap) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
@@ -69,6 +94,10 @@ fun ImageView.show(bitmap: Bitmap) {
 }
 
 fun ImageView.showBlurImage(url: String, blurRadius: Int) {
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
     Glide.with(this.context)
         .setDefaultRequestOptions(RequestOptions
             .diskCacheStrategyOf(DiskCacheStrategy.NONE)
@@ -93,7 +122,11 @@ fun ImageView.showUserProfileCircle(profileImageURL: String, gender: Long) {
         .error(defaultImage)
         .circleCrop()
 
-    Glide.with(this)
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
+    Glide.with(this.context)
         .load(profileImageURL)
         .apply(requestOptions)
         .into(this)
@@ -112,7 +145,11 @@ fun ImageView.showProfile(imageUrl: String, gender: Long) {
         .placeholder(defaultImage)
         .error(defaultImage)
 
-    Glide.with(this)
+    if (!isValidContextForGlide(this.context)) {
+        return
+    }
+
+    Glide.with(this.context)
         .load(imageUrl)
         .apply(requestOptions)
         .into(this)

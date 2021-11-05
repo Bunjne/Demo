@@ -71,6 +71,7 @@ class AdviseeListActivity : BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.registerLifecycleOwner(lifecycle)
         binding.vAdviseeList.init(
             title = title,
             segmentTitles = segmentTitles,

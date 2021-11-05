@@ -95,6 +95,7 @@ open class SchoolRecordActivity : BaseActivity(),
             resources.getStringArray(R.array.senior_school_record_segment).toList()
         }
 
+        binding.vProfile.registerLifecycleOwner(lifecycle)
         with(binding.vSchoolRecord) {
             init(
                 title = title,

@@ -99,6 +99,7 @@ open class ClassDetailActivity : BaseActivity() {
         }
 
         with (binding.vProfile) {
+            registerLifecycleOwner(lifecycle)
             init(backgroundDrawable = gradientDrawable)
 
             if (SSparkLibrary.isDarkModeEnabled) {

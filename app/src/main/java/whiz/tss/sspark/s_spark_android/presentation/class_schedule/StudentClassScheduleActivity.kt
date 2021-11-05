@@ -85,6 +85,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.registerLifecycleOwner(lifecycle)
         binding.vClassSchedule.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             title = title,
