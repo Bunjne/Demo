@@ -99,7 +99,10 @@ open class ClassDetailActivity : BaseActivity() {
         }
 
         with (binding.vProfile) {
-            init(backgroundDrawable = gradientDrawable)
+            init(
+                lifecycle = lifecycle,
+                backgroundDrawable = gradientDrawable
+            )
 
             if (SSparkLibrary.isDarkModeEnabled) {
                 window.statusBarColor = ContextCompat.getColor(this@ClassDetailActivity, R.color.viewBaseSecondaryColor) //TODO change this line when darkmode is enable

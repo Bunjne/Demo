@@ -24,7 +24,7 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
 class AssignmentActivity : BaseActivity() {
 
-    private val viewModel: AssignmentViewModel by viewModel { parametersOf() }
+    private val viewModel: AssignmentViewModel by viewModel()
 
     private lateinit var binding: ActivityAssignmentBinding
     private lateinit var currentTerm: Term
@@ -62,7 +62,8 @@ class AssignmentActivity : BaseActivity() {
 
     override fun initView() {
         binding.vProfile.init(
-            backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_gradient_0)!!
+            lifecycle = lifecycle,
+            backgroundDrawable = ContextCompat.getDrawable(this@AssignmentActivity, R.drawable.bg_primary_gradient_0)!!
         )
 
         binding.vAssignment.init(
