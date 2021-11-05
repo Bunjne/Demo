@@ -272,7 +272,7 @@ class CalendarActivity : BaseActivity() {
 
             while(initialCalendar.get(Calendar.MONTH) == month) {
                 val existingEvents = events.filter {
-                    it.fromDate.toLocalDate()!!.toCalendar() <= initialCalendar && it.toDate.toLocalDate()!!.toCalendar() >= initialCalendar
+                    it.fromDate.toLocalDate()!!.toCalendar(true) <= initialCalendar && it.toDate.toLocalDate()!!.toCalendar(true) >= initialCalendar
                 }
 
                 if (existingEvents.any()) {
