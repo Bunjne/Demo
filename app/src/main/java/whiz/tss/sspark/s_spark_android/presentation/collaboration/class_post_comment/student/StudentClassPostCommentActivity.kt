@@ -287,7 +287,10 @@ class StudentClassPostCommentActivity : BaseActivity() {
             window?.statusBarColor = ContextCompat.getColor(this, R.color.viewBaseSecondaryColor)
         }
 
-        binding.vProfile.setBackgroundGradientColor(startColor, endColor)
+        with(binding.vProfile) {
+            init(lifecycle)
+            setBackgroundGradientColor(startColor, endColor)
+        }
 
         postCommentItems.add(StudentClassPostCommentAdapter.PostCommentItem(post = post))
 

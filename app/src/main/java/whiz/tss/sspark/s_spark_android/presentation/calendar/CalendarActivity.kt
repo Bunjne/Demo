@@ -69,6 +69,7 @@ class CalendarActivity : BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.init(lifecycle)
         binding.vCalendar.init(
             term = resources.getString(R.string.school_record_term, currentTerm.term.toString(), convertToLocalizeYear(currentTerm.year)),
             onPreviousMonthClicked = {
@@ -270,8 +271,9 @@ class CalendarActivity : BaseActivity() {
             val events = calendar.events.sortedBy { it.fromDate.toLocalDate() }
 
             while(initialCalendar.get(Calendar.MONTH) == month) {
-                val date = initialCalendar.time
-                val existingEvents = events.filter { date >= it.fromDate.toLocalDate() && date <= it.toDate.toLocalDate() }
+                val existingEvents = events.filter {
+                    it.fromDate.toLocalDate()!!.toCalendar(true) <= initialCalendar && it.toDate.toLocalDate()!!.toCalendar(true) >= initialCalendar
+                }
 
                 if (existingEvents.any()) {
                     val day = initialCalendar.get(Calendar.DAY_OF_MONTH)

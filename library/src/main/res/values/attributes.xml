@@ -30,4 +30,8 @@
         <attr name="ssparkFont" />
     </declare-styleable>
 
+    <declare-styleable name="TopCropImageView">
+        <attr name="imageScale" format="float" />
+    </declare-styleable>
+
 </resources>

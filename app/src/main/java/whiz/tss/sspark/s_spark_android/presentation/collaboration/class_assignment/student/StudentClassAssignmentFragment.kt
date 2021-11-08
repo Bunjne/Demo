@@ -10,7 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.Assignment
 import whiz.sspark.library.data.entity.AssignmentItemDTO
 import whiz.sspark.library.data.static.PagingConfiguration
-import whiz.sspark.library.data.viewModel.StudentClassAssignmentViewModel
+import whiz.sspark.library.data.viewModel.ClassAssignmentViewModel
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObjects
 import whiz.sspark.library.utility.showAlertWithOkButton
@@ -21,7 +21,7 @@ import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentClassAssignmen
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentDetailActivity
 
-class StudentClassAssignmentFragment : BaseFragment() {
+open class StudentClassAssignmentFragment : BaseFragment() {
 
     companion object {
         fun newInstance(classGroupId: String, startColor: Int) = StudentClassAssignmentFragment().apply {
@@ -32,9 +32,9 @@ class StudentClassAssignmentFragment : BaseFragment() {
         }
     }
 
-    private val viewModel: StudentClassAssignmentViewModel by viewModel()
+    protected val viewModel: ClassAssignmentViewModel by viewModel()
 
-    private val classGroupId by lazy {
+    protected val classGroupId by lazy {
         arguments?.getString("classGroupId") ?: ""
     }
 
@@ -43,7 +43,7 @@ class StudentClassAssignmentFragment : BaseFragment() {
     }
 
     private var _binding: FragmentStudentClassAssignmentBinding? = null
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
     private var currentPage = PagingConfiguration.INITIAL_PAGE
     private var totalPage = PagingConfiguration.INITIAL_TOTAL_PAGE
@@ -73,11 +73,9 @@ class StudentClassAssignmentFragment : BaseFragment() {
         binding.vAssignment.init(
             progressbarColor = startColor,
             onAssignmentClicked = { assignment ->
-                val intent = Intent(requireContext(), AssignmentDetailActivity::class.java).apply {
-                    putExtra("assignment", assignment.toJson())
+                if (viewModel.latestAssignmentLoading.value == false || viewModel.previousAssignmentLoading.value == false) {
+                    onNavigateToAssignmentDetail(assignment)
                 }
-
-                startActivity(intent)
             },
             onRefresh = {
                 viewModel.getLatestAssignments(classGroupId, PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
@@ -89,12 +87,20 @@ class StudentClassAssignmentFragment : BaseFragment() {
         )
     }
 
+    protected open fun onNavigateToAssignmentDetail(assignment: Assignment) {
+        val intent = Intent(requireContext(), AssignmentDetailActivity::class.java).apply {
+            putExtra("assignment", assignment.toJson())
+        }
+
+        startActivity(intent)
+    }
+
     override fun observeView() {
         viewModel.latestAssignmentLoading.observe(this) { isLoading ->
             binding.vAssignment.setSwipeRefreshLayout(isLoading)
         }
 
-        viewModel.oldAssignmentLoading.observe(this) { isLoading ->
+        viewModel.previousAssignmentLoading.observe(this) { isLoading ->
             binding.vAssignment.setIsLoading(isLoading)
         }
     }
@@ -102,16 +108,18 @@ class StudentClassAssignmentFragment : BaseFragment() {
     override fun observeData() {
         viewModel.latestAssignmentResponse.observe(this) {
             it?.getContentIfNotHandled()?.let {
-                currentPage = PagingConfiguration.INITIAL_PAGE
-                totalPage = it.totalPage
+                binding.vAssignment.clearOldItem {
+                    currentPage = PagingConfiguration.INITIAL_PAGE
+                    totalPage = it.totalPage
 
-                with(assignments) {
-                    clear()
-                    addAll(it.items)
+                    with(assignments) {
+                        clear()
+                        addAll(it.items)
+                    }
+
+                    checkIsLastPage()
+                    updateAdapterItem()
                 }
-
-                checkIsLastPage()
-                updateAdapterItem()
             }
         }
 
@@ -158,15 +166,18 @@ class StudentClassAssignmentFragment : BaseFragment() {
     private fun convertToAdapterItem(): List<AssignmentAdapter.AssignmentItem.Item> {
         return assignments.map { AssignmentAdapter.AssignmentItem.Item(
             Assignment(
+                id = it.id,
                 startColor = it.classGroup.colorCode1,
                 endColor = it.classGroup.colorCode2,
                 courseTitle = resources.getString(R.string.assignment_student_title, it.classGroup.code, it.classGroup.name),
+                classGroupId = it.classGroup.classGroupId,
                 createdAt = it.createdAt,
                 updatedAt = it.updatedAt,
                 deadlineAt = it.deadlineAt,
                 title = it.title,
                 description = it.message,
                 instructorName = it.instructor.fullName,
+                instructorId = it.instructor.id,
                 imageUrl = it.instructor.imageUrl,
                 gender = it.instructor.gender,
                 attachments = it.attachments
