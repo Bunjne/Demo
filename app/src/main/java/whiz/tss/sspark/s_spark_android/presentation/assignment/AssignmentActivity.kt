@@ -24,7 +24,7 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 
 open class AssignmentActivity : BaseActivity() {
 
-    protected val viewModel: AssignmentViewModel by viewModel { parametersOf() }
+    protected val viewModel: AssignmentViewModel by viewModel()
 
     private lateinit var binding: ActivityAssignmentBinding
     protected lateinit var currentTerm: Term

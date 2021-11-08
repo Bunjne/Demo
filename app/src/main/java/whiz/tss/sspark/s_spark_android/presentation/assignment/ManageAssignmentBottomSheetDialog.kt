@@ -132,7 +132,6 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
                             attachments = assignment.attachments,
                             deadlineAt = assignment.deadlineAt!!
                         )
-
                     } else {
                         viewModel.createAssignment(
                             classGroupId = classGroupId,
@@ -147,18 +146,18 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
                 }
             },
             onSelectDateTimeClicked = {
-                val today = Calendar.getInstance()
-                val dateTime = assignment.deadlineAt?.toCalendar() ?: today
+                val minimumDate = Calendar.getInstance()
+                val initialDateTime = assignment.deadlineAt?.toCalendar() ?: minimumDate
                 showDatePicker(
                     context = requireContext(),
-                    currentDate = dateTime,
-                    minimumDate = today,
+                    currentDate = initialDateTime,
+                    minimumDate = minimumDate,
                     onDateSelected = { year, monthOfYear, dayOfMonth ->
                         showTimePicker(
                             context = requireContext(),
-                            currentDate = dateTime,
+                            currentDate = initialDateTime,
                             onTimeSelected = { hourOfDay, minute ->
-                                with(dateTime) {
+                                val selectedDateTime = Calendar.getInstance().apply {
                                     set(year, monthOfYear, dayOfMonth)
                                     set(Calendar.HOUR_OF_DAY, hourOfDay)
                                     set(Calendar.MINUTE, minute)
@@ -166,9 +165,12 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
                                     set(Calendar.MILLISECOND, 0)
                                 }
 
-                                assignment.deadlineAt = dateTime.time
-
-                                binding.vManageAssignment.previewTime(assignment.deadlineAt!!)
+                                if (selectedDateTime > minimumDate) {
+                                    assignment.deadlineAt = selectedDateTime.time
+                                    binding.vManageAssignment.previewTime(assignment.deadlineAt!!)
+                                } else {
+                                    requireContext().showAlertWithOkButton("Please fill all data")//TODO wait confirm message
+                                }
                             }
                         )
                     }
@@ -224,13 +226,13 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
                         startActivity(Intent.createChooser(intent, null))
                     }
                 } ?: run {
-                    try {
+                    if (it.url.isNotEmpty()) {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
                         val isAppSupported = intent.resolveActivityInfo(packageManager, 0) != null
                         if (isAppSupported) {
                             startActivity(Intent.createChooser(intent, null))
                         }
-                    } catch (e: NullPointerException) { }
+                    }
                 }
             }
         )
@@ -277,13 +279,18 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
 
     private fun addAttachment(path: String, type: String) {
         val file = File(path)
+        val extension = if (type == AttachmentType.FILE.type) {
+            file.extension
+        } else {
+            ""
+        }
 
         val attachment = Attachment(
             name = file.name,
             file = file,
             type = type,
             isLocal = true,
-            extension = if (type == AttachmentType.FILE.type) file.extension else ""
+            extension = extension
         )
 
         with(assignment.attachments) {
