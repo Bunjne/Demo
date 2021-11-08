@@ -98,7 +98,4 @@
         <item>รายละเอียดวิชา</item>
         <item>กำหนดการ</item>
     </string-array>
-
-    <!-- Contact -->
-    <string name="contact_title">ช่องทางการติดต่อ</string>
 </resources>

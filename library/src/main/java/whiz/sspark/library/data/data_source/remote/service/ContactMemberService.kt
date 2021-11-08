@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface ContactService {
-    @GET("api/v1/contacts")
-    suspend fun getContacts(): Response<ApiResponseX>
+interface ContactMemberService {
+    @GET("api/v1/contants/{contactGroupId}/members")
+    suspend fun getContactMembers(@Path("contactGroupId") contactGroupId: String): Response<ApiResponseX>
 }

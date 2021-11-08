@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.data.entity.Contact
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.databinding.ViewContactListBinding
+import whiz.sspark.library.databinding.ViewContactListActivityBinding
 import whiz.sspark.library.extension.showViewStateX
 import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.widget.contact.ContactAdapter
@@ -19,7 +19,7 @@ class ContactListActivityView : ConstraintLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val binding by lazy {
-        ViewContactListBinding.inflate(LayoutInflater.from(context), this, true)
+        ViewContactListActivityBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
     fun init(title: String,

@@ -48,7 +48,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/contact_title" />
+                tools:text="ช่องทางการติดต่อ" />
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvLatestUpdated"

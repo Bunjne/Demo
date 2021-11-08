@@ -22,6 +22,9 @@ class ContactListActivity : BaseActivity(){
 
     private lateinit var binding: ActivityContactBinding
 
+    private val title by lazy {
+        intent?.getStringExtra("title") ?: ""
+    }
     private var dataWrapper: DataWrapperX<Any>? = null
     private val contacts: MutableList<Contact> = mutableListOf()
 
@@ -47,8 +50,10 @@ class ContactListActivity : BaseActivity(){
     }
 
     override fun initView() {
+        binding.vProfile.init(lifecycle)
+
         binding.vContact.init(
-            title = resources.getString(R.string.contact_title),
+            title = title,
             contacts = contacts,
             onContactClicked = { contactGroupId, groupName ->
                 val intent = Intent(this@ContactListActivity, ContactListMemberActivity::class.java)

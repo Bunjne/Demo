@@ -7,5 +7,4 @@ data class Contact(
     @SerializedName("Id") val id: String = "",
     @SerializedName("iconImageUrl") val iconImageUrl: String = "",
     @SerializedName("name") val name: String = ""
-) {
-}
+)

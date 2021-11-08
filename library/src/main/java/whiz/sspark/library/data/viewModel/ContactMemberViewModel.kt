@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.StudentInstructorDTO
-import whiz.sspark.library.data.repository.ContactRepositoryImpl
+import whiz.sspark.library.data.repository.ContactMemberRepositoryImpl
 
-class ContactMemberViewModel(private val contactRepository: ContactRepositoryImpl) : ViewModel() {
+class ContactMemberViewModel(private val contactMemberRepository: ContactMemberRepositoryImpl) : ViewModel() {
 
     private val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>
@@ -25,11 +25,11 @@ class ContactMemberViewModel(private val contactRepository: ContactRepositoryImp
         get() = _viewRendering
 
     private val _contactMembersResponse = MutableLiveData<List<StudentInstructorDTO>>()
-    val contactsResponse: LiveData<List<StudentInstructorDTO>>
+    val contactMembersResponse: LiveData<List<StudentInstructorDTO>>
         get() = _contactMembersResponse
 
     private val _contactMembersErrorResponse = MutableLiveData<ApiResponseX?>()
-    val contactsErrorResponse: LiveData<ApiResponseX?>
+    val contactMembersErrorResponse: LiveData<ApiResponseX?>
         get() = _contactMembersErrorResponse
 
     private val _errorMessage = MutableLiveData<String>()
@@ -38,7 +38,7 @@ class ContactMemberViewModel(private val contactRepository: ContactRepositoryImp
 
     fun getContactMembers(contactGroupId: String) {
         viewModelScope.launch {
-            contactRepository.getContactMembers(contactGroupId)
+            contactMemberRepository.getContactMembers(contactGroupId)
                 .onStart {
                     _viewRendering.value = null
                     _viewLoading.value = true

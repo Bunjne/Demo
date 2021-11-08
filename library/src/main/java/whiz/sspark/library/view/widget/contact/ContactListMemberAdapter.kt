@@ -26,11 +26,6 @@ class ContactListMemberAdapter(private val context: Context,
                 }
 
                 itemView.setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
-//                itemView.background = when {
-//                    position == 0 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
-//                    position == contacts.lastIndex -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
-//                    position == 0 -> ContextCompat.getDrawable(context, R.drawable.bg_base_item_list_top)
-//                }
             }
         }
     }

@@ -18,6 +18,11 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.menu.MenuContactInfoDialog
 
 class ContactListMemberActivity : BaseActivity() {
+
+    companion object {
+        const val CONTACT_INFO_DIALOG = "advisorContactInfoDialog"
+    }
+
     private val viewModel: ContactMemberViewModel by viewModel()
 
     private lateinit var binding: ActivityContactListMemberBinding
@@ -57,6 +62,8 @@ class ContactListMemberActivity : BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.init(lifecycle)
+
         binding.vContact.init(
             title = title,
             contactMembers = contactMembers,
@@ -65,7 +72,7 @@ class ContactListMemberActivity : BaseActivity() {
 
                 if (!isShowing) {
                     menuContactInfoDialog = MenuContactInfoDialog.newInstance(contact)
-                    menuContactInfoDialog?.show(supportFragmentManager, "advisorContactInfoDialog")
+                    menuContactInfoDialog?.show(supportFragmentManager, CONTACT_INFO_DIALOG)
                 }
             },
             onRefresh = {
@@ -86,7 +93,7 @@ class ContactListMemberActivity : BaseActivity() {
     }
 
     override fun observeData() {
-        viewModel.contactsResponse.observe(this) {
+        viewModel.contactMembersResponse.observe(this) {
             it?.let {
                 val members = getContactMembers(it)
                 binding.vContact.updateContactMemberItems(contactMembers, members)
@@ -95,7 +102,7 @@ class ContactListMemberActivity : BaseActivity() {
     }
 
     override fun observeError() {
-        viewModel.contactsErrorResponse.observe(this) {
+        viewModel.contactMembersErrorResponse.observe(this) {
             it?.let {
                 showApiResponseXAlert(this, it) {
                     finish()

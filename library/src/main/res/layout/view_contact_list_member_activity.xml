@@ -77,7 +77,6 @@
         android:id="@+id/srlContact"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingHorizontal="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +88,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingTop="6dp"
+            android:paddingVertical="4dp"
             tools:listitem="@layout/view_contact_list_member_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
