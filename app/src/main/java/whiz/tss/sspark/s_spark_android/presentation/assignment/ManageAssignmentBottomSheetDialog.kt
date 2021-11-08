@@ -169,7 +169,7 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
                                     assignment.deadlineAt = selectedDateTime.time
                                     binding.vManageAssignment.previewTime(assignment.deadlineAt!!)
                                 } else {
-                                    requireContext().showAlertWithOkButton("Please fill all data")//TODO wait confirm message
+                                    requireContext().showAlertWithOkButton("Invalid input")//TODO wait confirm message
                                 }
                             }
                         )
