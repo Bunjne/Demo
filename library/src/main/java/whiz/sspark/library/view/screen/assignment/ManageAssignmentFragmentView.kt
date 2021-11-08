@@ -16,7 +16,7 @@ import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.extension.show
 import java.util.*
 
-class AssignmentManageAssignment: ConstraintLayout {
+class ManageAssignmentFragmentView: ConstraintLayout {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)

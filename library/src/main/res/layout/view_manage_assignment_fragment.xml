@@ -75,7 +75,7 @@
         android:layout_height="0dp"
         android:overScrollMode="never"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/vTranslationShadow"
+        app:layout_constraintBottom_toBottomOf="@+id/vTranslationShadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvHeader">
@@ -83,8 +83,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="20dp">
 
             <whiz.sspark.library.view.general.SSparkTextView
                 android:id="@+id/tvAssignmentTitleText"
@@ -239,10 +239,10 @@
         android:layout_height="11dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/clAction" />
+        app:layout_constraintTop_toTopOf="@+id/cvAction" />
 
     <com.sinaseyfi.advancedcardview.AdvancedCardView
-        android:id="@+id/clAction"
+        android:id="@+id/cvAction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/vTranslationLeft"

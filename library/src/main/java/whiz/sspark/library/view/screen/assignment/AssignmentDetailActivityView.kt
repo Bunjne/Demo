@@ -59,7 +59,7 @@ class AssignmentDetailActivityView: ConstraintLayout {
     }
 
     fun showOptionView(onOptionClicked: (View) -> Unit) {
-        binding.ivOption.show(R.drawable.ic_option)
+        binding.ivOption.show(R.drawable.ic_option_horizontal)
         with(binding.cvOption) {
             visibility = View.VISIBLE
             setOnClickListener {

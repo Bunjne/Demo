@@ -28,7 +28,7 @@
         android:layout_marginStart="8dp"
         android:text="@string/assignment_create_assignment"
         android:textColor="@color/textBasePrimaryColor"
-        android:textSize="14dp"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivActivity"

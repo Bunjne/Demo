@@ -113,9 +113,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:rotation="90"
                         android:scaleType="fitCenter"
-                        tools:src="@drawable/ic_option" />
+                        tools:src="@drawable/ic_option_horizontal" />
 
                 </androidx.cardview.widget.CardView>
 

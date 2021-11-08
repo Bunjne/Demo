@@ -6,7 +6,7 @@
     android:background="@drawable/bg_bottom_sheet_dialog"
     android:orientation="vertical">
 
-    <whiz.sspark.library.view.screen.assignment.AssignmentManageAssignment
+    <whiz.sspark.library.view.screen.assignment.ManageAssignmentFragmentView
         android:id="@+id/vManageAssignment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
