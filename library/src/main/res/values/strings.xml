@@ -265,6 +265,7 @@
     <string name="assignment_deadline">กำหนดส่ง: %1$s</string>
     <string name="assignment_student_title">%1$s %2$s</string>
     <string name="assignment_instructor_title">%1$s (%2$s) %3$s</string>
+    <string name="assignment_alert_invalid_time_text">ไม่สามารถเลือกเวลาย้อนหลังได้</string>
     <string name="assignment_text" translatable="false">ASSIGNMENT</string>
 
     <string-array name="assignment_edit_assignment_options">

@@ -23,6 +23,7 @@ import whiz.sspark.library.extension.toCalendar
 import whiz.sspark.library.extension.toJson
 import whiz.sspark.library.extension.toObject
 import whiz.sspark.library.utility.*
+import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentManageAssignmentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseBottomSheetDialogFragment
 import whiz.tss.sspark.s_spark_android.utility.showImage
@@ -169,7 +170,7 @@ class ManageAssignmentBottomSheetDialog: BaseBottomSheetDialogFragment() {
                                     assignment.deadlineAt = selectedDateTime.time
                                     binding.vManageAssignment.previewTime(assignment.deadlineAt!!)
                                 } else {
-                                    requireContext().showAlertWithOkButton("Invalid input")//TODO wait confirm message
+                                    requireContext().showAlertWithOkButton(resources.getString(R.string.assignment_alert_invalid_time_text))
                                 }
                             }
                         )
