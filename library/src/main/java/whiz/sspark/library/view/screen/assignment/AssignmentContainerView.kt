@@ -73,6 +73,12 @@ class AssignmentContainerView: ConstraintLayout {
         }
     }
 
+    fun clearOldItem(onClearSuccess: () -> Unit) {
+        (binding.rvAssignment.adapter as? AssignmentAdapter)?.submitList(listOf()) {
+            onClearSuccess()
+        }
+    }
+
     private fun paginationScrollListener(layoutManager: LinearLayoutManager, onLoadMore: () -> Unit): PaginationScrollListener {
         return object : PaginationScrollListener(layoutManager) {
             override fun isLastPage(): Boolean {

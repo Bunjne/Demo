@@ -13,10 +13,7 @@ import whiz.sspark.library.data.entity.Attachment
 import whiz.sspark.library.data.enum.AttachmentType
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewAssignmentDetailActivityBinding
-import whiz.sspark.library.extension.showUserProfileCircle
-import whiz.sspark.library.extension.toColor
-import whiz.sspark.library.extension.toLocalDate
-import whiz.sspark.library.extension.toPostTime
+import whiz.sspark.library.extension.*
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostFileView
 import whiz.sspark.library.view.widget.collaboration.class_activity.post.ClassPostImageView
 
@@ -57,6 +54,16 @@ class AssignmentDetailActivityView: ConstraintLayout {
                         })
                     }
                 }
+            }
+        }
+    }
+
+    fun showOptionView(onOptionClicked: (View) -> Unit) {
+        binding.ivOption.show(R.drawable.ic_option_horizontal)
+        with(binding.cvOption) {
+            visibility = View.VISIBLE
+            setOnClickListener {
+                onOptionClicked(binding.cvOption)
             }
         }
     }

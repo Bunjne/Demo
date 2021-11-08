@@ -32,6 +32,12 @@
     <string name="general_no_message_text">ไม่มีข้อความ</string>
     <string name="general_no_activity_text">ไม่มีกิจกรรม</string>
     <string name="general_add_text">เพิ่ม</string>
+    <string name="general_delete_text">ลบ</string>
+    <string name="general_edit_text">แก้ไข</string>
+    <string name="general_save_text">บันทึก</string>
+    <string name="general_create_text">สร้าง</string>
+    <string name="general_attach_image_text">แนบรูป</string>
+    <string name="general_attach_file_text">แนบไฟล์</string>
 
     <string-array name="full_day_name">
         <item>อาทิตย์</item>
@@ -244,7 +250,19 @@
 
     <!--Assignment-->
     <string name="assignment_no_assignment">ไม่มี ASSIGNMENT</string>
+    <string name="assignment_create_assignment">สร้าง Assignment</string>
+    <string name="assignment_edit_assignment">แก้ไข Assignment</string>
+    <string name="assignment_create_assignment_title_text">หัวข้อ</string>
+    <string name="assignment_create_assignment_description_text">รายละเอียด</string>
+    <string name="assignment_create_assignment_deadline_text">กำหนดส่ง</string>
+    <string name="assignment_create_assignment_select_date_time_text">เลือกวันและเวลา</string>
     <string name="assignment_deadline">กำหนดส่ง: %1$s</string>
     <string name="assignment_student_title">%1$s %2$s</string>
     <string name="assignment_instructor_title">%1$s (%2$s) %3$s</string>
+    <string name="assignment_alert_invalid_time_text">ไม่สามารถเลือกเวลาย้อนหลังได้</string>
+
+    <string-array name="assignment_edit_assignment_options">
+        <item>แก้ไข</item>
+        <item>ลบ</item>
+    </string-array>
 </resources>

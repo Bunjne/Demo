@@ -19,6 +19,7 @@ import whiz.tss.sspark.s_spark_android.databinding.ActivityClassDetailBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.instructor.InstructorClassActivityFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_activity.student.StudentClassActivityFragment
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_assignment.instructor.InstructorClassAssignmentFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_assignment.student.StudentClassAssignmentFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_attendance.student.StudentClassAttendanceFragment
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
@@ -153,6 +154,14 @@ open class ClassDetailActivity : BaseActivity() {
             }
             BottomNavigationId.ATTENDANCE.id -> binding.vClassDetail.renderFragment(StudentClassAttendanceFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
             BottomNavigationId.MEMBER.id -> binding.vClassDetail.renderFragment(StudentClassMemberFragment.newInstance(classGroupId), supportFragmentManager, currentFragment)
+            BottomNavigationId.ASSIGNMENT.id -> {
+                when (SSparkApp.role) {
+                    RoleType.INSTRUCTOR_JUNIOR,
+                    RoleType.INSTRUCTOR_SENIOR -> binding.vClassDetail.renderFragment(InstructorClassAssignmentFragment.newInstance(classGroupId, startColor), supportFragmentManager, currentFragment)
+                    RoleType.STUDENT_JUNIOR,
+                    RoleType.STUDENT_SENIOR -> binding.vClassDetail.renderFragment(StudentClassAssignmentFragment.newInstance(classGroupId, startColor), supportFragmentManager, currentFragment)
+                }
+            }
         }
     }
 }
