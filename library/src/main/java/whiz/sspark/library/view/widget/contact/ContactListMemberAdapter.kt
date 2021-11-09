@@ -19,6 +19,7 @@ class ContactListMemberAdapter(private val context: Context,
         val item = contactMembers.getOrNull(position)
         val isNextItemTitle = position == contactMembers.lastIndex
         val isPreviousItemTitle = position == 0
+
         item?.let {
             with(holder) {
                 (this as ContactListMemberViewHolder).apply {

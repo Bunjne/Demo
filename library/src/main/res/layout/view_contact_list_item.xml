@@ -15,7 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingVertical="8dp"
         android:paddingStart="8dp"
         android:paddingEnd="12dp">
@@ -54,9 +54,6 @@
             android:maxLines="1"
             android:textColor="@color/textBasePrimaryColor"
             android:textSize="17dp"
-            app:autoSizeMaxTextSize="17dp"
-            app:autoSizeMinTextSize="13dp"
-            app:autoSizeStepGranularity="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivMore"
             app:layout_constraintStart_toEndOf="@+id/cvProfile"
