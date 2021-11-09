@@ -55,6 +55,8 @@ class EventRegisteredActivity : BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.init(lifecycle)
+
         binding.vEventRegistered.init(
             events = items,
             segmentTitles = resources.getStringArray(R.array.event_registered_segment).toList(),
