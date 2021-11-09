@@ -10,18 +10,18 @@ import whiz.sspark.library.databinding.ViewContactListItemBinding
 
 class ContactAdapter(private val context: Context,
                      private val contacts: List<Contact>,
-                     private val onContactClicked: (String, String) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                     private val onContactClicked: (String, String) -> Unit) : RecyclerView.Adapter<ContactListItemViewHolder>() {
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactListItemViewHolder {
         return ContactListItemViewHolder(ViewContactListItemBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ContactListItemViewHolder, position: Int) {
         val contact = contacts.getOrNull(position)
         contact?.let { contact ->
-            (holder as ContactListItemViewHolder).init(contact, onContactClicked)
+            holder.init(contact, onContactClicked)
         }
     }
 

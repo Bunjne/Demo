@@ -10,22 +10,19 @@ import whiz.sspark.library.extension.setDarkModeBackground
 
 class ContactListMemberAdapter(private val context: Context,
                                private val contactMembers: List<MenuContactInfoItem>,
-                               private val onContactClicked: (MenuContactInfoItem) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+                               private val onContactClicked: (MenuContactInfoItem) -> Unit) : RecyclerView.Adapter<ContactListMemberViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactListMemberViewHolder {
         return ContactListMemberViewHolder(ViewContactListMemberItemBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ContactListMemberViewHolder, position: Int) {
         val item = contactMembers.getOrNull(position)
         val isNextItemTitle = position == contactMembers.lastIndex
         val isPreviousItemTitle = position == 0
 
         item?.let {
-            with(holder) {
-                (this as ContactListMemberViewHolder).init(it, onContactClicked)
-
-                itemView.setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
-            }
+            holder.init(it, onContactClicked)
+            holder.itemView.setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
         }
     }
 
