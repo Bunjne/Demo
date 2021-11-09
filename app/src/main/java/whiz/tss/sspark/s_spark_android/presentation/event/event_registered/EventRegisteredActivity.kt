@@ -68,7 +68,7 @@ class EventRegisteredActivity : BaseActivity() {
                 viewModel.getRegisteredEvents()
             },
             onEventClicked = { id, imageUrl ->
-                //TODO wait for the event detail page
+                //TODO wait for the Event Detail page
             }
         )
 
