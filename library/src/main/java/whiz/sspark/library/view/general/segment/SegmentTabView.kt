@@ -29,7 +29,6 @@ class SegmentTabView : ConstraintLayout {
 
     private var onTabClicked: (Int) -> Unit = { }
     private var segmentTextColorStateList: ColorStateList? = null
-    private var segmentBackgroundDrawable: Drawable? = null
 
     fun init(titles: List<String>,
              onTabClicked: (Int) -> Unit,
@@ -38,23 +37,16 @@ class SegmentTabView : ConstraintLayout {
              backgroundDrawable: Drawable? = null) {
         this.onTabClicked = onTabClicked
 
-        segmentBackgroundDrawable = backgroundDrawable
         segmentTextColorStateList = textColorStateList
 
-        segmentBackgroundDrawable?.let {
-            binding.rgContainer.background = segmentBackgroundDrawable
+        backgroundDrawable?.let {
+            binding.rgContainer.background = it
         }
 
         binding.rgContainer.removeAllViews()
 
         titles.forEachIndexed { index, title ->
-            val radioButton = getSegmentRadioButton(context, index, initialTab, title).apply {
-                if (segmentTextColorStateList != null) {
-                    setTextColor(segmentTextColorStateList)
-                } else {
-                    setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
-                }
-            }
+            val radioButton = getSegmentRadioButton(context, index, initialTab, title)
             binding.rgContainer.addView(radioButton)
         }
 
@@ -65,13 +57,7 @@ class SegmentTabView : ConstraintLayout {
     fun updateSegmentTitle(titles: List<String>, currentSegment: Int) {
         binding.rgContainer.removeAllViews()
         titles.forEachIndexed { index, title ->
-            val radioButton = getSegmentRadioButton(context, index, currentSegment, title).apply {
-                if (segmentTextColorStateList != null) {
-                    setTextColor(segmentTextColorStateList)
-                } else {
-                    setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
-                }
-            }
+            val radioButton = getSegmentRadioButton(context, index, currentSegment, title)
             binding.rgContainer.addView(radioButton)
         }
     }
@@ -112,6 +98,12 @@ class SegmentTabView : ConstraintLayout {
         maxLines = 1
         text = title
         background = ContextCompat.getDrawable(context, R.drawable.selector_base_segment)
+
+        if (segmentTextColorStateList != null) {
+            setTextColor(segmentTextColorStateList)
+        } else {
+            setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+        }
     }
 
     fun selectTab(index: Int) {

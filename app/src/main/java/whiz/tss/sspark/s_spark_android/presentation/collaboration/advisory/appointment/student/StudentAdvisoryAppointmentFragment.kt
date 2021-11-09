@@ -17,7 +17,7 @@ import whiz.sspark.library.data.viewModel.StudentAdvisoryAppointmentViewModel
 import whiz.sspark.library.extension.convertToDateString
 import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
-import whiz.sspark.library.view.widget.advisory.appointment.student.StudentAdvisoryAppointmentAdapter
+import whiz.sspark.library.view.widget.collaboration.advisory.appointment.student.StudentAdvisoryAppointmentAdapter
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.databinding.FragmentStudentAdvisoryAppointmentBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
@@ -25,8 +25,8 @@ import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 class StudentAdvisoryAppointmentFragment: BaseFragment() {
 
     companion object {
-        const val PENDING_APPOINTMENT = 0
-        const val PAST_APPOINTMENT = 1
+        private const val PENDING_APPOINTMENT = 0
+        private const val PAST_APPOINTMENT = 1
 
         fun newInstance() = StudentAdvisoryAppointmentFragment()
     }

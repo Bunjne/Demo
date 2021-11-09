@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.advisory.appointment.student
+package whiz.sspark.library.view.widget.collaboration.advisory.appointment.student
 
 import android.content.Context
 import android.util.AttributeSet
@@ -24,11 +24,11 @@ class StudentAdvisoryAppointmentSlotItemView : ConstraintLayout {
 
     fun init(slot: AdvisorySlot,
              onSelectStatusClicked: (View, AdvisorySlot) -> Unit) {
+        binding.ivSelectStatus.show(R.drawable.ic_dropdown)
+
         with(slot) {
             binding.tvStartTime.text = startAt.convertToTime()
             binding.tvEndTime.text = resources.getString(R.string.advisory_appointment_end_time_place_holder, endAt.convertToTime())
-
-            binding.ivSelectStatus.show(R.drawable.ic_dropdown)
 
             when (status) {
                 AdvisingStatus.AVAILABLE.status -> {

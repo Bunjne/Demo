@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.advisory.member
+package whiz.sspark.library.view.widget.collaboration.class_member_with_chat
 
 import android.content.Context
 import android.view.View
@@ -9,11 +9,11 @@ import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
-class AdvisoryMemberAdapter(private val context: Context,
-                            private val items: List<ClassMemberItem>,
-                            private val onChatMemberClicked: (ClassMember) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClassMemberWithChatAdapter(private val context: Context,
+                                 private val items: List<ClassMemberItem>,
+                                 private val onChatMemberClicked: (ClassMember) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    enum class AdvisoryMemberAdapterViewType(val type: Int) {
+    enum class HomeroomMemberAdapterViewType(val type: Int) {
         TITLE(0),
         INSTRUCTOR_MEMBER(1),
         STUDENT_MEMBER(2),
@@ -21,27 +21,29 @@ class AdvisoryMemberAdapter(private val context: Context,
 
     class ItemListTitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class AdvisoryMemberStudentViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    class HomeroomMemberStudentViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
-    class AdvisoryMemberInstructorViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    class HomeroomMemberInstructorViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            AdvisoryMemberAdapterViewType.TITLE.type -> ItemListTitleViewHolder(
+            HomeroomMemberAdapterViewType.TITLE.type -> ItemListTitleViewHolder(
                 ItemListTitleView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
-            AdvisoryMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> AdvisoryMemberInstructorViewHolder(
-                AdvisoryMemberInstructorView(context).apply {
+                }
+            )
+            HomeroomMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> HomeroomMemberInstructorViewHolder(
+                ClassMemberWithChatInstructorView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
-                })
-            else -> AdvisoryMemberStudentViewHolder(AdvisoryMemberStudentView(context).apply {
+                }
+            )
+            else -> HomeroomMemberStudentViewHolder(ClassMemberWithChatStudentView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.MATCH_PARENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT
@@ -52,13 +54,13 @@ class AdvisoryMemberAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items.getOrNull(position)
-        val isNextItemTitle = getItemViewType(position + 1) == AdvisoryMemberAdapterViewType.TITLE.type
-        val isPreviousItemTitle = getItemViewType(position - 1) == AdvisoryMemberAdapterViewType.TITLE.type
+        val isNextItemTitle = getItemViewType(position + 1) == HomeroomMemberAdapterViewType.TITLE.type
+        val isPreviousItemTitle = getItemViewType(position - 1) == HomeroomMemberAdapterViewType.TITLE.type
 
         item?.let {
             when {
                 item.instructor != null -> {
-                    (holder.itemView as? AdvisoryMemberInstructorView)?.apply {
+                    (holder.itemView as? ClassMemberWithChatInstructorView)?.apply {
                         init(
                             member = item.instructor,
                             isChatEnable = item.isChatEnable,
@@ -69,7 +71,7 @@ class AdvisoryMemberAdapter(private val context: Context,
                     }
                 }
                 item.student != null -> {
-                    (holder.itemView as? AdvisoryMemberStudentView)?.apply {
+                    (holder.itemView as? ClassMemberWithChatStudentView)?.apply {
                         init(
                             member = item.student,
                             isChatEnable = item.isChatEnable,
@@ -79,9 +81,7 @@ class AdvisoryMemberAdapter(private val context: Context,
                         setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
                     }
                 }
-                else -> {
-                    (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
-                }
+                else -> (holder.itemView as? ItemListTitleView)?.init(item.title ?: "")
             }
         }
     }
@@ -91,9 +91,9 @@ class AdvisoryMemberAdapter(private val context: Context,
     override fun getItemViewType(position: Int): Int {
         val item = items.getOrNull(position)
         return when {
-            item?.student != null -> AdvisoryMemberAdapterViewType.STUDENT_MEMBER.type
-            item?.instructor != null -> AdvisoryMemberAdapterViewType.INSTRUCTOR_MEMBER.type
-            else -> AdvisoryMemberAdapterViewType.TITLE.type
+            item?.student != null -> HomeroomMemberAdapterViewType.STUDENT_MEMBER.type
+            item?.instructor != null -> HomeroomMemberAdapterViewType.INSTRUCTOR_MEMBER.type
+            else -> HomeroomMemberAdapterViewType.TITLE.type
         }
     }
 }

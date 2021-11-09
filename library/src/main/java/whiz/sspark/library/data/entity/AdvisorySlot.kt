@@ -7,5 +7,5 @@ data class AdvisorySlot(
     @SerializedName("endAt") val endAt: String = "",
     @SerializedName("startAt") val startAt: String = "",
     @SerializedName("status") val status: String = "",
-    @SerializedName("student") val student: Advisee? = null
+    @SerializedName("student") val student: Student? = null
 )

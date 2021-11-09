@@ -5,11 +5,9 @@ import retrofit2.http.*
 import whiz.sspark.library.data.entity.ApiResponseX
 
 interface StudentAdvisoryAppointmentService {
-    @Headers("Content-Type: application/json")
-    @GET("api/v1/advisings/slots")
+    @GET("api/v1/advisors/slots")
     suspend fun getPendingAdvisorySlot(@Query("termId") termId: String): Response<ApiResponseX>
 
-    @Headers("Content-Type: application/json")
     @GET("api/v1/advisors/slots/history")
     suspend fun getHistoryAdvisorySlot(@Query("termId") termId: String): Response<ApiResponseX>
 
