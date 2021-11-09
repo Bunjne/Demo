@@ -16,8 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:paddingStart="8dp"
+        android:paddingStart="6dp"
         android:paddingEnd="12dp">
 
         <com.sinaseyfi.advancedcardview.AdvancedCardView
@@ -32,7 +31,7 @@
             app:shadow0_Outer_Alpha="0.04"
             app:shadow0_Outer_Blur="30dp"
             app:shadow0_Outer_Color="@color/shadowWithoutAlphaColor"
-            app:shadow_Outer_Area="4dp">
+            app:shadow_Outer_Area="6dp">
 
             <ImageView
                 android:id="@+id/ivProfile"
@@ -48,7 +47,7 @@
             android:id="@+id/tvContactName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
             android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="1"
