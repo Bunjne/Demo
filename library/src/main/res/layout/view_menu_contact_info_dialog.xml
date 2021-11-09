@@ -83,6 +83,7 @@
             android:id="@+id/rvContacts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toTopOf="@+id/tvClose"
             app:layout_constraintEnd_toEndOf="parent"

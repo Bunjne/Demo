@@ -33,4 +33,8 @@ class ClassPostImageView : LinearLayout {
             navigateToImage(binding.ivPost, attachment)
         }
     }
+
+    fun clearImage() {
+        binding.ivPost.show("")
+    }
 }

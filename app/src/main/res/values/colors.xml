@@ -4,4 +4,8 @@
     <color name="primaryColor">#CB002B</color>
     <color name="primaryStartColor">#F35959</color>
     <color name="primaryEndColor">#C00832</color>
+
+    <color name="colorPrimary">#CB002B</color>
+    <color name="colorPrimaryDark">#CB002B</color>
+    <color name="colorAccent">#CB002B</color>
 </resources>

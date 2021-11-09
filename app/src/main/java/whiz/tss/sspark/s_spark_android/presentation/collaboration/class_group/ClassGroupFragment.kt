@@ -30,6 +30,7 @@ import whiz.tss.sspark.s_spark_android.presentation.class_schedule.InstructorCla
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.advisory.AdvisoryActivity
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentActivity
+import whiz.tss.sspark.s_spark_android.presentation.assignment.InstructorAssignmentActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.ClassDetailActivity
 import whiz.tss.sspark.s_spark_android.presentation.exam_schedule.StudentExamScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.HomeroomActivity
@@ -169,8 +170,18 @@ class ClassGroupFragment : BaseFragment() {
                             startActivity(intent)
                         }
                         BottomNavigationId.ASSIGNMENT.id -> {
-                            val intent = Intent(requireContext(), AssignmentActivity::class.java)
-                            startActivity(intent)
+                            when (SSparkApp.role) {
+                                RoleType.INSTRUCTOR_SENIOR,
+                                RoleType.INSTRUCTOR_JUNIOR -> {
+                                    val intent = Intent(requireContext(), InstructorAssignmentActivity::class.java)
+                                    startActivity(intent)
+                                }
+                                RoleType.STUDENT_SENIOR,
+                                RoleType.STUDENT_JUNIOR -> {
+                                    val intent = Intent(requireContext(), AssignmentActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            }
                         }
                         BottomNavigationId.CLASS_SCHEDULE.id -> {
                             when (SSparkApp.role) {

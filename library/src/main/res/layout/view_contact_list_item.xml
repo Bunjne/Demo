@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sinaseyfi.advancedcardview.AdvancedCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:background_Color="@color/viewBaseSecondaryColor"
+    app:cornerRadius="12dp"
+    app:shadow0_Outer_Alpha="0.04"
+    app:shadow0_Outer_Blur="30dp"
+    app:shadow0_Outer_Color="@color/shadowWithoutAlphaColor"
+    app:shadow_Outer_Area="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.sinaseyfi.advancedcardview.AdvancedCardView
+            android:id="@+id/cvProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:background_Color="@color/viewBaseSecondaryColor"
+            app:cornerRadius="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shadow0_Outer_Alpha="0.04"
+            app:shadow0_Outer_Blur="30dp"
+            app:shadow0_Outer_Color="@color/shadowWithoutAlphaColor"
+            app:shadow_Outer_Area="12dp">
+
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="59dp"
+                android:layout_height="59dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                tools:src="@tools:sample/avatars" />
+
+        </com.sinaseyfi.advancedcardview.AdvancedCardView>
+
+        <whiz.sspark.library.view.general.SSparkTextView
+            android:id="@+id/tvContactName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/textBasePrimaryColor"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivMore"
+            app:layout_constraintStart_toEndOf="@+id/cvProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ssparkFont="regular"
+            tools:text="การติดต่อโรงเรียน" />
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="12dp"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_arrow_right" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sinaseyfi.advancedcardview.AdvancedCardView>

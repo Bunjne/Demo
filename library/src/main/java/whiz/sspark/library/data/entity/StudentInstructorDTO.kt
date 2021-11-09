@@ -3,6 +3,7 @@ package whiz.sspark.library.data.entity
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import whiz.sspark.library.R
+import whiz.sspark.library.extension.toPhoneNumber
 import whiz.sspark.library.utility.convertToFullName
 import whiz.sspark.library.utility.localize
 
@@ -37,7 +38,7 @@ fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactIn
     if (personalPhoneNumber.isNotEmpty()) {
         val personalPhone = MenuContactItem(
             contactIconRes = R.drawable.ic_phone,
-            contact = personalPhoneNumber,
+            contact = personalPhoneNumber.toPhoneNumber(),
             contactDescription = context.resources.getString(R.string.menu_contact_info_personal_phone_text)
         )
 
@@ -47,7 +48,7 @@ fun StudentInstructorDTO.getAdvisorMenuInfoItem(context: Context): MenuContactIn
     if (officePhoneNumber.isNotEmpty()) {
         val officePhone = MenuContactItem(
             contactIconRes = R.drawable.ic_phone,
-            contact = officePhoneNumber,
+            contact = officePhoneNumber.toPhoneNumber(),
             contactDescription = context.resources.getString(R.string.menu_contact_info_office_phone_text)
         )
 
