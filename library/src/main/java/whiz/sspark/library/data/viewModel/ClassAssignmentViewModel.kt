@@ -9,12 +9,11 @@ import kotlinx.coroutines.launch
 import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.AssignmentDTO
 import whiz.sspark.library.data.entity.DataWrapperX
-import whiz.sspark.library.data.repository.AssignmentRepositoryImpl
-import whiz.sspark.library.data.repository.StudentClassAssignmentRepositoryImpl
+import whiz.sspark.library.data.repository.ClassAssignmentRepositoryImpl
 import whiz.sspark.library.utility.EventWrapper
 import whiz.sspark.library.utility.toEventWrapper
 
-class StudentClassAssignmentViewModel(private val assignmentRepository: StudentClassAssignmentRepositoryImpl): ViewModel() {
+class ClassAssignmentViewModel(private val assignmentRepository: ClassAssignmentRepositoryImpl): ViewModel() {
 
     private val _viewRendering = MutableLiveData<DataWrapperX<Any>>()
     val viewRendering: LiveData<DataWrapperX<Any>>
@@ -24,9 +23,9 @@ class StudentClassAssignmentViewModel(private val assignmentRepository: StudentC
     val latestAssignmentLoading: LiveData<Boolean>
         get() = _latestAssignmentLoading
 
-    private val _oldAssignmentLoading = MutableLiveData<Boolean>()
-    val oldAssignmentLoading: LiveData<Boolean>
-        get() = _oldAssignmentLoading
+    private val _previousAssignmentLoading = MutableLiveData<Boolean>()
+    val previousAssignmentLoading: LiveData<Boolean>
+        get() = _previousAssignmentLoading
 
     private val _latestAssignmentResponse = MutableLiveData<EventWrapper<AssignmentDTO>>()
     val latestAssignmentResponse: LiveData<EventWrapper<AssignmentDTO>>
@@ -75,10 +74,10 @@ class StudentClassAssignmentViewModel(private val assignmentRepository: StudentC
         viewModelScope.launch {
             assignmentRepository.getAssignment(termId, page, pageSize)
                 .onStart {
-                    _oldAssignmentLoading.value = true
+                    _previousAssignmentLoading.value = true
                 }
                 .onCompletion {
-                    _oldAssignmentLoading.value = false
+                    _previousAssignmentLoading.value = false
                 }
                 .catch {
                     _errorMessage.value = it.localizedMessage?.toEventWrapper()

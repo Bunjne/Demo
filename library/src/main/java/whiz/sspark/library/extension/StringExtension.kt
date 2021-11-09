@@ -67,3 +67,40 @@ fun String?.convertToDate(pattern: String) = if (this.isNullOrBlank()) {
 } else {
     SimpleDateFormat(pattern, Locale.getDefault()).parse(this)
 }
+
+fun String.isPhoneNumber(): Boolean  {
+    if (this.first() != '0') {
+        return false
+    } else if (this.length == 9 && this.take(2) != "02") {
+        return false
+    }
+
+    val pattern = Pattern.compile("[0-9]")
+    for (number in this) {
+        if (!pattern.matcher(number.toString()).matches()) {
+            return false
+        }
+    }
+
+    return true
+}
+
+fun String.toPhoneNumber() = StringBuilder().append(this).apply {
+    if (!this@toPhoneNumber.isPhoneNumber()) {
+        return this.toString()
+    } else {
+        if (this.take(2) != "02") {
+            this.insert(3, '-')
+            this.insert(7, '-')
+            if (this.length > 12) {
+                this.insert(12, '-')
+            }
+        } else  {
+            this.insert(2, '-')
+            this.insert(6, '-')
+            if (this.length > 11) {
+                this.insert(11, '-')
+            }
+        }
+    }
+}.toString()
