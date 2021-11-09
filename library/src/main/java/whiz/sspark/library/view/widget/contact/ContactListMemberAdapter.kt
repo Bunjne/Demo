@@ -22,9 +22,7 @@ class ContactListMemberAdapter(private val context: Context,
 
         item?.let {
             with(holder) {
-                (this as ContactListMemberViewHolder).apply {
-                    init(it, onContactClicked)
-                }
+                (this as ContactListMemberViewHolder).init(it, onContactClicked)
 
                 itemView.setDarkModeBackground(isNextItemTitle, isPreviousItemTitle)
             }
