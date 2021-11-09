@@ -50,4 +50,8 @@ class AssignmentActivityView: ConstraintLayout {
     fun updateItem(items: List<AssignmentAdapter.AssignmentItem>) {
         binding.vAssignment.updateItem(items)
     }
+
+    fun clearOldItem(onClearSuccess: () -> Unit) {
+        binding.vAssignment.clearOldItem(onClearSuccess)
+    }
 }

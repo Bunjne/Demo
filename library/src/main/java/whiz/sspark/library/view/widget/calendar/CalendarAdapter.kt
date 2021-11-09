@@ -127,8 +127,8 @@ class CalendarAdapter(private val onPreviousMonthClicked: () -> Unit,
 
         override fun areContentsTheSame(oldItem: CalendarItem, newItem: CalendarItem): Boolean {
             return when {
-                oldItem is CalendarItem.Calendar && newItem is CalendarItem.Calendar -> false
-                oldItem is CalendarItem.Event && newItem is CalendarItem.Event -> oldItem == newItem
+                oldItem is CalendarItem.Calendar && newItem is CalendarItem.Calendar -> oldItem == newItem
+                oldItem is CalendarItem.Event && newItem is CalendarItem.Event -> false
                 oldItem is CalendarItem.NoEvent && newItem is CalendarItem.NoEvent -> oldItem == newItem
                 else -> false
             }

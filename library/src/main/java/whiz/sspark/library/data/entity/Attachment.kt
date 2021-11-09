@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.File
 
 data class Attachment(
+    @SerializedName("id") val id: String = "",
     @SerializedName("name") val name: String = "",
     @SerializedName("url") val url: String = "",
     @SerializedName("type") val type: String = "",

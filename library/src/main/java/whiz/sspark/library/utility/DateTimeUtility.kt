@@ -1,5 +1,7 @@
 package whiz.sspark.library.utility
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import whiz.sspark.library.R
 import java.text.SimpleDateFormat
@@ -37,4 +39,33 @@ fun convertToLocalizeYear(year: Int): String {
     } else {
         year.toString()
     }
+}
+
+fun showDatePicker(context: Context, currentDate: Calendar, minimumDate: Calendar? = null, onDateSelected: (Int, Int, Int) -> Unit) {
+    DatePickerDialog(
+        context,
+        { _, year, monthOfYear, dayOfMonth ->
+            onDateSelected(year, monthOfYear, dayOfMonth)
+        },
+        currentDate.get(Calendar.YEAR),
+        currentDate.get(Calendar.MONTH),
+        currentDate.get(Calendar.DATE)
+    ).apply {
+        minimumDate?.time?.time?.let {
+            datePicker.minDate = it
+        }
+        show()
+    }
+}
+
+fun showTimePicker(context: Context, currentDate: Calendar, onTimeSelected: (Int, Int) -> Unit) {
+    TimePickerDialog(
+        context,
+        { _, hourOfDay, minute ->
+            onTimeSelected(hourOfDay, minute)
+        },
+        currentDate.get(Calendar.HOUR_OF_DAY),
+        currentDate.get(Calendar.MINUTE),
+        true
+    ).show()
 }

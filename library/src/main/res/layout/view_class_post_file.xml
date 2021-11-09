@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_class_post_file"
@@ -46,10 +47,10 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:src="@drawable/ic_arrow_right"/>
+        tools:src="@drawable/ic_arrow_right" />
 
     <ImageView
         android:id="@+id/ivFile"

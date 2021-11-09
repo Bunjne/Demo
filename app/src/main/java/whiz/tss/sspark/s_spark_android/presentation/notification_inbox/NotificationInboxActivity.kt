@@ -52,6 +52,7 @@ class NotificationInboxActivity : BaseActivity() {
     }
 
     override fun initView() {
+        binding.vProfile.init(lifecycle)
         binding.vInbox.init(
             onRefresh = {
                 viewModel.getLatestNotification(PagingConfiguration.INITIAL_PAGE, PagingConfiguration.PAGE_SIZE)
