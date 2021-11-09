@@ -265,4 +265,7 @@
         <item>แก้ไข</item>
         <item>ลบ</item>
     </string-array>
+
+    <!-- Contact -->
+    <string name="contact_no_contact_channel">ไม่มีช่องทางการติดต่อ</string>
 </resources>

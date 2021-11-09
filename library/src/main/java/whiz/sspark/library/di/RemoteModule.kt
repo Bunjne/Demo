@@ -23,6 +23,8 @@ val remoteModule = module {
     factory<ClassGroupService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassPostCommentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ContactService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ContactMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<CourseSyllabusService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<EventListService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ExpectOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
