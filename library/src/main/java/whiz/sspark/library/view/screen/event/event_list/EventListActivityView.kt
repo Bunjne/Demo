@@ -30,16 +30,15 @@ class EventListActivityView: ConstraintLayout {
     private var eventAdapter: EventListAdapter? = null
 
     fun init(title: String,
-             onHistoryClicked: () -> Unit,
+             onRegisteredEventClicked: () -> Unit,
              onEventClicked: (String, String) -> Unit,
              onRefresh: () -> Unit) {
         binding.tvTitle.text = title
 
-        with(binding.ivHistory) {
-            show(R.drawable.ic_ticket)
-            setOnClickListener {
-                onHistoryClicked()
-            }
+        binding.ivRegisteredEvent.show(R.drawable.ic_ticket)
+
+        binding.cvRegisteredEvent.setOnClickListener {
+            onRegisteredEventClicked()
         }
 
         highlightEventAdapter = EventListHighlightEventContainerAdapter(onEventClicked)
@@ -71,20 +70,18 @@ class EventListActivityView: ConstraintLayout {
         highlightEventAdapter?.submitList(listOf(events)) {
             try {
                 binding.rvEvent.scrollToPosition(0)
+                fetchEvent()
             } catch (e: Exception) { }
         }
-
-        fetchEvent()
     }
 
     fun updateEventAdapter(events: List<EventList>) {
         eventAdapter?.submitList(events) {
             try {
                 binding.rvEvent.scrollToPosition(0)
+                fetchEvent()
             } catch (e: Exception) { }
         }
-
-        fetchEvent()
     }
 
     private fun fetchEvent() {
@@ -92,10 +89,10 @@ class EventListActivityView: ConstraintLayout {
         val isHasHighlightEvent = !highlightEventAdapter?.currentList.isNullOrEmpty()
 
         if (isHasEvent || isHasHighlightEvent) {
-            binding.tvEvent.visibility = View.GONE
+            binding.tvNoEvent.visibility = View.GONE
             binding.rvEvent.visibility = View.VISIBLE
         } else {
-            binding.tvEvent.visibility = View.VISIBLE
+            binding.tvNoEvent.visibility = View.VISIBLE
             binding.rvEvent.visibility = View.GONE
         }
     }

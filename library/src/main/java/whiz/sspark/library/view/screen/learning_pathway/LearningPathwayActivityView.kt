@@ -23,9 +23,10 @@ class LearningPathwayActivityView: ConstraintLayout {
         ViewLearningPathwayActivityBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    fun init(onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
+    fun init(isPlanEditable: Boolean,
+             onAddCourseClicked: (Term, Int, Int, Int, List<String>) -> Unit,
              onDeleteCourseClicked: (Int, Int, String) -> Unit,
-             onShowRequiredCourseClicked: (Term, List<Course>) -> Unit,
+             onShowBasicCourseClicked: (Term, List<Course>) -> Unit,
              onRefresh: () -> Unit) {
         with(binding.rvCourse) {
             if (itemDecorationCount == 0) {
@@ -39,15 +40,21 @@ class LearningPathwayActivityView: ConstraintLayout {
 
             layoutManager = LinearLayoutManager(context)
             adapter = LearningPathwayAdapter(
+                isPlanEditable = isPlanEditable,
                 onAddCourseClicked = onAddCourseClicked,
                 onDeleteCourseClicked = onDeleteCourseClicked,
-                onShowRequiredCourseClicked = onShowRequiredCourseClicked
+                onShowBasicCourseClicked = onShowBasicCourseClicked
             )
         }
 
         binding.srlContainer.setOnRefreshListener {
             onRefresh()
         }
+    }
+
+    fun showAdviseeProfile(advisee: Advisee) {
+        binding.vAdviseeProfile.visibility = View.VISIBLE
+        binding.vAdviseeProfile.init(advisee = advisee)
     }
 
     fun setSwipeRefreshLoading(isLoading: Boolean?) {

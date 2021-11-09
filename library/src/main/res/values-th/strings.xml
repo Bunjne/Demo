@@ -187,7 +187,7 @@
     <!--Learning pathway-->
     <string name="learning_pathway_screen_title">วางแผนการเรียน</string>
     <string name="learning_pathway_header">ม.%1$s (%2$s/%3$s)</string>
-    <string name="learning_pathway_required_course_count">+ %1$s วิชาบังคับ</string>
+    <string name="learning_pathway_required_course_count">%1$s วิชาพื้นฐาน</string>
     <string name="learning_pathway_concentrate_course_count">%1$s วิชาเฉพาะทาง</string>
     <string name="learning_pathway_no_course_text">ไม่มีแผนการเรียน</string>
     <string name="learning_pathway_required_course_text">วิชาบังคับ</string>

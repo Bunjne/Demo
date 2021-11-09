@@ -73,6 +73,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/ivDelete"
                     app:layout_constraintStart_toEndOf="@+id/tvCourseCode"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginEnd="0dp"
                     app:ssparkFont="regular"
                     tools:text="1 หน่วยกิต " />
 
@@ -82,6 +83,7 @@
                     android:layout_height="25dp"
                     android:padding="3dp"
                     android:scaleType="fitCenter"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -98,6 +100,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/ivDelete"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvCourseCode"
+                    app:layout_goneMarginEnd="0dp"
                     app:ssparkFont="regular"
                     tools:text="วาดเส้นสถาปัตย์" />
 

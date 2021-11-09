@@ -31,8 +31,8 @@ class EventListHighlightEventContainerViewHolder(
         with(binding.rvEvent) {
             layoutManager = this@EventListHighlightEventContainerViewHolder.layoutManager
             adapter = EventListHighlightEventAdapter(
-                events,
-                onEventClicked
+                events = events,
+                onEventClicked = onEventClicked
             )
         }
 

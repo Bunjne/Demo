@@ -16,11 +16,11 @@ class TopCropImageView : AppCompatImageView {
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        recomputeImgMatrix()
+        recomputeImageMatrix ()
     }
 
     override fun setFrame(l: Int, t: Int, r: Int, b: Int): Boolean {
-        recomputeImgMatrix()
+        recomputeImageMatrix ()
         return super.setFrame(l, t, r, b)
     }
 
@@ -36,7 +36,7 @@ class TopCropImageView : AppCompatImageView {
         scaleType = ScaleType.MATRIX
     }
 
-    private fun recomputeImgMatrix() {
+    private fun recomputeImageMatrix () {
         val drawable = drawable ?: return
         val matrix = imageMatrix
         val viewWidth = width - paddingLeft - paddingRight

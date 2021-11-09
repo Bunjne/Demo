@@ -12,6 +12,7 @@ val repositoryModule = module {
     factory { AdviseeActivityRecordRepositoryImpl(androidContext(), get()) }
     factory { AdviseeExpectOutcomeRepositoryImpl(androidContext(), get()) }
     factory { AdviseeLearningOutcomeRepositoryImpl(androidContext(), get()) }
+    factory { AdviseeLearningPathwayRepositoryImpl(androidContext(), get()) }
     factory { AdviseeListRepositoryImpl(androidContext(), get()) }
     factory { AdviseeMenuRepositoryImpl(androidContext(), get()) }
     factory { AdviseeSchoolRecordRepositoryImpl(androidContext(), get()) }

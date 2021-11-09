@@ -15,7 +15,7 @@ class EventListActivity: BaseActivity() {
     private lateinit var binding: ActivityEventListBinding
 
     private val title by lazy {
-        intent?.getStringExtra("title") ?: "กิจกรรม"
+        intent?.getStringExtra("title") ?: ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class EventListActivity: BaseActivity() {
             onEventClicked = { id, imageUrl ->
                 //TODO wait implement event detail
             },
-            onHistoryClicked = {
+            onRegisteredEventClicked = {
                 //TODO wait implement event history
             },
             onRefresh = {

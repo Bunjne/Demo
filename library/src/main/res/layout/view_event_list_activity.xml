@@ -55,13 +55,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/cvHistory"
+                app:layout_constraintEnd_toStartOf="@+id/cvRegisteredEvent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="กิจกรรม" />
 
             <com.sinaseyfi.advancedcardview.AdvancedCardView
-                android:id="@+id/cvHistory"
+                android:id="@+id/cvRegisteredEvent"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginBottom="7dp"
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView
-                    android:id="@+id/ivHistory"
+                    android:id="@+id/ivRegisteredEvent"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/cvHistory"
+                app:layout_constraintEnd_toStartOf="@+id/cvRegisteredEvent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                 tools:text="อัปเดตล่าสุดเมื่อ 20/8/64 9:41 น." />
@@ -127,7 +127,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <whiz.sspark.library.view.general.SSparkTextView
-        android:id="@+id/tvEvent"
+        android:id="@+id/tvNoEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
