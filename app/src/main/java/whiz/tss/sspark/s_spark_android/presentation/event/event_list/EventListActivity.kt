@@ -1,5 +1,6 @@
 package whiz.tss.sspark.s_spark_android.presentation.event.event_list
 
+import android.content.Intent
 import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.viewModel.EventListViewModel
@@ -7,6 +8,7 @@ import whiz.sspark.library.utility.showAlertWithOkButton
 import whiz.sspark.library.utility.showApiResponseXAlert
 import whiz.tss.sspark.s_spark_android.databinding.ActivityEventListBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseActivity
+import whiz.tss.sspark.s_spark_android.presentation.event.event_registered.EventRegisteredActivity
 
 class EventListActivity: BaseActivity() {
 
@@ -37,7 +39,8 @@ class EventListActivity: BaseActivity() {
                 //TODO wait implement event detail
             },
             onRegisteredEventClicked = {
-                //TODO wait implement event history
+                val intent = Intent(this@EventListActivity, EventRegisteredActivity::class.java)
+                startActivity(intent)
             },
             onRefresh = {
                 viewModel.getEvent()
