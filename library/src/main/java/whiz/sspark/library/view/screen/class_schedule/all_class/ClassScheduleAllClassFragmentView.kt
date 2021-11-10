@@ -5,8 +5,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import whiz.sspark.library.R
+import whiz.sspark.library.data.entity.Advisee
 import whiz.sspark.library.data.entity.ClassScheduleAllClass
 import whiz.sspark.library.databinding.ViewClassScheduleAllClassFragmentBinding
 import whiz.sspark.library.extension.show
@@ -38,6 +40,11 @@ class ClassScheduleAllClassFragmentView: ConstraintLayout {
 
         binding.tvTerm.text = term
         binding.srlContainer.setOnRefreshListener(onRefresh)
+    }
+
+    fun setAdvisee(advisee: Advisee) {
+        binding.vAdviseeProfile.isVisible = true
+        binding.vAdviseeProfile.init(advisee)
     }
 
     fun setSwipeRefreshLayout(isLoading: Boolean) {

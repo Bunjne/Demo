@@ -124,11 +124,21 @@
                 style="@style/ScreenHeaderSubTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                 tools:text="อัปเดตล่าสุดเมื่อ 20/8/64 9:41 น." />
+
+            <whiz.sspark.library.view.widget.base.AdviseeProfileView
+                android:id="@+id/vAdviseeProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLatestUpdated" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

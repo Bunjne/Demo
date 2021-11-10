@@ -30,7 +30,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
 
     protected open val viewModel: StudentClassScheduleViewModel by viewModel()
 
-    private lateinit var binding: ActivityClassScheduleBinding
+    protected lateinit var binding: ActivityClassScheduleBinding
     protected lateinit var currentTerm: Term
 
     protected open val title by lazy {
@@ -38,6 +38,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
     }
 
     private var popupMenu: PopupMenu? = null
+
     private var dataWrapperX: DataWrapperX<Any>? = null
     private var weeks = listOf<WeekOfYear>()
     private var terms = listOf<Term>()
@@ -68,8 +69,12 @@ open class StudentClassScheduleActivity : BaseActivity() {
             getClassSchedule()
             updateSelectedWeek()
             updateAdapterItem()
-            viewModel.getTerms()
+            getTerms()
         }
+    }
+
+    protected open fun getTerms() {
+        viewModel.getTerms()
     }
 
     private fun getInitialTerm() {
@@ -123,7 +128,7 @@ open class StudentClassScheduleActivity : BaseActivity() {
                     getClassSchedule()
                     updateSelectedWeek()
                 }
-            },
+            }
         )
     }
 
