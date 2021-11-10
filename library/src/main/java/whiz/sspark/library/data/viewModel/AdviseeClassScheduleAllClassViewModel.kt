@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import whiz.sspark.library.data.repository.AdviseeAllStudentClassesRepositoryImpl
+import whiz.sspark.library.data.repository.AdviseeClassScheduleAllClassRepositoryImpl
 
-class AdviseeClassScheduleAllClassViewModel(private val adviseeAllClassesRepository: AdviseeAllStudentClassesRepositoryImpl): StudentClassScheduleAllClassViewModel(adviseeAllClassesRepository) {
+class AdviseeClassScheduleAllClassViewModel(private val adviseeAllClassesRepository: AdviseeClassScheduleAllClassRepositoryImpl): StudentClassScheduleAllClassViewModel(adviseeAllClassesRepository) {
     fun getAllClasses(termId: String, studentId: String) {
         viewModelScope.launch {
             adviseeAllClassesRepository.getAllClass(termId, studentId)

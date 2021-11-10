@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import whiz.sspark.library.data.entity.ApiResponseX
 
-interface AdviseeAllStudentClassService: StudentAllClassService {
+interface AdviseeClassScheduleAllClassService: StudentAllClassService {
     @Headers("Content-Type: application/json")
     @GET("api/v1/students/{studentId}/schedules/courses")
     suspend fun getAllClass(@Path("studentId") studentId: String,
