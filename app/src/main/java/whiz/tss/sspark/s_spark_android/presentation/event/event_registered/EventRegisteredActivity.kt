@@ -40,6 +40,10 @@ class EventRegisteredActivity : BaseActivity() {
             onRestoreInstanceState(savedInstanceState)
             initView()
 
+            if (savedFragment != -1) {
+                binding.vEventRegistered.setSelectedTab(savedFragment)
+            }
+
             if (dataWrapperX != null) {
                 val events = dataWrapperX?.data?.toJson()?.toObject<EventRegisteredDTO>() ?: EventRegisteredDTO()
                 val transformedRegisteredEvents = transformData(events, segmentType)
@@ -50,7 +54,6 @@ class EventRegisteredActivity : BaseActivity() {
         } else {
             initView()
             viewModel.getRegisteredEvents()
-
         }
     }
 
@@ -71,10 +74,6 @@ class EventRegisteredActivity : BaseActivity() {
                 //TODO wait for the Event Detail page
             }
         )
-
-        if (savedFragment != -1) {
-            binding.vEventRegistered.setSelectedTab(savedFragment)
-        }
     }
 
     override fun observeView() {
@@ -162,7 +161,6 @@ class EventRegisteredActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("savedFragment", currentSegment)
-        outState.putString("items", items.toJson())
         outState.putString("dataWrapperX", dataWrapperX?.toJson())
         viewModelStore.clear()
     }

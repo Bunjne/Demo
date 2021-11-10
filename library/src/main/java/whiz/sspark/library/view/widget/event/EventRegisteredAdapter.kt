@@ -16,8 +16,8 @@ class EventRegisteredAdapter(private val context: Context,
                              private val onEventClicked: (String, String) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val TITLE_TYPE = 1
-        const val EVENT_TYPE = 2
+        private const val TITLE_TYPE = 1
+        private const val EVENT_TYPE = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
