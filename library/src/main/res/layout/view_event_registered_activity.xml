@@ -118,7 +118,6 @@ lo
         android:text="@string/event_registered_no_event"
         android:textColor="@color/textBaseThirdColor"
         android:textSize="16dp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

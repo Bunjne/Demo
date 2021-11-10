@@ -27,7 +27,7 @@ class EventRegisteredActivity : BaseActivity() {
 
     private val items = mutableListOf<EventRegisteredAdapter.EventRegisteredAdapterViewType>()
     private var dataWrapperX: DataWrapperX<Any>? = null
-    private var eventList: EventRegisteredDTO? = null
+    private var registeredEvents: EventRegisteredDTO? = null
 
     private var currentSegment = -1
     private var savedFragment = -1
@@ -90,7 +90,7 @@ class EventRegisteredActivity : BaseActivity() {
     override fun observeData() {
         viewModel.eventResponse.observe(this) {
             it?.let {
-                eventList = it
+                registeredEvents = it
 
                 val transformedRegisteredEvents = transformData(it, segmentType)
                 binding.vEventRegistered.renderEvents(items, transformedRegisteredEvents)
@@ -119,7 +119,7 @@ class EventRegisteredActivity : BaseActivity() {
             else -> EventType.PAST.type
         }
 
-        eventList?.let {
+        registeredEvents?.let {
             val transformedRegisteredEvents = transformData(it, segmentType)
             binding.vEventRegistered.renderEvents(items, transformedRegisteredEvents)
         }
@@ -158,14 +158,14 @@ class EventRegisteredActivity : BaseActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         savedFragment = savedInstanceState.getInt("savedFragment", -1)
         dataWrapperX = savedInstanceState.getString("dataWrapperX")?.toObject()
-        eventList = savedInstanceState.getString("eventList")?.toObject()
+        registeredEvents = savedInstanceState.getString("eventList")?.toObject()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("savedFragment", currentSegment)
         outState.putString("dataWrapperX", dataWrapperX?.toJson())
-        outState.putString("eventList", eventList?.toJson())
+        outState.putString("eventList", registeredEvents?.toJson())
         viewModelStore.clear()
     }
 }
