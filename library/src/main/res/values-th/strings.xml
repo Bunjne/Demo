@@ -270,8 +270,6 @@
     <string name="contact_no_contact_channel">ไม่มีช่องทางการติดต่อ</string>
 
     <!-- Advisory -->
-    <string name="advisory_screen_title">Advisory</string>
-    <string name="advisory_screen_subtitle">การให้คำปรึกษา</string>
     <string name="advisory_appointment_tab_title">การนัดหมาย</string>
     <string name="advisory_member_tab_title">สมาชิก</string>
     <string name="advisory_appointment_pending_segment_title">รอการปรึกษา</string>
