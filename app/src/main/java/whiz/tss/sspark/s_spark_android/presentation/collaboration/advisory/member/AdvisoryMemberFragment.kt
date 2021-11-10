@@ -16,10 +16,8 @@ class AdvisoryMemberFragment : StudentClassMemberFragment() {
 
     override val isInstructorChatEnable = true
 
-    override fun initView() {
-        super.initView()
-
-        binding.vClassMember.setAdvisoryMemberAdapter(
+    override fun setMemberAdapter() {
+        binding.vClassMember.setClassMemberWithChatAdapter(
             items = items,
             onChatMemberClicked = {
                 //TODO wait for Chat Screen implemented

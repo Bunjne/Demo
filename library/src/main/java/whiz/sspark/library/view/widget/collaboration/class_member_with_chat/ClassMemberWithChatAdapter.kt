@@ -19,11 +19,11 @@ class ClassMemberWithChatAdapter(private val context: Context,
         STUDENT_MEMBER(2),
     }
 
-    class ItemListTitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class ItemListTitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class HomeroomMemberStudentViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    private class HomeroomMemberStudentViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
-    class HomeroomMemberInstructorViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    private class HomeroomMemberInstructorViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {

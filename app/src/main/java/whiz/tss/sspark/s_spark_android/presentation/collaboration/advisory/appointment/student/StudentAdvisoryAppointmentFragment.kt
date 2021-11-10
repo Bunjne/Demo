@@ -70,7 +70,9 @@ class StudentAdvisoryAppointmentFragment: BaseFragment() {
                 PopupMenu(requireContext(), view).run {
                     setOnMenuItemClickListener {
 
-                        if (slot.status == AdvisingStatus.AVAILABLE.status) {
+                        val title = it.title
+
+                        if (title == resources.getString(R.string.advisory_appointment_reserved_status)) {
                             viewModel.reserveAdvisorySlot(slot.id)
                         } else {
                             viewModel.cancelAdvisorySlot(slot.id)

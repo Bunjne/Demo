@@ -17,7 +17,7 @@ class StudentHomeroomMemberFragment : StudentClassMemberFragment() {
     override val isInstructorChatEnable = true
 
     override fun setMemberAdapter() {
-        binding.vClassMember.setHomeroomMemberAdapter(
+        binding.vClassMember.setClassMemberWithChatAdapter(
             items = items,
             onChatMemberClicked = {
                 //TODO wait for Chat Screen implemented

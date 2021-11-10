@@ -48,15 +48,7 @@ class StudentClassMemberFragmentView : ConstraintLayout {
         )
     }
 
-    fun setHomeroomMemberAdapter(items: MutableList<ClassMemberItem>, onChatMemberClicked: (ClassMember) -> Unit) {
-        binding.rvMember.adapter = ClassMemberWithChatAdapter(
-            context = context,
-            items = items,
-            onChatMemberClicked = onChatMemberClicked
-        )
-    }
-
-    fun setAdvisoryMemberAdapter(items: MutableList<ClassMemberItem>, onChatMemberClicked: (ClassMember) -> Unit) {
+    fun setClassMemberWithChatAdapter(items: MutableList<ClassMemberItem>, onChatMemberClicked: (ClassMember) -> Unit) {
         binding.rvMember.adapter = ClassMemberWithChatAdapter(
             context = context,
             items = items,

@@ -136,7 +136,7 @@
             android:name=".presentation.class_schedule.InstructorClassScheduleActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.HomeroomActivity"
+            android:name=".presentation.collaboration.homeroom.HomeroomActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.learning_pathway.AdviseeLearningPathwayActivity"
@@ -145,10 +145,10 @@
             android:name=".presentation.event.event_list.EventListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="whiz.tss.sspark.s_spark_android.presentation.assignment.InstructorAssignmentActivity"
+            android:name=".presentation.assignment.InstructorAssignmentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="whiz.tss.sspark.s_spark_android.presentation.assignment.InstructorAssignmentDetailActivity"
+            android:name=".presentation.assignment.InstructorAssignmentDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.contact.ContactListActivity"
@@ -157,7 +157,7 @@
             android:name=".presentation.contact.ContactListMemberActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="whiz.tss.sspark.s_spark_android.presentation.collaboration.advisory.AdvisoryActivity"
+            android:name=".presentation.collaboration.advisory.AdvisoryActivity"
             android:screenOrientation="portrait" />
     </application>
 
