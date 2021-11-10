@@ -23,6 +23,8 @@ val remoteModule = module {
     factory<ClassGroupService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ClassPostCommentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ContactService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<ContactMemberService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<CourseSyllabusService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<EventListService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<EventRegisteredService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
@@ -40,6 +42,7 @@ val remoteModule = module {
     factory<NotificationInboxService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<ProfileService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<SchoolRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<StudentAdvisoryAppointmentService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentAllClassService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentClassActivityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<StudentClassAttendanceService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }

@@ -112,7 +112,7 @@ open class ClassDetailActivity : BaseActivity() {
             }
         }
 
-        with (binding.vClassDetail) {
+        with(binding.vClassDetail) {
             init(
                 backgroundDrawable = gradientDrawable,
                 title = title,

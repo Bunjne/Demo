@@ -22,6 +22,8 @@ val repositoryModule = module {
     factory { ClassGroupRepositoryImpl(androidContext(), get()) }
     factory { ClassMemberRepositoryImpl(androidContext(), get(), get()) }
     factory { ClassPostCommentRepositoryImpl(androidContext(), get(), get()) }
+    factory { ContactRepositoryImpl(androidContext(), get()) }
+    factory { ContactMemberRepositoryImpl(androidContext(), get()) }
     factory { CourseSyllabusRepositoryImpl(androidContext(), get()) }
     factory { EventListRepositoryImpl(androidContext(), get()) }
     factory { EventRegisteredRepositoryImpl(androidContext(), get()) }
@@ -39,6 +41,7 @@ val repositoryModule = module {
     factory { NotificationInboxRepositoryImpl(androidContext(), get()) }
     factory { ProfileRepositoryImpl(androidContext(), get()) }
     factory { SchoolRecordRepositoryImpl(androidContext(), get()) }
+    factory { StudentAdvisoryAppointmentRepositoryImpl(androidContext(), get()) }
     factory { StudentAllClassRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
     factory { StudentClassAttendanceRepositoryImpl(androidContext(), get()) }

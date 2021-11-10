@@ -22,6 +22,8 @@ val viewModelModule = module {
     viewModel { ClassGroupViewModel(get()) }
     viewModel { ClassMemberViewModel(get()) }
     viewModel { ClassPostCommentViewModel(get()) }
+    viewModel { ContactMemberViewModel(get()) }
+    viewModel { ContactViewModel(get()) }
     viewModel { CourseSyllabusViewModel(get()) }
     viewModel { EventListViewModel(get()) }
     viewModel { EventRegisteredViewModel(get()) }
@@ -38,6 +40,7 @@ val viewModelModule = module {
     viewModel { ManageAssignmentViewModel(get()) }
     viewModel { NotificationInboxViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
+    viewModel { StudentAdvisoryAppointmentViewModel(get()) }
     viewModel { StudentAllClassViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }

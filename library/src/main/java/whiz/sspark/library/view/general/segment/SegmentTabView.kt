@@ -1,6 +1,8 @@
 package whiz.sspark.library.view.general.segment
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -26,11 +28,20 @@ class SegmentTabView : ConstraintLayout {
     }
 
     private var onTabClicked: (Int) -> Unit = { }
+    private var segmentTextColorStateList: ColorStateList? = null
 
     fun init(titles: List<String>,
              onTabClicked: (Int) -> Unit,
-             initialTab: Int = 0) {
+             initialTab: Int = 0,
+             textColorStateList: ColorStateList? = null,
+             backgroundDrawable: Drawable? = null) {
         this.onTabClicked = onTabClicked
+
+        segmentTextColorStateList = textColorStateList
+
+        backgroundDrawable?.let {
+            binding.rgContainer.background = it
+        }
 
         binding.rgContainer.removeAllViews()
 
@@ -82,12 +93,17 @@ class SegmentTabView : ConstraintLayout {
         gravity = Gravity.CENTER
         buttonDrawable = null
         typeface = SSparkLibrary.boldTypeface
-        setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
         setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f)
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 10, 15, 1, TypedValue.COMPLEX_UNIT_DIP)
         maxLines = 1
         text = title
         background = ContextCompat.getDrawable(context, R.drawable.selector_base_segment)
+
+        if (segmentTextColorStateList != null) {
+            setTextColor(segmentTextColorStateList)
+        } else {
+            setTextColor(ContextCompat.getColor(context, R.color.textBasePrimaryColor))
+        }
     }
 
     fun selectTab(index: Int) {

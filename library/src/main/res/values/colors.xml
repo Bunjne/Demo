@@ -25,6 +25,7 @@
     <color name="shadowWithoutAlphaColor">#000000</color>
     <color name="segmentBaseBackgroundColor">#1f767680</color>
     <color name="segmentBaseDividerColor">#4d8e8e93</color>
+    <color name="segmentAdvisoryAppointmentColor">#33FFFFFF</color>
 
     <color name="naturalV100">#FFFFFF</color>
     <color name="naturalV200">#E9F6FE</color>
