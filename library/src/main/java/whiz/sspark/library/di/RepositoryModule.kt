@@ -42,6 +42,7 @@ val repositoryModule = module {
     factory { NotificationInboxRepositoryImpl(androidContext(), get()) }
     factory { ProfileRepositoryImpl(androidContext(), get()) }
     factory { SchoolRecordRepositoryImpl(androidContext(), get()) }
+    factory { StudentAdvisoryAppointmentRepositoryImpl(androidContext(), get()) }
     factory { StudentAllClassRepositoryImpl(androidContext(), get()) }
     factory { StudentClassActivityRepositoryImpl(androidContext(), get()) }
     factory { StudentClassAttendanceRepositoryImpl(androidContext(), get()) }

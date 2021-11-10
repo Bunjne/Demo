@@ -1,4 +1,4 @@
-package whiz.sspark.library.view.widget.collaboration.homeroom_member
+package whiz.sspark.library.view.widget.collaboration.class_member_with_chat
 
 import android.content.Context
 import android.view.View
@@ -9,9 +9,9 @@ import whiz.sspark.library.data.entity.ClassMemberItem
 import whiz.sspark.library.extension.setDarkModeBackground
 import whiz.sspark.library.view.widget.base.ItemListTitleView
 
-class HomeroomMemberAdapter(private val context: Context,
-                            private val items: List<ClassMemberItem>,
-                            private val onChatMemberClicked: (ClassMember) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClassMemberWithChatAdapter(private val context: Context,
+                                 private val items: List<ClassMemberItem>,
+                                 private val onChatMemberClicked: (ClassMember) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class HomeroomMemberAdapterViewType(val type: Int) {
         TITLE(0),
@@ -19,11 +19,11 @@ class HomeroomMemberAdapter(private val context: Context,
         STUDENT_MEMBER(2),
     }
 
-    class ItemListTitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+    private class ItemListTitleViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    class HomeroomMemberStudentViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    private class HomeroomMemberStudentViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
-    class HomeroomMemberInstructorViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    private class HomeroomMemberInstructorViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -36,14 +36,14 @@ class HomeroomMemberAdapter(private val context: Context,
                 }
             )
             HomeroomMemberAdapterViewType.INSTRUCTOR_MEMBER.type -> HomeroomMemberInstructorViewHolder(
-                HomeroomMemberInstructorView(context).apply {
+                ClassMemberWithChatInstructorView(context).apply {
                     layoutParams = RecyclerView.LayoutParams(
                         RecyclerView.LayoutParams.MATCH_PARENT,
                         RecyclerView.LayoutParams.WRAP_CONTENT
                     )
                 }
             )
-            else -> HomeroomMemberStudentViewHolder(HomeroomMemberStudentView(context).apply {
+            else -> HomeroomMemberStudentViewHolder(ClassMemberWithChatStudentView(context).apply {
                 layoutParams = RecyclerView.LayoutParams(
                     RecyclerView.LayoutParams.MATCH_PARENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT
@@ -60,7 +60,7 @@ class HomeroomMemberAdapter(private val context: Context,
         item?.let {
             when {
                 item.instructor != null -> {
-                    (holder.itemView as? HomeroomMemberInstructorView)?.apply {
+                    (holder.itemView as? ClassMemberWithChatInstructorView)?.apply {
                         init(
                             member = item.instructor,
                             isChatEnable = item.isChatEnable,
@@ -71,7 +71,7 @@ class HomeroomMemberAdapter(private val context: Context,
                     }
                 }
                 item.student != null -> {
-                    (holder.itemView as? HomeroomMemberStudentView)?.apply {
+                    (holder.itemView as? ClassMemberWithChatStudentView)?.apply {
                         init(
                             member = item.student,
                             isChatEnable = item.isChatEnable,

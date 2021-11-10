@@ -13,7 +13,7 @@ import whiz.sspark.library.databinding.ViewStudentClassMemberFragmentBinding
 import whiz.sspark.library.utility.updateItem
 import whiz.sspark.library.view.general.custom_divider.CustomDividerMultiItemDecoration
 import whiz.sspark.library.view.widget.collaboration.class_member.ClassMemberAdapter
-import whiz.sspark.library.view.widget.collaboration.homeroom_member.HomeroomMemberAdapter
+import whiz.sspark.library.view.widget.collaboration.class_member_with_chat.ClassMemberWithChatAdapter
 
 class StudentClassMemberFragmentView : ConstraintLayout {
     constructor(context: Context) : super(context)
@@ -48,8 +48,8 @@ class StudentClassMemberFragmentView : ConstraintLayout {
         )
     }
 
-    fun setHomeroomMemberAdapter(items: MutableList<ClassMemberItem>, onChatMemberClicked: (ClassMember) -> Unit) {
-        binding.rvMember.adapter = HomeroomMemberAdapter(
+    fun setClassMemberWithChatAdapter(items: MutableList<ClassMemberItem>, onChatMemberClicked: (ClassMember) -> Unit) {
+        binding.rvMember.adapter = ClassMemberWithChatAdapter(
             context = context,
             items = items,
             onChatMemberClicked = onChatMemberClicked
