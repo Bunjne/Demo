@@ -4,6 +4,7 @@ import android.os.Bundle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import whiz.sspark.library.data.entity.DataWrapperX
 import whiz.sspark.library.data.entity.EventList
+import whiz.sspark.library.data.entity.EventListDTO
 import whiz.sspark.library.data.entity.EventRegisteredDTO
 import whiz.sspark.library.data.enum.EventType
 import whiz.sspark.library.data.viewModel.EventRegisteredViewModel
@@ -24,8 +25,9 @@ class EventRegisteredActivity : BaseActivity() {
 
     private lateinit var binding: ActivityEventRegisteredBinding
 
-    private var items = mutableListOf<EventRegisteredAdapter.EventRegisteredAdapterViewType>()
+    private val items = mutableListOf<EventRegisteredAdapter.EventRegisteredAdapterViewType>()
     private var dataWrapperX: DataWrapperX<Any>? = null
+    private var eventList: EventRegisteredDTO? = null
 
     private var currentSegment = -1
     private var savedFragment = -1
@@ -45,9 +47,7 @@ class EventRegisteredActivity : BaseActivity() {
             }
 
             if (dataWrapperX != null) {
-                val events = dataWrapperX?.data?.toJson()?.toObject<EventRegisteredDTO>() ?: EventRegisteredDTO()
-                val transformedRegisteredEvents = transformData(events, segmentType)
-                binding.vEventRegistered.renderEvents(items, transformedRegisteredEvents)
+                binding.vEventRegistered.setLatestUpdatedText(dataWrapperX)
             } else {
                 viewModel.getRegisteredEvents()
             }
@@ -90,6 +90,8 @@ class EventRegisteredActivity : BaseActivity() {
     override fun observeData() {
         viewModel.eventResponse.observe(this) {
             it?.let {
+                eventList = it
+
                 val transformedRegisteredEvents = transformData(it, segmentType)
                 binding.vEventRegistered.renderEvents(items, transformedRegisteredEvents)
             }
@@ -117,7 +119,7 @@ class EventRegisteredActivity : BaseActivity() {
             else -> EventType.PAST.type
         }
 
-        viewModel.eventResponse.value?.let {
+        eventList?.let {
             val transformedRegisteredEvents = transformData(it, segmentType)
             binding.vEventRegistered.renderEvents(items, transformedRegisteredEvents)
         }
@@ -156,12 +158,14 @@ class EventRegisteredActivity : BaseActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         savedFragment = savedInstanceState.getInt("savedFragment", -1)
         dataWrapperX = savedInstanceState.getString("dataWrapperX")?.toObject()
+        eventList = savedInstanceState.getString("eventList")?.toObject()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("savedFragment", currentSegment)
         outState.putString("dataWrapperX", dataWrapperX?.toJson())
+        outState.putString("eventList", eventList?.toJson())
         viewModelStore.clear()
     }
 }
