@@ -1,6 +1,8 @@
 package whiz.sspark.library.view.screen.collaboration
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -47,6 +49,26 @@ class ClassDetailActivityView : ConstraintLayout {
 
         binding.cvStudyPlan.setOnClickListener {
             onStudyPlanClicked()
+        }
+    }
+
+    fun initSegment(segmentTabTitles: List<String>,
+                    textColorStateList: ColorStateList?,
+                    segmentBackgroundDrawable: Drawable?,
+                    onSegmentTabClicked: (Int) -> Unit) {
+        binding.vSegment.init(
+            titles = segmentTabTitles,
+            onTabClicked = onSegmentTabClicked,
+            textColorStateList = textColorStateList,
+            backgroundDrawable = segmentBackgroundDrawable
+        )
+    }
+
+    fun setSegmentVisibility(isVisible: Boolean) {
+        binding.vSegment.visibility = if (isVisible) {
+            VISIBLE
+        } else {
+            GONE
         }
     }
 

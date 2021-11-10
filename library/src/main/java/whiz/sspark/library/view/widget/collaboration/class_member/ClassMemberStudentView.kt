@@ -8,7 +8,6 @@ import whiz.sspark.library.R
 import whiz.sspark.library.data.entity.ClassMember
 import whiz.sspark.library.data.enum.getGender
 import whiz.sspark.library.databinding.ViewClassMemberStudentBinding
-import whiz.sspark.library.extension.getFirstConsonant
 import whiz.sspark.library.extension.showProfile
 import whiz.sspark.library.utility.convertToFullName
 
@@ -22,7 +21,7 @@ class ClassMemberStudentView : ConstraintLayout {
     }
 
     fun init(member: ClassMember) {
-        with (member) {
+        with(member) {
             binding.cvProfileImage.showProfile(imageUrl, getGender(gender).type)
 
             binding.tvNickname.text = if (number != null) {

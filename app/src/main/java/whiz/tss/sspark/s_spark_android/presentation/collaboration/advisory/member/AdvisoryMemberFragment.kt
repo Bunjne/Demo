@@ -1,13 +1,13 @@
-package whiz.tss.sspark.s_spark_android.presentation.collaboration.homeroom.member.student
+package whiz.tss.sspark.s_spark_android.presentation.collaboration.advisory.member
 
 import android.os.Bundle
 import whiz.tss.sspark.s_spark_android.R
 import whiz.tss.sspark.s_spark_android.presentation.collaboration.class_member.student.StudentClassMemberFragment
 
-class StudentHomeroomMemberFragment : StudentClassMemberFragment() {
+class AdvisoryMemberFragment : StudentClassMemberFragment() {
 
     companion object {
-        fun newInstance(classGroupId: String) = StudentHomeroomMemberFragment().apply {
+        fun newInstance(classGroupId: String) = AdvisoryMemberFragment().apply {
             arguments = Bundle().apply {
                 putString("classGroupId", classGroupId)
             }
@@ -25,5 +25,5 @@ class StudentHomeroomMemberFragment : StudentClassMemberFragment() {
         )
     }
 
-    override fun getInstructorTitle(instructorCount: Int) = resources.getString(R.string.class_member_instructor_homeroom_title, instructorCount)
+    override fun getInstructorTitle(instructorCount: Int) = resources.getString(R.string.advisory_member_instructor_title, instructorCount)
 }

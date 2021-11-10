@@ -27,6 +27,7 @@ import whiz.tss.sspark.s_spark_android.data.enum.RoleType
 import whiz.tss.sspark.s_spark_android.databinding.FragmentClassGroupBinding
 import whiz.tss.sspark.s_spark_android.presentation.BaseFragment
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.InstructorClassScheduleActivity
+import whiz.tss.sspark.s_spark_android.presentation.collaboration.advisory.AdvisoryActivity
 import whiz.tss.sspark.s_spark_android.presentation.class_schedule.StudentClassScheduleActivity
 import whiz.tss.sspark.s_spark_android.presentation.assignment.AssignmentActivity
 import whiz.tss.sspark.s_spark_android.presentation.assignment.InstructorAssignmentActivity
@@ -149,7 +150,14 @@ class ClassGroupFragment : BaseFragment() {
                 onNavigationBarItemClicked = { id ->
                     when (id) {
                         BottomNavigationId.ADVISORY.id -> {
-                            //TODO wait for implementation
+                            val intent = Intent(requireContext(), AdvisoryActivity::class.java).apply {
+                                putExtra("classGroupId", specialClassGroup?.classGroupId)
+                                putExtra("allMemberCount", specialClassGroup?.memberCount)
+                                putExtra("title", specialClassGroup?.courseCode)
+                                putExtra("subTitle", specialClassGroup?.courseName)
+                            }
+
+                            startActivity(intent)
                         }
                         BottomNavigationId.HOMEROOM.id -> {
                             val intent = Intent(requireContext(), HomeroomActivity::class.java).apply {
