@@ -281,4 +281,7 @@
     <string name="advisory_appointment_completed_status">สำเร็จ</string>
     <string name="advisory_appointment_no_slot">ไม่มีช่วงเวลานัดหมาย</string>
     <string name="advisory_member_instructor_title">อาจารย์ประจำชั้น (%1$d)</string>
+
+    <!-- Event Registered -->
+    <string name="event_registered_no_event">ไม่มีกิจกรรมที่ลงทะเบียน</string>
 </resources>
