@@ -11,6 +11,8 @@ val remoteModule = module {
     factory<AddCourseService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeAbilityService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeActivityRecordService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeClassScheduleAllClassService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
+    factory<AdviseeClassScheduleService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeExpectOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeLearningOutcomeService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }
     factory<AdviseeLearningPathwayService> { RetrofitBuilder(get(), get()).build(SSparkLibrary.baseUrl) }

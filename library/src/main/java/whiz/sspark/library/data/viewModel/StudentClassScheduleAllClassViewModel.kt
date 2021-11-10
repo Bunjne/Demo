@@ -13,7 +13,7 @@ import whiz.sspark.library.data.entity.ApiResponseX
 import whiz.sspark.library.data.entity.ClassScheduleAllClassDTO
 import whiz.sspark.library.data.repository.StudentAllClassRepositoryImpl
 
-open class StudentAllClassViewModel(private val studentAllClassRepository: StudentAllClassRepositoryImpl): ViewModel() {
+open class StudentClassScheduleAllClassViewModel(private val studentAllClassRepository: StudentAllClassRepositoryImpl): ViewModel() {
 
     protected val _viewLoading = MutableLiveData<Boolean>()
     val viewLoading: LiveData<Boolean>

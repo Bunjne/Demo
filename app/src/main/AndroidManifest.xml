@@ -136,6 +136,9 @@
             android:name=".presentation.class_schedule.InstructorClassScheduleActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presentation.class_schedule.AdviseeClassScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presentation.collaboration.homeroom.HomeroomActivity"
             android:screenOrientation="portrait" />
         <activity
