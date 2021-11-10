@@ -42,7 +42,6 @@ val viewModelModule = module {
     viewModel { NotificationInboxViewModel(get()) }
     viewModel { SchoolRecordViewModel(get()) }
     viewModel { StudentAdvisoryAppointmentViewModel(get()) }
-    viewModel { StudentAllClassViewModel(get()) }
     viewModel { StudentClassActivityViewModel(get()) }
     viewModel { StudentClassAttendanceViewModel(get()) }
     viewModel { StudentClassScheduleAllClassViewModel(get()) }
